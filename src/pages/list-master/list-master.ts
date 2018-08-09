@@ -10,10 +10,13 @@ import { Items } from '../../providers';
   templateUrl: 'list-master.html'
 })
 export class ListMasterPage {
-  currentItems: Item[];
+  currentItems;
 
   constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
-    this.currentItems = this.items.query();
+    this.items.list().subscribe((data) => {
+      console.log('data',data);
+      this.currentItems = data;  
+    }); 
   }
 
   /**
@@ -30,7 +33,7 @@ export class ListMasterPage {
     let addModal = this.modalCtrl.create('ItemCreatePage');
     addModal.onDidDismiss(item => {
       if (item) {
-        this.items.add(item);
+        this.items.create(item);
       }
     })
     addModal.present();

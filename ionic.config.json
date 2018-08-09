@@ -1,8 +1,7 @@
 {
-  "name": "cultivar",
-  "app_id": "",
-  "type": "ionic-angular",
+  "name": "agrofloresta",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "type": "ionic-angular"
 }

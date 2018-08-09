@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
  */
 @Injectable()
 export class Api {
-  url: string = 'https://example.com/api/v1';
+  url: string = 'http://localhost:3000/v1';
 
   constructor(public http: HttpClient) {
   }
@@ -25,23 +25,23 @@ export class Api {
         reqOpts.params = reqOpts.params.set(k, params[k]);
       }
     }
-
-    return this.http.get(this.url + '/' + endpoint, reqOpts);
+    console.log(this.url + endpoint, reqOpts)
+    return this.http.get(this.url + endpoint, reqOpts);
   }
 
   post(endpoint: string, body: any, reqOpts?: any) {
-    return this.http.post(this.url + '/' + endpoint, body, reqOpts);
+    return this.http.post(this.url + endpoint, body, reqOpts);
   }
 
   put(endpoint: string, body: any, reqOpts?: any) {
-    return this.http.put(this.url + '/' + endpoint, body, reqOpts);
+    return this.http.put(this.url + endpoint, body, reqOpts);
   }
 
   delete(endpoint: string, reqOpts?: any) {
-    return this.http.delete(this.url + '/' + endpoint, reqOpts);
+    return this.http.delete(this.url + endpoint, reqOpts);
   }
 
   patch(endpoint: string, body: any, reqOpts?: any) {
-    return this.http.patch(this.url + '/' + endpoint, body, reqOpts);
+    return this.http.patch(this.url + endpoint, body, reqOpts);
   }
 }
