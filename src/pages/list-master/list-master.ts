@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
 
 import { Item } from '../../models/item';
-import { Items } from '../../providers';
+import { Items, Api } from '../../providers';
 
 @IonicPage()
 @Component({
@@ -10,19 +10,19 @@ import { Items } from '../../providers';
   templateUrl: 'list-master.html'
 })
 export class ListMasterPage {
-  currentItems;
+  currentItems: Item[];
 
-  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
-    this.items.list().subscribe((data) => {
-      console.log('data',data);
-      this.currentItems = data;  
-    }); 
+  constructor(public navCtrl: NavController, public items: Items, public api: Api, public modalCtrl: ModalController) {
+    this.items.query(''); 
   }
 
-  /**
-   * The view loaded, let's query our items for the list
-   */
-  ionViewDidLoad() {
+  search(ev) {
+    let val = ev.target.value;
+    if (!val || !val.trim()) {
+      this.items.query('');
+      return;
+    }
+    this.items.query(val);
   }
 
   /**
@@ -30,21 +30,8 @@ export class ListMasterPage {
    * modal and then adds the new item to our data source if the user created one.
    */
   addItem() {
-    let addModal = this.modalCtrl.create('ItemCreatePage');
-    addModal.onDidDismiss(item => {
-      if (item) {
-        this.items.create(item);
-      }
-    })
-    addModal.present();
-  }
-
-  /**
-   * Delete an item from the list of items.
-   */
-  deleteItem(item) {
-    this.items.delete(item);
-  }
+    let addModal = this.modalCtrl.create('ItemCreatePage').present();
+  } 
 
   /**
    * Navigate to the detail page for this item.

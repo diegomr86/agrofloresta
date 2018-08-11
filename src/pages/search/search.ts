@@ -11,8 +11,6 @@ import { Items } from '../../providers';
 })
 export class SearchPage {
 
-  currentItems: any = [];
-
   constructor(public navCtrl: NavController, public navParams: NavParams, public items: Items) { }
 
   /**
@@ -21,12 +19,10 @@ export class SearchPage {
   getItems(ev) {
     let val = ev.target.value;
     if (!val || !val.trim()) {
-      this.currentItems = [];
-      return;
+      this.items.query("");
+      return; 
     }
-    this.currentItems = this.items.query({
-      name: val
-    });
+    this.items.query(val);
   }
 
   /**

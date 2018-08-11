@@ -8,11 +8,13 @@
 
 
 <ion-content>
-  <div class="item-profile" text-center #picture [style.background-image]="'url(' + item.picture + ')'">
+  <div class="item-profile" text-center #picture [style.background-image]="'url(' + this.api.url + 'static/'+ item.picture + ')'">
   </div>
 
   <div class="item-detail" padding>
     <h2>{{item.name}}</h2>
-    <p>{{item.about}}</p>
+    <p>{{item.stratum}}</p>
+    <p>{{item.cycle}}</p>
   </div>
+  <button ion-button color="danger" (click)="delete(item)">Delete</button>
 </ion-content>

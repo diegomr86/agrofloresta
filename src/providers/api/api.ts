@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 /**
@@ -6,9 +6,24 @@ import { Injectable } from '@angular/core';
  */
 @Injectable()
 export class Api {
-  url: string = 'http://localhost:3000/v1';
+  url: string = 'http://localhost:3000/';
 
   constructor(public http: HttpClient) {
+  }
+
+  fileUpload(fileItem:File, extraData?:object):any{
+    const formData: FormData = new FormData();
+
+    formData.append('image', fileItem, fileItem.name);
+    if (extraData) {
+      for(let key in extraData){
+          // iterate and set other form data
+        formData.append(key, extraData[key])
+      }
+    }
+
+    const req = new HttpRequest('POST', this.url+'images', formData);
+    return this.http.request(req)
   }
 
   get(endpoint: string, params?: any, reqOpts?: any) {

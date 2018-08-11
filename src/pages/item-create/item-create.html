@@ -33,7 +33,7 @@
           {{ 'ITEM_CREATE_CHOOSE_IMAGE' | translate }}
         </div>
       </div>
-      <div class="profile-image" [style.backgroundImage]="getProfileImageStyle()" *ngIf="this.form.controls.picture.value"></div>
+      <div class="profile-image" [style.backgroundImage]="this.preview" *ngIf="this.form.controls.picture.value"></div>
     </div>
     <ion-list>
       <ion-item>
