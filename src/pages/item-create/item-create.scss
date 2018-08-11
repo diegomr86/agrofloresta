@@ -4,14 +4,12 @@ page-item-create {
     margin: 20px 0;
 
     .profile-image {
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-
+      width: 100px;
+      height: 100px;
       display: inline-block;
 
       background-repeat: no-repeat;
-      background-size: cover;
+      // background-size: cover;
       background-position: center;
     }
 
@@ -19,11 +17,11 @@ page-item-create {
       display: inline-block;
 
       background-color: #eee;
-      width: 96px;
-      height: 96px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
 
-      font-size: 12px;
+      font-size: 11px;
 
       ion-icon {
         font-size: 44px;

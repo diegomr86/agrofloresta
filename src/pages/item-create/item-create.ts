@@ -13,6 +13,7 @@ export class ItemCreatePage {
   @ViewChild('fileInput') fileInput;
 
   isReadyToSave: boolean;
+  loading: boolean = false;
 
   item: any;
   
@@ -45,17 +46,20 @@ export class ItemCreatePage {
   }
 
   processWebImage(event) {
+    this.loading = true
     this.api.fileUpload(event.target.files[0]).subscribe(
       event => {
         if (event.body) {
+          this.loading = false
           console.log('s',event)
-          const url = this.api.url + 'static/' + event.body.url
+          const url = this.api.url + 'static/thumbs/' + event.body.url
           this.preview = 'url(' + url + ')'
           this.form.patchValue({ 'picture': event.body.url });
         }
       }, 
       error =>{
-          console.log("Server error")
+        this.loading = false
+        console.log("Server error")
       }
     )
   }

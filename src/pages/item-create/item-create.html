@@ -34,6 +34,7 @@
         </div>
       </div>
       <div class="profile-image" [style.backgroundImage]="this.preview" *ngIf="this.form.controls.picture.value"></div>
+      <div *ngIf="this.loading">Enviando imagem...</div>
     </div>
     <ion-list>
       <ion-item>
