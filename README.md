@@ -5,7 +5,7 @@ Plataforma colaboração coletiva sobre o Cultivo de Agroflorestas.
 
 A idéia é criar uma base de dados de conhecimento coletivo sobre agrofloresta que vai ajudar o agricultor a cultivar da melhor forma possível sua agrofloresta. 
 
-Por exemplo, criar de forma colaborativa uma tabela de cultivares onde o agricultor, quando for plantar um alface já vai encontar ali qual estrato normalmente o alface ocupa, qual o ciclo de vida dele, com quanto tempo normalmente se colhe o alface, qual o melhor espaçamento, quais são suas plantas companheiras, etc. 
+Por exemplo, criar de forma colaborativa uma tabela de cultivares onde o agricultor, quando for plantar um alface já vai encontar ali qual estrato normalmente o alface ocupa, qual o ciclo de vida dele, com quanto tempo normalmente se colhe o alface, qual o melhor espaçamento, quais são suas plantas companheiras, etc. Tudo baseado na experiência dos nossos agricultores.
 
 Além de ajudar no trabalho em sí, a idéia é ser mais uma ferramenta de divulgação desse modo de vida que acreditamos e defendemos.
 
