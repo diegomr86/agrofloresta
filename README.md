@@ -1,8 +1,13 @@
 # Aplicativo Agrofloresta
+Plataforma colaboração coletiva sobre o Cultivo de Agroflorestas.
 
 <img src="http://blog.tistu.com.br/wp-content/themes/tistu_blog/thumb.php?src=http://blog.tistu.com.br/wp-content/uploads/2016/03/agrofloresta_logo_6701.png&w=590&h=209&zc=1" width="590" />
 
-Plataforma colaboração coletiva sobre o Cultivo de Agroflorestas.
+A idéia é criar uma base de dados de conhecimento coletivo sobre agrofloresta que vai ajudar o agricultor a cultivar da melhor forma possível sua agrofloresta. 
+
+Por exemplo, criar de forma colaborativa uma tabela de cultivares onde o agricultor, quando for plantar um alface já vai encontar ali qual estrato normalmente o alface ocupa, qual o ciclo de vida dele, com quanto tempo normalmente se colhe o alface, qual o melhor espaçamento, quais são suas plantas companheiras, etc. 
+
+Além de ajudar no trabalho em sí, a idéia é ser mais uma ferramenta de divulgação desse modo de vida que acreditamos e defendemos.
 
 ## Objetivos principais
 
@@ -29,7 +34,8 @@ Plataforma colaboração coletiva sobre o Cultivo de Agroflorestas.
 
 Você pode ajudar com esse projeto das seguintes formas:
 
+- Primeiramente faça sua propria agrofloresta
 - Crie e ajude a manter conteúdo da plataforma
-- Faça uma doação
 - Melhore código do aplicativo
 - Compartilhe com seus amigos
+- Faça uma doação
