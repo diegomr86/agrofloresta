@@ -44,7 +44,8 @@ Você pode ajudar com esse projeto das seguintes formas:
 
 Este software está licenciado sobre a licença:
 
+#### [Creative Commons (CC BY-NC-SA 4.0)](LICENSE)
+
 [<img src="https://br.creativecommons.org/wp-content/uploads/2015/04/by-nc-sa.jpg" />](LICENSE)
 
-[#### Creative Commons (CC BY-NC-SA 4.0)](LICENSE)
 
