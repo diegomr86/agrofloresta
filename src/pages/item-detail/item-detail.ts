@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { Item } from '../../models/item';
 import { Items, Api } from '../../providers';
+import { Utils } from '../../utils/utils';
 
 @IonicPage()
 @Component({
@@ -12,13 +13,15 @@ import { Items, Api } from '../../providers';
 export class ItemDetailPage {
   item: any;
 
-  constructor(public navCtrl: NavController, navParams: NavParams, public items: Items, public api: Api) {
+  constructor(public navCtrl: NavController, navParams: NavParams, public items: Items, public api: Api, public utils: Utils) {
     this.item = navParams.get('item') || items[0];
     console.log("itemc", this.item)
   }
 
   delete() {
-    this.items.remove(this.item);
-    this.navCtrl.pop();
+    this.utils.showConfirm(() => {
+      this.items.remove(this.item);
+      this.navCtrl.pop();
+    })
   }
 }

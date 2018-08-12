@@ -8,8 +8,7 @@
 
 
 <ion-content>
-  <div class="item-profile" text-center #picture [style.background-image]="'url(' + this.api.url + 'static/medium/'+ item.picture + ')'">
-  </div>
+  <img class="item-profile" #picture [src]="this.api.url + 'static/medium/'+ item.picture" />
 
   <div class="item-detail" padding>
     <h2>{{item.name}}</h2>

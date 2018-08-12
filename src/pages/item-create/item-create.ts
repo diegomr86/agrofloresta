@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
 import { IonicPage, NavController, ViewController, ToastController } from 'ionic-angular';
 import { Items, Api } from '../../providers';
+import { Utils } from '../../utils/utils';
+
 
 @IonicPage()
 @Component({
@@ -23,9 +25,9 @@ export class ItemCreatePage {
 
   errors: any;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public toastCtrl: ToastController, formBuilder: FormBuilder, public camera: Camera, public items: Items, public api: Api) {
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public toastCtrl: ToastController, formBuilder: FormBuilder, public camera: Camera, public items: Items, public api: Api, public utils: Utils) {
     this.form = formBuilder.group({
-      picture: [''],
+      picture: ['', Validators.required],
       name: ['', Validators.required],
       stratum: [''],
       cycle: [''],
@@ -77,8 +79,10 @@ export class ItemCreatePage {
    */
   create() {
     if (!this.form.valid) { return; }
-    this.items.create(this.form.value)
-    this.viewCtrl.dismiss();
+    this.utils.showConfirm(() => {
+      this.items.create(this.form.value)
+      this.viewCtrl.dismiss();
+    })
   }
 
   

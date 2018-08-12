@@ -3,6 +3,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IonicPageModule } from 'ionic-angular';
 
 import { ItemDetailPage } from './item-detail';
+import { Utils } from '../../utils/utils';
+
 
 @NgModule({
   declarations: [
@@ -14,6 +16,10 @@ import { ItemDetailPage } from './item-detail';
   ],
   exports: [
     ItemDetailPage
+  ],
+  providers: [
+    Utils
   ]
+
 })
 export class ItemDetailPageModule { }
