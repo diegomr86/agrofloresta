@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import PouchDB from 'pouchdb';
-import slugify from 'slugify';
 
 import { Item } from '../../models/item';
 import { Api } from '../api/api';
@@ -17,30 +16,35 @@ export class Items {
   }
 
   query(name?: string) {
-    console.log("XXXXXXXX buscando lista... XXXXXXXX");
-	  this.db.allDocs({
+    this.db.allDocs({
       include_docs: true,
       attachments: true,
       binary: true,
       startkey: name, 
       endkey: name+"\ufff0"
     }).then((doc) => {
-      console.log(doc)
       this.currentItems = doc.rows.map(r => r.doc);
       console.log(doc)
-    }).catch((e) => {
-      console.log(e);
+    });
+  } 
+
+  get(id: string) {
+    return this.db.get(id).then(function (item) {
+      return item;
     });
   } 
 
   create(item: Item) {
-    item._id = slugify(item.name)
     console.log(item)
-    this.db.put(item).then((result) => {
-      item._rev = result.rev
-      this.currentItems.push(item);
-    }).catch((e) => {
-      console.log(e);
+    return this.db.put(item).then((result) => {
+      if (!item._rev){
+        item._rev = result.rev
+        this.currentItems.push(item);
+      } else {
+        console.log('aqui')
+        this.currentItems = this.currentItems.map((i) => (i._id == item._id ? item : i));
+        console.log(this.currentItems)
+      }
     }); 
   }
 

@@ -4,6 +4,7 @@ import { Camera } from '@ionic-native/camera';
 import { IonicPage, NavController, ViewController, ToastController } from 'ionic-angular';
 import { Items, Api } from '../../providers';
 import { Utils } from '../../utils/utils';
+import slugify from 'slugify';
 
 
 @IonicPage()
@@ -16,6 +17,7 @@ export class ItemCreatePage {
 
   isReadyToSave: boolean;
   loading: boolean = false;
+  conflict: string;
 
   item: any;
   
@@ -27,6 +29,8 @@ export class ItemCreatePage {
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, public toastCtrl: ToastController, formBuilder: FormBuilder, public camera: Camera, public items: Items, public api: Api, public utils: Utils) {
     this.form = formBuilder.group({
+      _id: ['', Validators.required],
+      _rev: [''],
       picture: ['', Validators.required],
       name: ['', Validators.required],
       stratum: [''],
@@ -39,8 +43,25 @@ export class ItemCreatePage {
     });
   }
 
-  ionViewDidLoad() {
+  checkConflict() {
+    this.conflict = undefined
+    this.form.patchValue({ '_id': slugify(this.form.controls.name.value)} )
 
+    this.items.get(this.form.controls._id.value).then((item) => {
+      if (item) {
+        this.conflict = this.form.controls._id.value
+      }
+    }).catch((e) => {});
+  }
+
+  edit(id) {
+    this.items.get(this.form.controls._id.value).then((item) => {
+      if (item) {
+        this.form.patchValue({
+          ...item
+        }) 
+        this.conflict = undefined
+    }}).catch((e) => {});
   }
 
   getPicture() {
@@ -61,7 +82,7 @@ export class ItemCreatePage {
       }, 
       error =>{
         this.loading = false
-        console.log("Server error")
+        this.utils.showToast(error, 'error');
       }
     )
   }
@@ -80,7 +101,10 @@ export class ItemCreatePage {
   create() {
     if (!this.form.valid) { return; }
     this.utils.showConfirm(() => {
-      this.items.create(this.form.value)
+      this.items.create(this.form.value).catch((e) => {
+        console.log(e)
+        this.utils.showToast(e.message, 'error');
+      })
       this.viewCtrl.dismiss();
     })
   }

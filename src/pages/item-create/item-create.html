@@ -38,8 +38,9 @@
     </div>
     <ion-list>
       <ion-item>
-        <ion-input type="text" placeholder="Nome" formControlName="name"></ion-input>
+        <ion-input type="text" placeholder="Nome" formControlName="name" (change)="checkConflict()"></ion-input>
       </ion-item>
+      <ion-item *ngIf="this.conflict">Já existe um item cadastrado com esse nome por favor <a (click)="edit(conflict)">edite-o</a> </ion-item>
       <ion-item>
         <ion-label>Estrato</ion-label>
         <ion-select formControlName="stratum" interface="popover">
