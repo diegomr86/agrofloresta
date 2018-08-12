@@ -1,96 +1,48 @@
-# The Ionic Super Starter 🎮
+# Aplicativo Agrofloresta
+Plataforma colaboração coletiva sobre o Cultivo de Agroflorestas.
 
-<img src="https://user-images.githubusercontent.com/236501/32385619-bddac0ac-c08c-11e7-9ee4-9c892197191f.png" width="400" />
+<img src="http://blog.tistu.com.br/wp-content/themes/tistu_blog/thumb.php?src=http://blog.tistu.com.br/wp-content/uploads/2016/03/agrofloresta_logo_6701.png&w=590&h=209&zc=1" width="590" />
 
-The Ionic Super Starter is a batteries-included starter project for Ionic apps
-complete with pre-built pages, providers, and best practices for Ionic
-development.
+A idéia é criar uma base de dados de conhecimento coletivo sobre agrofloresta que vai ajudar o agricultor a cultivar da melhor forma possível sua agrofloresta. 
 
-The goal of the Super Starter is to get you from zero to app store faster than
-before, with a set of opinions from the Ionic team around page layout,
-data/user management, and project structure.
+Por exemplo, criar de forma colaborativa uma tabela de cultivares onde o agricultor, quando for plantar um alface já vai encontar ali qual estrato normalmente o alface ocupa, qual o ciclo de vida dele, com quanto tempo normalmente se colhe o alface, qual o melhor espaçamento, quais são suas plantas companheiras, etc. 
 
-The way to use this starter is to pick and choose the various page types you
-want use, and remove the ones you don't. If you want a blank slate, this
-starter isn't for you (use the `blank` type instead).
+Além de ajudar no trabalho em sí, a idéia é ser mais uma ferramenta de divulgação desse modo de vida que acreditamos e defendemos.
 
-One of the big advances in Ionic was moving from a rigid route-based navigation
-system to a flexible push/pop navigation system modeled off common native SDKs.
-We've embraced this pattern to provide a set of reusable pages that can be
-navigated to anywhere in the app. Take a look at the [Settings
-page](https://github.com/ionic-team/starters/blob/master/ionic-angular/official/super/src/pages/settings/settings.html)
-for a cool example of a page navigating to itself to provide a different UI
-without duplicating code.
+## Objetivos principais
 
-## Table of Contents
+1. Todo o conteúdo criado e mantido pela própria comunidade
+2. Qualquer pessoa pode cadastrar, editar e excluír qualquer informação da rede
+3. O Código fonte aberto (open source)
+4. As informações devem estar disponíveis mesmo que o usuário não esteja conectado (offline first)
+5. Sem nenhum tipo de propaganda
 
-1. [Getting Started](#getting-started)
-2. [Pages](#pages)
-3. [Providers](#providers)
-4. [i18n](#i18n) (adding languages)
+## Funções implementadas
 
-## <a name="getting-started"></a>Getting Started
+- Tabela de consorcios: Uma lista contendo os cultivares organizados por ciclo, estrato para facilitar o entendimento na hora do plantio
 
-To test this starter out, install the latest version of the Ionic CLI and run:
+## Funções à implementar
 
-```bash
-ionic start mySuperApp super
-```
+- Guia básico: guia básico para nivelação de conhecimento dos usuários
+- Biblioteca: base de dados de livros sobre o assunto
+- Videos: lista que reúne os vídeos do youtube e vimeo sobre agrofloresta num só lugar curados pela comunidade
+- Blog: blog onde qualquer pessoa pode postar um artigo
+- Mapa de agroflorestas: mapa real do país com os projetos agroflorestais cadastrados pela comunidade usando a geolocalização
+- Eventos: central de eventos sobre agrofloresta
 
-## Pages
+## Como colaborar
 
-The Super Starter comes with a variety of ready-made pages. These pages help
-you assemble common building blocks for your app so you can focus on your
-unique features and branding.
+Você pode ajudar com esse projeto das seguintes formas:
 
-The app loads with the `FirstRunPage` set to `TutorialPage` as the default. If
-the user has already gone through this page once, it will be skipped the next
-time they load the app.
+- Primeiramente faça sua propria agrofloresta
+- Crie e ajude a manter conteúdo da plataforma
+- Melhore código do aplicativo
+- Compartilhe com seus amigos
+- Faça uma doação
 
-If the tutorial is skipped but the user hasn't logged in yet, the Welcome page
-will be displayed which is a "splash" prompting the user to log in or create an
-account.
+## Licença
+<img src="https://br.creativecommons.org/wp-content/uploads/2015/04/by-nc-sa.jpg" />
 
-Once the user is authenticated, the app will load with the `MainPage` which is
-set to be the `TabsPage` as the default.
+Este software está licenciado sobre a licença:
+#### [Creative Commons (CC BY-NC-SA 4.0)](LICENCE)
 
-The entry and main pages can be configured easily by updating the corresponding
-variables in
-[src/pages/index.ts](https://github.com/ionic-team/starters/blob/master/ionic-angular/official/super/src/pages/index.ts).
-
-Please read the
-[Pages](https://github.com/ionic-team/starters/tree/master/ionic-angular/official/super/src/pages)
-readme, and the readme for each page in the source for more documentation on
-each.
-
-## Providers
-
-The Super Starter comes with some basic implementations of common providers.
-
-### User
-
-The `User` provider is used to authenticate users through its
-`login(accountInfo)` and `signup(accountInfo)` methods, which perform `POST`
-requests to an API endpoint that you will need to configure.
-
-### Api
-
-The `Api` provider is a simple CRUD frontend to an API. Simply put the root of
-your API url in the Api class and call get/post/put/patch/delete 
-
-## i18n
-
-Ionic Super Starter comes with internationalization (i18n) out of the box with
-[ngx-translate](https://github.com/ngx-translate/core). This makes it easy to
-change the text used in the app by modifying only one file. 
-
-### Adding Languages
-
-To add new languages, add new files to the `src/assets/i18n` directory,
-following the pattern of LANGCODE.json where LANGCODE is the language/locale
-code (ex: en/gb/de/es/etc.).
-
-### Changing the Language
-
-To change the language of the app, edit `src/app/app.component.ts` and modify
-`translate.use('en')` to use the LANGCODE from `src/assets/i18n/`
