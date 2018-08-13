@@ -11,7 +11,7 @@ Por exemplo, criar de forma colaborativa uma tabela de cultivares onde o agricul
 
 Além de ajudar no trabalho em sí, a idéia é ser mais uma ferramenta de divulgação desse modo de vida que acreditamos e defendemos.
 
-Lembrando que nada substitui o 'trabalho corpo presente', o objetivo final dessa ferramenta é criar mais uma forma nós e dos próximos agricultores que virão guardar, manter atualizado e disponível esse conhecimento ou caminho já percorrido. 
+Lembrando que nada substitui o 'trabalho de corpo presente', o objetivo final dessa ferramenta é criar mais uma forma nós e dos próximos agricultores que virão guardar, manter atualizado e disponível esse conhecimento ou caminho já percorrido. 
 
 ## Requisitos principais
 
