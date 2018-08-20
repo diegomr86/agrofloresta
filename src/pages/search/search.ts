@@ -28,7 +28,7 @@ export class SearchPage {
   /**
    * Navigate to the detail page for this item.
    */
-  openItem(item: Item) {
+  open(item: Item) {
     this.navCtrl.push('ItemDetailPage', {
       item: item
     });

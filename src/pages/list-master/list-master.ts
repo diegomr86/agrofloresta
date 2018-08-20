@@ -10,7 +10,7 @@ import { Items, Api } from '../../providers';
   templateUrl: 'list-master.html'
 })
 export class ListMasterPage {
-  currentItems: Item[];
+  itemsList: Item[];
 
   constructor(public navCtrl: NavController, public items: Items, public api: Api, public modalCtrl: ModalController) {
     this.items.query(''); 
@@ -29,14 +29,14 @@ export class ListMasterPage {
    * Prompt the user to add a new item. This shows our ItemCreatePage in a
    * modal and then adds the new item to our data source if the user created one.
    */
-  addItem() {
-    let addModal = this.modalCtrl.create('ItemCreatePage').present();
+  add() {
+    this.modalCtrl.create('ItemCreatePage').present();
   } 
 
   /**
    * Navigate to the detail page for this item.
    */
-  openItem(item: Item) {
+  open(item: Item) {
     this.navCtrl.push('ItemDetailPage', {
       item: item
     });

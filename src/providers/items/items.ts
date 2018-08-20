@@ -1,18 +1,32 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import PouchDB from 'pouchdb';
-
 import { Item } from '../../models/item';
-import { Api } from '../api/api';
 
 @Injectable()
 export class Items {
   
-  public db;
-  public currentItems: Item[];
+  public db; 
+  public currentItem: Item;
+  public itemsList: Item[];
+  public cycles;
+  public stratums;
 
   constructor() { 
     this.db = new PouchDB('item');
+    
+    this.cycles = {
+        placenta1: 'Placenta 1 (Até 3 meses)',
+        placenta2: 'Placenta 2 (3 meses a 1 ano)',
+        secundaria1: 'Secundária 1 (1 a 10 anos)',
+        secundaria2: 'Secundária 2 (10 a 25 anos)',
+        secundaria3: 'Secundária 3 (25 a 50 anos)',
+        climax: 'Climax (Mais de 50 anos)' }
+
+    this.stratums = {
+      baixo: 'Baixo',
+      medio: 'Médio',
+      alto: 'Alto',
+      emergente: 'Emergente' };
   }
 
   query(name?: string) {
@@ -21,9 +35,9 @@ export class Items {
       attachments: true,
       binary: true,
       startkey: name, 
-      endkey: name+"\ufff0"
+      endkey: name+'\ufff0'
     }).then((doc) => {
-      this.currentItems = doc.rows.map(r => r.doc);
+      this.itemsList = doc.rows.map(r => r.doc);
       console.log(doc)
     });
   } 
@@ -34,24 +48,23 @@ export class Items {
     });
   } 
 
-  create(item: Item) {
+  save(item: Item) {
     console.log(item)
     return this.db.put(item).then((result) => {
       if (!item._rev){
         item._rev = result.rev
-        this.currentItems.push(item);
+        this.itemsList.push(item);
       } else {
-        console.log('aqui')
-        this.currentItems = this.currentItems.map((i) => (i._id == item._id ? item : i));
-        console.log(this.currentItems)
+        this.itemsList = this.itemsList.map((i) => (i._id == item._id ? item : i));
       }
+      this.currentItem = item;
     }); 
   }
 
   async remove(item: Item) {
     console.log(item)
     await this.db.remove(item)
-    this.currentItems = this.currentItems.filter(obj => obj !== item)
+    this.itemsList = this.itemsList.filter(obj => obj !== item)
   }
 
 }

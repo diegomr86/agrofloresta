@@ -8,7 +8,7 @@
   "LOGIN": "Entrar",
   "SIGNUP": "Cadastre-se",
 
-  "TAB1_TITLE": "Consorcios",
+  "TAB1_TITLE": "Plantas",
   "TAB2_TITLE": "Busca",
   "TAB3_TITLE": "Configurações",
 
@@ -49,7 +49,7 @@
   "SIGNUP_ERROR": "Não foi possível criar sua conta. Verifique seus dados e tente novamente.",
   "SIGNUP_BUTTON": "Cadastre-se",
 
-  "LIST_MASTER_TITLE": "Consorcios",
+  "LIST_MASTER_TITLE": "Plantas",
 
   "ITEM_CREATE_TITLE": "Nova Espécie",
   "ITEM_CREATE_CHOOSE_IMAGE": "Adicionar Imagem",

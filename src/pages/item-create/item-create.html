@@ -1,30 +1,22 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ 'ITEM_CREATE_TITLE' | translate }}</ion-title>
-    <ion-buttons start>
-      <button ion-button (click)="cancel()">
-        <span color="primary" showWhen="ios">
-          {{ 'CANCEL_BUTTON' | translate }}
-        </span>
-        <ion-icon name="md-close" showWhen="core,android,windows"></ion-icon>
+    <ion-buttons left>
+      <button ion-button icon-only left (click)="cancel()">
+        <ion-icon name="arrow-back"></ion-icon>
       </button>
     </ion-buttons>
+    <ion-title>{{ 'ITEM_CREATE_TITLE' | translate }}</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="create()" [disabled]="!isReadyToSave" strong>
-        <span color="primary" showWhen="ios">
-          {{ 'DONE_BUTTON' | translate }}
-        </span>
-        <ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>
+      <button ion-button icon-only (click)="save()" [disabled]="!isReadyToSave" strong>
+        <ion-icon name="checkmark"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 
 </ion-header>
-
-
 <ion-content>
-  <form *ngIf="form" [formGroup]="form" (ngSubmit)="create()">
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="save()">
     <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
     <div class="profile-image-wrapper" (click)="getPicture()">
       <div class="profile-image-placeholder" *ngIf="!this.form.controls.picture.value">
@@ -36,31 +28,35 @@
       <div class="profile-image" [style.backgroundImage]="this.preview" *ngIf="this.form.controls.picture.value"></div>
       <div *ngIf="this.loading">Enviando imagem...</div>
     </div>
-    <ion-list>
-      <ion-item>
-        <ion-input type="text" placeholder="Nome" formControlName="name" (change)="checkConflict()"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="this.conflict">Já existe um item cadastrado com esse nome por favor <a (click)="edit(conflict)">edite-o</a> </ion-item>
-      <ion-item>
-        <ion-label>Estrato</ion-label>
-        <ion-select formControlName="stratum" interface="popover">
-          <ion-option value="baixo" checked="true">Baixo</ion-option>
-          <ion-option value="medio">Médio</ion-option>
-          <ion-option value="alto">Alto</ion-option>
-          <ion-option value="emergente">Emergente</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label>Ciclo</ion-label>
-        <ion-select formControlName="cycle" interface="popover">
-          <ion-option value="placenta1" checked="true">Placenta 1 (Até 3 meses)</ion-option>
-          <ion-option value="placenta2" checked="true">Placenta 2 (3 meses a 1 ano)</ion-option>
-          <ion-option value="secundaria1">Secundária 1 (1 a 10 anos)</ion-option>
-          <ion-option value="secundaria2">Secundária 2 (10 a 25 anos)</ion-option>
-          <ion-option value="secundaria3">Secundária 3 (25 a 50 anos)</ion-option>
-          <ion-option value="climax">Climax (Mais de 50 anos)</ion-option>
-        </ion-select>
-      </ion-item>
-    </ion-list>
+    <ion-item *ngIf="this.form.controls._rev.value">
+      <h2 ion-text *ngIf="this.form.controls._rev.value"> {{this.form.controls.name.value}} </h2>
+    </ion-item>
+    <ion-item *ngIf="!this.form.controls._rev.value">
+      <ion-input type="text" placeholder="Nome" formControlName="name" (change)="checkConflict()"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="this.conflict">
+      <p ion-text>Já existe um item cadastrado 
+        com esse nome por favor 
+        <a (click)="edit()">edite-o</a> 
+      </p>
+    </ion-item>
+    <ion-item>
+      <ion-textarea placeholder="Descrição" formControlName="description"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>Ciclo</ion-label>
+      <ion-select formControlName="cycle" interface="popover" >
+        <ion-option *ngFor="let cycle of Object.keys(items.cycles)" [value]="cycle">{{items.cycles[cycle]}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Estrato</ion-label>
+      <ion-select formControlName="stratum" interface="popover">
+        <ion-option *ngFor="let stratum of Object.keys(items.stratums)" [value]="stratum">{{items.stratums[stratum]}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-textarea placeholder="Recomendações de Uso" formControlName="use"></ion-textarea>
+    </ion-item>
   </form>
 </ion-content>  
