@@ -12,6 +12,7 @@ export class Items {
   public itemsList: Item[];
   public cycles;
   public stratums;
+  public additional_fields;
 
   constructor() { 
     this.db = new PouchDB('item');
@@ -43,11 +44,9 @@ export class Items {
   }
 
   query(name?: string) {
-    console.log(name);
     this.db.find({
       selector: {name: {$regex: RegExp(name, "i")}}
     }).then((result) => {
-      console.log('find result', result);
       this.itemsList = result.docs
     });
   } 
@@ -59,7 +58,6 @@ export class Items {
   } 
 
   save(item: Item) {
-    console.log(item)
     return this.db.put(item).then((result) => {
       if (!item._rev){
         item._rev = result.rev
@@ -72,9 +70,15 @@ export class Items {
   }
 
   async remove(item: Item) {
-    console.log(item)
     await this.db.remove(item)
     this.itemsList = this.itemsList.filter(obj => obj !== item)
   }
+
+  loadAdditionalFields() {
+    this.additional_fields = this.itemsList.map((item)=> item.additional_fields ).filter((a) => a)
+    this.additional_fields = this.additional_fields.reduce((a, b) => a.concat(b), []);
+    this.additional_fields = this.additional_fields.reduce((a, b) => a.concat(b.name), []);
+    this.additional_fields = this.additional_fields.filter((el, i, a) => i === a.indexOf(el))
+  } 
 
 }

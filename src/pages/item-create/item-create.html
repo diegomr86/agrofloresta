@@ -2,7 +2,7 @@
 
   <ion-navbar>
     <ion-buttons left>
-      <button ion-button icon-only left (click)="cancel()">
+      <button ion-button icon-only (click)="cancel()">
         <ion-icon name="arrow-back"></ion-icon>
       </button>
     </ion-buttons>
@@ -32,7 +32,8 @@
       <h2 ion-text *ngIf="this.form.controls._rev.value"> {{this.form.controls.name.value}} </h2>
     </ion-item>
     <ion-item *ngIf="!this.form.controls._rev.value">
-      <ion-input type="text" placeholder="Nome" formControlName="name" (change)="checkConflict()"></ion-input>
+      <ion-label stacked>Nome</ion-label>
+      <ion-input type="text" formControlName="name" (change)="checkConflict()"></ion-input>
     </ion-item>
     <ion-item *ngIf="this.conflict">
       <p ion-text>Já existe um item cadastrado 
@@ -41,22 +42,49 @@
       </p>
     </ion-item>
     <ion-item>
-      <ion-textarea placeholder="Descrição" formControlName="description"></ion-textarea>
+      <ion-label stacked>Descrição</ion-label>
+      <ion-textarea formControlName="description"></ion-textarea>
     </ion-item>
     <ion-item>
-      <ion-label>Ciclo</ion-label>
+      <ion-label stacked>Ciclo</ion-label>
       <ion-select formControlName="cycle" interface="popover" >
         <ion-option *ngFor="let cycle of Object.keys(items.cycles)" [value]="cycle">{{items.cycles[cycle]}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>Estrato</ion-label>
+      <ion-label stacked>Estrato</ion-label>
       <ion-select formControlName="stratum" interface="popover">
         <ion-option *ngFor="let stratum of Object.keys(items.stratums)" [value]="stratum">{{items.stratums[stratum]}}</ion-option>
       </ion-select>
     </ion-item>
-    <ion-item>
-      <ion-textarea placeholder="Recomendações de Uso" formControlName="use"></ion-textarea>
-    </ion-item>
+    <div formArrayName="additional_fields" *ngFor="let additional_field of form.get('additional_fields').controls; let i = index;">
+      <div [formGroupName]="i">
+        <div *ngIf="i < items.additional_fields.length">
+          <ion-item>
+            <ion-label stacked>{{form.controls.additional_fields.controls[i].controls.name.value}}</ion-label>
+            <ion-textarea formControlName="content"></ion-textarea>
+          </ion-item>
+        </div>
+        <div *ngIf="i >= items.additional_fields.length">
+          <br>
+          <ion-item>
+            <ion-label stacked>Título do novo campo</ion-label>
+            <ion-input formControlName="name"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label stacked>Conteúdo</ion-label>
+            <ion-textarea formControlName="content"></ion-textarea>
+          </ion-item>
+        </div>
+      </div>
+    </div>
+      <br>
+      <ion-buttons end>
+        <button ion-button  icon-end small (click)="addAdditionalField()" color="light">
+          Adicionar mais informações
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </ion-buttons>
+      <br>
   </form>
 </ion-content>  

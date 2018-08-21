@@ -15,13 +15,19 @@
   <img class="item-profile" #picture [src]="this.api.url + 'static/medium/'+ items.currentItem.picture" />
   <div class="item-detail" padding>
     <p class="description">{{items.currentItem.description}}</p>
-    <h6>Ciclo </h6>
-    <p>{{items.cycles[items.currentItem.cycle]}}</p>
-    <h6>Estrato </h6>
-    <p>{{items.stratums[items.currentItem.stratum]}}</p>
-    <div *ngIf="items.currentItem.use">
-      <h6>Aproveitamento </h6>
-      <p>{{items.currentItem.use}}</p>
+    <div *ngIf="items.currentItem.cycle">
+      <h6>Ciclo </h6>
+      <p>{{items.cycles[items.currentItem.cycle]}}</p>
+    </div>
+    <div *ngIf="items.currentItem.stratum">
+      <h6>Estrato </h6>
+      <p>{{items.stratums[items.currentItem.stratum]}}</p>
+    </div>
+    <div *ngFor="let additional_field of items.currentItem.additional_fields">
+      <div *ngIf="additional_field.content">
+        <h6>{{additional_field.name}} </h6>
+        <p>{{additional_field.content}}</p>
+      </div>
     </div>
   </div>
 </ion-content>

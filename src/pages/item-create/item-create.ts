@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
 import { IonicPage, NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
 import { Items, Api } from '../../providers';
@@ -19,14 +19,14 @@ export class ItemCreatePage {
   isReadyToSave: boolean;
   loading: boolean = false;
   conflict: string;
-
+  additional_fields: FormArray;
   preview: any;
 
   form: FormGroup;
 
   errors: any;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public toastCtrl: ToastController, formBuilder: FormBuilder, public camera: Camera, public items: Items, public api: Api, public utils: Utils, params: NavParams) {
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public toastCtrl: ToastController, public formBuilder: FormBuilder, public camera: Camera, public items: Items, public api: Api, public utils: Utils, params: NavParams) {
     this.form = formBuilder.group({
       _id: [(params.get('id') || ''), Validators.required],
       _rev: [''],
@@ -35,7 +35,7 @@ export class ItemCreatePage {
       description: ['', Validators.required],
       stratum: [''],
       cycle: [''],
-      use: [''],
+      additional_fields: formBuilder.array([])
     });
 
     // Watch the form for changes, and
@@ -47,7 +47,11 @@ export class ItemCreatePage {
     if (params.get('id')) {
       this.edit()
     }
+
+    this.items.loadAdditionalFields()
+    this.items.additional_fields.forEach((a) => {this.addAdditionalField(a)})
   }
+
 
   checkConflict() {
     this.conflict = undefined
@@ -118,5 +122,21 @@ export class ItemCreatePage {
       this.viewCtrl.dismiss();
     })
   }
-  
+
+  addAdditionalField(name?: string) {
+    console.log("addaitional", name);
+    this.additional_fields = this.form.get('additional_fields') as FormArray;
+    if (name) {
+      this.additional_fields.push(this.formBuilder.group({
+        name: [name, Validators.required],
+        content: ['']
+      }));        
+    } else {
+      this.additional_fields.push(this.formBuilder.group({
+        name: ['', Validators.required],
+        content: ['', Validators.required]
+      }));
+
+    }
+  } 
 }
