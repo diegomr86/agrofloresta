@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import PouchDB from 'pouchdb';
+import PouchFind from 'pouchdb-find';
 import { Item } from '../../models/item';
+PouchDB.plugin(PouchFind);
 
 @Injectable()
 export class Items {
@@ -27,18 +29,26 @@ export class Items {
       medio: 'Médio',
       alto: 'Alto',
       emergente: 'Emergente' };
+    this.db.createIndex({
+      index: {
+        fields: ['name']
+      }
+    }).then(function (result) {
+      console.log("created index", result);
+    }).catch(function (err) {
+      console.log(err);
+    });
+
+
   }
 
   query(name?: string) {
-    this.db.allDocs({
-      include_docs: true,
-      attachments: true,
-      binary: true,
-      startkey: name, 
-      endkey: name+'\ufff0'
-    }).then((doc) => {
-      this.itemsList = doc.rows.map(r => r.doc);
-      console.log(doc)
+    console.log(name);
+    this.db.find({
+      selector: {name: {$regex: RegExp(name, "i")}}
+    }).then((result) => {
+      console.log('find result', result);
+      this.itemsList = result.docs
     });
   } 
 
