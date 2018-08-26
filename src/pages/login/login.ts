@@ -4,6 +4,7 @@ import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { User } from '../../providers';
+import { Utils } from '../../utils/utils';
 import { MainPage } from '../';
 
 @IonicPage()
@@ -19,7 +20,8 @@ export class LoginPage {
   constructor(public navCtrl: NavController,
     public user: User,
     public toastCtrl: ToastController,
-    public formBuilder: FormBuilder) {
+    public formBuilder: FormBuilder,
+    public utils: Utils) {
 
     this.form = formBuilder.group({
       _id: ['diegomr86@gmail.com', Validators.required]
@@ -38,8 +40,16 @@ export class LoginPage {
       if (resp) {
         this.navCtrl.setRoot(MainPage);
       }
-    }).catch((err) => {
-      console.log(err);
+    }).catch((e) => {
+      if (e.name == 'not_found') {
+        this.utils.showToast('Usuário não encontrado! Por favor cadastre-se.', 'error');
+      }
+      console.log(e);
     });
   }
+
+  signup() {
+    this.navCtrl.push('SignupPage');
+  }
+
 }

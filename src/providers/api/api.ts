@@ -45,7 +45,6 @@ export class Api {
       }, 
       error =>{
         this.loading = false
-        // this.utils.showToast(error, 'error');
       }
     )
   }

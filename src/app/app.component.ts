@@ -12,19 +12,25 @@ import { Settings, User, Api } from '../providers';
     <ion-header>
       <ion-toolbar>
         <ion-title *ngIf="this.user.currentUser">
-          <ion-avatar item-start>
-            <img [src]="this.api.url + 'static/thumbs/'+ this.user.currentUser.picture" />
-          </ion-avatar>
-          <h5 (click)="this.logout()">{{this.user.currentUser.name}}</h5>
-          <small>{{this.user.currentUser._id}}</small>
+          Agrofloresta!
         </ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content>
       <ion-list>
+        <ion-item *ngIf="this.user.currentUser">
+          <ion-avatar item-start>
+            <img [src]="(this.user.currentUser.picture && this.user.currentUser.picture.startsWith('http')) ? this.user.currentUser.picture : this.api.url + 'static/thumbs/'+ this.user.currentUser.picture">
+          </ion-avatar>
+          <h2 (click)="this.logout()">{{this.user.currentUser.name}}</h2>
+          <p>{{this.user.currentUser._id}}</p>
+        </ion-item>
         <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
           {{p.title}}
+        </button>
+        <button menuClose ion-item (click)="this.logout()">
+          Sair
         </button>
       </ion-list>
     </ion-content>
@@ -38,17 +44,15 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   pages: any[] = [
+    { title: 'Plantas', component: 'ListMasterPage' },
+    { title: 'Guia básico', component: 'GuidePage' },
     { title: 'Tutorial', component: 'TutorialPage' },
     { title: 'Welcome', component: 'WelcomePage' },
     { title: 'Tabs', component: 'TabsPage' },
     { title: 'Cards', component: 'CardsPage' },
     { title: 'Content', component: 'ContentPage' },
-    { title: 'Login', component: 'LoginPage' },
-    { title: 'Signup', component: 'SignupPage' },
-    { title: 'Master Detail', component: 'ListMasterPage' },
     { title: 'Menu', component: 'MenuPage' },
     { title: 'Settings', component: 'SettingsPage' },
-    { title: 'Search', component: 'SearchPage' }
   ]
   constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, private user: User, public api: Api, public menuCtrl: MenuController) {
 
@@ -110,7 +114,7 @@ export class MyApp {
   logout() {
     this.user.logout()
     this.nav.setRoot('WelcomePage');   
-    this.menuCtrl.close(); 
+    // this.menuCtrl.close(); 
   }
 
   openPage(page) {

@@ -37,9 +37,9 @@ export class User extends Database {
    * the user entered on the form.
    */
   signup(accountInfo: any) {
-    return this.db.put(accountInfo).then((response) => {
-      this.storage.set('currentUser', response).then((response) => {
-        this.currentUser = response
+    return this.db.put(accountInfo).then((account) => {
+      this.storage.set('currentUser', accountInfo).then((response) => {
+        this.currentUser = accountInfo
         return response;
       });
     });

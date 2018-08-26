@@ -1,20 +1,16 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title>{{ 'LOGIN_TITLE' | translate }}</ion-title>
+    <ion-title>Entrar</ion-title>
   </ion-navbar>
-
 </ion-header>
-
-
 <ion-content>
   <form *ngIf="form" [formGroup]="form" (ngSubmit)="login()">
     <ion-item>
-      <ion-label fixed>{{ 'EMAIL' | translate }}</ion-label>
+      <ion-label stacked>{{ 'EMAIL' | translate }}</ion-label>
       <ion-input type="email" formControlName="_id"></ion-input>
     </ion-item>
     <div padding>
-      <button ion-button color="primary" block [disabled]="!isReadyToSave">{{ 'LOGIN_BUTTON' | translate }}</button>
+      <button ion-button color="primary" block [disabled]="!isReadyToSave">CONTINUAR</button>
     </div>
   </form>
 </ion-content>

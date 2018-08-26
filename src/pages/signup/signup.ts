@@ -3,8 +3,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Api } from '../../providers';
-import { User } from '../../providers';
+import { Api, User } from '../../providers';
+import { Utils } from '../../utils/utils';
+
 import { MainPage } from '../';
 
 @IonicPage()
@@ -18,8 +19,6 @@ export class SignupPage {
 
   form: FormGroup;
   isReadyToSave: boolean;
-  conflict: boolean = false;
-
 
   // Our translated text strings
   private signupErrorString: string;
@@ -29,7 +28,8 @@ export class SignupPage {
     public user: User,
     public toastCtrl: ToastController,
     public formBuilder: FormBuilder, 
-    public translateService: TranslateService) {
+    public translateService: TranslateService,
+    public utils: Utils) {
 
     // this.translateService.get('SIGNUP_ERROR').subscribe((value) => {
     //   this.signupErrorString = value;
@@ -57,10 +57,13 @@ export class SignupPage {
     // Attempt to login in through our User service
     this.user.signup(this.form.value).then((response) => {
       console.log('cadastrado', response)
+      this.navCtrl.setRoot(MainPage);
     }).catch((e) => {
       console.log('erro de cadastro', e)
       if (e.name == 'conflict') {
-        this.conflict = true;
+        this.utils.showToast("Usuário já cadastrado. Fazendo login.", 'primary');
+        this.login();
+
       }
     })
   }
