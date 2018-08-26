@@ -1,5 +1,6 @@
 <ion-menu [content]="content">
   <ion-content>
+	  {{user.currentUser}}
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}

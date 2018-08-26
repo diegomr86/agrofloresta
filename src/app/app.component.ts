@@ -2,16 +2,22 @@ import { Component, ViewChild } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { Config, Nav, Platform } from 'ionic-angular';
+import { Config, Nav, Platform, MenuController } from 'ionic-angular';
 
-import { FirstRunPage } from '../pages';
-import { Settings } from '../providers';
+import { FirstRunPage, MainPage } from '../pages';
+import { Settings, User, Api } from '../providers';
 
 @Component({
   template: `<ion-menu [content]="content">
     <ion-header>
       <ion-toolbar>
-        <ion-title>Pages</ion-title>
+        <ion-title *ngIf="this.user.currentUser">
+          <ion-avatar item-start>
+            <img [src]="this.api.url + 'static/thumbs/'+ this.user.currentUser.picture" />
+          </ion-avatar>
+          <h5 (click)="this.logout()">{{this.user.currentUser.name}}</h5>
+          <small>{{this.user.currentUser._id}}</small>
+        </ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -27,7 +33,7 @@ import { Settings } from '../providers';
   <ion-nav #content [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage = FirstRunPage;
+  rootPage;
 
   @ViewChild(Nav) nav: Nav;
 
@@ -44,15 +50,34 @@ export class MyApp {
     { title: 'Settings', component: 'SettingsPage' },
     { title: 'Search', component: 'SearchPage' }
   ]
+  constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, private user: User, public api: Api, public menuCtrl: MenuController) {
 
-  constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      
     });
+    
     this.initTranslate();
+
+    this.user.skipTour().then((skipTour) => {
+      if (skipTour) {
+        this.user.getCurrentUser().then((r) => {
+          if (r) {
+            this.rootPage = MainPage
+          } else {
+            this.rootPage = FirstRunPage
+          }
+        })
+
+      } else {
+        this.rootPage = 'TutorialPage'
+      }
+    });
+
+
   }
 
   initTranslate() {
@@ -80,6 +105,12 @@ export class MyApp {
     this.translate.get(['BACK_BUTTON_TEXT']).subscribe(values => {
       this.config.set('ios', 'backButtonText', values.BACK_BUTTON_TEXT);
     });
+  }
+
+  logout() {
+    this.user.logout()
+    this.nav.setRoot('WelcomePage');   
+    this.menuCtrl.close(); 
   }
 
   openPage(page) {

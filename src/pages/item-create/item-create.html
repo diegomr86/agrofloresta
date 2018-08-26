@@ -17,16 +17,16 @@
 </ion-header>
 <ion-content>
   <form *ngIf="form" [formGroup]="form" (ngSubmit)="save()">
-    <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
-    <div class="profile-image-wrapper" (click)="getPicture()">
-      <div class="profile-image-placeholder" *ngIf="!this.form.controls.picture.value">
+    <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event, this.form)" />
+    <div class="preview-image-wrapper" (click)="getPicture()">
+      <div class="preview-image-placeholder" *ngIf="!this.form.controls.picture.value">
         <ion-icon name="add"></ion-icon>
         <div>
           {{ 'ITEM_CREATE_CHOOSE_IMAGE' | translate }}
         </div>
       </div>
-      <div class="profile-image" [style.backgroundImage]="this.preview" *ngIf="this.form.controls.picture.value"></div>
-      <div *ngIf="this.loading">Enviando imagem...</div>
+      <div class="preview-image" [style.backgroundImage]="this.api.preview" *ngIf="this.form.controls.picture.value"></div>
+      <div *ngIf="this.api.loading">Enviando imagem...</div>
     </div>
     <ion-item *ngIf="this.form.controls._rev.value">
       <h2 ion-text *ngIf="this.form.controls._rev.value"> {{this.form.controls.name.value}} </h2>

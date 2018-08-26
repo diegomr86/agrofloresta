@@ -26,8 +26,18 @@ export class ItemCreatePage {
 
   errors: any;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public toastCtrl: ToastController, public formBuilder: FormBuilder, public camera: Camera, public items: Items, public api: Api, public utils: Utils, params: NavParams) {
+  constructor(public navCtrl: NavController, 
+    public viewCtrl: ViewController, 
+    public toastCtrl: ToastController, 
+    public formBuilder: FormBuilder, 
+    public camera: Camera, 
+    public items: Items, 
+    public api: Api, 
+    public utils: Utils, 
+    params: NavParams) {
+      
     this.form = formBuilder.group({
+      type: ['plant', Validators.required],
       _id: [(params.get('id') || ''), Validators.required],
       _rev: [''],
       picture: ['', Validators.required],
@@ -70,13 +80,9 @@ export class ItemCreatePage {
         this.form.patchValue({
           ...item
         }) 
-        this.setPreview(item.picture)
+        this.api.setPreview(item.picture)
         this.conflict = undefined
     }}).catch((e) => {});
-  }
-
-  setPreview(image) {
-    this.preview = 'url(' + this.api.url + 'static/thumbs/' + image + ')'
   }
 
   getPicture() {
@@ -84,21 +90,7 @@ export class ItemCreatePage {
   }
 
   processWebImage(event) {
-    this.loading = true
-    this.api.fileUpload(event.target.files[0]).subscribe(
-      event => {
-        if (event.body) {
-          this.loading = false
-          console.log('s',event)
-          this.setPreview(event.body.url)
-          this.form.patchValue({ 'picture': event.body.url });
-        }
-      }, 
-      error =>{
-        this.loading = false
-        this.utils.showToast(error, 'error');
-      }
-    )
+    this.api.processWebImage(event, this.form)
   }
 
   /**

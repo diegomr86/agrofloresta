@@ -14,3 +14,34 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.preview-image-wrapper {
+  text-align: center;
+  margin: 20px 0;
+
+  .preview-image {
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+
+    background-repeat: no-repeat;
+    // background-size: cover;
+    background-position: center;
+  }
+
+  .preview-image-placeholder {
+    display: inline-block;
+
+    background-color: #eee;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+
+    font-size: 11px;
+
+    ion-icon {
+      font-size: 44px;
+      margin-bottom: -10px;
+      margin-top: 10px;
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, Nav, NavController } from 'ionic-angular';
+import { User } from '../../providers';
 
 interface PageItem {
   title: string
@@ -20,7 +21,7 @@ export class MenuPage {
 
   pages: PageList;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public user: User) {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Sign in', component: 'LoginPage' },

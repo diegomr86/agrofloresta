@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, MenuController, NavController, Platform } from 'ionic-angular';
 
 import { TranslateService } from '@ngx-translate/core';
+import { Settings, User, Api } from '../../providers';
+
 
 export interface Slide {
   title: string;
@@ -19,7 +21,7 @@ export class TutorialPage {
   showSkip = true;
   dir: string = 'ltr';
 
-  constructor(public navCtrl: NavController, public menu: MenuController, translate: TranslateService, public platform: Platform) {
+  constructor(public navCtrl: NavController, public menu: MenuController, translate: TranslateService, public platform: Platform, public user: User) {
     this.dir = platform.dir();
     translate.get(["TUTORIAL_SLIDE1_TITLE",
       "TUTORIAL_SLIDE1_DESCRIPTION",
@@ -51,6 +53,7 @@ export class TutorialPage {
   }
 
   startApp() {
+    this.user.setSkipTour(true)
     this.navCtrl.setRoot('WelcomePage', {}, {
       animate: true,
       direction: 'forward'

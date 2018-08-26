@@ -1,12 +1,12 @@
 page-welcome {
   .splash-bg {
     position: relative;
-    background: url('../assets/img/splashbg.png') no-repeat transparent;
+    background: url('https://i1.wp.com/permaculturaceara.org.br/wp/conteudo/uploads/2015/06/8.jpg?resize=680%2C330') no-repeat transparent;
     background-size: cover;
-    height: 45%;
+    height: 42%;
     z-index: 1;
     background-repeat: repeat-x;
-    animation: animatedBackground 40s linear infinite;
+    // animation: animatedBackground 10s linear infinite;
   }
 
   @keyframes animatedBackground {
@@ -22,16 +22,24 @@ page-welcome {
   }
   .splash-logo {
     margin: auto;
-    background: url('../assets/img/appicon.png') repeat transparent;
+    background: url('../assets/img/logo.png') repeat #fff;
     background-size: 100%;
     width: 128px;
     height: 128px;
+    border-radius: 10%;
   }
   .splash-intro {
     font-size: 18px;
     font-weight: bold;
     max-width: 80%;
     margin: auto;
+    p {
+      margin: 0;
+      color: #333;
+    }
+    small {
+      color: #555
+    }
   }
   button.login {
     margin-top: 25px;
