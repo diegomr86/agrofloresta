@@ -20,6 +20,10 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <platform name="android">
+        <config-file parent="/resources" target="./res/values/strings.xml">
+            <string name="fb_app_id">1053184128187969</string>
+            <string name="fb_app_name">Agrofloresta</string>
+        </config-file>
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -85,5 +89,10 @@
         <variable name="APP_ID" value="1053184128187969" />
         <variable name="APP_NAME" value="Agrofloresta" />
     </plugin>
-    <engine name="browser" spec="~5.0.4" />
+    <engine name="browser" spec="5.0.4" />
+    <engine name="android" spec="7.0.0" />
+    <plugin name="cordova-plugin-googleplus" spec="^5.3.0">
+        <variable name="REVERSED_CLIENT_ID" value="456071540069-r73mloai3uscbdu8d5pu37j4kfu3ipfe.apps.googleusercontent.com" />
+        <variable name="WEB_APPLICATION_CLIENT_ID" value="456071540069-opt3ll12ojd3f8bk12gbd1eg2j29puq8.apps.googleusercontent.com" />
+    </plugin>
 </widget>

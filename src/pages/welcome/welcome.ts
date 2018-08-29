@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
 import { User } from '../../providers';
 import { FirstRunPage, MainPage } from '../../pages';
 
@@ -17,7 +18,7 @@ import { FirstRunPage, MainPage } from '../../pages';
 })
 export class WelcomePage {
 
-  constructor(public navCtrl: NavController, private fb: Facebook, public user: User) {
+  constructor(public navCtrl: NavController, private fb: Facebook, private googlePlus: GooglePlus, public user: User) {
   }
 
   facebookLogin() {
@@ -41,6 +42,28 @@ export class WelcomePage {
             })
          })
       }).catch(e => console.log('Error logging into Facebook', e));
+
+  }
+
+  googleLogin() {
+
+    this.googlePlus.login({})
+    .then(user => {
+      console.log(user)
+      this.user.signup({ type: 'user', _id: user.email, name: user.displayName, picture: user.imageUrl, google_id: user.userId }).then((resp) => {
+        this.navCtrl.setRoot(MainPage);
+      }).catch((e) => {
+        if (e.name == 'conflict') {
+          this.user.login(user.email).then((resp) => {
+            console.log(resp);
+            if (resp) {
+              this.navCtrl.setRoot(MainPage);
+            }
+          });
+        }
+      })
+
+    }).catch(err => console.error(err));
 
   }
 
