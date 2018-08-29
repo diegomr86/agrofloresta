@@ -18,6 +18,22 @@
 
 <ion-content>
   <ion-searchbar (ionInput)="search($event)" placeholder="Procurar"></ion-searchbar>
+  <ion-grid>
+    <ion-row> 
+      <ion-col>
+        <ion-select [(ngModel)]="filters.cycle" (ionChange)="search()" interface="popover" >
+          <ion-option value="">Todos os ciclos</ion-option>
+          <ion-option *ngFor="let cycle of Object.keys(items.cycles)" [value]="cycle">{{items.cycles[cycle]}}</ion-option>
+        </ion-select>
+      </ion-col>
+      <ion-col>
+        <ion-select [(ngModel)]="filters.stratum" (ionChange)="search()" interface="popover">
+          <ion-option value="">Todos os estratos</ion-option>
+          <ion-option *ngFor="let stratum of Object.keys(items.stratums)" [value]="stratum">{{items.stratums[stratum]}}</ion-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-list>
     <ion-item-sliding *ngFor="let item of items.itemsList">
       <button ion-item (click)="open(item)">

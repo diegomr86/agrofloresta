@@ -11,18 +11,29 @@ import { Items, Api } from '../../providers';
 })
 export class ListMasterPage {
   itemsList: Item[];
+  Object = Object;
+  filters;
 
   constructor(public navCtrl: NavController, public items: Items, public api: Api, public modalCtrl: ModalController) {
-    this.items.query('plant', ''); 
+    this.items.query('plant', '');     
+    this.filters = {
+      cycle: '',
+      stratum: '',
+    }
+
   }
 
-  search(ev) {
-    let val = ev.target.value;
-    if (!val || !val.trim()) {
-      this.items.query('plant', '');
-      return;
+  search(ev?) {
+    if (ev) {
+      let val = ev.target.value;
+      if (!val || !val.trim()) {
+        this.items.query('plant', '', this.filters);
+        return;
+      }
+ 
     }
-    this.items.query('plant', val);
+ 
+    this.items.query('plant', val, this.filters);
   }
 
   /**

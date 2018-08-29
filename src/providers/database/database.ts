@@ -29,10 +29,22 @@ export class Database {
 
   }
 
-  query(type: string, name?: string) {
+  query(type: string, name?: string, filters?) {
     console.log("query: ", type, name)
+    let selector = { type: {$eq: type}, name: {$regex: RegExp(name, "i")}}
+    console.log("filters", filters);
+    console.log("selector1", selector);
+    if (filters) {
+      Object.keys(filters).forEach((key) => {
+        console.log(key, filters[key]);
+        if (filters[key]) {
+          selector[key] = { $eq: filters[key] }
+        }
+      })
+    }
+    console.log("selector", selector)
     this.db.find({
-      selector: {type: {$eq: type}, name: {$regex: RegExp(name, "i")}}
+      selector: selector
     }).then((result) => {
       console.log("lista: ", result.docs)
       this.itemsList = result.docs
