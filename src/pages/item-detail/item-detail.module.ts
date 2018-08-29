@@ -4,6 +4,7 @@ import { IonicPageModule } from 'ionic-angular';
 
 import { ItemDetailPage } from './item-detail';
 import { Utils } from '../../utils/utils';
+import { ComponentsModule } from '../../components/components.module';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { Utils } from '../../utils/utils';
   ],
   imports: [
     IonicPageModule.forChild(ItemDetailPage),
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
+    ComponentsModule
   ],
   exports: [
     ItemDetailPage

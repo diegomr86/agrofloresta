@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
 import { IonicPage, NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
-import { Items, Api } from '../../providers';
+import { Items, User, Api } from '../../providers';
 import { Utils } from '../../utils/utils';
 import slugify from 'slugify';
 
@@ -32,12 +32,14 @@ export class ItemCreatePage {
     public formBuilder: FormBuilder, 
     public camera: Camera, 
     public items: Items, 
+    public user: User, 
     public api: Api, 
     public utils: Utils, 
     params: NavParams) {
       
     this.form = formBuilder.group({
       type: ['plant', Validators.required],
+      user_id: [user.currentUser._id, Validators.required],
       _id: [(params.get('id') || ''), Validators.required],
       _rev: [''],
       picture: ['', Validators.required],

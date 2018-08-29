@@ -13,16 +13,16 @@ export class ListMasterPage {
   itemsList: Item[];
 
   constructor(public navCtrl: NavController, public items: Items, public api: Api, public modalCtrl: ModalController) {
-    this.items.query(''); 
+    this.items.query('plant', ''); 
   }
 
   search(ev) {
     let val = ev.target.value;
     if (!val || !val.trim()) {
-      this.items.query('');
+      this.items.query('plant', '');
       return;
     }
-    this.items.query(val);
+    this.items.query('plant', val);
   }
 
   /**

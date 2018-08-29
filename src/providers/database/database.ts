@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import PouchDB from 'pouchdb';
 import PouchFind from 'pouchdb-find';
-import RelationalPouch from 'relational-pouch';
 import { Item } from '../../models/item';
-PouchDB.plugin(RelationalPouch);
 PouchDB.plugin(PouchFind);
 
 @Injectable()
@@ -18,10 +16,7 @@ export class Database {
   constructor() { 
     this.db = new PouchDB('agrofloresta');
     // this.db.destroy()
-    this.db.setSchema([
-      { singular: 'user', plural: 'users', relations: { plants: { hasMany: 'plant'}}},
-      { singular: 'plant', plural: 'plants', relations: { user: { belongsTo: 'user'}}}
-    ])
+
     this.db.createIndex({
       index: {
         fields: ['type','name']
@@ -35,9 +30,11 @@ export class Database {
   }
 
   query(type: string, name?: string) {
+    console.log("query: ", type, name)
     this.db.find({
       selector: {type: {$eq: type}, name: {$regex: RegExp(name, "i")}}
     }).then((result) => {
+      console.log("lista: ", result.docs)
       this.itemsList = result.docs
     });
   } 
@@ -54,6 +51,7 @@ export class Database {
         item._rev = result.rev
         this.itemsList.push(item);
       } else {
+        item._rev = result.rev
         this.itemsList = this.itemsList.map((i) => (i._id == item._id ? item : i));
       }
       this.currentItem = item;
