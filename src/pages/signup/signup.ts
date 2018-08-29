@@ -39,7 +39,7 @@ export class SignupPage {
       type: ['user', Validators.required],
       _id: ['diegomr86@gmail.com', Validators.required],
       name: ['', Validators.required],
-      picture: ['', Validators.required]
+      picture: ['']
     });
 
     // Watch the form for changes, and

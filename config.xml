@@ -95,4 +95,7 @@
         <variable name="REVERSED_CLIENT_ID" value="456071540069-r73mloai3uscbdu8d5pu37j4kfu3ipfe.apps.googleusercontent.com" />
         <variable name="WEB_APPLICATION_CLIENT_ID" value="456071540069-opt3ll12ojd3f8bk12gbd1eg2j29puq8.apps.googleusercontent.com" />
     </plugin>
+    <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
+        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="Para melhorar sua interação" />
+    </plugin>
 </widget>

@@ -6,6 +6,8 @@ import { Config, Nav, Platform, MenuController } from 'ionic-angular';
 
 import { FirstRunPage, MainPage } from '../pages';
 import { Settings, User, Api } from '../providers';
+import { Storage } from '@ionic/storage';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @Component({
   template: `<ion-menu [content]="content">
@@ -54,13 +56,21 @@ export class MyApp {
     { title: 'Menu', component: 'MenuPage' },
     { title: 'Settings', component: 'SettingsPage' },
   ]
-  constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, private user: User, public api: Api, public menuCtrl: MenuController) {
+  constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, private user: User, public api: Api, public menuCtrl: MenuController, public storage: Storage, private geolocation: Geolocation) {
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      this.geolocation.getCurrentPosition().then((position) => {
+        console.log('locationn', position);
+        this.storage.set('currentPosition', position)
+      }).catch((error) => {
+        console.log('Error getting location', error);
+      });
+
       
     });
     
@@ -80,6 +90,8 @@ export class MyApp {
         this.rootPage = 'TutorialPage'
       }
     });
+
+    console.log('currentUser: ', this.user.currentUser);
 
 
   }

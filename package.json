@@ -23,6 +23,7 @@
     "@ionic-native/camera": "4.3.3",
     "@ionic-native/core": "~4.9.2",
     "@ionic-native/facebook": "^4.12.0",
+    "@ionic-native/geolocation": "^4.12.0",
     "@ionic-native/google-plus": "^4.12.0",
     "@ionic-native/splash-screen": "~4.9.2",
     "@ionic-native/status-bar": "~4.9.2",
@@ -33,6 +34,7 @@
     "cordova-browser": "5.0.4",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-facebook4": "^2.3.0",
+    "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-googleplus": "^5.3.0",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^1.1.19",
@@ -68,6 +70,9 @@
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "456071540069-r73mloai3uscbdu8d5pu37j4kfu3ipfe.apps.googleusercontent.com",
         "WEB_APPLICATION_CLIENT_ID": "456071540069-opt3ll12ojd3f8bk12gbd1eg2j29puq8.apps.googleusercontent.com"
+      },
+      "cordova-plugin-geolocation": {
+        "GEOLOCATION_USAGE_DESCRIPTION": "Para melhorar sua interação"
       }
     },
     "platforms": [

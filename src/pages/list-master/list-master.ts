@@ -24,16 +24,11 @@ export class ListMasterPage {
   }
 
   search(ev?) {
+    let val = '';
     if (ev) {
-      let val = ev.target.value;
-      if (!val || !val.trim()) {
-        this.items.query('plant', '', this.filters);
-        return;
-      }
- 
+      val = ev.target.value;
     }
- 
-    this.items.query('plant', val, this.filters);
+    this.items.query('plant', '', this.filters);     
   }
 
   /**
