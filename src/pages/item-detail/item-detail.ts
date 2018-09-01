@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
-import { Item } from '../../models/item';
 import { Items, Api } from '../../providers';
 import { Utils } from '../../utils/utils';
 
@@ -18,7 +17,7 @@ export class ItemDetailPage {
   }
 
   edit() {
-    let addModal = this.modalCtrl.create('ItemCreatePage', { id: this.items.currentItem._id }).present();
+    this.modalCtrl.create('ItemCreatePage', { id: this.items.currentItem._id }).present();
   } 
 
   delete() {

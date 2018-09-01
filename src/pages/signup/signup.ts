@@ -21,7 +21,7 @@ export class SignupPage {
   isReadyToSave: boolean;
 
   // Our translated text strings
-  private signupErrorString: string;
+  // private signupErrorString: string;
 
   constructor(public navCtrl: NavController,
     public api: Api,

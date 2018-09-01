@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { TutorialPage } from './tutorial';
 import { TranslateModule } from '@ngx-translate/core';
-import { Settings, User, Api } from '../../providers';
+import { User } from '../../providers';
 
 @NgModule({
   declarations: [

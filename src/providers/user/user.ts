@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Database } from '../database/database';
 
-import PouchDB from 'pouchdb';
-
 @Injectable()
 export class User extends Database {
 

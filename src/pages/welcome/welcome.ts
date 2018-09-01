@@ -3,7 +3,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { User } from '../../providers';
-import { FirstRunPage, MainPage } from '../../pages';
+import { MainPage } from '../../pages';
 
 /**
  * The Welcome Page is a splash page that quickly describes the app,
@@ -28,7 +28,7 @@ export class WelcomePage {
         console.log('Logged into Facebook!', res)
         this.fb.api("me?fields=id,name,email,first_name,picture.width(320).height(320).as(picture_large)", []).then((user) => {
           console.log('user', user)
-            this.user.signup({ type: 'user', _id: user.email, name: user.name, picture: user.picture_large.data.url, facebook_id: user.id, position: this.geoPosition }).then((resp) => {
+            this.user.signup({ type: 'user', _id: user.email, name: user.name, picture: user.picture_large.data.url, facebook_id: user.id }).then((resp) => {
               this.navCtrl.setRoot(MainPage);
             }).catch((e) => {
               if (e.name == 'conflict') {

@@ -17,6 +17,7 @@
 .preview-image-wrapper {
   text-align: center;
   margin: 20px 0;
+  cursor: pointer;
 
   .preview-image {
     width: 100px;
@@ -36,7 +37,7 @@
     height: 100px;
     border-radius: 50%;
 
-    font-size: 11px;
+    font-size: 12px;
 
     ion-icon {
       font-size: 44px;
@@ -50,3 +51,23 @@
 [icon-left] ion-icon, [icon-start] ion-icon {
   margin-bottom: 5px;
 }
+
+// .green {
+//   color: #27ae60;
+// }
+
+// .toolbar-background {
+//   background: #27ae60;
+// }
+
+// .toolbar-title-md {
+//   color: #ffffff;
+// }
+
+// .bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default {
+//   color: #ffffff;  
+// }
+
+// .bar-button-default-md:hover:not(.disable-hover), .bar-button-clear-md-default:hover:not(.disable-hover), .bar-button-md-default:hover:not(.disable-hover) {
+//   color: #f4d03f;  
+// }

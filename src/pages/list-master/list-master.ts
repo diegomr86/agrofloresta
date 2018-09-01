@@ -28,7 +28,7 @@ export class ListMasterPage {
     if (ev) {
       val = ev.target.value;
     }
-    this.items.query('plant', '', this.filters);     
+    this.items.query('plant', val, this.filters);     
   }
 
   /**
