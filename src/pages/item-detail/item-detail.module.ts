@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { IonicPageModule } from 'ionic-angular';
+import { IonicImageLoader } from 'ionic-image-loader';
 
 import { ItemDetailPage } from './item-detail';
 import { Utils } from '../../utils/utils';
 import { ComponentsModule } from '../../components/components.module';
+
 
 
 @NgModule({
@@ -14,7 +16,8 @@ import { ComponentsModule } from '../../components/components.module';
   imports: [
     IonicPageModule.forChild(ItemDetailPage),
     TranslateModule.forChild(),
-    ComponentsModule
+    ComponentsModule,
+    IonicImageLoader
   ],
   exports: [
     ItemDetailPage

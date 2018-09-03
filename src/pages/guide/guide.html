@@ -1,0 +1,39 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Guia Básico</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only *ngIf="this.api.loading">
+	      <ion-spinner></ion-spinner>
+	    </button>
+      <button ion-button icon-only (click)="edit()" *ngIf="!form" strong>
+        <ion-icon name="create"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="save()" *ngIf="form" strong>
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<div *ngIf="!form && guide">
+		{{cachedImages(guide.content) | safe: 'html'}}
+		<div [innerHTML]="cachedImages(guide.content) | safe: 'html'">
+		</div>
+	</div>
+	<div *ngIf="form">
+
+		<form [formGroup]="form">
+		  <quill-editor #editor placeholder="Insira aqui o conteúdo do guia..." [formControl]="form.controls['content']" [modules]="modules" (onEditorCreated)="getEditorInstance($event)"></quill-editor>
+		</form>
+		<h2>Previsualização: </h2>
+		{{cachedImages(form.controls.content.value)}}
+		<div [innerHTML]="cachedImages(form.controls.content.value) | safe: 'html'">
+		</div>
+	</div>
+</ion-content>

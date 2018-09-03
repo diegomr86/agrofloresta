@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Database } from '../database/database';
+import { Item } from '../../models/item';
 
 @Injectable()
 export class Items extends Database {
@@ -32,4 +33,16 @@ export class Items extends Database {
     this.additional_fields = this.additional_fields.filter((el, i, a) => i === a.indexOf(el))
   } 
 
+  save(item: Item) {
+    return this.db.put(item).then((result) => {
+      if (!item._rev){
+        item._rev = result.rev
+        this.itemsList.push(item);
+      } else {
+        item._rev = result.rev
+        this.itemsList = this.itemsList.map((i) => (i._id == item._id ? item : i));
+      }
+      this.currentItem = item;
+    }); 
+  }
 }

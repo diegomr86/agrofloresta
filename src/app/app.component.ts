@@ -64,17 +64,25 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.geolocation.getCurrentPosition().then((position) => {
-        console.log('locationn', position);
-        this.storage.set('currentPosition', position)
-      }).catch((error) => {
-        console.log('Error getting location', error);
-      });
 
-      
     });
     
     this.initTranslate();
+
+    this.storage.get('currentPosition').then((p) => {
+      console.log('p', p);
+      if (!p) {
+        console.log('pp', p);
+        this.geolocation.getCurrentPosition().then((position) => {
+          console.log('locationn', position);
+          this.storage.set('currentPosition', position).catch((e) => {
+            console.log('errr', e);
+          })
+        }).catch((error) => {
+          console.log('Error getting location', error);
+        });          
+      }
+    })
 
     this.user.skipTour().then((skipTour) => {
       if (skipTour) {

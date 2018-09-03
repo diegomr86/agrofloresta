@@ -59,14 +59,8 @@ export class Database {
 
   save(item: Item) {
     return this.db.put(item).then((result) => {
-      if (!item._rev){
-        item._rev = result.rev
-        this.itemsList.push(item);
-      } else {
-        item._rev = result.rev
-        this.itemsList = this.itemsList.map((i) => (i._id == item._id ? item : i));
-      }
-      this.currentItem = item;
+      item._rev = result.rev
+      return item
     }); 
   }
 

@@ -12,7 +12,8 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <img class="item-profile" #picture [src]="this.api.url + 'static/medium/'+ items.currentItem.picture" />
+  <!-- <img class="item-profile" #picture [src]="this.api.url + 'static/medium/'+ items.currentItem.picture" /> -->
+  <img-loader class="item-profile" #picture spinner="true" [src]="this.api.url + 'static/medium/'+ items.currentItem.picture" useImg></img-loader>
   <div class="item-detail" padding>
     <p class="description">{{items.currentItem.description}}</p>
     <div *ngIf="items.currentItem.cycle">
