@@ -1,2 +1,13 @@
 page-guide {
+	.ql-editor.preview {
+		overflow-y: initial;
+		padding: 0;
+		h1, h2, h3, h4, h5, h6 {
+			font-size: initial;
+		} 	
+	}
+	.ql-container {
+		font-size: 14px;
+		font-family: "Roboto","Helvetica Neue",sans-serif;
+	}
 }

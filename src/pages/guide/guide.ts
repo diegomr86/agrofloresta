@@ -31,13 +31,17 @@ export class GuidePage {
   save() {
     this.utils.showConfirm(() => {
       this.database.save(this.form.value).then(res => {
-      	this.guide = res
-      	console.log('res', res);
+        this.guide = res
+        console.log('res', res);
       }).catch((e) => {
         this.utils.showToast(e.message, 'error');
       })
       this.form = undefined;
     })
+  }
+  
+  cancel() {  
+    this.form = undefined;
   }
 
   edit() {

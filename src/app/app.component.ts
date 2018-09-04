@@ -10,35 +10,37 @@ import { Storage } from '@ionic/storage';
 import { Geolocation } from '@ionic-native/geolocation';
 
 @Component({
-  template: `<ion-menu [content]="content">
-    <ion-header>
-      <ion-toolbar>
-        <ion-title *ngIf="this.user.currentUser">
-          Agrofloresta!
-        </ion-title>
-      </ion-toolbar>
-    </ion-header>
+  template: `<ion-split-pane>
+    <ion-menu [content]="content">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title *ngIf="this.user.currentUser">
+            Agrofloresta!
+          </ion-title>
+        </ion-toolbar>
+      </ion-header>
 
-    <ion-content>
-      <ion-list>
-        <ion-item *ngIf="this.user.currentUser">
-          <ion-avatar item-start>
-            <img [src]="(this.user.currentUser.picture && this.user.currentUser.picture.startsWith('http')) ? this.user.currentUser.picture : this.api.url + 'static/thumbs/'+ this.user.currentUser.picture">
-          </ion-avatar>
-          <h2 (click)="this.logout()">{{this.user.currentUser.name}}</h2>
-          <p>{{this.user.currentUser._id}}</p>
-        </ion-item>
-        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-          {{p.title}}
-        </button>
-        <button menuClose ion-item (click)="this.logout()">
-          Sair
-        </button>
-      </ion-list>
-    </ion-content>
+      <ion-content>
+        <ion-list>
+          <ion-item *ngIf="this.user.currentUser">
+            <ion-avatar item-start>
+              <img [src]="(this.user.currentUser.picture && this.user.currentUser.picture.startsWith('http')) ? this.user.currentUser.picture : this.api.url + 'static/thumbs/'+ this.user.currentUser.picture">
+            </ion-avatar>
+            <h2 (click)="this.logout()">{{this.user.currentUser.name}}</h2>
+            <p>{{this.user.currentUser._id}}</p>
+          </ion-item>
+          <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+            {{p.title}}
+          </button>
+          <button menuClose ion-item (click)="this.logout()">
+            Sair
+          </button>
+        </ion-list>
+      </ion-content>
 
-  </ion-menu>
-  <ion-nav #content [root]="rootPage"></ion-nav>`
+    </ion-menu>
+    <ion-nav #content main [root]="rootPage"></ion-nav>
+  </ion-split-pane>`
 })
 export class MyApp {
   rootPage;

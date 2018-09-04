@@ -8,12 +8,10 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'safe-content',
-  template: `
-    <div *dynamicComponent="template; context: {text: text};"></div>
-  `
+  template: `<div *dynamicComponent="template;"></div>`
 })
 export class SafeContentComponent {
-	@Input() template;
+  @Input() template;
 
   constructor() {
     console.log('Hello SafeContentComponent Component');

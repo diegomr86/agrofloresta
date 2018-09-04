@@ -1,6 +1,17 @@
 <ion-header>
 
   <ion-navbar>
+    <ion-buttons left *ngIf="form">
+      <button ion-button icon-only (click)="cancel()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle *ngIf="!form">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>Guia Básico</ion-title>
     <ion-buttons end>
       <button ion-button icon-only *ngIf="this.api.loading">
@@ -21,20 +32,14 @@
 
 
 <ion-content padding>
-	<div *ngIf="!form && guide">
-		<safe-content [template]="cachedImages(guide.content)"></safe-content>
-		<!-- {{cachedImages(guide.content) | safe: 'html'}} -->
-		<!-- <div [innerHTML]="cachedImages(guide.content) | safe: 'html'">
-		</div> -->
-	</div>
+	<div *ngIf="!form && guide" class="ql-editor preview"><safe-content [template]="cachedImages(guide.content)"></safe-content></div>
 	<div *ngIf="form">
 
 		<form [formGroup]="form">
 		  <quill-editor #editor placeholder="Insira aqui o conteúdo do guia..." [formControl]="form.controls['content']" [modules]="modules" (onEditorCreated)="getEditorInstance($event)"></quill-editor>
 		</form>
 		<h2>Previsualização: </h2>
-		{{cachedImages(form.controls.content.value)}}
-		<div [innerHTML]="cachedImages(form.controls.content.value) | safe: 'html'">
+		<div [innerHTML]="form.controls.content.value | safe: 'html'" class="ql-editor preview">
 		</div>
 	</div>
 </ion-content>

@@ -12,6 +12,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Geolocation } from '@ionic-native/geolocation';
 import { IonicImageLoader } from 'ionic-image-loader';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 import { Settings, User, Api, Items } from '../providers';
 import { MyApp } from './app.component';
@@ -71,7 +72,8 @@ export function provideSettings(storage: Storage) {
     Geolocation,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    { provide: LocationStrategy, useClass: PathLocationStrategy }
   ]
 })
 export class AppModule { }
