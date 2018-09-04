@@ -19,9 +19,7 @@ export class UserComponent implements OnInit {
   constructor(public userDb: User, public api: Api) { }
 
   ngOnInit() { 
-  	console.log(this.item.user_id);
   	this.userDb.get(this.item.user_id).then((user) => {
-  		console.log(user);
   		this.user = user;
   	})
   	

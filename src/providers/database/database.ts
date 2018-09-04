@@ -8,6 +8,7 @@ PouchDB.plugin(PouchFind);
 export class Database {
   
   public db; 
+  public remoteDb; 
   public currentItem: Item;
   public itemsList: Item[];
   public cycles;
@@ -15,7 +16,17 @@ export class Database {
 
   constructor() { 
     this.db = new PouchDB('agrofloresta');
+    this.remoteDb = new PouchDB('http://www.diegomr86.ga:13155/agrofloresta')
     // this.db.destroy()
+
+    this.db.sync(this.remoteDb, { live: true }).on('complete', function (change) {
+      console.log('DB sync change', change);
+    }).on('error', function (err) {
+      console.log('DB sync error', err);
+      console.log(err);
+    }).on('denied', function(err){
+        console.log(err);
+      });
 
     this.db.createIndex({
       index: {

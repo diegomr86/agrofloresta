@@ -10,10 +10,16 @@ import { Storage } from '@ionic/storage';
 import { Geolocation } from '@ionic-native/geolocation';
 
 @Component({
-  template: `<ion-split-pane>
+  template: `<ion-split-pane [enabled]="this.user.currentUser">
     <ion-menu [content]="content">
       <ion-header>
         <ion-toolbar>
+          <ion-buttons left>
+            <button ion-button icon-only menuToggle *ngIf="!form">
+              <img src="assets/img/logo_white.png" style="width: 40px;">
+            </button>
+          </ion-buttons>
+
           <ion-title *ngIf="this.user.currentUser">
             Agrofloresta!
           </ion-title>
@@ -48,15 +54,15 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   pages: any[] = [
-    { title: 'Plantas', component: 'ListMasterPage' },
     { title: 'Guia básico', component: 'GuidePage' },
-    { title: 'Tutorial', component: 'TutorialPage' },
-    { title: 'Welcome', component: 'WelcomePage' },
-    { title: 'Tabs', component: 'TabsPage' },
-    { title: 'Cards', component: 'CardsPage' },
-    { title: 'Content', component: 'ContentPage' },
-    { title: 'Menu', component: 'MenuPage' },
-    { title: 'Settings', component: 'SettingsPage' },
+    { title: 'Tabela de Plantas', component: 'ListMasterPage' },
+    { title: 'Como ajudar', component: 'HowToHelpPage' },
+    { title: 'Sobre', component: 'AboutPage' },
+    // { title: 'Tabs', component: 'TabsPage' },
+    // { title: 'Cards', component: 'CardsPage' },
+    // { title: 'Content', component: 'ContentPage' },
+    // { title: 'Menu', component: 'MenuPage' },
+    // { title: 'Settings', component: 'SettingsPage' },
   ]
   constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, private user: User, public api: Api, public menuCtrl: MenuController, public storage: Storage, private geolocation: Geolocation) {
 

@@ -67,7 +67,7 @@ export class ItemCreatePage {
 
   checkConflict() {
     this.conflict = undefined
-    this.form.patchValue({ '_id': slugify(this.form.controls.name.value)} )
+    this.form.patchValue({ '_id': slugify(this.form.controls.name.value.toLowerCase())} )
 
     this.items.get(this.form.controls._id.value).then((item) => {
       if (item) {

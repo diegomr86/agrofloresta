@@ -21,7 +21,6 @@ export class GuidePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public user: User, public api: Api, public database: Database, public utils: Utils) {
     this.database.get('basic_guide').then(res => {
     	this.guide = res;
-    	console.log('basic', res);
     }).catch (error => {
     	console.log(error);
     	this.edit();
@@ -32,7 +31,6 @@ export class GuidePage {
     this.utils.showConfirm(() => {
       this.database.save(this.form.value).then(res => {
         this.guide = res
-        console.log('res', res);
       }).catch((e) => {
         this.utils.showToast(e.message, 'error');
       })
@@ -113,7 +111,6 @@ export class GuidePage {
   }
 
   cachedImages(content: string) {
-    console.log(content);
     content = content.replace(/<img/g,'<img-loader');
     content = content.replace(/<\/img>/g,'</img-loader>');
     content = content.replace(/(<img-loader("[^"]*"|[^\/">])*)>/gi, "$1 useImg></img-loader>")

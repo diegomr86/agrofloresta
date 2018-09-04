@@ -1,15 +1,13 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-buttons left *ngIf="form">
-      <button ion-button icon-only (click)="cancel()">
-        <ion-icon name="arrow-back"></ion-icon>
-      </button>
-    </ion-buttons>
 
     <ion-buttons left>
       <button ion-button icon-only menuToggle *ngIf="!form">
         <ion-icon name="menu"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="cancel()" *ngIf="form">
+        <ion-icon name="arrow-back"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>Guia Básico</ion-title>
@@ -32,7 +30,10 @@
 
 
 <ion-content padding>
-	<div *ngIf="!form && guide" class="ql-editor preview"><safe-content [template]="cachedImages(guide.content)"></safe-content></div>
+  <div *ngIf="!form && guide">
+	  <div class="ql-editor preview"><safe-content [template]="cachedImages(guide.content)"></safe-content></div>
+    <user [item]="guide"></user>     
+  </div>
 	<div *ngIf="form">
 
 		<form [formGroup]="form">

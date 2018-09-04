@@ -47,6 +47,23 @@
 
 }
 
+.user {
+  img {
+    width: 20px;
+    border-radius: 50%;
+    margin-bottom: -5px;
+  }
+  p:first-child {
+    font-size: 10px;
+    color: #333333;
+  }
+  p {
+    margin: 0;
+    font-size: 12px;
+  }
+}
+
+
 [icon-left] ion-icon, [icon-start] ion-icon {
   margin-bottom: 5px;
 }
