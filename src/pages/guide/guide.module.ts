@@ -5,6 +5,7 @@ import { QuillModule } from 'ngx-quill'
 import { Database } from '../../providers';
 import { Utils } from '../../utils/utils';
 import { PipesModule } from '../../pipes/pipes.module';
+import { ComponentsModule } from '../../components/components.module';
 
 
 @NgModule({
@@ -14,7 +15,9 @@ import { PipesModule } from '../../pipes/pipes.module';
   imports: [
     IonicPageModule.forChild(GuidePage),
     QuillModule,
-    PipesModule
+    PipesModule,
+    ComponentsModule
+
   ], 
   providers: [
   	Database,

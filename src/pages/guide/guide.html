@@ -22,9 +22,10 @@
 
 <ion-content padding>
 	<div *ngIf="!form && guide">
-		{{cachedImages(guide.content) | safe: 'html'}}
-		<div [innerHTML]="cachedImages(guide.content) | safe: 'html'">
-		</div>
+		<safe-content [template]="cachedImages(guide.content)"></safe-content>
+		<!-- {{cachedImages(guide.content) | safe: 'html'}} -->
+		<!-- <div [innerHTML]="cachedImages(guide.content) | safe: 'html'">
+		</div> -->
 	</div>
 	<div *ngIf="form">
 

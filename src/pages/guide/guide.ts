@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import Quill from 'quill';
 import { User, Api, Database } from '../../providers';
 import { Utils } from '../../utils/utils';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @IonicPage()
 @Component({
@@ -20,7 +18,7 @@ export class GuidePage {
   guide;
   loading;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public user: User, public api: Api, public database: Database, public utils: Utils, private _sanitizer: DomSanitizer) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public user: User, public api: Api, public database: Database, public utils: Utils) {
     this.database.get('basic_guide').then(res => {
     	this.guide = res;
     	console.log('basic', res);
@@ -114,6 +112,7 @@ export class GuidePage {
     console.log(content);
     content = content.replace(/<img/g,'<img-loader');
     content = content.replace(/<\/img>/g,'</img-loader>');
+    content = content.replace(/(<img-loader("[^"]*"|[^\/">])*)>/gi, "$1 useImg></img-loader>")
     return content
   }
 }
