@@ -15,17 +15,12 @@
 // automatically applied to the <body> element in the app.
 .preview-image-wrapper {
   text-align: center;
-  margin: 20px 0;
+  margin: 0 0 20px 0;
   cursor: pointer;
 
   .preview-image {
-    width: 100px;
-    height: 100px;
+    width: 100%;
     display: inline-block;
-
-    background-repeat: no-repeat;
-    // background-size: cover;
-    background-position: center;
   }
 
   .preview-image-placeholder {
@@ -68,6 +63,13 @@
   margin-bottom: 5px;
 }
 
+.label-md[stacked] {
+    font-size: 14px;
+}
+
+form ion-item.item-md {
+  padding-left: 0;
+}
 // .green {
 //   color: #27ae60;
 // }

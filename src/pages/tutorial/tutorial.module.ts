@@ -14,9 +14,6 @@ import { User } from '../../providers';
   ],
   exports: [
     TutorialPage
-  ], 
-  providers: [
-    User  
   ]
 })
 export class TutorialPageModule { }

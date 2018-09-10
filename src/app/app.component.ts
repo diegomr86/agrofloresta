@@ -54,8 +54,9 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   pages: any[] = [
+    { title: 'Início', component: 'FeedPage' },
     { title: 'Guia básico', component: 'GuidePage' },
-    { title: 'Tabela de Plantas', component: 'ListMasterPage' },
+    { title: 'Tabela de Plantas', component: 'PlantsPage' },
     { title: 'Como ajudar', component: 'HowToHelpPage' },
     { title: 'Sobre', component: 'AboutPage' },
     // { title: 'Tabs', component: 'TabsPage' },
@@ -64,6 +65,7 @@ export class MyApp {
     // { title: 'Menu', component: 'MenuPage' },
     // { title: 'Settings', component: 'SettingsPage' },
   ]
+  
   constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, private user: User, public api: Api, public menuCtrl: MenuController, public storage: Storage, private geolocation: Geolocation) {
 
     platform.ready().then(() => {

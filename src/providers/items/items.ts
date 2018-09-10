@@ -7,6 +7,8 @@ export class Items extends Database {
   public cycles;
   public stratums;
   public additional_fields;
+  public currentItem: Item;
+  public itemsList: Item[];
 
   constructor() { 
     super();
@@ -45,4 +47,18 @@ export class Items extends Database {
       this.currentItem = item;
     }); 
   }
+
+  query(type: string, name?: string, filters?) {
+    super.query(type, name, filters).then((result) => {
+      console.log("lista: ", result.docs)
+      this.itemsList = result.docs
+    });
+  } 
+
+  remove(item: Item) {
+    return super.remove(item).then(res => {
+      this.itemsList = this.itemsList.filter(obj => obj !== item)
+    });
+  }
+
 }

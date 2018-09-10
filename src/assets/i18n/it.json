@@ -49,10 +49,10 @@
   "SIGNUP_ERROR": "Non è possibile creare l'utente. Assicurarsi di aver inserito le informazioni utente correttamente e poi riprovare.",
   "SIGNUP_BUTTON": "Registrati",
 
-  "LIST_MASTER_TITLE": "Elenco elementi",
+  "PLANTS_TITLE": "Elenco elementi",
 
-  "ITEM_CREATE_TITLE": "Nuovo elemento",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Aggiungi immagine",
+  "ITEM_FORM_TITLE": "Nuovo elemento",
+  "ITEM_FORM_CHOOSE_IMAGE": "Aggiungi immagine",
 
   "ITEM_NAME_PLACEHOLDER": "Nome",
   "ITEM_ABOUT_PLACEHOLDER": "Informazioni",

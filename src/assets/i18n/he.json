@@ -37,10 +37,10 @@
   "SIGNUP_ERROR": "לא ניתן ליצור חשבון. אנא בדוק את פרטי ההתחברות ונסה שנית.",
   "SIGNUP_BUTTON": "הירשם",
 
-  "LIST_MASTER_TITLE": "פריטים",
+  "PLANTS_TITLE": "פריטים",
 
-  "ITEM_CREATE_TITLE": "פריט חדש",
-  "ITEM_CREATE_CHOOSE_IMAGE": "הוסף תמונה",
+  "ITEM_FORM_TITLE": "פריט חדש",
+  "ITEM_FORM_CHOOSE_IMAGE": "הוסף תמונה",
 
   "CARDS_TITLE": "חברתי",
 

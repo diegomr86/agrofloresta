@@ -37,10 +37,10 @@
   "SIGNUP_ERROR": "Inscription impossible. Veuillez vérifier les informations de votre compte et réessayer.",
   "SIGNUP_BUTTON": "Inscription",
 
-  "LIST_MASTER_TITLE": "Items",
+  "PLANTS_TITLE": "Items",
 
-  "ITEM_CREATE_TITLE": "Nouvel item",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Ajouter une image",
+  "ITEM_FORM_TITLE": "Nouvel item",
+  "ITEM_FORM_CHOOSE_IMAGE": "Ajouter une image",
 
   "CARDS_TITLE": "Social",
 

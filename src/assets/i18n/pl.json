@@ -37,10 +37,10 @@
   "SIGNUP_ERROR": "Nie udało się stworzyć konta. Sprawdź raz jeszcze dane swoje konta i spróbuj ponownie.",
   "SIGNUP_BUTTON": "Zarejestruj",
 
-  "LIST_MASTER_TITLE": "Pozycje",
+  "PLANTS_TITLE": "Pozycje",
 
-  "ITEM_CREATE_TITLE": "Nowa pozycja",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Dodaj obrazek",
+  "ITEM_FORM_TITLE": "Nowa pozycja",
+  "ITEM_FORM_CHOOSE_IMAGE": "Dodaj obrazek",
 
   "CARDS_TITLE": "Społeczność",
 

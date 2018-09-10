@@ -49,10 +49,10 @@
   "SIGNUP_ERROR": "Não foi possível criar sua conta. Verifique seus dados e tente novamente.",
   "SIGNUP_BUTTON": "Cadastre-se",
 
-  "LIST_MASTER_TITLE": "Plantas",
+  "PLANTS_TITLE": "Plantas",
 
-  "ITEM_CREATE_TITLE": "Nova Espécie",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Adicionar Imagem",
+  "ITEM_FORM_TITLE": "Nova Espécie",
+  "ITEM_FORM_CHOOSE_IMAGE": "Adicionar Imagem",
 
   "ITEM_NAME_PLACEHOLDER": "Nome",
   "ITEM_ABOUT_PLACEHOLDER": "Sobre",

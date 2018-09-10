@@ -37,10 +37,10 @@
   "SIGNUP_ERROR": "Неможливо створити обліковий запис. Будь ласка перевірте інформацію Вашого облікового запису та спробуйте ще раз.",
   "SIGNUP_BUTTON": "Зареєструвати",
 
-  "LIST_MASTER_TITLE": "Список",
+  "PLANTS_TITLE": "Список",
 
-  "ITEM_CREATE_TITLE": "Новий елемент",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Додати зображення",
+  "ITEM_FORM_TITLE": "Новий елемент",
+  "ITEM_FORM_CHOOSE_IMAGE": "Додати зображення",
 
   "CARDS_TITLE": "Соціальний",
 

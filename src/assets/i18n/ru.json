@@ -37,10 +37,10 @@
   "SIGNUP_ERROR": "Невозможно создать учетную запись. Пожалуйста проверьте информацию о Вашей учетной записи и попробуйте еще раз.",
   "SIGNUP_BUTTON": "Регистрация",
 
-  "LIST_MASTER_TITLE": "Список",
+  "PLANTS_TITLE": "Список",
 
-  "ITEM_CREATE_TITLE": "Новый элемент",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Добавить изображение",
+  "ITEM_FORM_TITLE": "Новый элемент",
+  "ITEM_FORM_CHOOSE_IMAGE": "Добавить изображение",
 
   "CARDS_TITLE": "Социальный",
 

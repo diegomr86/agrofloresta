@@ -37,10 +37,10 @@
   "SIGNUP_ERROR": "Не атрымалася стварыць уліковы запіс. Калі ласка, праверце ўведзеныя ўліковыя дадзеныя і паспрабуйце зноў.",
   "SIGNUP_BUTTON": "Зарэгістравацца",
 
-  "LIST_MASTER_TITLE": "Спіс",
+  "PLANTS_TITLE": "Спіс",
 
-  "ITEM_CREATE_TITLE": "Дадаць у спіс",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Дадаць выяву",
+  "ITEM_FORM_TITLE": "Дадаць у спіс",
+  "ITEM_FORM_CHOOSE_IMAGE": "Дадаць выяву",
 
   "CARDS_TITLE": "Суполкі",
 

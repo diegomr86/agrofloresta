@@ -37,10 +37,10 @@
   "SIGNUP_ERROR": "Feil ved registrering. Bekreft kontodetaljene og prøv igjen.",
   "SIGNUP_BUTTON": "Registrer deg",
 
-  "LIST_MASTER_TITLE": "Innlegg",
+  "PLANTS_TITLE": "Innlegg",
 
-  "ITEM_CREATE_TITLE": "Nytt Innlegg",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Legg Til Bilde",
+  "ITEM_FORM_TITLE": "Nytt Innlegg",
+  "ITEM_FORM_CHOOSE_IMAGE": "Legg Til Bilde",
 
   "CARDS_TITLE": "Sosialt",
 

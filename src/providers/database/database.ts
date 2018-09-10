@@ -9,8 +9,6 @@ export class Database {
   
   public db; 
   public remoteDb; 
-  public currentItem: Item;
-  public itemsList: Item[];
   public cycles;
   public stratums;
 
@@ -19,21 +17,21 @@ export class Database {
     this.remoteDb = new PouchDB('http://www.diegomr86.ga:13155/agrofloresta')
     // this.db.destroy()
 
-    this.db.sync(this.remoteDb, { live: true }).on('complete', function (change) {
-      console.log('DB sync change', change);
-    }).on('error', function (err) {
-      console.log('DB sync error', err);
-      console.log(err);
-    }).on('denied', function(err){
-        console.log(err);
-      });
+    // this.db.sync(this.remoteDb, { live: true }).on('complete', function (change) {
+    //   console.log('DB sync change', change);
+    // }).on('error', function (err) {
+    //   console.log('DB sync error', err);
+    //   console.log(err);
+    // }).on('denied', function(err){
+    //   console.log(err);
+    // });
 
     this.db.createIndex({
       index: {
         fields: ['type','name']
       }
     }).then(function (result) {
-      console.log("created index", result);
+      // console.log("created index", result);
     }).catch(function (err) {
       console.log(err);
     });
@@ -41,10 +39,11 @@ export class Database {
   }
 
   query(type: string, name?: string, filters?) {
-    console.log("query: ", type, name)
-    let selector = { type: {$eq: type}, name: {$regex: RegExp(name, "i")}}
-    console.log("filters", filters);
-    console.log("selector1", selector);
+    console.log("query: ", type, name, filters)
+    let selector = { type: {$eq: type}}
+    if (name) {
+      selector['name'] = {$regex: RegExp(name, "i")}
+    }
     if (filters) {
       Object.keys(filters).forEach((key) => {
         console.log(key, filters[key]);
@@ -54,11 +53,8 @@ export class Database {
       })
     }
     console.log("selector", selector)
-    this.db.find({
+    return this.db.find({
       selector: selector
-    }).then((result) => {
-      console.log("lista: ", result.docs)
-      this.itemsList = result.docs
     });
   } 
 
@@ -75,9 +71,8 @@ export class Database {
     }); 
   }
 
-  async remove(item: Item) {
-    await this.db.remove(item)
-    this.itemsList = this.itemsList.filter(obj => obj !== item)
+  remove(item: Item) {
+    return this.db.remove(item)
   }
 
 }

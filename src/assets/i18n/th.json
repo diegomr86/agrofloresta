@@ -36,10 +36,10 @@
   "SIGNUP_TITLE": "สมัครใช้งาน",
   "SIGNUP_ERROR": "ไม่สามารถสร้างผู้ใช้ใหม่ กรุณาตรวจสอบข้อมูลที่กรอกแล้วลองใหม่",
   "SIGNUP_BUTTON": "สมัคร",
-  "LIST_MASTER_TITLE": "รายการ",
+  "PLANTS_TITLE": "รายการ",
 
-  "ITEM_CREATE_TITLE": "รายการใหม่",
-  "ITEM_CREATE_CHOOSE_IMAGE": "เพิ่มรูปภาพ",
+  "ITEM_FORM_TITLE": "รายการใหม่",
+  "ITEM_FORM_CHOOSE_IMAGE": "เพิ่มรูปภาพ",
 
   "CARDS_TITLE": "โซเชียลเน็ตเวิร์ค",
 

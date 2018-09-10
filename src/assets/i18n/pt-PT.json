@@ -37,10 +37,10 @@
   "SIGNUP_ERROR": "Não foi possível criar a sua conta. Por favor confirme os seus dados e tente novamente.",
   "SIGNUP_BUTTON": "Criar conta",
 
-  "LIST_MASTER_TITLE": "Items",
+  "PLANTS_TITLE": "Items",
 
-  "ITEM_CREATE_TITLE": "Novo Item",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Adicionar Imagem",
+  "ITEM_FORM_TITLE": "Novo Item",
+  "ITEM_FORM_CHOOSE_IMAGE": "Adicionar Imagem",
 
   "CARDS_TITLE": "Social",
 

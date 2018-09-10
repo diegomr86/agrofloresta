@@ -1,0 +1,31 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Adicionar Conteúdo</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="save()" [disabled]="!isReadyToSave" strong>
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding>
+	<form *ngIf="form" [formGroup]="form" (ngSubmit)="save()">
+		<picture-upload [form]="form"></picture-upload>
+    <ion-item>
+      <ion-label stacked>Título</ion-label>
+      <ion-input type="text" formControlName="title" (keyup)="generateId()"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Descrição</ion-label>
+      <ion-textarea formControlName="content"></ion-textarea>
+    </ion-item>
+    <ion-label stacked>Palavras chave</ion-label>
+    <tag-input formControlName="tags" [placeholder]="'+ Palavra chave'" [secondaryPlaceholder]="''" [separatorKeyCodes]="[32, 9]">
+      <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="autocompleteTags" ></tag-input-dropdown>
+    </tag-input>
+
+	</form>
+</ion-content>

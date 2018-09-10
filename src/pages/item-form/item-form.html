@@ -1,12 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-buttons left>
-      <button ion-button icon-only (click)="cancel()">
-        <ion-icon name="arrow-back"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-title>{{ 'ITEM_CREATE_TITLE' | translate }}</ion-title>
+    <ion-title>{{ 'ITEM_FORM_TITLE' | translate }}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="save()" [disabled]="!isReadyToSave" strong>
         <ion-icon name="checkmark"></ion-icon>
@@ -15,20 +10,9 @@
   </ion-navbar>
 
 </ion-header>
-<ion-content>
+<ion-content padding>
   <form *ngIf="form" [formGroup]="form" (ngSubmit)="save()">
-    <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event, this.form)" />
-    <div class="preview-image-wrapper" (click)="getPicture()">
-      <div class="preview-image-placeholder" *ngIf="!this.form.controls.picture.value && !this.api.loading">
-        <img src="assets/img/upload_picture.png">
-      </div>
-      <div class="preview-image" [style.backgroundImage]="this.api.preview" *ngIf="this.form.controls.picture.value"></div>
-      <div *ngIf="this.api.loading">
-        <ion-spinner></ion-spinner>
-        <br>
-        Enviando imagem...
-      </div>
-    </div>
+    <picture-upload [form]="this.form"></picture-upload>
     <ion-item *ngIf="this.form.controls._rev.value">
       <h2 ion-text *ngIf="this.form.controls._rev.value"> {{this.form.controls.name.value}} </h2>
     </ion-item>

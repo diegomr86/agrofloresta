@@ -37,10 +37,10 @@
   "SIGNUP_ERROR": "Aanmelden mislukt. Controleer a.u.b. uw account informatie en probeer het nogmaals.",
   "SIGNUP_BUTTON": "Aanmelden",
 
-  "LIST_MASTER_TITLE": "Items",
+  "PLANTS_TITLE": "Items",
 
-  "ITEM_CREATE_TITLE": "Nieuw Item",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Afbeeldingen Toevoegen",
+  "ITEM_FORM_TITLE": "Nieuw Item",
+  "ITEM_FORM_CHOOSE_IMAGE": "Afbeeldingen Toevoegen",
 
   "CARDS_TITLE": "Sociaal",
 

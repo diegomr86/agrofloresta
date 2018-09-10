@@ -13,7 +13,7 @@
       <div class="preview-image-placeholder" *ngIf="!this.form.controls.picture.value">
         <ion-icon name="add"></ion-icon>
         <div>
-          {{ 'ITEM_CREATE_CHOOSE_IMAGE' | translate }}
+          {{ 'ITEM_FORM_CHOOSE_IMAGE' | translate }}
         </div>
       </div>
       <div class="preview-image" [style.backgroundImage]="this.api.preview" *ngIf="this.form.controls.picture.value"></div>

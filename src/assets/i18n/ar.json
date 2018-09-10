@@ -49,10 +49,10 @@
   "SIGNUP_ERROR": "تعذر إنشاء الحساب. يرجى التحقق من معلومات حسابك وإعادة المحاولة.",
   "SIGNUP_BUTTON": "انشاء الحساب",
 
-  "LIST_MASTER_TITLE": "عناصر",
+  "PLANTS_TITLE": "عناصر",
 
-  "ITEM_CREATE_TITLE": "عنصر جديد",
-  "ITEM_CREATE_CHOOSE_IMAGE": "إضافة صورة",
+  "ITEM_FORM_TITLE": "عنصر جديد",
+  "ITEM_FORM_CHOOSE_IMAGE": "إضافة صورة",
 
   "ITEM_NAME_PLACEHOLDER": "الاسم",
   "ITEM_ABOUT_PLACEHOLDER": "عن",

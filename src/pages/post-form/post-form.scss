@@ -1,0 +1,11 @@
+page-post-form {
+	.tag-input .input-wrapper {
+		align-items: flex-start;
+		ion-tags-input {
+		 	width: 100%;
+		 	input {
+		 		width: 100%;
+		 	}
+		}
+	}
+}

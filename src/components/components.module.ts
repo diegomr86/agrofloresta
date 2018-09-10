@@ -1,15 +1,21 @@
 import { NgModule } from '@angular/core';
 import { UserComponent } from './user/user';
 import { IonicModule } from 'ionic-angular';
-import { SafeContentComponent } from './safe-content/safe-content';
-
 import { OnMount, DynamicComponentModule } from 'ng-dynamic';
 import { IonicImageLoader } from 'ionic-image-loader';
+import { TimeAgoPipe } from 'time-ago-pipe';
+
+import { SafeContentComponent } from './safe-content/safe-content';
+import { PictureUploadComponent } from './picture-upload/picture-upload';
+import { PostUserComponent } from './post-user/post-user';
 
 @NgModule({
 	declarations: [
 		UserComponent,
-    	SafeContentComponent
+    	SafeContentComponent,
+    PictureUploadComponent,
+    PostUserComponent,
+    TimeAgoPipe
     ],
 	imports: [IonicModule,
 		IonicImageLoader.forRoot(),
@@ -18,6 +24,8 @@ import { IonicImageLoader } from 'ionic-image-loader';
 	    })
     ],
 	exports: [UserComponent,
-    SafeContentComponent]
+    SafeContentComponent,
+    PictureUploadComponent,
+    PostUserComponent]
 })
 export class ComponentsModule {}

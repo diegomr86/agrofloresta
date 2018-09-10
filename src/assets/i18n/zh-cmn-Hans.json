@@ -49,10 +49,10 @@
   "SIGNUP_ERROR": "无法创建账号。请检查账户信息然后重试。",
   "SIGNUP_BUTTON": "注 册",
 
-  "LIST_MASTER_TITLE": "项目",
+  "PLANTS_TITLE": "项目",
 
-  "ITEM_CREATE_TITLE": "新项目",
-  "ITEM_CREATE_CHOOSE_IMAGE": "添加图片",
+  "ITEM_FORM_TITLE": "新项目",
+  "ITEM_FORM_CHOOSE_IMAGE": "添加图片",
 
   "ITEM_NAME_PLACEHOLDER": "名称",
   "ITEM_ABOUT_PLACEHOLDER": "关于",

@@ -1,0 +1,54 @@
+<!--
+  Generated template for the FeedPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Início</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-fab top right edge>
+    <button ion-fab (click)="add()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>	
+  <ion-card *ngFor="let post of posts">
+    <post-user [post]="post"></post-user>
+
+    <img [src]="this.api.url + 'static/'+ post.picture">
+
+    <ion-card-content>
+      <p>{{post.content}}</p>
+    </ion-card-content>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button color="primary" clear small icon-start>
+            <ion-icon name='thumbs-up'></ion-icon>
+            12 Likes
+          </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button color="primary" clear small icon-start>
+            <ion-icon name='text'></ion-icon>
+            4 Comments
+          </button>
+      </ion-col>
+      <ion-col center text-center>
+        <ion-note>
+          11h ago
+        </ion-note>
+        <button ion-button icon-only (click)="edit(post._id)">
+          <ion-icon name="create"></ion-icon>
+        </button>
+
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+</ion-content>

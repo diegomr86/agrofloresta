@@ -13,8 +13,10 @@ import { GooglePlus } from '@ionic-native/google-plus';
 import { Geolocation } from '@ionic-native/geolocation';
 import { IonicImageLoader } from 'ionic-image-loader';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { Settings, User, Api, Items } from '../providers';
+import { Settings, User, Api, Items, Database } from '../providers';
+import { Utils } from '../utils/utils';
 import { MyApp } from './app.component';
 
 // The translate loader needs to know where to load i18n files
@@ -44,6 +46,7 @@ export function provideSettings(storage: Storage) {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -64,6 +67,8 @@ export function provideSettings(storage: Storage) {
     Api,
     Items,
     User,
+    Database,
+    Utils,
     Camera,
     SplashScreen,
     StatusBar,

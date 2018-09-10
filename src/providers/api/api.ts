@@ -29,7 +29,8 @@ export class Api {
   }
 
   setPreview(image) {
-    this.preview = 'url(' + this.url + 'static/thumbs/' + image + ')'
+    console.log('preview', image);
+    this.preview = this.url + 'static/' + image
   }
 
   processWebImage(event, form) {

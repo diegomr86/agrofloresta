@@ -3,7 +3,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IonicPageModule } from 'ionic-angular';
 
 import { LoginPage } from './login';
-import { Utils } from '../../utils/utils';
 
 @NgModule({
   declarations: [
@@ -15,9 +14,6 @@ import { Utils } from '../../utils/utils';
   ],
   exports: [
     LoginPage
-  ],
-  providers: [
-    Utils
   ]
 })
 export class LoginPageModule { }

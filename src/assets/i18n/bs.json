@@ -37,10 +37,10 @@
   "SIGNUP_ERROR": "Nije moguće kreirati novi korisnički račun. Molimo vas provjerite podatke, a zatim pokušajte ponovo.",
   "SIGNUP_BUTTON": "Registracija",
 
-  "LIST_MASTER_TITLE": "Stavke",
+  "PLANTS_TITLE": "Stavke",
 
-  "ITEM_CREATE_TITLE": "Nova stavka",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Dodaj sliku",
+  "ITEM_FORM_TITLE": "Nova stavka",
+  "ITEM_FORM_CHOOSE_IMAGE": "Dodaj sliku",
 
   "CARDS_TITLE": "Socijalno",
 

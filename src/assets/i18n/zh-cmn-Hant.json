@@ -49,10 +49,10 @@
   "SIGNUP_ERROR": "無法創建賬號。請檢查賬戶信息然後重試。",
   "SIGNUP_BUTTON": "註 冊",
 
-  "LIST_MASTER_TITLE": "項目",
+  "PLANTS_TITLE": "項目",
 
-  "ITEM_CREATE_TITLE": "新項目",
-  "ITEM_CREATE_CHOOSE_IMAGE": "添加圖片",
+  "ITEM_FORM_TITLE": "新項目",
+  "ITEM_FORM_CHOOSE_IMAGE": "添加圖片",
 
   "ITEM_NAME_PLACEHOLDER": "名稱",
   "ITEM_ABOUT_PLACEHOLDER": "關於",

@@ -57,10 +57,10 @@
   "SIGNUP_ERROR": "Nedá sa vytvoriť konto. Skotrolujte zadané informácie a skuste to znova.",
   "SIGNUP_BUTTON": "Registrovať",
 
-  "LIST_MASTER_TITLE": "Položky",
+  "PLANTS_TITLE": "Položky",
 
-  "ITEM_CREATE_TITLE": "Nová položka",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Pridať obrázok",
+  "ITEM_FORM_TITLE": "Nová položka",
+  "ITEM_FORM_CHOOSE_IMAGE": "Pridať obrázok",
 
 
 

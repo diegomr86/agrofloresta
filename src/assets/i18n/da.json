@@ -37,10 +37,10 @@
   "SIGNUP_ERROR": "Fejl ved oprettelse. Kontroller venligst kontooplysningerne og prøv igen.",
   "SIGNUP_BUTTON": "Registrer",
 
-  "LIST_MASTER_TITLE": "Poster",
+  "PLANTS_TITLE": "Poster",
 
-  "ITEM_CREATE_TITLE": "Ny post",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Tilføj billede",
+  "ITEM_FORM_TITLE": "Ny post",
+  "ITEM_FORM_CHOOSE_IMAGE": "Tilføj billede",
 
   "CARDS_TITLE": "Social",
 

@@ -4,7 +4,6 @@ import { IonicPageModule } from 'ionic-angular';
 import { IonicImageLoader } from 'ionic-image-loader';
 
 import { ItemDetailPage } from './item-detail';
-import { Utils } from '../../utils/utils';
 import { ComponentsModule } from '../../components/components.module';
 
 
@@ -21,9 +20,6 @@ import { ComponentsModule } from '../../components/components.module';
   ],
   exports: [
     ItemDetailPage
-  ],
-  providers: [
-    Utils
   ]
 
 })

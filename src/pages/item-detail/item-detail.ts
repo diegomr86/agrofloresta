@@ -17,7 +17,7 @@ export class ItemDetailPage {
   }
 
   edit() {
-    this.modalCtrl.create('ItemCreatePage', { id: this.items.currentItem._id }).present();
+    this.navCtrl.push('ItemFormPage', { id: this.items.currentItem._id });
   } 
 
   delete() {

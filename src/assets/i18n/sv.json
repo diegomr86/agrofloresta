@@ -37,10 +37,10 @@
   "SIGNUP_ERROR": "Det gick inte att skapa ett konto. Kontrollera dina uppgifter och försök igen.",
   "SIGNUP_BUTTON": "Skapa konto",
 
-  "LIST_MASTER_TITLE": "Inlägg",
+  "PLANTS_TITLE": "Inlägg",
 
-  "ITEM_CREATE_TITLE": "Nytt inlägg",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Lägg till bild",
+  "ITEM_FORM_TITLE": "Nytt inlägg",
+  "ITEM_FORM_CHOOSE_IMAGE": "Lägg till bild",
 
   "CARDS_TITLE": "Socialt",
 

@@ -29,9 +29,9 @@
   "SIGNUP_TITLE": "Kayıt ol",
   "SIGNUP_ERROR": "Hesap oluşturulamadı. Lütfen hesap bilgilerinizi kontrol edip tekrar deneyin.",
   "SIGNUP_BUTTON": "Kayıt ol",
-  "LIST_MASTER_TITLE": "Öğeler",
-  "ITEM_CREATE_TITLE": "Yeni Öğe",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Yeni Görsel",
+  "PLANTS_TITLE": "Öğeler",
+  "ITEM_FORM_TITLE": "Yeni Öğe",
+  "ITEM_FORM_CHOOSE_IMAGE": "Yeni Görsel",
   "CARDS_TITLE": "Sosyal",
   "SEARCH_TITLE": "Arama"
 }

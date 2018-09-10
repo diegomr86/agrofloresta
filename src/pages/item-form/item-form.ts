@@ -9,10 +9,10 @@ import slugify from 'slugify';
 
 @IonicPage()
 @Component({
-  selector: 'page-item-create',
-  templateUrl: 'item-create.html'
+  selector: 'page-item-form',
+  templateUrl: 'item-form.html'
 })
-export class ItemCreatePage {
+export class ItemFormPage {
   @ViewChild('fileInput') fileInput;
 
   Object = Object;
@@ -20,11 +20,8 @@ export class ItemCreatePage {
   loading: boolean = false;
   conflict: string;
   additional_fields: FormArray;
-  preview: any;
 
   form: FormGroup;
-
-  errors: any;
 
   constructor(public navCtrl: NavController, 
     public viewCtrl: ViewController, 
@@ -95,17 +92,6 @@ export class ItemCreatePage {
     this.api.processWebImage(event, this.form)
   }
 
-  /**
-   * The user cancelled, so we dismiss without sending data back.
-   */
-  cancel() {
-    this.viewCtrl.dismiss();
-  }
-
-  /**
-   * The user is done and wants to create the item, so return it
-   * back to the presenter.
-   */
   save() {
     if (!this.form.valid) { return; }
     this.utils.showConfirm(() => {

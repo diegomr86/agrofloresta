@@ -6,10 +6,10 @@ import { Items, Api } from '../../providers';
 
 @IonicPage()
 @Component({
-  selector: 'page-list-master',
-  templateUrl: 'list-master.html'
+  selector: 'page-plants',
+  templateUrl: 'plants.html'
 })
-export class ListMasterPage {
+export class PlantsPage {
   itemsList: Item[];
   Object = Object;
   filters;
@@ -32,11 +32,11 @@ export class ListMasterPage {
   }
 
   /**
-   * Prompt the user to add a new item. This shows our ItemCreatePage in a
+   * Prompt the user to add a new item. This shows our ItemFormPage in a
    * modal and then adds the new item to our data source if the user created one.
    */
   add() {
-    this.modalCtrl.create('ItemCreatePage').present();
+    this.navCtrl.push('ItemFormPage');
   } 
 
   /**

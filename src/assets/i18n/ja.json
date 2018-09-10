@@ -49,10 +49,10 @@
   "SIGNUP_ERROR": "アカウントを作成できません。 アカウント情報を確認して、もう一度お試しください。",
   "SIGNUP_BUTTON": "サインアップ",
 
-  "LIST_MASTER_TITLE": "項目",
+  "PLANTS_TITLE": "項目",
 
-  "ITEM_CREATE_TITLE": "新しい項目",
-  "ITEM_CREATE_CHOOSE_IMAGE": "画像の追加",
+  "ITEM_FORM_TITLE": "新しい項目",
+  "ITEM_FORM_CHOOSE_IMAGE": "画像の追加",
 
   "ITEM_NAME_PLACEHOLDER": "名前",
   "ITEM_ABOUT_PLACEHOLDER": "説明",

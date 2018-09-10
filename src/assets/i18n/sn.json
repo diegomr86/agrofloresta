@@ -49,10 +49,10 @@
   "SIGNUP_ERROR": "Takundikana kugadzira homwe yejikichidzo ,Tinokumbirawo mutarire zvakatarwa pahomwe yenyu yejikichidzo moedza zvakare.",
   "SIGNUP_BUTTON": "Gadzira homwe yejikichidzo",
 
-  "LIST_MASTER_TITLE": "maaitemu",
+  "PLANTS_TITLE": "maaitemu",
 
-  "ITEM_CREATE_TITLE": "Aitemu itsva",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Wedzera mufananidzo",
+  "ITEM_FORM_TITLE": "Aitemu itsva",
+  "ITEM_FORM_CHOOSE_IMAGE": "Wedzera mufananidzo",
 
   "ITEM_NAME_PLACEHOLDER": "Zita",
   "ITEM_ABOUT_PLACEHOLDER": "Nezve",

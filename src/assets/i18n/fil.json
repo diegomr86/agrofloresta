@@ -37,10 +37,10 @@
   "SIGNUP_ERROR": "Hindi makagawa ng bagong account. Paki-kumpirma ang iyong impormasyon at subukan ulit",
   "SIGNUP_BUTTON": "Sign up",
 
-  "LIST_MASTER_TITLE": "Mga Item",
+  "PLANTS_TITLE": "Mga Item",
 
-  "ITEM_CREATE_TITLE": "Bagong Item",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Maglagay ng Imahe",
+  "ITEM_FORM_TITLE": "Bagong Item",
+  "ITEM_FORM_CHOOSE_IMAGE": "Maglagay ng Imahe",
 
   "CARDS_TITLE": "Social",
 

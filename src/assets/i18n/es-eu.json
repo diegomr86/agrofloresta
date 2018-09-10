@@ -27,9 +27,9 @@
     "SIGNUP_TITLE": "Izena eman",
     "SIGNUP_ERROR": "Arazoa kontua sortzen.or, Mesedez,sahiatu berriz zure datuak idazten.",
     "SIGNUP_BUTTON": "Izena Eman",
-    "LIST_MASTER_TITLE": "Artikuluak",
-    "ITEM_CREATE_TITLE": "Artikulu berria",
-    "ITEM_CREATE_CHOOSE_IMAGE": "Argazkia sortu",
+    "PLANTS_TITLE": "Artikuluak",
+    "ITEM_FORM_TITLE": "Artikulu berria",
+    "ITEM_FORM_CHOOSE_IMAGE": "Argazkia sortu",
     "CARDS_TITLE": "Sozial",
     "SEARCH_TITLE": "Bilatu"
 }

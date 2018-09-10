@@ -37,10 +37,10 @@
   "SIGNUP_ERROR": "Napaka pri kreiranju računa. Prosimo preglejte podatke kreiranega računa in poskusite ponovno. ",
   "SIGNUP_BUTTON": "Ustvari račun",
 
-  "LIST_MASTER_TITLE": "Elementi",
+  "PLANTS_TITLE": "Elementi",
 
-  "ITEM_CREATE_TITLE": "Dodaj element",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Dodaj sliko",
+  "ITEM_FORM_TITLE": "Dodaj element",
+  "ITEM_FORM_CHOOSE_IMAGE": "Dodaj sliko",
 
   "CARDS_TITLE": "Socialno",
 

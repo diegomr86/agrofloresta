@@ -49,10 +49,10 @@
   "SIGNUP_ERROR": "Unable to create account. Please check your account information and try again.",
   "SIGNUP_BUTTON": "Sign up",
 
-  "LIST_MASTER_TITLE": "Items",
+  "PLANTS_TITLE": "Items",
 
-  "ITEM_CREATE_TITLE": "New Item",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Add Image",
+  "ITEM_FORM_TITLE": "New Item",
+  "ITEM_FORM_CHOOSE_IMAGE": "Add Image",
 
   "ITEM_NAME_PLACEHOLDER": "Name",
   "ITEM_ABOUT_PLACEHOLDER": "About",

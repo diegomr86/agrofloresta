@@ -1,0 +1,7 @@
+<ion-item *ngIf="post && user">
+	<ion-avatar item-start>
+	  <img [src]="(user.picture && user.picture.startsWith('http')) ? user.picture : this.api.url + 'static/thumbs/'+ user.picture">
+	</ion-avatar>
+	<h2>{{ user.name }}</h2>
+	<p>{{ post.created_at | timeAgo }}</p>
+</ion-item>
