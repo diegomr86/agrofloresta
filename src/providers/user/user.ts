@@ -58,21 +58,18 @@ export class User extends Database {
   getCurrentUser() {
     return this.storage.get('currentUser').then((response) => {
       this.currentUser = response
-      console.log(this.currentUser);
       return response
     })  
   }
 
   skipTour() {
     return this.storage.get('skipTour').then((response) => {
-      console.log(response);
       return response
     })   
   }
 
   setSkipTour(skipTour) {
     this.storage.set('skipTour', skipTour).then((response) => {
-      console.log(response);
       return response
     })   
   }

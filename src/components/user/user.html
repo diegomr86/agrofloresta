@@ -1,4 +1,6 @@
 <div *ngIf="item && user" class="user" >
+	<br>
+	<br>
   <p class="description" *ngIf="item._rev.startsWith('1-')">Criado por: </p>
   <p class="description" *ngIf="!item._rev.startsWith('1-')">Editado por: </p>
   <p><img [src]="(user.picture && user.picture.startsWith('http')) ? user.picture : this.api.url + 'static/thumbs/'+ user.picture"> {{user.name}}</p>

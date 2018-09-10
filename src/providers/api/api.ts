@@ -29,8 +29,12 @@ export class Api {
   }
 
   setPreview(image) {
-    console.log('preview', image);
-    this.preview = this.url + 'static/' + image
+    if (image && image.startsWith('http')) {
+      this.preview = image
+    } else {
+      this.preview = this.url + 'static/' + image  
+    }
+    
   }
 
   processWebImage(event, form) {
@@ -39,7 +43,6 @@ export class Api {
       event => {
         if (event.body) {
           this.loading = false
-          console.log('s',event)
           this.setPreview(event.body.url)
           form.patchValue({ 'picture': event.body.url });
         }
@@ -64,7 +67,6 @@ export class Api {
         reqOpts.params = reqOpts.params.set(k, params[k]);
       }
     }
-    console.log(this.url + endpoint, reqOpts)
     return this.http.get(this.url + endpoint, reqOpts);
   }
 

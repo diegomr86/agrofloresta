@@ -15,10 +15,7 @@ export class PictureUploadComponent {
   @ViewChild('fileInput') fileInput;
   @Input() form;
 
-  preview: any;
-
   constructor(public api: Api) {
-  	console.log("this.form", this.form);
   }
 
   getPicture() {

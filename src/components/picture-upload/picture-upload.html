@@ -1,5 +1,4 @@
 <div *ngIf="this.form.controls">
-	<input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event, this.form)" />
 	<div class="preview-image-wrapper" (click)="getPicture()">
 	  <div class="preview-image-placeholder" *ngIf="!this.form.controls.picture.value && !this.api.loading">
 	    <img src="assets/img/upload_picture.png">
@@ -11,4 +10,5 @@
 	    Enviando imagem...
 	  </div>
 	</div>
+	<input type="file" #fileInput style="visibility: hidden; height: 0px; display: none;" name="files[]" (change)="processWebImage($event, this.form)" />
 </div>

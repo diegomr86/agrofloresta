@@ -80,11 +80,8 @@ export class MyApp {
     this.initTranslate();
 
     this.storage.get('currentPosition').then((p) => {
-      console.log('p', p);
       if (!p) {
-        console.log('pp', p);
         this.geolocation.getCurrentPosition().then((position) => {
-          console.log('locationn', position);
           this.storage.set('currentPosition', position).catch((e) => {
             console.log('errr', e);
           })
@@ -108,10 +105,6 @@ export class MyApp {
         this.rootPage = 'TutorialPage'
       }
     });
-
-    console.log('currentUser: ', this.user.currentUser);
-
-
   }
 
   initTranslate() {

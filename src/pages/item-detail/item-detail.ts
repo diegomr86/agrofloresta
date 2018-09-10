@@ -13,7 +13,6 @@ export class ItemDetailPage {
 
   constructor(public navCtrl: NavController, navParams: NavParams, public modalCtrl: ModalController, public items: Items, public api: Api, public utils: Utils) {
     this.items.currentItem = navParams.get('item') || items[0];
-    console.log("itemc", this.items.currentItem)
   }
 
   edit() {

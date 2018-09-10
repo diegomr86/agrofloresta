@@ -52,13 +52,14 @@ export class ItemFormPage {
       this.isReadyToSave = this.form.valid;
     });
 
-    console.log('ID', params.get('id'));
     if (params.get('id')) {
       this.edit()
     }
 
     this.items.loadAdditionalFields()
     this.items.additional_fields.forEach((a) => {this.addAdditionalField(a)})
+    this.api.preview = false
+
   }
 
 
@@ -96,7 +97,6 @@ export class ItemFormPage {
     if (!this.form.valid) { return; }
     this.utils.showConfirm(() => {
       this.items.save(this.form.value).catch((e) => {
-        console.log(e)
         this.utils.showToast(e.message, 'error');
       })
       this.viewCtrl.dismiss();
@@ -104,7 +104,6 @@ export class ItemFormPage {
   }
 
   addAdditionalField(name?: string) {
-    console.log("addaitional", name);
     this.additional_fields = this.form.get('additional_fields') as FormArray;
     if (name) {
       this.additional_fields.push(this.formBuilder.group({

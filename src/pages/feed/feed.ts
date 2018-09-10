@@ -19,8 +19,8 @@ export class FeedPage {
 	posts;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database, public api: Api) {
+    console.log('constructor');
   	database.query('post').then(res => {
-  		console.log('res', res);
   		this.posts = res.docs
   	})
   }
@@ -31,5 +31,9 @@ export class FeedPage {
 
   edit(id) {
     this.navCtrl.push('PostFormPage', { id: id });
+  } 
+
+  open(post) {
+    this.navCtrl.push('PostPage', { post: post });
   } 
 }

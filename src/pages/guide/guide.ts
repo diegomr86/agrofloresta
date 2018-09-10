@@ -16,14 +16,13 @@ export class GuidePage {
   selectLocalImage;
   editor;
   guide;
-  loading;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public user: User, public api: Api, public database: Database, public utils: Utils) {
     this.database.get('basic_guide').then(res => {
-    	this.guide = res;
+      this.guide = res;
     }).catch (error => {
-    	console.log(error);
-    	this.edit();
+      console.log(error);
+      this.edit();
     })
   }
 
@@ -43,9 +42,9 @@ export class GuidePage {
   }
 
   edit() {
-  	if (this.guide == undefined) {
-  		this.guide = {}
-  	}
+    if (this.guide == undefined) {
+      this.guide = {}
+    }
     this.form = this.formBuilder.group({
       type: ['guide', Validators.required],
       user_id: [this.user.currentUser._id, Validators.required],
@@ -54,55 +53,55 @@ export class GuidePage {
       content: [this.guide.content, Validators.required]
     });
 
-	  this.modules = {
-	    toolbar: [
-			  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-			  ['blockquote', 'code-block'],
-			  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-			  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-			  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-			  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-			  [{ 'color': [] }],          // dropdown with defaults from theme
-			  [{ 'align': [] }],
-			  ['image'],
-			  ['clean'],                                         // remove formatting button
-			]
+    this.modules = {
+      toolbar: [
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        ['blockquote', 'code-block'],
+        [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        [{ 'color': [] }],          // dropdown with defaults from theme
+        [{ 'align': [] }],
+        ['image'],
+        ['clean'],                                         // remove formatting button
+      ]
 
-	  }
+    }
 
-	  this.selectLocalImage = (() => {
-	    const input = document.createElement('input');
-	    input.setAttribute('type', 'file');
-	    input.click();
+    this.selectLocalImage = (() => {
+      const input = document.createElement('input');
+      input.setAttribute('type', 'file');
+      input.click();
 
-	    input.onchange = () => {
-	      const file = input.files[0];
-	      if (/^image\//.test(file.type)) {
-	      	this.api.loading = true
-	      	this.api.fileUpload(file).subscribe(
-			      event => {
-			        if (event.body) {
-			          this.insertToEditor(event.body.url)
-				        this.api.loading = false
-			        }
-			      }, 
-			      error =>{
-			      	this.api.loading = false
-			        console.log(error);
-			      }
-			    )
-	      } else {
-	        console.warn('You could only upload images.');
-	      }
-	    };
-	  }).bind(this);
+      input.onchange = () => {
+        const file = input.files[0];
+        if (/^image\//.test(file.type)) {
+          this.api.loading = true
+          this.api.fileUpload(file).subscribe(
+            event => {
+              if (event.body) {
+                this.insertToEditor(event.body.url)
+                this.api.loading = false
+              }
+            }, 
+            error =>{
+              this.api.loading = false
+              console.log(error);
+            }
+          )
+        } else {
+          console.warn('You could only upload images.');
+        }
+      };
+    }).bind(this);
   }
 
-	getEditorInstance(editorInstance:any) {
-	  this.editor = editorInstance;
-	  let toolbar = editorInstance.getModule('toolbar');
-	  toolbar.addHandler('image', this.selectLocalImage);
-	}
+  getEditorInstance(editorInstance:any) {
+    this.editor = editorInstance;
+    let toolbar = editorInstance.getModule('toolbar');
+    toolbar.addHandler('image', this.selectLocalImage);
+  }
 
   insertToEditor(url: string) {
     // push image url to rich editor.

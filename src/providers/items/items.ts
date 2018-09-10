@@ -50,7 +50,6 @@ export class Items extends Database {
 
   query(type: string, name?: string, filters?) {
     super.query(type, name, filters).then((result) => {
-      console.log("lista: ", result.docs)
       this.itemsList = result.docs
     });
   } 

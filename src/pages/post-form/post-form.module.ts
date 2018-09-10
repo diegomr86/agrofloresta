@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PostFormPage } from './post-form';
 import { ComponentsModule } from '../../components/components.module';
+import { PipesModule } from '../../pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { ComponentsModule } from '../../components/components.module';
 		ComponentsModule,
 		TagInputModule, 
 		FormsModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+    PipesModule
   ]
 })
 export class PostFormPageModule {}

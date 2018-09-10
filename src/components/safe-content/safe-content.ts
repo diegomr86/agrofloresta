@@ -14,7 +14,6 @@ export class SafeContentComponent {
   @Input() template;
 
   constructor() {
-    console.log('Hello SafeContentComponent Component');
   }
 
 }

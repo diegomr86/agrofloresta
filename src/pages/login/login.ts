@@ -35,7 +35,6 @@ export class LoginPage {
 
   login() {
     this.user.login(this.form.controls._id.value).then((resp) => {
-      console.log(resp);
       if (resp) {
         this.navCtrl.setRoot(MainPage);
       }

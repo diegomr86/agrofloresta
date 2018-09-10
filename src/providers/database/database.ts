@@ -39,7 +39,6 @@ export class Database {
   }
 
   query(type: string, name?: string, filters?) {
-    console.log("query: ", type, name, filters)
     let selector = { type: {$eq: type}}
     if (name) {
       selector['name'] = {$regex: RegExp(name, "i")}
@@ -52,7 +51,6 @@ export class Database {
         }
       })
     }
-    console.log("selector", selector)
     return this.db.find({
       selector: selector
     });
@@ -72,7 +70,7 @@ export class Database {
   }
 
   remove(item: Item) {
-    return this.db.remove(item)
+    return this.db.remove(item._id, item._rev)
   }
 
 }

@@ -56,7 +56,6 @@ export class SignupPage {
   doSignup() {
     // Attempt to login in through our User service
     this.user.signup(this.form.value).then((response) => {
-      console.log('cadastrado', response)
       this.navCtrl.setRoot(MainPage);
     }).catch((e) => {
       console.log('erro de cadastro', e)
@@ -71,7 +70,6 @@ export class SignupPage {
 
   login() {
     this.user.login(this.form.controls._id.value).then((resp) => {
-      console.log(resp);
       if (resp) {
         this.navCtrl.setRoot(MainPage);
       }
