@@ -41,7 +41,7 @@ export class PostFormPage {
 	      title: ['', Validators.required],
         content: ['', Validators.required],
         created_at: [new Date(), Validators.required],
-        url: ['http://herbivora.com.br/o-que-e-agricultura-sintropica/'],
+        url: [''],
         oembed: [''],
 	      tags: [[]]
 	    });
@@ -69,7 +69,7 @@ export class PostFormPage {
     this.utils.showConfirm(() => {
       this.form.patchValue({ 'updated_at': new Date()} )
       this.database.save(this.form.value).then(res => {
-        this.appCtrl.getRootNav().push('PostPage', { post: res });
+        this.navCtrl.setRoot('FeedPage');
       }).catch((e) => {
         console.log(e)
         this.utils.showToast(e.message, 'error');
@@ -96,6 +96,7 @@ export class PostFormPage {
   } 
 
   loadEmbed() {
+    this.api.setPreview('');
     this.http.get("http://open.iframe.ly/api/oembed?url="+encodeURI(this.form.controls.url.value)+"&origin=diegomr86").subscribe(
       res => {
         // this.oembed = res;
@@ -104,10 +105,9 @@ export class PostFormPage {
           this.form.patchValue({ 'content': res['description'] } )
           this.form.patchValue({ 'picture': res['thumbnail_url'] } )
           if (res['html'].indexOf('iframely-embed') > -1) {
-            this.api.preview = res['thumbnail_url']
+            this.api.setPreview(res['thumbnail_url']);
             this.form.patchValue({ 'oembed': undefined } )
           } else {
-            this.api.preview = undefined
             this.form.patchValue({ 'oembed': res['html'] } )
           }
         } 

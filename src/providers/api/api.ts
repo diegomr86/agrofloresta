@@ -29,12 +29,15 @@ export class Api {
   }
 
   setPreview(image) {
+    this.preview = this.imageUrl(image)
+  }
+
+  imageUrl(image) {
     if (image && image.startsWith('http')) {
-      this.preview = image
+      return image
     } else {
-      this.preview = this.url + 'static/' + image  
+      return this.url + 'static/' + image  
     }
-    
   }
 
   processWebImage(event, form) {

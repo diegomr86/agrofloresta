@@ -20,8 +20,8 @@
   <ion-card *ngFor="let post of posts">
     <post-user [post]="post"></post-user>
 
-    <img [src]="(post.picture && post.picture.startsWith('http')) ? post.picture : this.api.url + 'static/thumbs/'+ post.picture" (click)="open(post)">
-
+    <img *ngIf="!post.oembed" [src]="this.api.imageUrl(post.picture)" (click)="open(post)">
+    <div *ngIf="post.oembed" [innerHTML]="post.oembed | safe: 'html'"></div>
     <ion-card-content>
       <h2 (click)="open(post)">{{post.title}}</h2>
     </ion-card-content>

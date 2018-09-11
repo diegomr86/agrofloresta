@@ -19,7 +19,8 @@
 
 
 <ion-content padding>
-  <img-loader class="item-profile" #picture spinner="true" [src]="this.api.url + 'static/medium/'+ post.picture" useImg></img-loader>
+  <div *ngIf="post.oembed" [innerHTML]="post.oembed | safe: 'html'"></div>
+  <img-loader *ngIf="!post.oembed" class="item-profile" #picture spinner="true" [src]="this.api.imageUrl(post.picture)" useImg></img-loader>
   <h1>{{post.title}}</h1>
   <div padding-bottom>
     <p [innerHTML]="post.content | safe: 'html'" class="ql-editor preview"></p>
