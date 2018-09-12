@@ -53,7 +53,11 @@ export class FeedPage {
   }
 
   showComments(post) {
-    this.commentPost = post
+    if (post == this.commentPost) {
+      delete this.commentPost
+    } else {
+      this.commentPost = post
+    }
   }
 
   
