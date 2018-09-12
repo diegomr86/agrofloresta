@@ -3,24 +3,24 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IonicPageModule } from 'ionic-angular';
 import { IonicImageLoader } from 'ionic-image-loader';
 
-import { ItemDetailPage } from './item-detail';
+import { PlantPage } from './plant';
 import { ComponentsModule } from '../../components/components.module';
 
 
 
 @NgModule({
   declarations: [
-    ItemDetailPage,
+    PlantPage,
   ],
   imports: [
-    IonicPageModule.forChild(ItemDetailPage),
+    IonicPageModule.forChild(PlantPage),
     TranslateModule.forChild(),
     ComponentsModule,
     IonicImageLoader
   ],
   exports: [
-    ItemDetailPage
+    PlantPage
   ]
 
 })
-export class ItemDetailPageModule { }
+export class PlantPageModule { }

@@ -29,7 +29,7 @@ export class SearchPage {
    * Navigate to the detail page for this item.
    */
   open(item: Item) {
-    this.navCtrl.push('ItemDetailPage', {
+    this.navCtrl.push('PlantPage', {
       item: item
     });
   }

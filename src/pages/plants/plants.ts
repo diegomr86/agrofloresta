@@ -42,9 +42,9 @@ export class PlantsPage {
   /**
    * Navigate to the detail page for this item.
    */
-  open(item: Item) {
-    this.navCtrl.push('ItemDetailPage', {
-      item: item
+  open(id) {
+    this.navCtrl.push('PlantPage', {
+      id: id
     });
   }
 }

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{ items.currentItem.name }}</ion-title>
+    <ion-title *ngIf="items.currentItem">{{ items.currentItem.name }}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="edit()">
         <ion-icon name="create"></ion-icon>
@@ -11,10 +11,9 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content>
-  <!-- <img class="item-profile" #picture [src]="this.api.url + 'static/medium/'+ items.currentItem.picture" /> -->
-  <img-loader class="item-profile" #picture spinner="true" [src]="this.api.url + 'static/medium/'+ items.currentItem.picture" useImg></img-loader>
-  <div class="item-detail" padding>
+<ion-content *ngIf="items.currentItem">
+  <img-loader spinner="true" [src]="this.api.imageUrl(items.currentItem.picture, 'static/medium/')" useImg></img-loader>
+  <div class="plant" padding>
     <p class="description">{{items.currentItem.description}}</p>
     <div *ngIf="items.currentItem.cycle">
       <h6>Ciclo </h6>

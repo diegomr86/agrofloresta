@@ -4,15 +4,20 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { Items, Api } from '../../providers';
 import { Utils } from '../../utils/utils';
 
-@IonicPage()
-@Component({
-  selector: 'page-item-detail',
-  templateUrl: 'item-detail.html'
+@IonicPage({
+  segment: "plant/:id"
 })
-export class ItemDetailPage {
+@Component({
+  selector: 'page-plant',
+  templateUrl: 'plant.html'
+})
+export class PlantPage {
 
   constructor(public navCtrl: NavController, navParams: NavParams, public modalCtrl: ModalController, public items: Items, public api: Api, public utils: Utils) {
-    this.items.currentItem = navParams.get('item') || items[0];
+    this.items.get(navParams.get('id')).then(item => {
+      console.log('item', item);
+      this.items.currentItem = item  
+    });
   }
 
   edit() {

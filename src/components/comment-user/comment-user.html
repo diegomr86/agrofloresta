@@ -1,0 +1,8 @@
+<ion-item *ngIf="user">
+	<ion-avatar item-start>
+	  <img-loader spinner="true" [src]="this.api.imageUrl(user.picture, 'static/thumbs/')" useImg></img-loader>
+	</ion-avatar>
+	<h5>{{ user.name }}</h5>
+	<p>{{ comment.message }}</p>
+	<small>{{ comment.created_at | timeAgo }} <ion-icon *ngIf="userDb.currentUser && userDb.currentUser._id == comment.user_id" name="trash" (click)="delete()"></ion-icon></small>
+</ion-item>

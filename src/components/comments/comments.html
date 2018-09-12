@@ -1,0 +1,8 @@
+<div padding-left padding-right>
+  <div *ngFor="let comment of post.comments">
+  	<comment-user [comment]="comment" [post]="post" [posts]="posts"></comment-user>
+  </div>
+  <ion-label stacked>{{post.comments && post.comments.length > 0 ? 'Deixe seu comentário:' : 'Seja o primeiro a comentar:' }}</ion-label>
+  <ion-textarea [(ngModel)]="message"></ion-textarea>      
+  <button ion-button (click)="comment()" [disabled]="!message">Comentar</button>
+</div>

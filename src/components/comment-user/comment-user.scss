@@ -1,0 +1,18 @@
+comment-user {
+	h5:first-child {
+		margin-top: 0 !important;
+	}
+
+	ion-label {
+		white-space: unset;
+	}
+	ion-icon {
+		cursor: pointer;
+	}
+	ion-avatar {
+		padding-top: 5px;
+	}
+	.item-block {
+		align-items: unset;
+	}
+}

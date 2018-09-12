@@ -18,7 +18,7 @@
     <div *ngIf="form.controls.oembed.value" [innerHTML]="form.controls.oembed.value | safe: 'html'">      
     </div>
     <ion-item>
-      <ion-label stacked>Url</ion-label>
+      <ion-label stacked>Link da publicação</ion-label>
       <ion-input formControlName="url" (change)="loadEmbed()"></ion-input>
     </ion-item>
     <ion-item>

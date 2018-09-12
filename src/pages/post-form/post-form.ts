@@ -37,7 +37,7 @@ export class PostFormPage {
 	      user_id: [user.currentUser._id, Validators.required],
 	      _id: ['', Validators.required],
 	      _rev: [''],
-	      picture: ['', Validators.required],
+	      picture: [''],
 	      title: ['', Validators.required],
         content: ['', Validators.required],
         created_at: [new Date(), Validators.required],
@@ -61,7 +61,9 @@ export class PostFormPage {
   }
 
   generateId() {
-    this.form.patchValue({ '_id': slugify(this.form.controls.title.value.toLowerCase()+'-'+new Date().getTime())} )
+    if (!this.form.controls._rev.value) {
+      this.form.patchValue({ '_id': slugify(this.form.controls.title.value.toLowerCase()+'-'+new Date().getTime())} )
+    }
   }
 
   save() {
@@ -96,7 +98,7 @@ export class PostFormPage {
   } 
 
   loadEmbed() {
-    this.api.setPreview('');
+    delete this.api.preview;
     this.http.get("http://open.iframe.ly/api/oembed?url="+encodeURI(this.form.controls.url.value)+"&origin=diegomr86").subscribe(
       res => {
         // this.oembed = res;
@@ -104,8 +106,11 @@ export class PostFormPage {
           this.form.patchValue({ 'title': res['title'] } )
           this.form.patchValue({ 'content': res['description'] } )
           this.form.patchValue({ 'picture': res['thumbnail_url'] } )
-          if (res['html'].indexOf('iframely-embed') > -1) {
-            this.api.setPreview(res['thumbnail_url']);
+          console.log('res', res);
+          if (!res['html'] || res['html'].indexOf('iframely-embed') > -1) {
+            if (res['thumbnail_url']) {
+              this.api.setPreview(res['thumbnail_url']);
+            }
             this.form.patchValue({ 'oembed': undefined } )
           } else {
             this.form.patchValue({ 'oembed': res['html'] } )

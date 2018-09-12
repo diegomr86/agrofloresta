@@ -10,6 +10,8 @@ import { SafeContentComponent } from './safe-content/safe-content';
 import { PictureUploadComponent } from './picture-upload/picture-upload';
 import { PostUserComponent } from './post-user/post-user';
 import { TextEditorComponent } from './text-editor/text-editor';
+import { CommentsComponent } from './comments/comments';
+import { CommentUserComponent } from './comment-user/comment-user';
 
 @NgModule({
 	declarations: [
@@ -18,10 +20,12 @@ import { TextEditorComponent } from './text-editor/text-editor';
     PictureUploadComponent,
     PostUserComponent,
     TimeAgoPipe,
-    TextEditorComponent
+    TextEditorComponent,
+    CommentsComponent,
+    CommentUserComponent
     ],
 	imports: [IonicModule,
-		IonicImageLoader.forRoot(),
+		IonicImageLoader,
 		DynamicComponentModule.forRoot({
 	      imports: [IonicImageLoader]
 	    }),
@@ -31,6 +35,8 @@ import { TextEditorComponent } from './text-editor/text-editor';
     SafeContentComponent,
     PictureUploadComponent,
     PostUserComponent,
-    TextEditorComponent]
+    TextEditorComponent,
+    CommentsComponent,
+    CommentUserComponent]
 })
 export class ComponentsModule {}

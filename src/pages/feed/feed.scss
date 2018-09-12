@@ -3,5 +3,9 @@ page-feed {
 		img, h2 {
 			cursor: pointer;
 		}
+		h2 {
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
 	}
 }

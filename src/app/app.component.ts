@@ -30,7 +30,7 @@ import { Geolocation } from '@ionic-native/geolocation';
         <ion-list>
           <ion-item *ngIf="this.user.currentUser">
             <ion-avatar item-start>
-              <img [src]="(this.user.currentUser.picture && this.user.currentUser.picture.startsWith('http')) ? this.user.currentUser.picture : this.api.url + 'static/thumbs/'+ this.user.currentUser.picture">
+              <img-loader [src]="this.api.imageUrl(this.user.currentUser.picture, 'static/thumbs/')" useImg></img-loader>
             </ion-avatar>
             <h2 (click)="this.logout()">{{this.user.currentUser.name}}</h2>
             <p>{{this.user.currentUser._id}}</p>

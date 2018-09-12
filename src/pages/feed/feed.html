@@ -1,12 +1,11 @@
-<!--
-  Generated template for the FeedPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>Início</ion-title>
   </ion-navbar>
 
@@ -19,36 +18,29 @@
   </ion-fab>	
   <ion-card *ngFor="let post of posts">
     <post-user [post]="post"></post-user>
-
-    <img *ngIf="!post.oembed" [src]="this.api.imageUrl(post.picture)" (click)="open(post)">
+    <img-loader *ngIf="!post.oembed" [src]="this.api.imageUrl(post.picture)" (click)="open(post._id)" spinner="true" useImg></img-loader>
     <div *ngIf="post.oembed" [innerHTML]="post.oembed | safe: 'html'"></div>
     <ion-card-content>
-      <h2 (click)="open(post)">{{post.title}}</h2>
+      <h2 (click)="open(post._id)">{{post.title}}</h2>
+      <p [innerHtml]="post.content | truncate"></p>
     </ion-card-content>
 
     <ion-row>
       <ion-col>
-        <button ion-button color="primary" clear small icon-start>
+        <button ion-button color="primary" clear small icon-start (click)="like(post)">
             <ion-icon name='thumbs-up'></ion-icon>
-            12 Likes
+            {{ post.likes && post.likes.length > 0 ? post.likes.length : 0 }} GOSTEI  
           </button>
       </ion-col>
       <ion-col>
-        <button ion-button color="primary" clear small icon-start>
+        <button ion-button color="primary" clear small icon-start (click)="showComments(post._id)">
             <ion-icon name='text'></ion-icon>
-            4 Comments
+            {{ post.comments && post.comments.length > 0 ? post.comments.length : 0 }} COMENTÁRIOS  
           </button>
       </ion-col>
-      <ion-col center text-center>
-        <ion-note>
-          11h ago
-        </ion-note>
-        <button ion-button icon-only (click)="edit(post._id)">
-          <ion-icon name="create"></ion-icon>
-        </button>
-
-      </ion-col>
     </ion-row>
+    <comments *ngIf="commentPost == post._id" padding [post]="post" [posts]="posts"></comments>
+    <br>    
   </ion-card>
 
 </ion-content>

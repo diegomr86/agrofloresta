@@ -28,15 +28,17 @@ export class Api {
     return this.http.request(req)
   }
 
-  setPreview(image) {
-    this.preview = this.imageUrl(image)
+  setPreview(image, path?: string) {
+    this.preview = this.imageUrl(image, path)
   }
 
-  imageUrl(image) {
-    if (image && image.startsWith('http')) {
-      return image
-    } else {
-      return this.url + 'static/' + image  
+  imageUrl(image, path?: string) {
+    if (image) {
+      if (image.startsWith('http')) {
+        return encodeURI(image)
+        } else {
+        return encodeURI(this.url + (path ? path : 'static/') + image)  
+      }
     }
   }
 
