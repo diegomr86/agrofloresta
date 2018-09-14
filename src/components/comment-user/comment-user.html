@@ -2,7 +2,18 @@
 	<ion-avatar item-start>
 	  <img-loader spinner="true" [src]="this.api.imageUrl(user.picture, 'static/thumbs/')" useImg></img-loader>
 	</ion-avatar>
-	<h5>{{ user.name }}</h5>
-	<p>{{ comment.message }}</p>
-	<small>{{ comment.created_at | timeAgo }} <ion-icon *ngIf="userDb.currentUser && userDb.currentUser._id == comment.user_id" name="trash" (click)="delete()"></ion-icon></small>
+  <ion-row>
+    <ion-col>
+			<h5>{{ user.name }}</h5>
+    </ion-col>
+  	<ion-col>
+			<small float-end>{{ comment.created_at | timeAgo }}</small>
+    </ion-col>
+  </ion-row>
+
+	<p>
+		<span>{{ comment.message }}</span>
+		<small><ion-icon *ngIf="userDb.currentUser && userDb.currentUser._id == comment.user_id" name="trash" (click)="delete()"></ion-icon></small>
+
+	</p>
 </ion-item>

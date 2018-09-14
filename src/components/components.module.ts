@@ -3,8 +3,9 @@ import { UserComponent } from './user/user';
 import { IonicModule } from 'ionic-angular';
 import { OnMount, DynamicComponentModule } from 'ng-dynamic';
 import { IonicImageLoader } from 'ionic-image-loader';
-import { TimeAgoPipe } from 'time-ago-pipe';
 import { QuillModule } from 'ngx-quill'
+import { PipesModule } from '../pipes/pipes.module';
+
 
 import { SafeContentComponent } from './safe-content/safe-content';
 import { PictureUploadComponent } from './picture-upload/picture-upload';
@@ -19,7 +20,6 @@ import { CommentUserComponent } from './comment-user/comment-user';
     	SafeContentComponent,
     PictureUploadComponent,
     PostUserComponent,
-    TimeAgoPipe,
     TextEditorComponent,
     CommentsComponent,
     CommentUserComponent
@@ -29,7 +29,8 @@ import { CommentUserComponent } from './comment-user/comment-user';
 		DynamicComponentModule.forRoot({
 	      imports: [IonicImageLoader]
 	    }),
-        QuillModule
+        QuillModule,
+        PipesModule
     ],
 	exports: [UserComponent,
     SafeContentComponent,

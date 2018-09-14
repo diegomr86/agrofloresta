@@ -35,17 +35,17 @@ page-welcome {
     margin: auto;
     p {
       margin: 0;
-      color: #333;
+      color: color($colors, dark);
     }
     small {
-      color: #555
+      color: color($colors, light)
     }
   }
   button.login {
     margin-top: 25px;
     background-color: white;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-    color: #333;
+    color: color($colors, dark);
 
     &.activated {
       background-color: rgb(220, 220, 220);

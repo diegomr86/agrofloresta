@@ -51,7 +51,7 @@ export class User extends Database {
    */
   logout() {
     this.currentUser = undefined
-    this.storage.remove('skipTour')
+    // this.storage.remove('skipTour')
     return this.storage.remove('currentUser')
   }
 

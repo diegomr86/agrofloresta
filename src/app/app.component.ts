@@ -35,9 +35,11 @@ import { Geolocation } from '@ionic-native/geolocation';
             <h2 (click)="this.logout()">{{this.user.currentUser.name}}</h2>
             <p>{{this.user.currentUser._id}}</p>
           </ion-item>
-          <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-            {{p.title}}
-          </button>
+          <button menuClose ion-item (click)="openPage('FeedPage')">Rede</button>
+          <button menuClose ion-item (click)="openPage('GuidePage')">Guia básico</button>
+          <button menuClose ion-item (click)="openPage('PlantsPage')">Tabela de plantas</button>
+          <button menuClose ion-item (click)="openPage('HowToHelpPage')">Como ajudar</button>
+          <button menuClose ion-item (click)="openPage('AboutPage')">Sobre</button>
           <button menuClose ion-item (click)="this.logout()">
             Sair
           </button>
@@ -52,19 +54,6 @@ export class MyApp {
   rootPage;
 
   @ViewChild(Nav) nav: Nav;
-
-  pages: any[] = [
-    { title: 'Início', component: 'FeedPage' },
-    { title: 'Guia básico', component: 'GuidePage' },
-    { title: 'Tabela de Plantas', component: 'PlantsPage' },
-    { title: 'Como ajudar', component: 'HowToHelpPage' },
-    { title: 'Sobre', component: 'AboutPage' },
-    // { title: 'Tabs', component: 'TabsPage' },
-    // { title: 'Cards', component: 'CardsPage' },
-    // { title: 'Content', component: 'ContentPage' },
-    // { title: 'Menu', component: 'MenuPage' },
-    // { title: 'Settings', component: 'SettingsPage' },
-  ]
   
   constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, private user: User, public api: Api, public menuCtrl: MenuController, public storage: Storage, private geolocation: Geolocation) {
 
@@ -143,6 +132,6 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    this.nav.setRoot(page);
   }
 }

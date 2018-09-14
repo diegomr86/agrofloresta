@@ -1,6 +1,8 @@
 comment-user {
 	h5:first-child {
 		margin-top: 0 !important;
+		color: color($colors, light); 
+		font-size: 13px;
 	}
 
 	ion-label {
@@ -9,10 +11,25 @@ comment-user {
 	ion-icon {
 		cursor: pointer;
 	}
-	ion-avatar {
+	.item-md ion-avatar {
 		padding-top: 5px;
+    min-width: 10px;
+    min-height: 10px;
 	}
+
 	.item-block {
 		align-items: unset;
+	}
+	small {
+		color: color($colors, light);
+	} 
+	p {
+		span {
+			color: color($colors, dark);
+			white-space: pre;
+		}
+	} 
+	.col {
+		padding: 0 0 5px 0;
 	}
 }

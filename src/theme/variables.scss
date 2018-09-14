@@ -16,13 +16,13 @@ $colors: (
   primary:    #3D9970,
   secondary:  #FFDC00,
   danger:     #FF4136,
-  light:      #f4f4f4,
-  dark:       #222,
+  light:      #586069,
+  dark:       #24292e,
 
 ) !default;
 
 
-$text-color:                 #333 !default;
+$text-color:                 color($colors, dark) !default;
 $link-color:                 color($colors, primary) !default;
 $background-color:           #fff !default;
 $subdued-text-color:         #666 !default;
