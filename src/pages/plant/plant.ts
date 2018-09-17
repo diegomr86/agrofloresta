@@ -15,7 +15,6 @@ export class PlantPage {
 
   constructor(public navCtrl: NavController, navParams: NavParams, public modalCtrl: ModalController, public items: Items, public api: Api, public utils: Utils) {
     this.items.get(navParams.get('id')).then(item => {
-      console.log('item', item);
       this.items.currentItem = item  
     });
   }

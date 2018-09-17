@@ -17,7 +17,7 @@
       <h2 ion-text *ngIf="this.form.controls._rev.value"> {{this.form.controls.name.value}} </h2>
     </ion-item>
     <ion-item *ngIf="!this.form.controls._rev.value">
-      <ion-label stacked>Nome</ion-label>
+      <ion-label stacked>Nome*</ion-label>
       <ion-input type="text" formControlName="name" (change)="checkConflict()"></ion-input>
     </ion-item>
     <ion-item *ngIf="this.conflict">
@@ -27,7 +27,7 @@
       </p>
     </ion-item>
     <ion-item>
-      <ion-label stacked>Descrição</ion-label>
+      <ion-label stacked>Descrição*</ion-label>
       <ion-textarea formControlName="description"></ion-textarea>
     </ion-item>
     <ion-item>

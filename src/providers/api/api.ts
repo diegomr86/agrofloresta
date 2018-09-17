@@ -6,7 +6,8 @@ import { Injectable } from '@angular/core';
  */
 @Injectable()
 export class Api {
-  url: string = 'http://ips.diegomr86.ga/';
+  url: string = 'http://localhost:5000/';
+  // url: string = 'http://ips.diegomr86.ga/';
   loading: boolean = false;
   preview: any;
 
@@ -32,12 +33,12 @@ export class Api {
     this.preview = this.imageUrl(image, path)
   }
 
-  imageUrl(image, path?: string) {
-    if (image) {
-      if (image.startsWith('http')) {
-        return encodeURI(image)
+  imageUrl(picture, path?: string) {
+    if (picture && picture['url']) {
+      if (picture['url'].startsWith('http')) {
+        return encodeURI(picture)
         } else {
-        return encodeURI(this.url + (path ? path : 'static/') + image)  
+        return encodeURI(this.url + (path ? picture[path] : 'static/'+picture['url']))  
       }
     }
   }
@@ -48,8 +49,8 @@ export class Api {
       event => {
         if (event.body) {
           this.loading = false
-          this.setPreview(event.body.url)
-          form.patchValue({ 'picture': event.body.url });
+          this.setPreview(event.body, 'medium')
+          form.patchValue({ 'picture': event.body });
         }
       }, 
       error =>{

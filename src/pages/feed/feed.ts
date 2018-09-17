@@ -20,8 +20,21 @@ export class FeedPage {
   commentPost;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database, public api: Api, public user: User) {
-  	database.query('post').then(res => {
-  		this.posts = res.docs
+    this.posts = []
+
+    database.query('post').then(res => {
+      let that = this
+      res.docs.forEach(function (post) {
+        let likes = post.likes ? post.likes.length : 0
+        let dislikes = post.dislikes ? post.dislikes.length : 0
+        // if (!post.created_at) {
+        //   console.log(post.title, post.created_at);
+        //   database.remove(post)
+        // }
+        post.score = that.hotScore(likes, dislikes, post.created_at);
+        that.posts.push(post)  
+      });
+  		this.posts = this.posts.sort((a, b) => a.score < b.score);
   	})
   }
 
@@ -52,6 +65,21 @@ export class FeedPage {
     });
   }
 
+  dislike(post) {
+    if (post.dislikes) {
+      if (!post.dislikes.includes(this.user.currentUser._id)) {
+        post.dislikes.push(this.user.currentUser._id)
+      } else {
+        post.dislikes = post.dislikes.filter(like => like !== this.user.currentUser._id)
+      }
+    } else {
+      post.dislikes = [this.user.currentUser._id]
+    }
+    this.database.save(post).then(p => {
+      this.posts = this.posts.map(function(item) { return item._id == p._id ? p : item; });
+    });
+  }
+
   showComments(post) {
     if (post == this.commentPost) {
       delete this.commentPost
@@ -60,5 +88,12 @@ export class FeedPage {
     }
   }
 
+  hotScore(ups, downs, date) {
+    var s = ups - downs
+      , sign = Math.sign(s)
+      , order = Math.log(Math.max(Math.abs(s), 1)) / Math.LN10
+      , secAge = (Date.now() - new Date(date).getTime()) / 1000;
+    return sign*order - secAge / 45000;
+  };
   
 }

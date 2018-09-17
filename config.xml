@@ -97,6 +97,7 @@
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="Para melhorar sua interação" />
     </plugin>
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <engine name="browser" spec="5.0.4" />
     <engine name="android" spec="7.1.1" />
 </widget>

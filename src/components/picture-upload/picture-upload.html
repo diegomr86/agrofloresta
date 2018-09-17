@@ -9,6 +9,10 @@
 	    <br>
 	    Enviando imagem...
 	  </div>
+	  
 	</div>
+  <div *ngIf="!this.api.loading && this.form.controls.picture.value" (click)="getPicture()">
+    Clique para alterar
+  </div>
 	<input type="file" #fileInput style="visibility: hidden; height: 0px; display: none;" name="files[]" (change)="processWebImage($event, this.form)" />
 </div>

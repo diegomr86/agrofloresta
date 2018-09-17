@@ -12,7 +12,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content *ngIf="items.currentItem">
-  <img-loader spinner="true" [src]="this.api.imageUrl(items.currentItem.picture, 'static/medium/')" useImg></img-loader>
+  <img-loader spinner="true" [src]="this.api.imageUrl(items.currentItem.picture, 'medium')" useImg></img-loader>
   <div class="plant" padding>
     <p class="description">{{items.currentItem.description}}</p>
     <div *ngIf="items.currentItem.cycle">

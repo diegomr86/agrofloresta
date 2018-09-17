@@ -38,7 +38,7 @@
     <ion-item-sliding *ngFor="let item of items.itemsList">
       <button ion-item (click)="open(item._id)">
         <ion-avatar item-start>
-          <img-loader [src]="this.api.imageUrl(item.picture, 'static/thumbs/')" useImg></img-loader>
+          <img-loader [src]="this.api.imageUrl(item.picture, 'thumbs')" useImg></img-loader>
         </ion-avatar>
         <h2>{{item.name}}</h2>
         <p>{{item.about}}</p>

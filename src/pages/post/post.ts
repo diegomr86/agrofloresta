@@ -17,7 +17,6 @@ export class PostPage {
 
 	constructor(public navCtrl: NavController, navParams: NavParams, public database: Database, public api: Api, public utils: Utils) {
     this.database.get(navParams.get('id')).then(res => {
-    	console.log('res', res);
     	this.post = res
     });
   }

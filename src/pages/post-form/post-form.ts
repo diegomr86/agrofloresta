@@ -48,8 +48,12 @@ export class PostFormPage {
 
       this.loadEmbed()
 
-	    this.form.valueChanges.subscribe((v) => {
-	      this.isReadyToSave = this.form.valid;
+      this.form.valueChanges.subscribe((v) => {
+        this.isReadyToSave = this.form.valid;
+      });
+
+	    this.form.controls.title.valueChanges.subscribe((v) => {
+        this.generateId();
 	    });
 
       this.api.preview = false
@@ -85,7 +89,7 @@ export class PostFormPage {
         this.form.patchValue({
           ...post
         }) 
-        this.api.setPreview(post.picture)
+        this.api.setPreview(post.picture, 'medium')
     }}).catch((e) => {});
   }
 
@@ -105,8 +109,7 @@ export class PostFormPage {
         if (res) {
           this.form.patchValue({ 'title': res['title'] } )
           this.form.patchValue({ 'content': res['description'] } )
-          this.form.patchValue({ 'picture': res['thumbnail_url'] } )
-          console.log('res', res);
+          this.form.patchValue({ 'picture': { url: res['thumbnail_url'] } } )
           if (!res['html'] || res['html'].indexOf('iframely-embed') > -1) {
             if (res['thumbnail_url']) {
               this.api.setPreview(res['thumbnail_url']);
@@ -115,10 +118,7 @@ export class PostFormPage {
           } else {
             this.form.patchValue({ 'oembed': res['html'] } )
           }
-        } 
-
-        
-        console.log(res);
+        }         
       }, 
       error =>{
         console.log(error);

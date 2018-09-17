@@ -1,5 +1,4 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>Adicionar Conteúdo</ion-title>
     <ion-buttons end>
@@ -22,11 +21,11 @@
       <ion-input formControlName="url" (change)="loadEmbed()"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label stacked>Título</ion-label>
-      <ion-input type="text" formControlName="title" (keyup)="generateId()"></ion-input>
+      <ion-label stacked>Título*</ion-label>
+      <ion-input type="text" formControlName="title" (keyup)="generateId()" (change)="generateId()"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label stacked>Descrição</ion-label>
+      <ion-label stacked>Descrição*</ion-label>
       <!-- <ion-textarea formControlName="content"></ion-textarea> -->
     </ion-item>
     <text-editor [form]="form"></text-editor>

@@ -80,7 +80,7 @@ export class ItemFormPage {
         this.form.patchValue({
           ...item
         }) 
-        this.api.setPreview(item.picture)
+        this.api.setPreview(item.picture, 'medium')
         this.conflict = undefined
     }}).catch((e) => {});
   }

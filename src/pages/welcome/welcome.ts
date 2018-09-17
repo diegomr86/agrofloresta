@@ -43,7 +43,7 @@ export class WelcomePage {
 
   googleLogin() {
 
-    this.googlePlus.login({})
+    this.googlePlus.login()
     .then(user => {
       this.user.signup({ type: 'user', _id: user.email, name: user.displayName, picture: user.imageUrl, google_id: user.userId }).then((resp) => {
         this.navCtrl.setRoot(MainPage);

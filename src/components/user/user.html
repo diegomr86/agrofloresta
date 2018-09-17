@@ -3,5 +3,5 @@
 	<br>
   <p class="description" *ngIf="item._rev.startsWith('1-')">Criado por: </p>
   <p class="description" *ngIf="!item._rev.startsWith('1-')">Editado por: </p>
-  <p><img-loader [src]="this.api.imageUrl(user.picture, 'static/thumbs/')" useImg></img-loader> {{user.name}}</p>
+  <p><img-loader [src]="this.api.imageUrl(user.picture, 'thumbs')" useImg></img-loader> {{user.name}}</p>
 </div>

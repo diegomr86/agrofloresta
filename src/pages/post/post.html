@@ -12,7 +12,7 @@
 </ion-header>
 <ion-content padding *ngIf="post">
   <div *ngIf="post.oembed" [innerHTML]="post.oembed | safe: 'html'"></div>
-  <img-loader *ngIf="!post.oembed" spinner="true" [src]="this.api.imageUrl(post.picture)" useImg></img-loader>
+  <img-loader *ngIf="!post.oembed && post.picture" spinner="true" [src]="this.api.imageUrl(post.picture, 'medium')" useImg></img-loader>
   <h1>{{post.title}}</h1>
   <div padding-bottom>
     <p [innerHTML]="post.content | safe: 'html'" class="ql-editor preview"></p>
