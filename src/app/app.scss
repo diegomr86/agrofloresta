@@ -26,7 +26,7 @@
   .preview-image-placeholder {
     display: inline-block;
 
-    background-color: #eee;
+    // background-color: #eee;
     width: 120px;
     height: 120px;
     border-radius: 50%;
@@ -44,19 +44,33 @@
 }
 
 .user {
+  float: right;
+  text-align: right;
   img {
     width: 20px;
     border-radius: 50%;
     margin-bottom: -5px;
   }
+  strong {
+    cursor: pointer;
+  }  
   p:first-child {
-    font-size: 10px;
-    color: #333333;
+    font-size: 12px;
   }
   p {
     margin: 0;
-    font-size: 12px;
+    color: #333333;
   }
+}
+
+.user_big {
+  cursor: pointer;
+  img {
+    width: 30px;
+    border-radius: 50%;
+    margin-bottom: -5px;
+  }
+  float: right;
 }
 
 

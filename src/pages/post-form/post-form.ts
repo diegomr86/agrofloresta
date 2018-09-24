@@ -33,7 +33,7 @@ export class PostFormPage {
 	  
       this.form = formBuilder.group({
 	      type: ['post', Validators.required],
-	      category: ['picture', Validators.required],
+	      category: ['', Validators.required],
 	      user_id: [user.currentUser._id, Validators.required],
 	      _id: ['', Validators.required],
 	      _rev: [''],
@@ -43,6 +43,9 @@ export class PostFormPage {
         created_at: [new Date(), Validators.required],
         url: [''],
         oembed: [''],
+        start_time: [''],
+        end_time: [''],
+        location: [''],
 	      tags: [[]]
 	    });
 
@@ -110,9 +113,13 @@ export class PostFormPage {
           this.form.patchValue({ 'title': res['title'] } )
           this.form.patchValue({ 'content': res['description'] } )
           this.form.patchValue({ 'picture': { url: res['thumbnail_url'] } } )
+          if (res['type'] == 'video') {
+            this.form.patchValue({ 'category': 'video' } )
+          }
           if (!res['html'] || res['html'].indexOf('iframely-embed') > -1) {
             if (res['thumbnail_url']) {
               this.api.setPreview(res['thumbnail_url']);
+              console.log('res', res['thumbnail_url'], this.api.preview);
             }
             this.form.patchValue({ 'oembed': undefined } )
           } else {
@@ -127,5 +134,8 @@ export class PostFormPage {
     // https://www.youtube.com/watch?v=gSPNRu4ZPvE
   } 
 
+  setCategory(category) {
+    this.form.patchValue({ category: category}) 
+  }
 
 }

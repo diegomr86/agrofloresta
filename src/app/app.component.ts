@@ -22,7 +22,7 @@ import { ImageLoaderConfig } from 'ionic-image-loader';
           </ion-buttons>
 
           <ion-title *ngIf="this.user.currentUser">
-            Agrofloresta!
+            Rede Agrofloresta!
           </ion-title>
         </ion-toolbar>
       </ion-header>
@@ -37,7 +37,8 @@ import { ImageLoaderConfig } from 'ionic-image-loader';
             <h2 (click)="this.logout()">{{this.user.currentUser.name}}</h2>
             <p>{{this.user.currentUser._id}}</p>
           </ion-item>
-          <button menuClose ion-item (click)="openPage('FeedPage')">Rede Agrofloresta</button>
+          <button menuClose ion-item (click)="openPage('FeedPage')">Início</button>
+          <button menuClose ion-item (click)="openPage('FeedPage', { category: 'event' })">Eventos</button>
           <button menuClose ion-item (click)="openPage('GuidePage')">Guia básico</button>
           <button menuClose ion-item (click)="openPage('PlantsPage')">Tabela de plantas</button>
           <button menuClose ion-item (click)="openPage('HowToHelpPage')">Como ajudar</button>
@@ -136,9 +137,9 @@ export class MyApp {
     // this.menuCtrl.close(); 
   }
 
-  openPage(page) {
+  openPage(page, params?) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page);
+    this.nav.setRoot(page, params);
   }
 }

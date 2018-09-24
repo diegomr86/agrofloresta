@@ -18,19 +18,17 @@ export class FeedPage {
 
 	posts;
   commentPost;
+  category;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database, public api: Api, public user: User) {
     this.posts = []
-
-    database.query('post').then(res => {
+    console.log("navParams.get('category')", navParams.get('category'));
+    this.category = navParams.get('category');
+    database.query('post', '', { category: navParams.get('category') }).then(res => {
       let that = this
       res.docs.forEach(function (post) {
         let likes = post.likes ? post.likes.length : 0
         let dislikes = post.dislikes ? post.dislikes.length : 0
-        // if (!post.created_at) {
-        //   console.log(post.title, post.created_at);
-        //   database.remove(post)
-        // }
         post.score = that.hotScore(likes, dislikes, post.created_at);
         that.posts.push(post)  
       });

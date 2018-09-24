@@ -10,12 +10,22 @@
   </ion-navbar>
 
 </ion-header>
-<ion-content padding *ngIf="post">
-  <div *ngIf="post.oembed" [innerHTML]="post.oembed | safe: 'html'"></div>
-  <img-loader *ngIf="!post.oembed && post.picture" spinner="true" [src]="this.api.imageUrl(post.picture, 'medium')" useImg></img-loader>
-  <h1>{{post.title}}</h1>
-  <div padding-bottom>
-    <p [innerHTML]="post.content | safe: 'html'" class="ql-editor preview"></p>
-    <user [item]="post"></user>     
+<ion-content padding>
+  <div *ngIf="post">
+    <div *ngIf="post.oembed" [innerHTML]="post.oembed | safe: 'html'"></div>
+    <img-loader *ngIf="!post.oembed && post.picture" spinner="true" [src]="this.api.imageUrl(post.picture, 'medium')" useImg></img-loader>
+    <h1>{{post.title}}</h1>
+    <div padding-bottom>
+      <p [innerHTML]="post.content | safe: 'html'" class="ql-editor preview"></p>
+      <a *ngIf="post.url && post.content && post.content.indexOf('...') >= 0" [href]="post.url" target="_blank">Continuar lendo</a>
+      <div *ngIf="post.category =='event'">
+        <p>Começa dia: <strong>{{ post.start_time| date: 'dd/MM/yyyy H:mm' }}</strong></p>
+        <p>Termina dia: <strong>{{ post.end_time| date: 'dd/MM/yyyy H:mm' }}</strong></p>
+        <p>Local: <strong>{{ post.location }}</strong></p>
+      </div>
+      <user [item]="post"></user> 
+      <br>    
+      <br>    
+    </div>
   </div>
 </ion-content>

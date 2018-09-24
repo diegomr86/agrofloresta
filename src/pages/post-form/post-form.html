@@ -13,26 +13,76 @@
 </ion-header>
 <ion-content padding>
 	<form *ngIf="form" [formGroup]="form" (ngSubmit)="save()">
-		<picture-upload [form]="form"></picture-upload>
-    <div *ngIf="form.controls.oembed.value" [innerHTML]="form.controls.oembed.value | safe: 'html'">      
+    <div class="categories" *ngIf="!form.controls.category.value">
+      <h6>Selecione o tipo de conteúdo:</h6>
+      <ion-row>
+        <ion-col (click)="setCategory('link')">
+          <ion-icon name="link"></ion-icon>
+          <span>Link</span>
+        </ion-col>
+        <ion-col (click)="setCategory('book')">
+          <ion-icon name="book"></ion-icon>
+          <span>Livro ou PDF</span>
+        </ion-col>
+        <ion-col (click)="setCategory('picture')">
+          <ion-icon name="camera"></ion-icon>
+          <span>Imagem</span>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col (click)="setCategory('video')">
+          <ion-icon name="videocam"></ion-icon>
+          <span>Vídeo</span>
+        </ion-col>
+        <ion-col (click)="setCategory('event')">
+          <ion-icon name="calendar"></ion-icon>
+          <span>Evento</span>
+        </ion-col>
+        <ion-col (click)="setCategory('text')">
+          <ion-icon name="text"></ion-icon>
+          <span>Artigo ou texto</span>
+        </ion-col>
+      </ion-row>
     </div>
-    <ion-item>
-      <ion-label stacked>Link da publicação</ion-label>
-      <ion-input formControlName="url" (change)="loadEmbed()"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>Título*</ion-label>
-      <ion-input type="text" formControlName="title" (keyup)="generateId()" (change)="generateId()"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>Descrição*</ion-label>
-      <!-- <ion-textarea formControlName="content"></ion-textarea> -->
-    </ion-item>
-    <text-editor [form]="form"></text-editor>
-    <ion-label stacked>Palavras chave</ion-label>
-    <tag-input formControlName="tags" [placeholder]="'+ Palavra chave'" [secondaryPlaceholder]="''" [separatorKeyCodes]="[9]">
-      <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="autocompleteTags" ></tag-input-dropdown>
-    </tag-input>
-
+    <div *ngIf="form.controls.category.value">
+      <div *ngIf="api.preview || form.controls.category.value == 'picture' || form.controls.category.value == 'book' || form.controls.category.value == 'event'">
+    		<picture-upload [form]="form"></picture-upload>
+      </div>
+      <div *ngIf="form.controls.oembed.value" [innerHTML]="form.controls.oembed.value | safe: 'html'">      
+      </div>
+      <ion-item stacked *ngIf="form.controls.category.value == 'link' || form.controls.category.value == 'video' || form.controls.category.value == 'event'">
+        <ion-label stacked *ngIf="form.controls.category.value == 'event'">Insira um link para o evento:</ion-label>
+        <ion-label stacked *ngIf="form.controls.category.value == 'link'">Insira o link da publicação:</ion-label>
+        <ion-label stacked *ngIf="form.controls.category.value == 'video'">Insira o link do vídeo:</ion-label>
+        <ion-input formControlName="url" (change)="loadEmbed()"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Título*</ion-label>
+        <ion-input type="text" formControlName="title" (keyup)="generateId()" (change)="generateId()"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Descrição*</ion-label>
+        <!-- <ion-textarea formControlName="content"></ion-textarea> -->
+      </ion-item>
+      <text-editor [form]="form"></text-editor>
+      <div *ngIf="form.controls.category.value == 'event'">
+        <ion-item>
+          <ion-label stacked>Começa em:</ion-label>
+          <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="DD/MM/YYYY HH:mm" formControlName="start_time"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Termina em:</ion-label>
+          <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="DD/MM/YYYY HH:mm" formControlName="end_time"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Local:</ion-label>
+          <ion-input formControlName="location"></ion-input>
+        </ion-item>
+      </div>
+      <ion-label stacked>Palavras chave</ion-label>
+      <tag-input formControlName="tags" [placeholder]="'+ Palavra chave'" [secondaryPlaceholder]="'Adicione palavras chave'" [separatorKeyCodes]="[9]">
+        <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="autocompleteTags" ></tag-input-dropdown>
+      </tag-input>
+    </div>
 	</form>
 </ion-content>

@@ -33,6 +33,7 @@
   <div *ngIf="!form && guide">
 	  <div class="ql-editor preview"><safe-content [template]="cachedImages(guide.content)"></safe-content></div>
     <user [item]="guide"></user>     
+    <br>
   </div>
 	<div *ngIf="form">
 

@@ -22,7 +22,6 @@ export class UserComponent implements OnInit {
   	this.userDb.get(this.item.user_id).then((user) => {
   		this.user = user;
   	})
-  	
   }
 
 }

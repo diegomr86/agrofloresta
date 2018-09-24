@@ -51,6 +51,7 @@ export class Database {
         }
       })
     }
+    console.log('selector', selector);
     return this.db.find({
       selector: selector
     });

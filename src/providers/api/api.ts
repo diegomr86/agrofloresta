@@ -30,15 +30,19 @@ export class Api {
   }
 
   setPreview(image, path?: string) {
-    this.preview = this.imageUrl(image, path)
+    let  p = this.imageUrl(image, path)
+    console.log('preview', image, path, p);
+    this.preview = p
   }
 
   imageUrl(picture, path?: string) {
-    if (picture && picture['url']) {
+    if ((typeof picture) == 'string' && picture.startsWith('http')) {
+      return encodeURI(picture)
+    } else if (picture && picture['url']) {
       if (picture['url'].startsWith('http')) {
-        return encodeURI(picture)
-        } else {
-        return encodeURI(this.url + (path ? picture[path] : 'static/'+picture['url']))  
+        return encodeURI(picture['url'])
+      } else {
+        return encodeURI(this.url + (path && picture[path] ? picture[path] : 'static/'+picture['url']))  
       }
     }
   }
