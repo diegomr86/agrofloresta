@@ -1,5 +1,5 @@
 <ion-header no-shadow>
-  <ion-navbar>
+  <ion-navbar *ngIf="showSkip">
     <ion-buttons end *ngIf="showSkip">
       <button ion-button (click)="startApp()" color="primary">{{ 'TUTORIAL_SKIP_BUTTON' | translate}}</button>
     </ion-buttons>
@@ -9,17 +9,54 @@
 <ion-content no-bounce>
   <ion-slides pager="true" dir="{{dir}}" (ionSlideWillChange)="onSlideChangeStart($event)">
     <ion-slide>
-      <img src="assets/img/logo_full.png" class="slide-image" />
-      <h1>Agrofloresta!</h1>
+      <img src="assets/img/logo_full.png" class="slide-image first" />
+      <h3>Agrofloresta!</h3>
       <p>Esta é uma plataforma de contstrução colaborativa de conhecimento sobre Agroflorestas.</p>
       <h5 class="slide-title">Seja bem vindo!</h5>
     </ion-slide>
     <ion-slide>
-      <img src="assets/img/ica-slidebox-img-4.png" class="slide-image" />
-      <h2 class="slide-title">{{ 'TUTORIAL_SLIDE4_TITLE' | translate }}</h2>
+      <img src="assets/img/logo_full.png" class="slide-image" />
+      <h3>Objetivo</h3>
+      <p>A idéia é criar-mos uma base de dados e um canal de comunicação e difusão dos conhecimentos sobre agrofloresta. 
+      </p>
+    </ion-slide>
+    <ion-slide>
+      <img src="assets/img/logo_full.png" class="slide-image" />
+      <h3> Caracteristicas </h3>
+      <ul>
+        <li>Conteúdo criado e mantido de forma colaborativa.</li>
+        <li>Qualquer pessoa pode criar ou alterar qualquer conteúdo.</li>
+        <li>O Código fonte é aberto (open source).</li>
+        <li>O Conteúdo disponível mesmo sem internet.</li>
+        <li>Sem banners e publicidade.</li>
+        <li>Disponível nas plataformas web, android e ios.</li>
+      </ul>
+    </ion-slide>
+    <ion-slide>
+      <img src="assets/img/logo_full.png" class="slide-image" />
+      <h3> Como colaborar </h3>
+      <ul>
+        <li>Faça sua propria agrofloresta!</li>
+        <li>Ajude a criar e manter o conteúdo na plataforma.</li>
+        <li><a href="https://github.com/diegomr86/agrofloresta" target="_blank">Colabore no código ou design.</a></li>
+        <li><a href="https://github.com/diegomr86/agrofloresta/issues/new" target="_blank">Informe qualquer problema.</a></li>
+        <li><a href="https://github.com/diegomr86/agrofloresta/issues/new" target="_blank">Sugira uma melhoria.</a></li>
+        <!-- <li><a (click)="openPage('SharePage')">Compartilhe com seus amigos</a></li> -->
+        <li><a (click)="openPage('DonatePage')">Faça uma doação!</a></li>
+      </ul>
+    </ion-slide>
+    <ion-slide>
+      <img src="assets/img/logo_full.png" class="slide-image" />
+      <h3> Licença </h3>
+      <p> Este software está licenciado sobre a licença: </p>
+      <p> <strong>Creative Commons (CC BY-NC-SA 4.0)</strong></p>
+      <a href="https://raw.githubusercontent.com/diegomr86/agrofloresta/master/LICENSE" target="_blank"><img class="licence" src="https://br.creativecommons.org/wp-content/uploads/2015/04/by-nc-sa.jpg" /></a>
+    </ion-slide>
+    <ion-slide>
+      <img src="assets/img/logo_full.png" class="slide-image last" />
+      <h3 class="slide-title">E aí, <br>vamos construír <br> isso juntos? </h3>
       <button ion-button icon-end large clear (click)="startApp()">
-        {{ 'TUTORIAL_CONTINUE_BUTTON' | translate }}
-        <ion-icon name="arrow-forward"></ion-icon>
+         <ion-icon name="arrow-forward"></ion-icon>
       </button>
     </ion-slide>
   </ion-slides>

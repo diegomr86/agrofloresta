@@ -14,6 +14,7 @@ import { Api } from '../../providers';
 export class PictureUploadComponent {
   @ViewChild('fileInput') fileInput;
   @Input() form;
+  @Input() type;
 
   constructor(public api: Api) {
   }

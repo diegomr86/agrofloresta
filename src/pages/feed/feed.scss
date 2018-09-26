@@ -13,4 +13,14 @@ page-feed {
     border-radius: 2px;
     width: calc(100% - 0px);
   }
+  .post_content {
+  	display: inline;
+  }
+
+  .vote button {
+  	padding: 0;
+  }
+  .vote button:first-child {
+  	padding: 0 0 0 16px;
+  }
 }

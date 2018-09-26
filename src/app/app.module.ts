@@ -58,7 +58,7 @@ export function provideSettings(storage: Storage) {
     }),
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    IonicImageLoader.forRoot()
+    IonicImageLoader.forRoot()    
   ],
   bootstrap: [IonicApp],
   entryComponents: [

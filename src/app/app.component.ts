@@ -22,7 +22,7 @@ import { ImageLoaderConfig } from 'ionic-image-loader';
           </ion-buttons>
 
           <ion-title *ngIf="this.user.currentUser">
-            Rede Agrofloresta!
+            Rede Agrofloresta
           </ion-title>
         </ion-toolbar>
       </ion-header>
@@ -30,18 +30,16 @@ import { ImageLoaderConfig } from 'ionic-image-loader';
       <ion-content>
         <ion-list>
           <ion-item *ngIf="this.user.currentUser">
-            {{this.api.imageUrl(this.user.currentUser.picture, 'thumbs')}}
             <ion-avatar item-start>
               <img-loader [src]="this.api.imageUrl(this.user.currentUser.picture, 'thumbs')" useImg></img-loader>
             </ion-avatar>
             <h2 (click)="this.logout()">{{this.user.currentUser.name}}</h2>
             <p>{{this.user.currentUser._id}}</p>
           </ion-item>
-          <button menuClose ion-item (click)="openPage('FeedPage')">Início</button>
+          <button menuClose ion-item (click)="openPage('FeedPage')">Postagens</button>
           <button menuClose ion-item (click)="openPage('FeedPage', { category: 'event' })">Eventos</button>
-          <button menuClose ion-item (click)="openPage('GuidePage')">Guia básico</button>
           <button menuClose ion-item (click)="openPage('PlantsPage')">Tabela de plantas</button>
-          <button menuClose ion-item (click)="openPage('HowToHelpPage')">Como ajudar</button>
+          <button menuClose ion-item (click)="openPage('DonatePage')">Seja um apoiador</button>
           <button menuClose ion-item (click)="openPage('AboutPage')">Sobre</button>
           <button menuClose ion-item (click)="this.logout()">
             Sair
@@ -77,9 +75,9 @@ export class MyApp {
     this.initTranslate();
 
     this.storage.get('currentPosition').then((p) => {
-      if (!p) {
+      if (!p || !p.latitude) {
         this.geolocation.getCurrentPosition().then((position) => {
-          this.storage.set('currentPosition', position).catch((e) => {
+          this.storage.set('currentPosition', { latitude: position.coords.latitude, longitude: position.coords.longitude, accuracy: position.coords.accuracy, altitude: position.coords.altitude, timestamp: position.timestamp } ).catch((e) => {
             console.log('errr', e);
           })
         }).catch((error) => {

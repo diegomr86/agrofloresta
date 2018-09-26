@@ -73,4 +73,11 @@ export class TutorialPage {
     this.menu.enable(true);
   }
 
+  openPage(page, params?) {
+    // Reset the content nav to have just this page
+    // we wouldn't want the back button to show in this scenario
+    this.navCtrl.push(page, params);
+  }
+
+
 }

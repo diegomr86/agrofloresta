@@ -49,28 +49,14 @@
   img {
     width: 20px;
     border-radius: 50%;
-    margin-bottom: -5px;
   }
   strong {
     cursor: pointer;
   }  
-  p:first-child {
-    font-size: 12px;
-  }
   p {
-    margin: 0;
-    color: #333333;
+    font-size: 12px;
+    margin: 5px 0;
   }
-}
-
-.user_big {
-  cursor: pointer;
-  img {
-    width: 30px;
-    border-radius: 50%;
-    margin-bottom: -5px;
-  }
-  float: right;
 }
 
 

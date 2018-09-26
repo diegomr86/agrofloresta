@@ -106,32 +106,37 @@ export class PostFormPage {
 
   loadEmbed() {
     delete this.api.preview;
-    this.http.get("http://open.iframe.ly/api/oembed?url="+encodeURI(this.form.controls.url.value)+"&origin=diegomr86").subscribe(
-      res => {
-        // this.oembed = res;
-        if (res) {
-          this.form.patchValue({ 'title': res['title'] } )
-          this.form.patchValue({ 'content': res['description'] } )
-          this.form.patchValue({ 'picture': { url: res['thumbnail_url'] } } )
-          if (res['type'] == 'video') {
-            this.form.patchValue({ 'category': 'video' } )
-          }
-          if (!res['html'] || res['html'].indexOf('iframely-embed') > -1) {
+    if (this.form.controls.url.value) {
+      this.http.get("http://open.iframe.ly/api/oembed?url="+encodeURI(this.form.controls.url.value)+"&origin=diegomr86").subscribe(
+        res => {
+          console.log(res);
+          // this.oembed = res;
+          if (res) {
+            this.form.patchValue({ 'title': res['title'] } )
+            this.form.patchValue({ 'content': res['description'] } )
             if (res['thumbnail_url']) {
-              this.api.setPreview(res['thumbnail_url']);
-              console.log('res', res['thumbnail_url'], this.api.preview);
+              this.form.patchValue({ 'picture': { url: res['thumbnail_url'] } } )
             }
-            this.form.patchValue({ 'oembed': undefined } )
-          } else {
-            this.form.patchValue({ 'oembed': res['html'] } )
-          }
-        }         
-      }, 
-      error =>{
-        console.log(error);
-      }
-    )
-    // https://www.youtube.com/watch?v=gSPNRu4ZPvE
+            if (res['type'] == 'video') {
+              this.form.patchValue({ 'category': 'video' } )
+            }
+            if (!res['html'] || res['html'].indexOf('iframely-embed') > -1) {
+              if (res['thumbnail_url']) {
+                this.api.setPreview(res['thumbnail_url']);
+                console.log('res', res['thumbnail_url'], this.api.preview);
+              }
+              this.form.patchValue({ 'oembed': undefined } )
+            } else {
+              this.form.patchValue({ 'oembed': res['html'] } )
+            }
+          }         
+        }, 
+        error =>{
+          console.log('oembed error:', error);
+        }
+      )
+      // https://www.youtube.com/watch?v=gSPNRu4ZPvE
+    }
   } 
 
   setCategory(category) {

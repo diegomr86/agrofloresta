@@ -12,13 +12,17 @@
 </ion-header>
 <ion-content padding>
   <form *ngIf="form" [formGroup]="form" (ngSubmit)="save()">
-    <picture-upload [form]="this.form"></picture-upload>
+    <picture-upload [form]="this.form" [type]="'image'"></picture-upload>
     <ion-item *ngIf="this.form.controls._rev.value">
       <h2 ion-text *ngIf="this.form.controls._rev.value"> {{this.form.controls.name.value}} </h2>
     </ion-item>
     <ion-item *ngIf="!this.form.controls._rev.value">
       <ion-label stacked>Nome*</ion-label>
       <ion-input type="text" formControlName="name" (change)="checkConflict()"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Nome científico</ion-label>
+      <ion-input type="text" formControlName="scientific_name"></ion-input>
     </ion-item>
     <ion-item *ngIf="this.conflict">
       <p ion-text>Já existe um item cadastrado 
@@ -41,6 +45,14 @@
       <ion-select formControlName="stratum" interface="popover">
         <ion-option *ngFor="let stratum of Object.keys(items.stratums)" [value]="stratum">{{items.stratums[stratum]}}</ion-option>
       </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Colheita:</ion-label>
+      <ion-input formControlName="harvest_time" placeholder="ex: 45 dias"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Espaçamento:</ion-label>
+      <ion-input formControlName="spacing" placeholder="ex: 45cm"></ion-input>
     </ion-item>
     <div formArrayName="additional_fields" *ngFor="let additional_field of form.get('additional_fields').controls; let i = index;">
       <div [formGroupName]="i">

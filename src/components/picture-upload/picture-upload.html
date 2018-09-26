@@ -1,7 +1,10 @@
 <div *ngIf="this.form.controls">
 	<div class="preview-image-wrapper" (click)="getPicture()">
 	  <div class="preview-image-placeholder" *ngIf="!this.form.controls.picture.value && !this.api.loading">
-	    <img src="assets/img/upload_picture.png">
+      <ion-icon name="cloud-upload"></ion-icon>
+      <div>
+        Adicionar {{ type == 'book' ? 'livro PDF' : 'imagem' }}
+      </div>
 	  </div>
 	  <img class="preview-image" [src]="this.api.preview" *ngIf="this.api.preview">
 	  <div *ngIf="this.api.loading">
@@ -11,5 +14,10 @@
 	  </div>
 	  
 	</div>
-	<input type="file" #fileInput style="visibility: hidden; height: 0px; display: none;" name="files[]" (change)="processWebImage($event, this.form)" />
+	<div *ngIf="type == 'book'">
+		<input type="file" accept="application/pdf" #fileInput style="visibility: hidden; height: 0px; display: none;" name="files[]" (change)="processWebImage($event, this.form)" />
+	</div>
+	<div *ngIf="type != 'book'">
+		<input type="file" accept="image/*" #fileInput style="visibility: hidden; height: 0px; display: none;" name="files[]" (change)="processWebImage($event, this.form)" />
+	</div>
 </div>

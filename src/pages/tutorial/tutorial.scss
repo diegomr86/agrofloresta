@@ -14,10 +14,16 @@ page-tutorial {
   }
 
   .slide-image {
-    max-height: 40%;
-    max-width: 60%;
+    max-height: 30%;
+    max-width: 25%;
     margin-top: 36px;
   }
+  
+  .slide-image.first, .slide-image.last {
+    max-height: 30%;
+    max-width: 60%;
+  }
+
   h1 {
     margin-top: 0;
     color: color($colors, primary)
@@ -40,5 +46,23 @@ page-tutorial {
 
   .swiper-pagination-bullet-active {
     background: color($colors, primary)
+  }
+
+  ul {
+    font-size: 14px;
+    text-align: left;
+    list-style: circle;
+    padding: 0 32px;
+    li {
+      line-height: 20px;
+    }
+  }
+
+  a {
+    text-decoration: none;  
+  }
+
+  .licence {
+    max-width: 40%;
   }
 }

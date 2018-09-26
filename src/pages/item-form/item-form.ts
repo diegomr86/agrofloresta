@@ -41,9 +41,12 @@ export class ItemFormPage {
       _rev: [''],
       picture: ['', Validators.required],
       name: ['', Validators.required],
+      scientific_name: [''],
       description: ['', Validators.required],
       stratum: [''],
       cycle: [''],
+      harvest_time: [''],
+      spacing: [''],
       additional_fields: formBuilder.array([])
     });
 

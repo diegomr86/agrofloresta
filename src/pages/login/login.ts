@@ -23,7 +23,7 @@ export class LoginPage {
     public utils: Utils) {
 
     this.form = formBuilder.group({
-      _id: ['diegomr86@gmail.com', Validators.required]
+      _id: ['', Validators.required]
     });
 
     this.form.valueChanges.subscribe((v) => {

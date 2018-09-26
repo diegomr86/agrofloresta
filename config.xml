@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="br.agrofloresta.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>agrofloresta</name>
-    <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <name>Agrofloresta</name>
+    <description>Plataforma de contstrução colaborativa de conhecimento sobre Agroflorestas.</description>
+    <author email="diegomr86@gmail.com" href="https://diegomr86.github.io/">Diego M. Rodrigues</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -89,15 +89,16 @@
         <variable name="APP_ID" value="1053184128187969" />
         <variable name="APP_NAME" value="Agrofloresta" />
     </plugin>
-    <plugin name="cordova-plugin-googleplus" spec="^5.3.0">
-        <variable name="REVERSED_CLIENT_ID" value="456071540069-r73mloai3uscbdu8d5pu37j4kfu3ipfe.apps.googleusercontent.com" />
-        <variable name="WEB_APPLICATION_CLIENT_ID" value="456071540069-opt3ll12ojd3f8bk12gbd1eg2j29puq8.apps.googleusercontent.com" />
-    </plugin>
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="Para melhorar sua interação" />
     </plugin>
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
+    <plugin name="cordova-plugin-googleplus" spec="^5.3.2">
+        <variable name="REVERSED_CLIENT_ID" value="r73mloai3uscbdu8d5pu37j4kfu3ipfe.apps.googleusercontent.com" />
+        <variable name="WEB_APPLICATION_CLIENT_ID" value="456071540069-opt3ll12ojd3f8bk12gbd1eg2j29puq8.apps.googleusercontent.com" />
+        <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
+    </plugin>
     <engine name="browser" spec="5.0.4" />
     <engine name="android" spec="7.1.1" />
 </widget>

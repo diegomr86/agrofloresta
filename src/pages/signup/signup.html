@@ -6,7 +6,7 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content padding>
   <form *ngIf="form" [formGroup]="form" (ngSubmit)="doSignup()">
     <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="api.processWebImage($event, this.form)" />
     <div class="preview-image-wrapper" (click)="getPicture()">
@@ -30,7 +30,7 @@
       <ion-input type="email" formControlName="_id"></ion-input>
     </ion-item>
 
-    <div padding>
+    <div>
       <button ion-button color="primary" block [disabled]="!isReadyToSave">CONTINUAR</button>
     </div>
   </form>

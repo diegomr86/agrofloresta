@@ -3,13 +3,13 @@
     <ion-title>Entrar</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content padding>
   <form *ngIf="form" [formGroup]="form" (ngSubmit)="login()">
     <ion-item>
       <ion-label stacked>{{ 'EMAIL' | translate }}</ion-label>
       <ion-input type="email" formControlName="_id"></ion-input>
     </ion-item>
-    <div padding>
+    <div>
       <button ion-button color="primary" block [disabled]="!isReadyToSave">CONTINUAR</button>
     </div>
   </form>

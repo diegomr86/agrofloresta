@@ -14,6 +14,12 @@
 <ion-content *ngIf="items.currentItem">
   <img-loader spinner="true" [src]="this.api.imageUrl(items.currentItem.picture, 'medium')" useImg></img-loader>
   <div class="plant" padding>
+    <div>
+      <h5>{{items.currentItem.name}}</h5>
+    </div>
+    <div *ngIf="items.currentItem.scientific_name">
+      <i>{{items.currentItem.scientific_name}}</i>
+    </div>
     <p class="description">{{items.currentItem.description}}</p>
     <div *ngIf="items.currentItem.cycle">
       <h6>Ciclo </h6>
@@ -22,6 +28,14 @@
     <div *ngIf="items.currentItem.stratum">
       <h6>Estrato </h6>
       <p>{{items.stratums[items.currentItem.stratum]}}</p>
+    </div>
+    <div *ngIf="items.currentItem.harvest_time">
+      <h6>Tempo de colheita </h6>
+      <p>{{items.currentItem.harvest_time}}</p>
+    </div>
+    <div *ngIf="items.currentItem.spacing">
+      <h6>Espaçamento </h6>
+      <p>{{items.currentItem.spacing}}</p>
     </div>
     <div *ngFor="let additional_field of items.currentItem.additional_fields">
       <div *ngIf="additional_field.content">

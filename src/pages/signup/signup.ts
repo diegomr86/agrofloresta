@@ -37,7 +37,7 @@ export class SignupPage {
 
     this.form = formBuilder.group({
       type: ['user', Validators.required],
-      _id: ['diegomr86@gmail.com', Validators.required],
+      _id: ['', Validators.required],
       name: ['', Validators.required],
       picture: ['']
     });

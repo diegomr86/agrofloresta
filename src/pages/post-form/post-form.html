@@ -45,8 +45,8 @@
       </ion-row>
     </div>
     <div *ngIf="form.controls.category.value">
-      <div *ngIf="api.preview || form.controls.category.value == 'picture' || form.controls.category.value == 'book' || form.controls.category.value == 'event'">
-    		<picture-upload [form]="form"></picture-upload>
+      <div *ngIf="api.preview || form.controls.category.value != 'video'">
+    		<picture-upload [form]="form" [type]="form.controls.category.value == 'book' ? 'book' : 'image'"></picture-upload>
       </div>
       <div *ngIf="form.controls.oembed.value" [innerHTML]="form.controls.oembed.value | safe: 'html'">      
       </div>
@@ -68,11 +68,11 @@
       <div *ngIf="form.controls.category.value == 'event'">
         <ion-item>
           <ion-label stacked>Começa em:</ion-label>
-          <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="DD/MM/YYYY HH:mm" formControlName="start_time"></ion-datetime>
+          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" formControlName="start_time"></ion-datetime>
         </ion-item>
         <ion-item>
           <ion-label stacked>Termina em:</ion-label>
-          <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="DD/MM/YYYY HH:mm" formControlName="end_time"></ion-datetime>
+          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" formControlName="end_time"></ion-datetime>
         </ion-item>
         <ion-item>
           <ion-label stacked>Local:</ion-label>

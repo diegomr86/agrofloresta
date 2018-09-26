@@ -14,7 +14,8 @@ A idéia é criar uma base de dados de conhecimento coletivo sobre agrofloresta 
 3. O Código fonte aberto (open source)
 4. As informações devem estar disponíveis mesmo que o usuário não esteja conectado (offline first)
 5. Não ter nenhum tipo de publicidade
-6. Servir de base para criação de novas tecnologias relacionadas
+6. Ser acessível em qualquer plataforma web, android e ios.
+7. Servir de base para criação de novas tecnologias relacionadas
 
 ## Como colaborar
 
