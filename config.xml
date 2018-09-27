@@ -92,7 +92,6 @@
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="Para melhorar sua interação" />
     </plugin>
-    <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <plugin name="cordova-plugin-googleplus" spec="^5.3.2">
         <variable name="REVERSED_CLIENT_ID" value="r73mloai3uscbdu8d5pu37j4kfu3ipfe.apps.googleusercontent.com" />
@@ -101,4 +100,6 @@
     </plugin>
     <engine name="browser" spec="5.0.4" />
     <engine name="android" spec="7.1.1" />
+    <plugin name="cordova-plugin-file" spec="^6.0.1" />
+    <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
 </widget>

@@ -12,7 +12,8 @@ import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Geolocation } from '@ionic-native/geolocation';
 import 'rxjs/add/observable/fromEvent';
-import { IonicImageLoader } from 'ionic-image-loader';
+// import { IonicImageLoader } from 'ionic-image-loader';
+import { ImgCacheModule } from 'ng-imgcache';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -58,7 +59,7 @@ export function provideSettings(storage: Storage) {
     }),
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    IonicImageLoader.forRoot()    
+    ImgCacheModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

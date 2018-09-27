@@ -18,7 +18,8 @@
 <ion-content padding>
   <ion-card *ngFor="let post of posts">
     <post-user [post]="post"></post-user>
-    <img-loader *ngIf="!post.oembed && post.picture" [src]="this.api.imageUrl(post.picture, 'medium')" (click)="open(post._id)" spinner="true" useImg></img-loader>
+    {{this.api.imageUrl(post.picture, 'medium')}}
+    <img img-cache img-cache-src="this.api.imageUrl(post.picture, 'medium')" (click)="open(post._id)" spinner="true" *ngIf="!post.oembed && post.picture">
     <div *ngIf="post.oembed" [innerHTML]="post.oembed | safe: 'html'"></div>
 
     <ion-card-content>

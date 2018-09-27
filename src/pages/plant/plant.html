@@ -12,7 +12,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content *ngIf="items.currentItem">
-  <img-loader spinner="true" [src]="this.api.imageUrl(items.currentItem.picture, 'medium')" useImg></img-loader>
+  <img img-cache img-cache-src="this.api.imageUrl(items.currentItem.picture, 'medium')">
   <div class="plant" padding>
     <div>
       <h5>{{items.currentItem.name}}</h5>

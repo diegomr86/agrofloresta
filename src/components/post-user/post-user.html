@@ -1,6 +1,6 @@
 <ion-item *ngIf="post && user">
 	<ion-avatar item-start>
-	  <img-loader spinner="true" [src]="this.api.imageUrl(user.picture, 'thumbs')" useImg></img-loader>
+	  <img img-cache img-cache-src="this.api.imageUrl(user.picture, 'thumbs')">
 	</ion-avatar>
 	<h2>{{ user.name }}</h2>
 	<p>{{ post.created_at | timeAgo }}</p>

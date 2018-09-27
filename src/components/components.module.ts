@@ -3,6 +3,7 @@ import { UserComponent } from './user/user';
 import { IonicModule } from 'ionic-angular';
 import { OnMount, DynamicComponentModule } from 'ng-dynamic';
 import { IonicImageLoader } from 'ionic-image-loader';
+import { ImgCacheModule } from 'ng-imgcache';
 import { QuillModule } from 'ngx-quill'
 import { PipesModule } from '../pipes/pipes.module';
 
@@ -25,9 +26,9 @@ import { CommentUserComponent } from './comment-user/comment-user';
     CommentUserComponent
     ],
 	imports: [IonicModule,
-		IonicImageLoader,
+        ImgCacheModule,
 		DynamicComponentModule.forRoot({
-	      imports: [IonicImageLoader]
+	      imports: [ImgCacheModule]
 	    }),
         QuillModule,
         PipesModule
