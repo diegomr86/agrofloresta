@@ -7,12 +7,68 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>profile</ion-title>
+    <ion-title *ngIf="profile">Perfil</ion-title>
+	  <ion-buttons end>
+	    <button *ngIf="profile && user.currentUser && profile._id == user.currentUser._id" ion-button icon-only (click)="edit(profile._id)">
+	      <ion-icon name="create"></ion-icon>
+	    </button>
+	  </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+	<div *ngIf="profile">
+	  <ion-item class="profile_user">
+	    <ion-avatar item-start>
+	      <img img-cache [source]="this.api.imageUrl(profile.picture, 'medium')" >
+	    </ion-avatar>
+	    <h2>{{profile.name}}</h2>
+	    <p *ngIf="profile.location"><strong>{{profile.location}}</strong></p>
+	  </ion-item>
+    <p padding *ngIf="profile.bio">{{profile.bio}}</p>
+	  <ion-card *ngFor="let post of posts">
+	    <img img-cache [source]="this.api.imageUrl(post.picture, 'medium')" (click)="open(post._id)" >
+	    <div *ngIf="post.oembed" [innerHTML]="post.oembed | safe: 'html'"></div>
 
+	    <ion-card-content>
+	      <h2 (click)="open(post._id)">{{post.title}}</h2>
+
+	      <p [innerHtml]="post.content | truncate" class="post_content"></p>
+	      <a *ngIf="post.url && post.content && (post.content.indexOf('…') >= 0 || post.content.indexOf('...') >= 0)" [href]="post.url" target="_blank">Continuar lendo</a>
+	      <div *ngIf="post.category =='event'">
+	        <br>
+	        <p *ngIf="post.start_time && post.end_time">De: <strong>{{ post.start_time| date: 'dd/MM/yyyy' }}</strong> à <strong>{{ post.end_time| date: 'dd/MM/yyyy' }}</strong></p>
+	        <p *ngIf="post.start_time && !post.end_time">Dia <strong>{{ post.start_time| date: 'dd/MM/yyyy' }}</strong></p>
+	        <p>Local: <strong>{{ post.location }}</strong></p>
+	      </div>
+
+	    </ion-card-content>
+
+	    <ion-row>
+	      <ion-col>
+	        <ion-buttons left class="vote">
+	          <button ion-button color="primary" clear small icon-start (click)="like(post)">
+	            <ion-icon name='thumbs-up'></ion-icon>
+	            ({{ post.likes && post.likes.length > 0 ? post.likes.length : 0 }})
+	          </button>
+	          <button ion-button color="primary" clear small icon-start (click)="dislike(post)">
+	            <ion-icon name='thumbs-down'></ion-icon>
+	            ({{ post.dislikes && post.dislikes.length > 0 ? post.dislikes.length : 0 }})
+	          </button>
+	        </ion-buttons>
+	      </ion-col>
+	      <ion-col>
+	        <button ion-button color="primary" clear small icon-start (click)="showComments(post._id)">
+	            <ion-icon name='text'></ion-icon>
+	            {{ post.comments && post.comments.length > 0 ? post.comments.length : 0 }} COMENTÁRIOS  
+	          </button>
+	      </ion-col>
+	    </ion-row>
+	    <comments *ngIf="commentPost == post._id" padding [post]="post" [posts]="posts"></comments>
+	    <br>    
+	  </ion-card>
+
+	</div>
 </ion-content>

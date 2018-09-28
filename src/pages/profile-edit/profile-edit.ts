@@ -6,20 +6,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Api, User } from '../../providers';
 import { Utils } from '../../utils/utils';
 
-import { MainPage } from '../';
-
 @IonicPage()
 @Component({
-  selector: 'page-signup',
-  templateUrl: 'signup.html'
+  selector: 'page-profile-edit',
+  templateUrl: 'profile-edit.html'
 })
-export class SignupPage {
+export class ProfileEditPage {
 
   form: FormGroup;
   isReadyToSave: boolean;
 
   // Our translated text strings
-  // private signupErrorString: string;
+  // private profile-editErrorString: string;
 
   constructor(public navCtrl: NavController,
     public api: Api,
@@ -30,46 +28,42 @@ export class SignupPage {
     public utils: Utils) {
 
     // this.translateService.get('SIGNUP_ERROR').subscribe((value) => {
-    //   this.signupublic navCtrl: NavController, pErrorString = value;
+    //   this.profile-editublic navCtrl: NavController, pErrorString = value;
     // })
 
     this.form = formBuilder.group({
       type: ['user', Validators.required],
       _id: ['', Validators.required],
+      _rev: ['', Validators.required],
       name: ['', Validators.required],
       picture: [''],
       bio: [''],
       location: ['']
     });
 
-    // Watch the form for changes, and
     this.form.valueChanges.subscribe((v) => {
       this.isReadyToSave = this.form.valid;
     });
+
+		this.edit()
   }
 
-  doSignup() {
+  edit() {
+  	if (this.user.currentUser) {
+      this.form.patchValue({
+        ...this.user.currentUser
+      }) 
+      this.api.setPreview(this.user.currentUser.picture, 'medium')
+    }
+  }
+
+  save() {
+    console.log('val', this.form.value);
     // Attempt to login in through our User service
-    this.user.signup(this.form.value).then((response) => {
-      this.navCtrl.setRoot(MainPage);
+    this.user.save(this.form.value).then((response) => {
+      this.user.login(this.user.currentUser._id).then(res => this.navCtrl.setRoot('ProfilePage'));
     }).catch((e) => {
-      console.log('erro de cadastro', e)
-      if (e.name == 'conflict') {
-        this.utils.showToast("Usuário já cadastrado. Fazendo login.", 'primary');
-        this.login();
-
-      }
+      console.log('erro: ', e)
     })
-  }
-
-
-  login() {
-    this.user.login(this.form.controls._id.value).then((resp) => {
-      if (resp) {
-        this.navCtrl.setRoot(MainPage);
-      }
-    }).catch((err) => {
-      console.log(err);
-    });
   }
 }

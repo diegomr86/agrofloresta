@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
  */
 @Injectable()
 export class Api {
-  url: string = 'http://localhost:5000/';
-  // url: string = 'http://ips.diegomr86.ga/';
+  // url: string = 'http://localhost:5000/';
+  url: string = 'http://ips.diegomr86.ga/';
   loading: boolean = false;
   preview: any;
 

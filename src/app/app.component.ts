@@ -29,11 +29,11 @@ import { ImgCacheService } from '../global';
 
       <ion-content>
         <ion-list>
-          <ion-item *ngIf="this.user.currentUser">
+          <ion-item *ngIf="this.user.currentUser" (click)="profile(this.user.currentUser)" class="menu_profile">
             <ion-avatar item-start>
               <img img-cache [source]="this.api.imageUrl(this.user.currentUser.picture, 'thumbs')" >
             </ion-avatar>
-            <h2 (click)="this.logout()">{{this.user.currentUser.name}}</h2>
+            <h2>{{this.user.currentUser.name}}</h2>
             <p>{{this.user.currentUser._id}}</p>
           </ion-item>
           <button menuClose ion-item (click)="openPage('FeedPage')">Postagens</button>
@@ -133,8 +133,8 @@ export class MyApp {
   }
 
   logout() {
-    this.user.logout()
     this.nav.setRoot('WelcomePage');   
+    this.user.logout()
     // this.menuCtrl.close(); 
   }
 
@@ -142,5 +142,9 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page, params);
+  }
+
+  profile(user) {
+    this.nav.setRoot('ProfilePage', { id: user._id });
   }
 }

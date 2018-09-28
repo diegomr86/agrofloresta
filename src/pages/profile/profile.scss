@@ -1,3 +1,11 @@
 page-profile {
-
+	.profile_user {
+		img {
+			width: 70px;
+			height: auto;
+		}
+	}
+	.item-inner {
+		border-bottom: 0 !important;
+	}
 }

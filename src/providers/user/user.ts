@@ -17,17 +17,11 @@ export class User extends Database {
    * the user entered on the form.
    */
   login(id) {
-    return this.storage.get('currentUser').then((response) => {
-      if (!response) {
-        return this.get(id).then((response) => {
-          this.storage.set('currentUser', response);
-          this.currentUser = response
-          return response 
-        })
-      } else {
-        return response
-      }
-    });
+    return this.get(id).then((response) => {
+      this.storage.set('currentUser', response);
+      this.currentUser = response
+      return response 
+    })
   }
 
   /**
@@ -51,7 +45,7 @@ export class User extends Database {
    */
   logout() {
     this.currentUser = undefined
-    this.storage.remove('skipTour')
+    // this.storage.remove('skipTour')
     return this.storage.remove('currentUser')
   }
 
@@ -73,4 +67,5 @@ export class User extends Database {
       return response
     })   
   }
+
 }
