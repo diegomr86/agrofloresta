@@ -8,7 +8,7 @@ import { FirstRunPage, MainPage } from '../pages';
 import { Settings, User, Api } from '../providers';
 import { Storage } from '@ionic/storage';
 import { Geolocation } from '@ionic-native/geolocation';
-import { ImgCacheService } from 'ng-imgcache';
+import { ImgCacheService } from '../global';
 
 @Component({
   template: `<ion-split-pane [enabled]="this.user.currentUser">
@@ -31,7 +31,7 @@ import { ImgCacheService } from 'ng-imgcache';
         <ion-list>
           <ion-item *ngIf="this.user.currentUser">
             <ion-avatar item-start>
-              <img img-cache img-cache-src="this.api.imageUrl(this.user.currentUser.picture, 'thumbs')" >
+              <img img-cache [source]="this.api.imageUrl(this.user.currentUser.picture, 'thumbs')" >
             </ion-avatar>
             <h2 (click)="this.logout()">{{this.user.currentUser.name}}</h2>
             <p>{{this.user.currentUser._id}}</p>
@@ -56,7 +56,7 @@ export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
   
-  constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, private user: User, public api: Api, public menuCtrl: MenuController, public storage: Storage, private geolocation: Geolocation, imgCache: ImgCacheService) {
+  constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, private user: User, public api: Api, public menuCtrl: MenuController, public storage: Storage, private geolocation: Geolocation, imgCacheService: ImgCacheService) {
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -65,13 +65,12 @@ export class MyApp {
       // // this.imageLoaderConfig.enableFallbackAsPlaceholder(true);
       // this.imageLoaderConfig.setFallbackUrl('assets/img/logo.png');
       // this.imageLoaderConfig.setMaximumCacheAge(24 * 60 * 60 * 1000);
-      imgCache.init({
-        debug: true,
-        chromeQuota: 100 * 1024 * 1024
-      });
 
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      imgCacheService.initImgCache()
+        .subscribe((v) => console.log('init'), (e) => console.log('fail init', e));
 
 
     });

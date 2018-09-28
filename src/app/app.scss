@@ -44,7 +44,7 @@
 }
 
 .user {
-  float: right;
+  // float: right;
   text-align: right;
   img {
     width: 20px;
@@ -55,7 +55,10 @@
   }  
   p {
     font-size: 12px;
-    margin: 5px 0;
+    margin: 0;
+    &.profile {
+      margin-bottom: 10px;
+    }
   }
 }
 

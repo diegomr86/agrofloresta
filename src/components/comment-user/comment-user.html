@@ -1,6 +1,6 @@
 <ion-item *ngIf="user">
 	<ion-avatar item-start>
-	  <img img-cache img-cache-src="this.api.imageUrl(user.picture, 'thumbs')">
+	  <img img-cache [source]="this.api.imageUrl(user.picture, 'thumbs')"> 
 	</ion-avatar>
   <ion-row>
     <ion-col>

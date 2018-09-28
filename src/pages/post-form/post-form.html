@@ -57,11 +57,11 @@
         <ion-input formControlName="url" (change)="loadEmbed()"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label stacked>Título*</ion-label>
+        <ion-label stacked>Título*:</ion-label>
         <ion-input type="text" formControlName="title" (keyup)="generateId()" (change)="generateId()"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label stacked>Descrição*</ion-label>
+        <ion-label stacked>Descrição*:</ion-label>
         <!-- <ion-textarea formControlName="content"></ion-textarea> -->
       </ion-item>
       <text-editor [form]="form"></text-editor>
@@ -79,7 +79,7 @@
           <ion-input formControlName="location"></ion-input>
         </ion-item>
       </div>
-      <ion-label stacked>Palavras chave</ion-label>
+      <ion-label stacked>Palavras chave:</ion-label>
       <tag-input formControlName="tags" [placeholder]="'+ Palavra chave'" [secondaryPlaceholder]="'Adicione palavras chave'" [separatorKeyCodes]="[9]">
         <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="autocompleteTags" ></tag-input-dropdown>
       </tag-input>

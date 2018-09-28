@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpRequest, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User, Database, Api } from '../../providers';
@@ -79,6 +79,7 @@ export class PostFormPage {
       this.form.patchValue({ 'updated_at': new Date()} )
       this.database.save(this.form.value).then(res => {
         this.navCtrl.setRoot('FeedPage');
+        this.navCtrl.push('PostPage', { id: this.form.controls._id.value });
       }).catch((e) => {
         console.log(e)
         this.utils.showToast(e.message, 'error');
@@ -109,7 +110,6 @@ export class PostFormPage {
     if (this.form.controls.url.value) {
       this.http.get("http://open.iframe.ly/api/oembed?url="+encodeURI(this.form.controls.url.value)+"&origin=diegomr86").subscribe(
         res => {
-          console.log(res);
           // this.oembed = res;
           if (res) {
             this.form.patchValue({ 'title': res['title'] } )
@@ -123,7 +123,6 @@ export class PostFormPage {
             if (!res['html'] || res['html'].indexOf('iframely-embed') > -1) {
               if (res['thumbnail_url']) {
                 this.api.setPreview(res['thumbnail_url']);
-                console.log('res', res['thumbnail_url'], this.api.preview);
               }
               this.form.patchValue({ 'oembed': undefined } )
             } else {

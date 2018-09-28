@@ -23,32 +23,34 @@
       <ion-col>
         <ion-select [(ngModel)]="filters.cycle" (ionChange)="search()" interface="popover" >
           <ion-option value="">Todos os ciclos</ion-option>
-          <ion-option *ngFor="let cycle of Object.keys(items.cycles)" [value]="cycle">{{items.cycles[cycle]}}</ion-option>
+          <ion-option *ngFor="let cycle of Object.keys(database.cycles)" [value]="cycle">{{database.cycles[cycle]}}</ion-option>
         </ion-select>
       </ion-col>
       <ion-col>
         <ion-select [(ngModel)]="filters.stratum" (ionChange)="search()" interface="popover">
           <ion-option value="">Todos os estratos</ion-option>
-          <ion-option *ngFor="let stratum of Object.keys(items.stratums)" [value]="stratum">{{items.stratums[stratum]}}</ion-option>
+          <ion-option *ngFor="let stratum of Object.keys(database.stratums)" [value]="stratum">{{database.stratums[stratum]}}</ion-option>
         </ion-select>
       </ion-col>
     </ion-row>
   </ion-grid>
   <ion-list>
-    <ion-item-sliding *ngFor="let item of items.itemsList">
-      <button ion-item (click)="open(item._id)">
+    <ion-item-sliding *ngFor="let plant of plants">
+      <button ion-item (click)="open(plant._id)">
         <ion-avatar item-start>
-          <img img-cache img-cache-src="this.api.imageUrl(item.picture, 'thumbs')">
+          <img img-cache [source]="this.api.imageUrl(plant.picture, 'thumbs')">
         </ion-avatar>
-        <h2>{{item.name}}</h2>
-        <p>{{item.about}}</p>
-        <ion-note item-end *ngIf="item.note">{{item.note}}</ion-note>
-      </button>
-      <ion-item-options>
-        <button ion-button color="danger" (click)="deleteItem(item)">
-          delete
-        </button>
-      </ion-item-options>
+        <h2>{{plant.name}}</h2>
+        <p>{{plant.scientific_name}}</p>
+<!--         <ion-note item-end>
+          <div *ngIf="plant.cycle">
+            <p>Ciclo: <strong>{{database.cycles[plant.cycle]}}</strong></p>
+          </div>
+          <div *ngIf="plant.stratum">
+            <p>Estrato: <strong>{{database.cycles[plant.stratum]}}{{plant.stratum}}</strong></p>
+          </div>
+        </ion-note>
+ -->      </button>
     </ion-item-sliding>
   </ion-list>
 </ion-content>

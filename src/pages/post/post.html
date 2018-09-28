@@ -13,17 +13,19 @@
 <ion-content padding>
   <div *ngIf="post">
     <div *ngIf="post.oembed" [innerHTML]="post.oembed | safe: 'html'"></div>
-    <img img-cache img-cache-src="this.api.imageUrl(post.picture, 'medium')" *ngIf="!post.oembed && post.picture">
+    <img img-cache [source]="this.api.imageUrl(post.picture, 'medium')" *ngIf="!post.oembed && post.picture">
+    <br>
     <h1>{{post.title}}</h1>
     <div padding-bottom>
       <p [innerHTML]="post.content | safe: 'html'" class="ql-editor preview"></p>
       <a *ngIf="post.url && post.content && post.content.indexOf('…') >= 0" [href]="post.url" target="_blank">Continuar lendo</a>
-      <a *ngIf="post.url && post.content && post.content.indexOf('…') < 0" [href]="post.url" target="_blank">Fonte</a>
       <div *ngIf="post.category =='event'">
         <p *ngIf="post.start_time && post.end_time">De: <strong>{{ post.start_time| date: 'dd/MM/yyyy' }}</strong> à <strong>{{ post.end_time| date: 'dd/MM/yyyy' }}</strong></p>
         <p *ngIf="post.start_time && !post.end_time">Dia <strong>{{ post.start_time| date: 'dd/MM/yyyy' }}</strong></p>
         <p>Local: <strong>{{ post.location }}</strong></p>
       </div>
+      <a *ngIf="post.category == 'book' && post.picture && post.picture.url" [href]="this.api.imageUrl(post.picture)" target="_blank">Baixar Livro</a>
+      <a *ngIf="post.url && post.content && post.content.indexOf('…') < 0" [href]="post.url" target="_blank">Fonte</a>
       <user [item]="post"></user> 
       <br>    
       <br>    

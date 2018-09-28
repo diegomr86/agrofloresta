@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { UserComponent } from './user/user';
 import { IonicModule } from 'ionic-angular';
-import { OnMount, DynamicComponentModule } from 'ng-dynamic';
-import { IonicImageLoader } from 'ionic-image-loader';
-import { ImgCacheModule } from 'ng-imgcache';
+import { DynamicComponentModule } from 'ng-dynamic';
 import { QuillModule } from 'ngx-quill'
 import { PipesModule } from '../pipes/pipes.module';
-
+import { DirectivesModule } from '../directives/directives.module';
 
 import { SafeContentComponent } from './safe-content/safe-content';
 import { PictureUploadComponent } from './picture-upload/picture-upload';
@@ -26,12 +24,12 @@ import { CommentUserComponent } from './comment-user/comment-user';
     CommentUserComponent
     ],
 	imports: [IonicModule,
-        ImgCacheModule,
 		DynamicComponentModule.forRoot({
-	      imports: [ImgCacheModule]
+	      imports: []
 	    }),
         QuillModule,
-        PipesModule
+        PipesModule,
+        DirectivesModule
     ],
 	exports: [UserComponent,
     SafeContentComponent,

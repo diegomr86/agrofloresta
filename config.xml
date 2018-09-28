@@ -1,16 +1,32 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="br.agrofloresta.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="br.agrofloresta.app" version="1.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Agrofloresta</name>
     <description>Plataforma de contstrução colaborativa de conhecimento sobre Agroflorestas.</description>
     <author email="diegomr86@gmail.com" href="https://diegomr86.github.io/">Diego M. Rodrigues</author>
     <content src="index.html" />
     <access origin="*" />
+    <access origin="cdvfile://*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <allow-intent href="cdvfile://*" />
+    <feature name="Device">
+        <param name="ios-package" value="CDVDevice" />
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="File">
+        <param name="ios-package" value="CDVFile" />
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+    </feature>
+    <feature name="FileTransfer">
+        <param name="ios-package" value="CDVFileTransfer" />
+        <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
+    </feature>
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+    <preference name="iosPersistentFileLocation" value="Library" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="android-minSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="none" />
@@ -98,8 +114,8 @@
         <variable name="WEB_APPLICATION_CLIENT_ID" value="456071540069-opt3ll12ojd3f8bk12gbd1eg2j29puq8.apps.googleusercontent.com" />
         <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
     </plugin>
-    <engine name="browser" spec="5.0.4" />
-    <engine name="android" spec="7.1.1" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
+    <engine name="browser" spec="5.0.4" />
+    <engine name="android" spec="7.1.1" />
 </widget>

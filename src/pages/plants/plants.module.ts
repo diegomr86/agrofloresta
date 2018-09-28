@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { IonicPageModule } from 'ionic-angular';
 import { IonicImageLoader } from 'ionic-image-loader';
+import { DirectivesModule } from '../../directives/directives.module';
 
 import { PlantsPage } from './plants';
 
@@ -12,7 +13,8 @@ import { PlantsPage } from './plants';
   imports: [
     IonicPageModule.forChild(PlantsPage),
     TranslateModule.forChild(),
-    IonicImageLoader
+    IonicImageLoader,
+    DirectivesModule
   ],
   exports: [
     PlantsPage

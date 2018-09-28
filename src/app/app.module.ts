@@ -11,15 +11,16 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Geolocation } from '@ionic-native/geolocation';
+import { File } from '@ionic-native/file';
 import 'rxjs/add/observable/fromEvent';
-// import { IonicImageLoader } from 'ionic-image-loader';
-import { ImgCacheModule } from 'ng-imgcache';
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+// import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { Settings, User, Api, Items, Database } from '../providers';
+import { DirectivesModule } from '../directives/directives.module';
+import { Settings, User, Api, Database } from '../providers';
 import { Utils } from '../utils/utils';
 import { MyApp } from './app.component';
+import { ImgCacheService } from '../global';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -59,7 +60,7 @@ export function provideSettings(storage: Storage) {
     }),
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    ImgCacheModule
+    DirectivesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -67,7 +68,6 @@ export function provideSettings(storage: Storage) {
   ],
   providers: [
     Api,
-    Items,
     User,
     Database,
     Utils,
@@ -77,6 +77,8 @@ export function provideSettings(storage: Storage) {
     Facebook,
     GooglePlus,
     Geolocation,
+    File,
+    ImgCacheService,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },

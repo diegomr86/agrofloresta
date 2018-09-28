@@ -1,48 +1,45 @@
 <ion-header>
   <ion-navbar>
-    <ion-title *ngIf="items.currentItem">{{ items.currentItem.name }}</ion-title>
+    <ion-title *ngIf="plant">{{ plant.name }}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="edit()">
         <ion-icon name="create"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="delete()">
-        <ion-icon name="trash"></ion-icon>
-      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content *ngIf="items.currentItem">
-  <img img-cache img-cache-src="this.api.imageUrl(items.currentItem.picture, 'medium')">
-  <div class="plant" padding>
+<ion-content padding>
+  <div class="plant" *ngIf="plant">
+    <img img-cache [source]="this.api.imageUrl(plant.picture, 'medium')">
     <div>
-      <h5>{{items.currentItem.name}}</h5>
+      <h5>{{plant.name}}</h5>
     </div>
-    <div *ngIf="items.currentItem.scientific_name">
-      <i>{{items.currentItem.scientific_name}}</i>
+    <div *ngIf="plant.scientific_name">
+      <i>{{plant.scientific_name}}</i>
     </div>
-    <p class="description">{{items.currentItem.description}}</p>
-    <div *ngIf="items.currentItem.cycle">
+    <p class="description">{{plant.description}}</p>
+    <div *ngIf="plant.cycle">
       <h6>Ciclo </h6>
-      <p>{{items.cycles[items.currentItem.cycle]}}</p>
+      <p>{{database.cycles[plant.cycle]}}</p>
     </div>
-    <div *ngIf="items.currentItem.stratum">
+    <div *ngIf="plant.stratum">
       <h6>Estrato </h6>
-      <p>{{items.stratums[items.currentItem.stratum]}}</p>
+      <p>{{database.stratums[plant.stratum]}}</p>
     </div>
-    <div *ngIf="items.currentItem.harvest_time">
+    <div *ngIf="plant.harvest_time">
       <h6>Tempo de colheita </h6>
-      <p>{{items.currentItem.harvest_time}}</p>
+      <p>{{plant.harvest_time}}</p>
     </div>
-    <div *ngIf="items.currentItem.spacing">
+    <div *ngIf="plant.spacing">
       <h6>Espaçamento </h6>
-      <p>{{items.currentItem.spacing}}</p>
+      <p>{{plant.spacing}}</p>
     </div>
-    <div *ngFor="let additional_field of items.currentItem.additional_fields">
+    <div *ngFor="let additional_field of plant.additional_fields">
       <div *ngIf="additional_field.content">
         <h6>{{additional_field.name}} </h6>
         <p>{{additional_field.content}}</p>
       </div>
     </div>
-    <user [item]="items.currentItem"></user>     
+    <user [item]="plant"></user>     
   </div>
 </ion-content>

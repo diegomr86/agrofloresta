@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { Items, Api } from '../../providers';
+import { Database, Api } from '../../providers';
 import { Utils } from '../../utils/utils';
 
 @IonicPage({
@@ -13,20 +13,17 @@ import { Utils } from '../../utils/utils';
 })
 export class PlantPage {
 
-  constructor(public navCtrl: NavController, navParams: NavParams, public modalCtrl: ModalController, public items: Items, public api: Api, public utils: Utils) {
-    this.items.get(navParams.get('id')).then(item => {
-      this.items.currentItem = item  
+  plant;
+
+  constructor(public navCtrl: NavController, navParams: NavParams, public database: Database, public api: Api, public utils: Utils) {
+    this.database.get(navParams.get('id')).then(res => {
+      console.log('res', res);
+      this.plant = res
     });
   }
 
   edit() {
-    this.navCtrl.push('ItemFormPage', { id: this.items.currentItem._id });
+    this.navCtrl.push('PlantFormPage', { id: this.plant._id });
   } 
 
-  delete() {
-    this.utils.showConfirm(() => {
-      this.items.remove(this.items.currentItem);
-      this.navCtrl.pop();
-    })
-  }
 }

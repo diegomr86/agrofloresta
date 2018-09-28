@@ -70,7 +70,7 @@ export class TextEditorComponent {
   }
 
   cachedImages(content: string) {
-    content = content.replace(/<img src/g,'<img img-cache img-cache-src');
+    content = content.replace(/<img src/g,'<img img-cache [source]');
     // content = content.replace(/<\/img>/g,'');
     // content = content.replace(/(<img-loader("[^"]*"|[^\/">])*)>/gi, "$1>")
     return content

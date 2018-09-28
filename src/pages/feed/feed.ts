@@ -22,7 +22,6 @@ export class FeedPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database, public api: Api, public user: User) {
     this.posts = []
-    console.log("navParams.get('category')", navParams.get('category'));
     this.category = navParams.get('category');
     database.query('post', '', { category: navParams.get('category') }).then(res => {
       let that = this

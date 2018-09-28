@@ -11,8 +11,23 @@ export class Database {
   public remoteDb; 
   public cycles;
   public stratums;
+  public additional_fields;
 
   constructor() { 
+    this.cycles = {
+        placenta1: 'Placenta 1 (Até 3 meses)',
+        placenta2: 'Placenta 2 (3 meses a 1 ano)',
+        secundaria1: 'Secundária 1 (1 a 10 anos)',
+        secundaria2: 'Secundária 2 (10 a 25 anos)',
+        secundaria3: 'Secundária 3 (25 a 50 anos)',
+        climax: 'Climax (Mais de 50 anos)' }
+
+    this.stratums = {
+      baixo: 'Baixo',
+      medio: 'Médio',
+      alto: 'Alto',
+      emergente: 'Emergente' };
+
     this.db = new PouchDB('agrofloresta');
     this.remoteDb = new PouchDB('http://www.diegomr86.ga:13155/agrofloresta')
   //   let dd = this.db
@@ -67,7 +82,6 @@ export class Database {
         }
       })
     }
-    console.log('selector', selector);
     return this.db.find({
       selector: selector
     });
@@ -89,5 +103,15 @@ export class Database {
   remove(item: Item) {
     return this.db.remove(item._id, item._rev)
   }
+
+  public loadAdditionalFields(type) {
+    return this.query(type).then(result => {
+      this.additional_fields = result.docs.map((item)=> item.additional_fields ).filter((a) => a)
+      this.additional_fields = this.additional_fields.reduce((a, b) => a.concat(b), []);
+      this.additional_fields = this.additional_fields.reduce((a, b) => a.concat(b.name), []);
+      this.additional_fields = this.additional_fields.filter((el, i, a) => i === a.indexOf(el))      
+      return this.additional_fields
+    });
+  } 
 
 }

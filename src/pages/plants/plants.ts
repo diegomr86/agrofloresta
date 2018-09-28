@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
 
-import { Item } from '../../models/item';
-import { Items, Api } from '../../providers';
+import { Database, Api } from '../../providers';
 
 @IonicPage()
 @Component({
@@ -10,12 +9,15 @@ import { Items, Api } from '../../providers';
   templateUrl: 'plants.html'
 })
 export class PlantsPage {
-  itemsList: Item[];
   Object = Object;
   filters;
+  plants;
 
-  constructor(public navCtrl: NavController, public items: Items, public api: Api, public modalCtrl: ModalController) {
-    this.items.query('plant', '');     
+  constructor(public navCtrl: NavController, public database: Database, public api: Api, public modalCtrl: ModalController) {
+    this.database.query('plant', '').then(res => {
+      this.plants = res.docs;
+    })     
+
     this.filters = {
       cycle: '',
       stratum: '',
@@ -28,15 +30,17 @@ export class PlantsPage {
     if (ev) {
       val = ev.target.value;
     }
-    this.items.query('plant', val, this.filters);     
+    this.database.query('plant', val, this.filters).then(res => {
+      this.plants = res.docs;
+    })    
   }
 
   /**
-   * Prompt the user to add a new item. This shows our ItemFormPage in a
+   * Prompt the user to add a new item. This shows our PlantFormPage in a
    * modal and then adds the new item to our data source if the user created one.
    */
   add() {
-    this.navCtrl.push('ItemFormPage');
+    this.navCtrl.push('PlantFormPage');
   } 
 
   /**

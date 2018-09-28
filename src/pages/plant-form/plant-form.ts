@@ -1,18 +1,18 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
-import { IonicPage, NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
-import { Items, User, Api } from '../../providers';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { Database, User, Api } from '../../providers';
 import { Utils } from '../../utils/utils';
 import slugify from 'slugify';
 
 
 @IonicPage()
 @Component({
-  selector: 'page-item-form',
-  templateUrl: 'item-form.html'
+  selector: 'page-plant-form',
+  templateUrl: 'plant-form.html'
 })
-export class ItemFormPage {
+export class PlantFormPage {
   @ViewChild('fileInput') fileInput;
 
   Object = Object;
@@ -20,15 +20,15 @@ export class ItemFormPage {
   loading: boolean = false;
   conflict: string;
   additional_fields: FormArray;
+  plant;
 
   form: FormGroup;
 
   constructor(public navCtrl: NavController, 
-    public viewCtrl: ViewController, 
     public toastCtrl: ToastController, 
     public formBuilder: FormBuilder, 
     public camera: Camera, 
-    public items: Items, 
+    public database: Database, 
     public user: User, 
     public api: Api, 
     public utils: Utils, 
@@ -59,8 +59,10 @@ export class ItemFormPage {
       this.edit()
     }
 
-    this.items.loadAdditionalFields()
-    this.items.additional_fields.forEach((a) => {this.addAdditionalField(a)})
+    this.database.loadAdditionalFields('plant')
+    .then(res => {
+      res.forEach((a) => this.addAdditionalField(a));
+    });
     this.api.preview = false
 
   }
@@ -70,7 +72,7 @@ export class ItemFormPage {
     this.conflict = undefined
     this.form.patchValue({ '_id': slugify(this.form.controls.name.value.toLowerCase())} )
 
-    this.items.get(this.form.controls._id.value).then((item) => {
+    this.database.get(this.form.controls._id.value).then((item) => {
       if (item) {
         this.conflict = this.form.controls._id.value
       }
@@ -78,8 +80,9 @@ export class ItemFormPage {
   }
 
   edit() {
-    this.items.get(this.form.controls._id.value).then((item) => {
+    this.database.get(this.form.controls._id.value).then((item) => {
       if (item) {
+        this.plant = item
         this.form.patchValue({
           ...item
         }) 
@@ -88,30 +91,42 @@ export class ItemFormPage {
     }}).catch((e) => {});
   }
 
-  getPicture() {
-    this.fileInput.nativeElement.click();
-  }
+  delete(plant) {
+    this.utils.showConfirm(() => {
+      this.database.remove(plant).then(res => {
+        this.navCtrl.setRoot('PlantsPage');   
+      });
+    })
+  } 
 
-  processWebImage(event) {
-    this.api.processWebImage(event, this.form)
-  }
+  // getPicture() {
+  //   this.fileInput.nativeElement.click();
+  // }
+
+  // processWebImage(event) {
+  //   this.api.processWebImage(event, this.form)
+  // }
 
   save() {
     if (!this.form.valid) { return; }
     this.utils.showConfirm(() => {
-      this.items.save(this.form.value).catch((e) => {
+      console.log('value', this.form.value);
+      this.database.save(this.form.value).then(res => {
+        this.navCtrl.setRoot('PlantsPage');
+        this.navCtrl.push('PlantPage', { id: this.form.controls._id.value });
+      }).catch((e) => {
         this.utils.showToast(e.message, 'error');
       })
-      this.viewCtrl.dismiss();
     })
   }
 
   addAdditionalField(name?: string) {
     this.additional_fields = this.form.get('additional_fields') as FormArray;
     if (name) {
+      let val = this.plant ? this.plant.additional_fields.find(e => e.name == name) : undefined
       this.additional_fields.push(this.formBuilder.group({
         name: [name, Validators.required],
-        content: ['']
+        content: [(val ? val.content: '')]
       }));        
     } else {
       this.additional_fields.push(this.formBuilder.group({

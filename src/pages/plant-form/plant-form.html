@@ -3,6 +3,9 @@
   <ion-navbar>
     <ion-title>{{ 'ITEM_FORM_TITLE' | translate }}</ion-title>
     <ion-buttons end>
+      <button ion-button icon-only (click)="delete(form.value)" *ngIf="form.controls._rev.value">
+        <ion-icon name="trash"></ion-icon>
+      </button>
       <button ion-button icon-only (click)="save()" [disabled]="!isReadyToSave" strong>
         <ion-icon name="checkmark"></ion-icon>
       </button>
@@ -17,11 +20,11 @@
       <h2 ion-text *ngIf="this.form.controls._rev.value"> {{this.form.controls.name.value}} </h2>
     </ion-item>
     <ion-item *ngIf="!this.form.controls._rev.value">
-      <ion-label stacked>Nome*</ion-label>
+      <ion-label stacked>Nome*:</ion-label>
       <ion-input type="text" formControlName="name" (change)="checkConflict()"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label stacked>Nome científico</ion-label>
+      <ion-label stacked>Nome científico:</ion-label>
       <ion-input type="text" formControlName="scientific_name"></ion-input>
     </ion-item>
     <ion-item *ngIf="this.conflict">
@@ -31,19 +34,19 @@
       </p>
     </ion-item>
     <ion-item>
-      <ion-label stacked>Descrição*</ion-label>
+      <ion-label stacked>Descrição*:</ion-label>
       <ion-textarea formControlName="description"></ion-textarea>
     </ion-item>
     <ion-item>
-      <ion-label stacked>Ciclo</ion-label>
+      <ion-label stacked>Ciclo:</ion-label>
       <ion-select formControlName="cycle" interface="popover" >
-        <ion-option *ngFor="let cycle of Object.keys(items.cycles)" [value]="cycle">{{items.cycles[cycle]}}</ion-option>
+        <ion-option *ngFor="let cycle of Object.keys(database.cycles)" [value]="cycle">{{database.cycles[cycle]}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label stacked>Estrato</ion-label>
+      <ion-label stacked>Estrato:</ion-label>
       <ion-select formControlName="stratum" interface="popover">
-        <ion-option *ngFor="let stratum of Object.keys(items.stratums)" [value]="stratum">{{items.stratums[stratum]}}</ion-option>
+        <ion-option *ngFor="let stratum of Object.keys(database.stratums)" [value]="stratum">{{database.stratums[stratum]}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
@@ -56,20 +59,20 @@
     </ion-item>
     <div formArrayName="additional_fields" *ngFor="let additional_field of form.get('additional_fields').controls; let i = index;">
       <div [formGroupName]="i">
-        <div *ngIf="i < items.additional_fields.length">
+        <div *ngIf="i < database.additional_fields.length">
           <ion-item>
-            <ion-label stacked>{{form.controls.additional_fields.controls[i].controls.name.value}}</ion-label>
+            <ion-label stacked>{{form.controls.additional_fields.controls[i].controls.name.value}}:</ion-label>
             <ion-textarea formControlName="content"></ion-textarea>
           </ion-item>
         </div>
-        <div *ngIf="i >= items.additional_fields.length">
+        <div *ngIf="i >= database.additional_fields.length">
           <br>
           <ion-item>
-            <ion-label stacked>Título do novo campo</ion-label>
+            <ion-label stacked>Título do novo campo:</ion-label>
             <ion-input formControlName="name"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label stacked>Conteúdo</ion-label>
+            <ion-label stacked>Conteúdo:</ion-label>
             <ion-textarea formControlName="content"></ion-textarea>
           </ion-item>
         </div>

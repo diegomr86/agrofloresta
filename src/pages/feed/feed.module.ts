@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { FeedPage } from './feed';
 import { ComponentsModule } from '../../components/components.module';
+import { DirectivesModule } from '../../directives/directives.module';
 import { PipesModule } from '../../pipes/pipes.module';
-import 'rxjs/add/observable/fromEvent';
-import { IonicImageLoader } from 'ionic-image-loader';
+import 'rxjs/add/observable/fromEvent'
 
 @NgModule({
   declarations: [
@@ -14,7 +14,7 @@ import { IonicImageLoader } from 'ionic-image-loader';
     IonicPageModule.forChild(FeedPage),
     ComponentsModule,
     PipesModule,
-    IonicImageLoader
+    DirectivesModule
   ],
 })
 export class FeedPageModule {}
