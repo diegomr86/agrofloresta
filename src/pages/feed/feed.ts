@@ -25,7 +25,8 @@ export class FeedPage {
     this.category = navParams.get('category');
     database.query('post', '', { category: navParams.get('category') }).then(res => {
       let that = this
-      res.docs.forEach(function (post) {
+      console.log('res', res);
+      res.forEach(function (post) {
         let likes = post.likes ? post.likes.length : 0
         let dislikes = post.dislikes ? post.dislikes.length : 0
         post.score = that.hotScore(likes, dislikes, post.created_at);
@@ -33,6 +34,10 @@ export class FeedPage {
       });
   		this.posts = this.posts.sort((a, b) => a.score < b.score);
   	})
+
+    database.all().then(function (docs) {
+      console.log("docs", docs);
+    });
   }
 
   add() {
@@ -57,7 +62,7 @@ export class FeedPage {
     } else {
       post.likes = [this.user.currentUser._id]
     }
-    this.database.save(post).then(p => {
+    this.database.put(post).then(p => {
       this.posts = this.posts.map(function(item) { return item._id == p._id ? p : item; });
     });
   }
@@ -72,7 +77,7 @@ export class FeedPage {
     } else {
       post.dislikes = [this.user.currentUser._id]
     }
-    this.database.save(post).then(p => {
+    this.database.put(post).then(p => {
       this.posts = this.posts.map(function(item) { return item._id == p._id ? p : item; });
     });
   }

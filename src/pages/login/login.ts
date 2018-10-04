@@ -23,7 +23,7 @@ export class LoginPage {
     public utils: Utils) {
 
     this.form = formBuilder.group({
-      _id: ['', Validators.required]
+      email: ['', Validators.required]
     });
 
     this.form.valueChanges.subscribe((v) => {
@@ -34,7 +34,7 @@ export class LoginPage {
   }
 
   login() {
-    this.user.login(this.form.controls._id.value).then((resp) => {
+    this.user.login(this.form.controls.email.value).then((resp) => {
       if (resp) {
         this.navCtrl.setRoot(MainPage);
       }
@@ -42,7 +42,6 @@ export class LoginPage {
       if (e.name == 'not_found') {
         this.utils.showToast('Usuário não encontrado! Por favor cadastre-se.', 'error');
       }
-      console.log(e);
     });
   }
 

@@ -34,7 +34,7 @@ import { ImgCacheService } from '../global';
               <img img-cache [source]="this.api.imageUrl(this.user.currentUser.picture, 'thumbs')" >
             </ion-avatar>
             <h2>{{this.user.currentUser.name}}</h2>
-            <p>{{this.user.currentUser._id}}</p>
+            <p>{{this.user.currentUser.email}}</p>
           </ion-item>
           <button menuClose ion-item (click)="openPage('FeedPage')">Postagens</button>
           <button menuClose ion-item (click)="openPage('FeedPage', { category: 'event' })">Eventos</button>

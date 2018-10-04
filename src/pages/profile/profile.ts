@@ -41,8 +41,8 @@ export class ProfilePage {
   }
 
   loadPosts() {
-    this.database.query('post', '', { user_id: this.profile._id }).then(response => {
-      this.posts = response.docs
+    this.database.query('post', '', { user_id: this.profile._id }).then(docs => {
+      this.posts = docs
     })
 
   }

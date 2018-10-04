@@ -29,7 +29,7 @@ export class CommentsComponent {
       } else {
         this.post.comments = [c]
       }
-      this.database.save(this.post).then(p => {
+      this.database.put(this.post).then(p => {
         this.posts = this.posts.map(function(item) { return item._id == p._id ? p : item; });
         this.message = ''
       });

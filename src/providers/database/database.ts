@@ -42,23 +42,23 @@ export class Database {
     //     }
     //   }
     // })
-  //   let dd = this.db
-  //   dd.allDocs().then(function(_response){
-  //     var toBeDeleted = _response.rows.length;
-  //     _response.rows.forEach(function(row){
-  //         dd.remove(row.id, row.value.rev, function(err, success){
-  //             if(err){
-  //                 console.error(err);
-  //             }
-  //             else if(success){
-  //                 console.log("document with id %s was deleted", row.id);
-  //             }
-  //             if(--toBeDeleted == 0){
-  //                 console.log("done");
-  //             }
-  //         });
-  //     });
-  // });
+    // let dd = this.db 
+    // dd.allDocs().then(function(_response){
+    //   var toBeDeleted = _response.rows.length;
+    //   _response.rows.forEach(function(row){
+    //     dd.remove(row.id, row.value.rev, function(err, success){
+    //         if(err){
+    //             console.error(err);
+    //         }
+    //         else if(success){
+    //             console.log("document with id %s was deleted", row.id);
+    //         }
+    //         if(--toBeDeleted == 0){
+    //             console.log("done");
+    //         }
+    //     });
+    //   });
+    // });
 
     console.log('Sync database...');
     this.db.sync(this.remoteDb, { live: true }).on('complete', function (change) {
@@ -83,8 +83,12 @@ export class Database {
 
   }
 
+  all() {
+    return this.db.all();
+  } 
+
   query(type: string, name?: string, filters?) {
-    let selector = { type: {$eq: type}}
+    let selector = { type: {$eq: type} }
     if (name) {
       selector['name'] = {$regex: RegExp(name, "i")}
     }
@@ -98,34 +102,74 @@ export class Database {
     }
     return this.db.find({
       selector: selector
+    }).then(res => {
+      var docs = {},
+      deletions = {};
+      res.docs.forEach(function (doc) {
+        if (!doc.$id) { // first delta for doc?
+          doc.$id = doc._id;
+        }
+        if (doc.$deleted) { // deleted?
+          delete(docs[doc.$id]);
+          deletions[doc.$id] = true;
+        } else if (!deletions[doc.$id]) { // update before any deletion?
+          if (docs[doc.$id]) { // exists?
+            docs[doc.$id] = Object.assign(docs[doc.$id], doc);
+          } else {
+            docs[doc.$id] = doc;
+          }
+        }
+      });
+      return Object["values"](docs);
+
     });
   } 
 
   get(id: string) {
-    return this.db.get(id).then(function (item) {
-      return item;
+    return this.db.get(id).then(function (doc) {
+      if (!doc.$id) { // first delta for doc?
+        doc.$id = doc._id;
+      }
+      return doc;
     });
   } 
 
   save(item: Item) {
+    console.log('save: ', item);
     return this.db.save(item).then((result) => {
       // item._rev = result.rev
-      return item
+      console.log('saved: ', result);
+      return result
     }); 
   }
 
   remove(item: Item) {
-    return this.db.remove(item._id, item._rev)
+
+    console.log('remove:',item);
+    return this.get(item._id).then(doc => {
+      console.log('removedoc:', doc);
+      doc.$deleted = true 
+      return this.save(doc);
+    })
   }
 
   public loadAdditionalFields(type) {
-    return this.query(type).then(result => {
-      this.additional_fields = result.docs.map((item)=> item.additional_fields ).filter((a) => a)
+    return this.query(type).then(docs => {
+      this.additional_fields = docs.map((item)=> item.additional_fields ).filter((a) => a)
       this.additional_fields = this.additional_fields.reduce((a, b) => a.concat(b), []);
       this.additional_fields = this.additional_fields.reduce((a, b) => a.concat(b.name), []);
       this.additional_fields = this.additional_fields.filter((el, i, a) => i === a.indexOf(el))      
       return this.additional_fields
     });
-  } 
+  }
+
+  put(item) {
+    return this.db.put(item).then((res) => {
+      return this.db.get(res.id).then((u) => {
+        return u;
+      });
+    });
+  }
+ 
 
 }

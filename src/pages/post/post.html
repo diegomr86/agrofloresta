@@ -25,7 +25,7 @@
         <p>Local: <strong>{{ post.location }}</strong></p>
       </div>
       <a *ngIf="post.category == 'book' && post.picture && post.picture.url" [href]="this.api.imageUrl(post.picture)" target="_blank">Baixar Livro</a>
-      <a *ngIf="post.url && post.content && post.content.indexOf('…') < 0" [href]="post.url" target="_blank">Fonte</a>
+      <a *ngIf="post.url && post.content && post.content.indexOf('…') < 0" [href]="post.url" target="_blank">{{post.category == 'book' ? 'Baixar Livro' : 'Fonte'}}</a>
       <user [item]="post"></user> 
       <br>    
       <br>    

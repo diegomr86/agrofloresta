@@ -18,7 +18,6 @@ export class PlantFormPage {
   Object = Object;
   isReadyToSave: boolean;
   loading: boolean = false;
-  conflict: string;
   additional_fields: FormArray;
   plant;
 
@@ -37,8 +36,8 @@ export class PlantFormPage {
     this.form = formBuilder.group({
       type: ['plant', Validators.required],
       user_id: [user.currentUser._id, Validators.required],
-      _id: [(params.get('id') || ''), Validators.required],
-      _rev: [''],
+      _id: [''],
+      $id: [''],
       picture: ['', Validators.required],
       name: ['', Validators.required],
       scientific_name: [''],
@@ -56,7 +55,7 @@ export class PlantFormPage {
     });
 
     if (params.get('id')) {
-      this.edit()
+      this.edit(params.get('id'))
     }
 
     this.database.loadAdditionalFields('plant')
@@ -68,27 +67,14 @@ export class PlantFormPage {
 
   }
 
-
-  checkConflict() {
-    this.conflict = undefined
-    this.form.patchValue({ '_id': slugify(this.form.controls.name.value.toLowerCase())} )
-
-    this.database.get(this.form.controls._id.value).then((item) => {
-      if (item) {
-        this.conflict = this.form.controls._id.value
-      }
-    }).catch((e) => {});
-  }
-
-  edit() {
-    this.database.get(this.form.controls._id.value).then((item) => {
+  edit(id) {
+    this.database.get(id).then((item) => {
       if (item) {
         this.plant = item
         this.form.patchValue({
           ...item
         }) 
         this.api.setPreview(item.picture, 'medium')
-        this.conflict = undefined
     }}).catch((e) => {});
   }
 
@@ -100,21 +86,12 @@ export class PlantFormPage {
     })
   } 
 
-  // getPicture() {
-  //   this.fileInput.nativeElement.click();
-  // }
-
-  // processWebImage(event) {
-  //   this.api.processWebImage(event, this.form)
-  // }
-
   save() {
     if (!this.form.valid) { return; }
     this.utils.showConfirm(() => {
-      console.log('value', this.form.value);
       this.database.save(this.form.value).then(res => {
         this.navCtrl.setRoot('PlantsPage');
-        this.navCtrl.push('PlantPage', { id: this.form.controls._id.value });
+        this.navCtrl.push('PlantPage', { id: res.id });
       }).catch((e) => {
         this.utils.showToast(e.message, 'error');
       })
@@ -137,4 +114,5 @@ export class PlantFormPage {
 
     }
   } 
+
 }

@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>Adicionar Conteúdo</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="delete(form.value)" *ngIf="form.controls._rev.value">
+      <button ion-button icon-only (click)="delete(form.value)" *ngIf="form.controls._id.value">
         <ion-icon name="trash"></ion-icon>
       </button>
       <button ion-button icon-only (click)="save()" [disabled]="!isReadyToSave" strong>
@@ -50,10 +50,11 @@
       </div>
       <div *ngIf="form.controls.oembed.value" [innerHTML]="form.controls.oembed.value | safe: 'html'">      
       </div>
-      <ion-item stacked *ngIf="form.controls.category.value == 'link' || form.controls.category.value == 'video' || form.controls.category.value == 'event'">
+      <ion-item stacked *ngIf="form.controls.category.value != 'picture' && form.controls.category.value != 'text'">
+        <ion-label stacked *ngIf="form.controls.category.value == 'book'">Insira um link para o livro:</ion-label>
         <ion-label stacked *ngIf="form.controls.category.value == 'event'">Insira um link para o evento:</ion-label>
-        <ion-label stacked *ngIf="form.controls.category.value == 'link'">Insira o link da publicação:</ion-label>
         <ion-label stacked *ngIf="form.controls.category.value == 'video'">Insira o link do vídeo:</ion-label>
+        <ion-label stacked *ngIf="form.controls.category.value == 'link'">Insira o link da publicação:</ion-label>
         <ion-input formControlName="url" (change)="loadEmbed()"></ion-input>
       </ion-item>
       <ion-item>

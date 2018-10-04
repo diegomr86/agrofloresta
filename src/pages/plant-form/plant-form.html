@@ -3,7 +3,7 @@
   <ion-navbar>
     <ion-title>{{ 'ITEM_FORM_TITLE' | translate }}</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="delete(form.value)" *ngIf="form.controls._rev.value">
+      <button ion-button icon-only (click)="delete(form.value)" *ngIf="form.controls._id.value">
         <ion-icon name="trash"></ion-icon>
       </button>
       <button ion-button icon-only (click)="save()" [disabled]="!isReadyToSave" strong>
@@ -14,14 +14,11 @@
 
 </ion-header>
 <ion-content padding>
-  <form *ngIf="form" [formGroup]="form" (ngSubmit)="save()">
+  <form *ngIf="form" [formGroup]="form">
     <picture-upload [form]="this.form" [type]="'image'"></picture-upload>
-    <ion-item *ngIf="this.form.controls._rev.value">
-      <h2 ion-text *ngIf="this.form.controls._rev.value"> {{this.form.controls.name.value}} </h2>
-    </ion-item>
-    <ion-item *ngIf="!this.form.controls._rev.value">
+    <ion-item>
       <ion-label stacked>Nome*:</ion-label>
-      <ion-input type="text" formControlName="name" (change)="checkConflict()"></ion-input>
+      <ion-input type="text" formControlName="name"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Nome científico:</ion-label>
@@ -78,13 +75,13 @@
         </div>
       </div>
     </div>
-      <br>
-      <ion-buttons end>
-        <button ion-button  icon-end small (click)="addAdditionalField()" color="light">
-          Adicionar mais informações
-          <ion-icon name="add"></ion-icon>
-        </button>
-      </ion-buttons>
-      <br>
   </form>
+  <br>
+  <ion-buttons end>
+    <button ion-button  icon-end small (click)="addAdditionalField()" color="light">
+      Adicionar mais informações
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-buttons>
+  <br>
 </ion-content>  

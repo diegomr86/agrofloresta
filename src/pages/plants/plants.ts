@@ -15,7 +15,7 @@ export class PlantsPage {
 
   constructor(public navCtrl: NavController, public database: Database, public api: Api, public modalCtrl: ModalController) {
     this.database.query('plant', '').then(res => {
-      this.plants = res.docs;
+      this.plants = res;
     })     
 
     this.filters = {
@@ -32,8 +32,8 @@ export class PlantsPage {
     if (ev) {
       val = ev.target.value;
     }
-    this.database.query('plant', val, this.filters).then(res => {
-      this.plants = res.docs;
+    this.database.query('plant', val, this.filters).then(docs => {
+      this.plants = docs;
     })    
   }
 
@@ -1079,7 +1079,6 @@ export class PlantsPage {
         "spacing": "",
         "companion_plants": p.companheiras.split(', '),
         "additional_fields": [],
-        "_id": p.slug
       }
       console.log('p:: ', plant);
   

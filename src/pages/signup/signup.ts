@@ -35,7 +35,7 @@ export class SignupPage {
 
     this.form = formBuilder.group({
       type: ['user', Validators.required],
-      _id: ['', Validators.required],
+      email: ['', Validators.required],
       name: ['', Validators.required],
       picture: [''],
       bio: [''],
@@ -56,18 +56,16 @@ export class SignupPage {
     this.user.signup(this.form.value).then((response) => {
       this.navCtrl.setRoot(MainPage);
     }).catch((e) => {
-      console.log('erro de cadastro', e)
       if (e.name == 'conflict') {
         this.utils.showToast("Usuário já cadastrado. Fazendo login.", 'primary');
-        this.login();
+        // this.login();
 
       }
     })
   }
 
-
   login() {
-    this.user.login(this.form.controls._id.value).then((resp) => {
+    this.user.login(this.form.controls.email.value).then((resp) => {
       if (resp) {
         this.navCtrl.setRoot(MainPage);
       }

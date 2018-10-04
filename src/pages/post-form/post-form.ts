@@ -34,9 +34,9 @@ export class PostFormPage {
       this.form = formBuilder.group({
 	      type: ['post', Validators.required],
 	      category: ['', Validators.required],
+        _id: [''],
+        $id: [''],
 	      user_id: [user.currentUser._id, Validators.required],
-	      _id: ['', Validators.required],
-	      _rev: [''],
 	      picture: [''],
 	      title: ['', Validators.required],
         content: ['', Validators.required],
@@ -68,18 +68,18 @@ export class PostFormPage {
   }
 
   generateId() {
-    if (!this.form.controls._rev.value) {
-      this.form.patchValue({ '_id': slugify(this.form.controls.title.value.toLowerCase()+'-'+new Date().getTime())} )
-    }
+    // if (!this.form.controls._rev.value) {
+      // this.form.patchValue({ '_id': slugify(this.form.controls.title.value.toLowerCase()+'-'+new Date().getTime())} )
+    // }
   }
 
   save() {
     if (!this.form.valid) { return; }
     this.utils.showConfirm(() => {
-      this.form.patchValue({ 'updated_at': new Date()} )
       this.database.save(this.form.value).then(res => {
         this.navCtrl.setRoot('FeedPage');
-        this.navCtrl.push('PostPage', { id: this.form.controls._id.value });
+        console.log(res);
+        this.navCtrl.push('PostPage', { id: res.id });
       }).catch((e) => {
         console.log(e)
         this.utils.showToast(e.message, 'error');
@@ -88,13 +88,14 @@ export class PostFormPage {
   }
 
   edit(id) {
-    this.database.get(id).then((post) => {
-      if (post) {
+    this.database.get(id).then((item) => {
+      if (item) {
         this.form.patchValue({
-          ...post
+          ...item
         }) 
-        this.api.setPreview(post.picture, 'medium')
-    }}).catch((e) => {});
+        this.api.setPreview(item.picture, 'medium')
+      }
+    }).catch((e) => {});
   }
 
   delete(post) {

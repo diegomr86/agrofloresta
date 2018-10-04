@@ -16,12 +16,31 @@ export class User extends Database {
    * Send a POST request to our login endpoint with the data
    * the user entered on the form.
    */
-  login(id) {
-    return this.get(id).then((response) => {
-      this.storage.set('currentUser', response);
-      this.currentUser = response
-      return response 
+  login(email) {
+    return this.query('user', '', { email: email }).then((res) => {
+      console.log('login: '+email, res);
+      if (res && res.length > 0) {
+        this.storage.set('currentUser', res[0]);
+        this.currentUser = res[0]
+        return res[0]
+      }        
+      throw {name: "not_found"};  
     })
+  }
+
+  put(item) {
+    console.log('item', item);
+    return this.db.put(item).then((account) => {
+      console.log('account', account);
+      return this.db.get(account.id).then((u) => {
+        return this.storage.set('currentUser', u).then((response) => {
+          console.log('response', u);
+
+          this.currentUser = u
+          return u;
+        });
+      });
+    });
   }
 
   /**
@@ -29,15 +48,18 @@ export class User extends Database {
    * the user entered on the form.
    */
   signup(accountInfo: any) {
-    return this.storage.get('currentPosition').then((position) => {
-      accountInfo.position = position
-      return this.db.put(accountInfo).then((account) => {
-        this.storage.set('currentUser', accountInfo).then((response) => {
-          this.currentUser = accountInfo
-          return response;
+    return this.login(accountInfo.email).catch((e) => {
+      return this.storage.get('currentPosition').then((position) => {
+        accountInfo.position = position
+        return this.db.post(accountInfo).then((account) => {
+          this.storage.set('currentUser', accountInfo).then((response) => {
+            this.currentUser = accountInfo
+            return response;
+          });
         });
       });
-    });
+    })
+
   }
 
   /**

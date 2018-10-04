@@ -36,6 +36,7 @@ export class ProfileEditPage {
       _id: ['', Validators.required],
       _rev: ['', Validators.required],
       name: ['', Validators.required],
+      email: ['', Validators.required],
       picture: [''],
       bio: [''],
       location: ['']
@@ -63,8 +64,9 @@ export class ProfileEditPage {
   save() {
     console.log('val', this.form.value);
     // Attempt to login in through our User service
-    this.user.save(this.form.value).then((response) => {
-      this.user.login(this.user.currentUser._id).then(res => this.navCtrl.setRoot('ProfilePage'));
+    this.user.put(this.form.value).then((response) => {
+      this.navCtrl.setRoot('ProfilePage');
+      // this.user.login(this.user.currentUser._id).then(res => this.navCtrl.setRoot('ProfilePage'));
     }).catch((e) => {
       console.log('erro: ', e)
     })
