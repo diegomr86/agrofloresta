@@ -46,6 +46,9 @@ export class ProfileEditPage {
     });
 
 		this.edit()
+
+    // this.api.preview = false
+
   }
 
   edit() {

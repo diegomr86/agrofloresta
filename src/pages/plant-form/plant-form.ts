@@ -63,6 +63,7 @@ export class PlantFormPage {
     .then(res => {
       res.forEach((a) => this.addAdditionalField(a));
     });
+
     this.api.preview = false
 
   }

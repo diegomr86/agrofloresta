@@ -29,7 +29,7 @@
 	  </ion-item>
     <p padding *ngIf="profile.bio">{{profile.bio}}</p>
 	  <ion-card *ngFor="let post of posts">
-	    <img img-cache [source]="this.api.imageUrl(post.picture, 'medium')" (click)="open(post._id)" >
+	    <img img-cache *ngIf="!post.oembed && post.picture" [source]="this.api.imageUrl(post.picture, 'medium')" (click)="open(post._id)" >
 	    <div *ngIf="post.oembed" [innerHTML]="post.oembed | safe: 'html'"></div>
 
 	    <ion-card-content>

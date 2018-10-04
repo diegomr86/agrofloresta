@@ -12,7 +12,6 @@
 	    <br>
 	    Enviando arquivo...
 	  </div>
-	  
 	</div>
 	<div *ngIf="type == 'book'">
 		<input type="file" accept="application/pdf" #fileInput style="visibility: hidden; height: 0px; display: none;" name="files[]" (change)="processWebImage($event, this.form)" />

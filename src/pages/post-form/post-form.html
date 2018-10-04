@@ -45,7 +45,7 @@
       </ion-row>
     </div>
     <div *ngIf="form.controls.category.value">
-      <div *ngIf="api.preview || form.controls.category.value != 'video'">
+      <div *ngIf="form.controls.category.value != 'video'">
     		<picture-upload [form]="form" [type]="form.controls.category.value == 'book' ? 'book' : 'image'"></picture-upload>
       </div>
       <div *ngIf="form.controls.oembed.value" [innerHTML]="form.controls.oembed.value | safe: 'html'">      

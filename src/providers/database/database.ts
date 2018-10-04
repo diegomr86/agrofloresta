@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import PouchDB from 'pouchdb';
 import PouchFind from 'pouchdb-find';
+import DeltaPouch from 'delta-pouch';
 import { Item } from '../../models/item';
+PouchDB.plugin(DeltaPouch);
 PouchDB.plugin(PouchFind);
 
 @Injectable()
@@ -28,8 +30,18 @@ export class Database {
       alto: 'Alto',
       emergente: 'Emergente' };
 
-    this.db = new PouchDB('agrofloresta');
-    this.remoteDb = new PouchDB('http://www.diegomr86.ga:13155/agrofloresta')
+
+    console.log('Creating database local');
+    this.db = new PouchDB('agrofloresta-prod');
+    console.log('Creating database remote');
+    this.remoteDb = new PouchDB('https://agrofloresta.diegomr86.ga:6984/agrofloresta-prod')
+    // this.remoteDb = new PouchDB('https://agrofloresta.diegomr86.ga:6984/agrofloresta', {
+    //   ajax: {
+    //     headers: {
+    //       Authorization: 'Basic ' + btoa('agrofloresta:ernstgotsch')
+    //     }
+    //   }
+    // })
   //   let dd = this.db
   //   dd.allDocs().then(function(_response){
   //     var toBeDeleted = _response.rows.length;
@@ -48,10 +60,12 @@ export class Database {
   //     });
   // });
 
+    console.log('Sync database...');
     this.db.sync(this.remoteDb, { live: true }).on('complete', function (change) {
       console.log('DB sync change', change);
     }).on('error', function (err) {
       console.log('DB sync error', err);
+      console.log(',DB sync error', JSON.stringify(err, Object.getOwnPropertyNames(err)));
       console.log(err);
     }).on('denied', function(err){
       console.log(err);
@@ -94,8 +108,8 @@ export class Database {
   } 
 
   save(item: Item) {
-    return this.db.put(item).then((result) => {
-      item._rev = result.rev
+    return this.db.save(item).then((result) => {
+      // item._rev = result.rev
       return item
     }); 
   }

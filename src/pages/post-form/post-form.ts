@@ -108,7 +108,7 @@ export class PostFormPage {
   loadEmbed() {
     delete this.api.preview;
     if (this.form.controls.url.value) {
-      this.http.get("http://open.iframe.ly/api/oembed?url="+encodeURI(this.form.controls.url.value)+"&origin=diegomr86").subscribe(
+      this.http.get(this.api.url+"oembed?url="+encodeURI(this.form.controls.url.value)).subscribe(
         res => {
           // this.oembed = res;
           if (res) {

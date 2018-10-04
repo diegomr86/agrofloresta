@@ -23,7 +23,7 @@ export class WelcomePage {
 
   facebookLogin() {
 
-    this.fb.login(['public_profile', 'user_friends', 'email'])
+    this.fb.login(['public_profile', 'email'])
       .then((res: FacebookLoginResponse) => { 
         this.fb.api("me?fields=id,name,email,first_name,picture.width(320).height(320).as(picture_large)", []).then((user) => {
             this.user.signup({ type: 'user', _id: user.email, name: user.name, picture: user.picture_large.data.url, facebook_id: user.id }).then((resp) => {

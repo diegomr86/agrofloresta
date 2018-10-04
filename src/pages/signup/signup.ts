@@ -46,6 +46,9 @@ export class SignupPage {
     this.form.valueChanges.subscribe((v) => {
       this.isReadyToSave = this.form.valid;
     });
+
+    this.api.preview = false
+
   }
 
   doSignup() {
