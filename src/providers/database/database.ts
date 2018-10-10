@@ -43,9 +43,11 @@ export class Database {
     //   }
     // })
     // let dd = this.db 
-    // dd.allDocs().then(function(_response){
+    // dd.allDocs({include_docs: true}).then(function(_response){
     //   var toBeDeleted = _response.rows.length;
     //   _response.rows.forEach(function(row){
+    //     if (row.doc.type == 'plant') {
+    //     console.log('row: ', row);
     //     dd.remove(row.id, row.value.rev, function(err, success){
     //         if(err){
     //             console.error(err);
@@ -57,6 +59,8 @@ export class Database {
     //             console.log("done");
     //         }
     //     });
+          
+    //     }
     //   });
     // });
 
@@ -65,7 +69,6 @@ export class Database {
       console.log('DB sync change', change);
     }).on('error', function (err) {
       console.log('DB sync error', err);
-      console.log(',DB sync error', JSON.stringify(err, Object.getOwnPropertyNames(err)));
       console.log(err);
     }).on('denied', function(err){
       console.log(err);

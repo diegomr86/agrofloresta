@@ -17,40 +17,46 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar (ionInput)="search($event)" placeholder="Procurar"></ion-searchbar>
-  <ion-grid>
-    <ion-row> 
-      <ion-col>
-        <ion-select [(ngModel)]="filters.cycle" (ionChange)="search()" interface="popover" >
-          <ion-option value="">Todos os ciclos</ion-option>
-          <ion-option *ngFor="let cycle of Object.keys(database.cycles)" [value]="cycle">{{database.cycles[cycle]}}</ion-option>
-        </ion-select>
-      </ion-col>
-      <ion-col>
-        <ion-select [(ngModel)]="filters.stratum" (ionChange)="search()" interface="popover">
-          <ion-option value="">Todos os estratos</ion-option>
-          <ion-option *ngFor="let stratum of Object.keys(database.stratums)" [value]="stratum">{{database.stratums[stratum]}}</ion-option>
-        </ion-select>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <ion-list>
-    <ion-item-sliding *ngFor="let plant of plants">
-      <button ion-item (click)="open(plant._id)">
-        <ion-avatar item-start>
-          <img img-cache [source]="this.api.imageUrl(plant.picture, 'thumbs')">
-        </ion-avatar>
-        <h2>{{plant.name}}</h2>
-        <p>{{plant.scientific_name}}</p>
-<!--         <ion-note item-end>
-          <div *ngIf="plant.cycle">
-            <p>Ciclo: <strong>{{database.cycles[plant.cycle]}}</strong></p>
-          </div>
-          <div *ngIf="plant.stratum">
-            <p>Estrato: <strong>{{database.cycles[plant.stratum]}}{{plant.stratum}}</strong></p>
-          </div>
-        </ion-note>
- -->      </button>
-    </ion-item-sliding>
-  </ion-list>
+  <div *ngIf="!plants" text-center padding>
+    <ion-spinner></ion-spinner>
+    <p>Carregando tabela de plantas...</p>
+  </div>
+  <div *ngIf="plants">
+    <ion-searchbar (ionInput)="search($event)" placeholder="Procurar"></ion-searchbar>
+    <ion-grid>
+      <ion-row> 
+        <ion-col>
+          <ion-select [(ngModel)]="filters.cycle" (ionChange)="search()" interface="popover" >
+            <ion-option value="">Todos os ciclos</ion-option>
+            <ion-option *ngFor="let cycle of Object.keys(database.cycles)" [value]="cycle">{{database.cycles[cycle]}}</ion-option>
+          </ion-select>
+        </ion-col>
+        <ion-col>
+          <ion-select [(ngModel)]="filters.stratum" (ionChange)="search()" interface="popover">
+            <ion-option value="">Todos os estratos</ion-option>
+            <ion-option *ngFor="let stratum of Object.keys(database.stratums)" [value]="stratum">{{database.stratums[stratum]}}</ion-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-list>
+      <ion-item-sliding *ngFor="let plant of plants">
+        <button ion-item (click)="open(plant._id)">
+          <ion-avatar item-start>
+            <img img-cache [source]="this.api.imageUrl(plant.picture, 'thumb')">
+          </ion-avatar>
+          <h2>{{plant.name}}</h2>
+          <p>{{plant.scientific_name}}</p>
+  <!--         <ion-note item-end>
+            <div *ngIf="plant.cycle">
+              <p>Ciclo: <strong>{{database.cycles[plant.cycle]}}</strong></p>
+            </div>
+            <div *ngIf="plant.stratum">
+              <p>Estrato: <strong>{{database.cycles[plant.stratum]}}{{plant.stratum}}</strong></p>
+            </div>
+          </ion-note>
+   -->      </button>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
 </ion-content>

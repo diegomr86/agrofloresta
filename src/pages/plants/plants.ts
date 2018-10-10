@@ -1063,7 +1063,7 @@ export class PlantsPage {
 
       let plant =   {
         "type": "plant",
-        "user_id": "diegomr86@gmail.com",
+        "user_id": "81a953fe-f3b2-47ee-b951-7e1ef1a67479",
         "picture": {
           "url": p.slug+".png",
           "medium": "static/medium/"+p.slug+".png",

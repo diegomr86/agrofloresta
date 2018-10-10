@@ -31,7 +31,7 @@ import { ImgCacheService } from '../global';
         <ion-list>
           <ion-item *ngIf="this.user.currentUser" (click)="profile(this.user.currentUser)" class="menu_profile">
             <ion-avatar item-start>
-              <img img-cache [source]="this.api.imageUrl(this.user.currentUser.picture, 'thumbs')" >
+              <img img-cache [source]="this.api.imageUrl(this.user.currentUser.picture, 'thumb')" >
             </ion-avatar>
             <h2>{{this.user.currentUser.name}}</h2>
             <p>{{this.user.currentUser.email}}</p>
