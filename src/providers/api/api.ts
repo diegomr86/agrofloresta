@@ -31,7 +31,6 @@ export class Api {
 
   setPreview(image, path?: string) {
     let  p = this.imageUrl(image, path)
-    console.log('preview', image, path, p);
     this.preview = p
   }
 
@@ -42,7 +41,6 @@ export class Api {
       if (picture['url'].startsWith('http')) {
         return encodeURI(picture['url'])
       } else {
-        console.log(picture[path]);
         return encodeURI(this.url + (path && picture[path] ? picture[path] : 'static/'+picture['url']))  
       }
     }

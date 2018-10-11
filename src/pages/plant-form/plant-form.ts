@@ -4,8 +4,6 @@ import { Camera } from '@ionic-native/camera';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Database, User, Api } from '../../providers';
 import { Utils } from '../../utils/utils';
-import slugify from 'slugify';
-
 
 @IonicPage()
 @Component({
@@ -20,6 +18,7 @@ export class PlantFormPage {
   loading: boolean = false;
   additional_fields: FormArray;
   plant;
+  autocompleteCompanions;
 
   form: FormGroup;
 
@@ -46,6 +45,7 @@ export class PlantFormPage {
       cycle: [''],
       harvest_time: [''],
       spacing: [''],
+      companion_plants: [[]],
       additional_fields: formBuilder.array([])
     });
 
@@ -58,9 +58,15 @@ export class PlantFormPage {
       this.edit(params.get('id'))
     }
 
-    this.database.loadAdditionalFields('plant')
-    .then(res => {
+    this.database.loadAdditionalFields('plant').then(res => {
       res.forEach((a) => this.addAdditionalField(a));
+    });
+
+    this.autocompleteCompanions = []
+    this.database.query('plant').then(res => {
+      console.log('res', res);
+      res.forEach((a) => this.autocompleteCompanions.push(a.name));      
+      this.autocompleteCompanions = this.autocompleteCompanions.sort()
     });
 
     this.api.preview = false
@@ -69,6 +75,7 @@ export class PlantFormPage {
 
   edit(id) {
     this.database.get(id).then((item) => {
+      console.log('item', item);
       if (item) {
         this.plant = item
         this.form.patchValue({
@@ -89,6 +96,12 @@ export class PlantFormPage {
   save() {
     if (!this.form.valid) { return; }
     this.utils.showConfirm(() => {
+
+      let companion_plants = this.form.controls.companion_plants.value.map(function(v) {
+        return (typeof v == 'string') ? v : v['value'];
+      });
+      this.form.patchValue({ companion_plants: companion_plants });
+
       this.database.save(this.form.value).then(res => {
         this.navCtrl.setRoot('PlantsPage');
         this.navCtrl.push('PlantPage', { id: res.id });

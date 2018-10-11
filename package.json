@@ -54,7 +54,6 @@
     "ng-imgcache": "^1.0.1",
     "ngx-chips": "^1.8.2",
     "ngx-quill": "^3.4.0",
-    "pdf-image": "^2.0.0",
     "pouchdb": "^7.0.0",
     "pouchdb-find": "^7.0.0",
     "rxjs": "5.5.11",

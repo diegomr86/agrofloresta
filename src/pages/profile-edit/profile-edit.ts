@@ -62,7 +62,6 @@ export class ProfileEditPage {
   }
 
   save() {
-    console.log('val', this.form.value);
     // Attempt to login in through our User service
     this.user.put(this.form.value).then((response) => {
       this.navCtrl.setRoot('ProfilePage');

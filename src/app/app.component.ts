@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Config, Nav, Platform, MenuController } from 'ionic-angular';
 
 import { FirstRunPage, MainPage } from '../pages';
-import { Settings, User, Api } from '../providers';
+import { User, Api, Database } from '../providers';
 import { Storage } from '@ionic/storage';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ImgCacheService } from '../global';
@@ -56,7 +56,7 @@ export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
   
-  constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, private user: User, public api: Api, public menuCtrl: MenuController, public storage: Storage, private geolocation: Geolocation, imgCacheService: ImgCacheService) {
+  constructor(private translate: TranslateService, platform: Platform, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, private user: User, public api: Api, public database: Database, public menuCtrl: MenuController, public storage: Storage, private geolocation: Geolocation, imgCacheService: ImgCacheService) {
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -66,12 +66,11 @@ export class MyApp {
       // this.imageLoaderConfig.setFallbackUrl('assets/img/logo.png');
       // this.imageLoaderConfig.setMaximumCacheAge(24 * 60 * 60 * 1000);
 
-      this.statusBar.styleDefault();
       this.splashScreen.hide();
-
+      this.statusBar.styleDefault();
+        
       imgCacheService.initImgCache()
-        .subscribe((v) => console.log('init'), (e) => console.log('fail init', e));
-
+          .subscribe((v) => console.log('init'), (e) => console.log('fail init', e));
 
     });
     

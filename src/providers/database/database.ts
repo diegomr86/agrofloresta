@@ -10,7 +10,7 @@ PouchDB.plugin(PouchFind);
 export class Database {
   
   public db; 
-  public remoteDb; 
+  public remote; 
   public cycles;
   public stratums;
   public additional_fields;
@@ -31,10 +31,34 @@ export class Database {
       emergente: 'Emergente' };
 
 
-    console.log('Creating database local');
-    this.db = new PouchDB('agrofloresta-prod');
-    console.log('Creating database remote');
-    this.remoteDb = new PouchDB('https://agrofloresta.diegomr86.ga:6984/agrofloresta-prod')
+    console.log('Creating database');
+    this.db = new PouchDB('agrofloresta-local');
+    // this.remoteDb = new PouchDB('https://agrofloresta.diegomr86.ga:6984/agrofloresta-prod')
+    this.remote = 'https://23bf9857-dbb4-4bc1-bc27-9413f91dfe3b-bluemix.cloudant.com/agrofloresta';
+ 
+    let options = {
+      live: true,
+      retry: true,
+      continuous: true,
+      auth: {
+        username: "23bf9857-dbb4-4bc1-bc27-9413f91dfe3b-bluemix",
+        password: "0ae78ba4ae29a03231d943f56d5408346f46ffd7dfde57f73accdc64a4d76578"
+      }
+    };
+ 
+    this.db.sync(this.remote, options).on('change', function (info) {
+      console.log('DB sync change: ', info);
+    }).on('paused', function (err) {
+      console.log('DB sync paused: ', err);
+    }).on('active', function () {
+      console.log('DB sync active');
+    }).on('denied', function (err) {
+      console.log('DB sync denied: ', err);
+    }).on('complete', function (info) {
+      console.log('DB sync complete: ', info);
+    }).on('error', function (err) {
+      console.log('DB sync error: ', err);
+    });;
     // this.remoteDb = new PouchDB('https://agrofloresta.diegomr86.ga:6984/agrofloresta', {
     //   ajax: {
     //     headers: {
@@ -63,16 +87,6 @@ export class Database {
     //     }
     //   });
     // });
-
-    console.log('Sync database...');
-    this.db.sync(this.remoteDb, { live: true }).on('complete', function (change) {
-      console.log('DB sync change', change);
-    }).on('error', function (err) {
-      console.log('DB sync error', err);
-      console.log(err);
-    }).on('denied', function(err){
-      console.log(err);
-    });
 
     this.db.createIndex({
       index: {
@@ -138,19 +152,13 @@ export class Database {
   } 
 
   save(item: Item) {
-    console.log('save: ', item);
     return this.db.save(item).then((result) => {
-      // item._rev = result.rev
-      console.log('saved: ', result);
       return result
     }); 
   }
 
   remove(item: Item) {
-
-    console.log('remove:',item);
     return this.get(item._id).then(doc => {
-      console.log('removedoc:', doc);
       doc.$deleted = true 
       return this.save(doc);
     })

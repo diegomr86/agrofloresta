@@ -19,26 +19,39 @@ export class FeedPage {
 	posts;
   commentPost;
   category;
+  tag;
+  searching;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database, public api: Api, public user: User) {
-    this.posts = []
-    this.category = navParams.get('category');
-    database.query('post', '', { category: navParams.get('category') }).then(res => {
-      let that = this
-      console.log('res', res);
-      res.forEach(function (post) {
-        let likes = post.likes ? post.likes.length : 0
-        let dislikes = post.dislikes ? post.dislikes.length : 0
-        post.score = that.hotScore(likes, dislikes, post.created_at);
-        that.posts.push(post)  
-      });
-  		this.posts = this.posts.sort((a, b) => a.score < b.score);
-  	})
-
-    database.all().then(function (docs) {
-      console.log("docs", docs);
-    });
+    this.list();
+    this.searching = false
   }
+
+  list() {
+    this.posts = []
+    this.category = this.navParams.get('category');
+    this.tag = this.navParams.get('tag');
+    if (this.category || this.tag) {
+      this.searching  = true
+    }
+    this.database.query('post', '', { category: this.navParams.get('category'), tags: this.navParams.get('tag') }).then(res => {
+      if (res && res.length > 0) {
+        let that = this
+        res.forEach(function (post) {
+          let likes = post.likes ? post.likes.length : 0
+          let dislikes = post.dislikes ? post.dislikes.length : 0
+          post.score = that.hotScore(likes, dislikes, post.created_at);
+          that.posts.push(post)  
+        });
+        this.posts = this.posts.sort((a, b) => a.score - b.score).reverse();
+      } else {
+        setTimeout(() => {
+          this.list();
+        }, 5000);
+      }
+    })
+  }
+
 
   add() {
     this.navCtrl.push('PostFormPage');

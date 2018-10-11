@@ -12,6 +12,7 @@ export class PlantsPage {
   Object = Object;
   filters;
   plants;
+  searching;
 
   constructor(public navCtrl: NavController, public database: Database, public api: Api, public modalCtrl: ModalController) {
     this.database.query('plant', '').then(res => {
@@ -23,11 +24,15 @@ export class PlantsPage {
       stratum: '',
     }
 
+    this.searching = false
+
     // this.populate();
 
   }
 
   search(ev?) {
+    this.searching = true
+
     let val = '';
     if (ev) {
       val = ev.target.value;

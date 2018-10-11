@@ -15,7 +15,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <div *ngIf="!posts || posts.length < 1" text-center padding>
+  <div *ngIf="(!posts || posts.length < 1) && !searching" text-center padding>
     <ion-spinner></ion-spinner>
     <p>Carregando conteúdo...</p>
   </div>

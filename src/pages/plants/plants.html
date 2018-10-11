@@ -17,11 +17,11 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="!plants" text-center padding>
+  <div *ngIf="(!plants || plants.length < 1) && !searching" text-center padding>
     <ion-spinner></ion-spinner>
     <p>Carregando tabela de plantas...</p>
   </div>
-  <div *ngIf="plants">
+  <div *ngIf="(plants && plants.length > 0) || searching">
     <ion-searchbar (ionInput)="search($event)" placeholder="Procurar"></ion-searchbar>
     <ion-grid>
       <ion-row> 

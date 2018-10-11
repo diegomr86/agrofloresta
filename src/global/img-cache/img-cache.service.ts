@@ -55,9 +55,15 @@ export class ImgCacheService {
             flatMap(([path, success]: [string, boolean]) => {
               return success ? this.getCachedFileURL(path) : this.cacheFile(path);
             }),
-            map((url: string) => {
+            flatMap((url: string) => {
               if (this.platform.is('ios')) {
                 return this.normalizeURlWKWview(url);
+              } else if (this.platform.is('cordova') || this.platform.is('android')) {
+                return this.file.resolveLocalFilesystemUrl(url).then((entry) => {
+                  var nativePath = entry.toURL();
+                  console.log('Native URI: ' + nativePath);
+                  return nativePath;
+                });
               }
               return url;
             })

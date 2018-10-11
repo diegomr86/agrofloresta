@@ -4,8 +4,6 @@ import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User, Database, Api } from '../../providers';
 import { Utils } from '../../utils/utils';
-import slugify from 'slugify';
-
 
 @IonicPage()
 @Component({
@@ -17,6 +15,7 @@ export class PostFormPage {
   isReadyToSave: boolean;
   form: FormGroup;
   oembed;
+  autocompleteTags;
 
   constructor(
   	public navCtrl: NavController, 
@@ -52,33 +51,40 @@ export class PostFormPage {
       this.loadEmbed()
 
       this.form.valueChanges.subscribe((v) => {
+        console.log("DB form valid "+this.form.valid, this.form.value);
         this.isReadyToSave = this.form.valid;
       });
-
-	    this.form.controls.title.valueChanges.subscribe((v) => {
-        this.generateId();
-	    });
 
       this.api.preview = false
 
       if (navParams.get('id')) {
         this.edit(navParams.get('id'));
       }
-  	}
-  }
 
-  generateId() {
-    // if (!this.form.controls._rev.value) {
-      // this.form.patchValue({ '_id': slugify(this.form.controls.title.value.toLowerCase()+'-'+new Date().getTime())} )
-    // }
+      this.autocompleteTags = []
+      this.database.query('post').then(res => {
+        res.forEach((a) => {
+          this.autocompleteTags = this.autocompleteTags.concat(a.tags)
+        });
+        this.autocompleteTags = this.autocompleteTags.map(function(v) {
+          return (typeof v == 'string') ? v : v['value'];
+        }).filter((v, i, a) => a.indexOf(v) === i).sort()
+      });
+
+
+  	}
   }
 
   save() {
     if (!this.form.valid) { return; }
     this.utils.showConfirm(() => {
+      let tags = this.form.controls.tags.value.map(function(v) {
+        return (typeof v == 'string') ? v : v['value'];
+      });
+      this.form.patchValue({ tags: tags });
+
       this.database.save(this.form.value).then(res => {
         this.navCtrl.setRoot('FeedPage');
-        console.log(res);
         this.navCtrl.push('PostPage', { id: res.id });
       }).catch((e) => {
         console.log(e)

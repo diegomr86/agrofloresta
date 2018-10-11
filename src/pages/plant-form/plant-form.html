@@ -54,6 +54,11 @@
       <ion-label stacked>Espaçamento:</ion-label>
       <ion-input formControlName="spacing" placeholder="ex: 45cm"></ion-input>
     </ion-item>
+    <ion-label stacked>Plantas companheiras:</ion-label>
+    <tag-input formControlName="companion_plants" [placeholder]="'+ Planta'" [secondaryPlaceholder]="'+ Plantas'" [separatorKeyCodes]="[9]">
+      <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="autocompleteCompanions" ></tag-input-dropdown>
+    </tag-input>
+
     <div formArrayName="additional_fields" *ngFor="let additional_field of form.get('additional_fields').controls; let i = index;">
       <div [formGroupName]="i">
         <div *ngIf="i < database.additional_fields.length">
@@ -79,7 +84,7 @@
   <br>
   <ion-buttons end>
     <button ion-button  icon-end small (click)="addAdditionalField()" color="light">
-      Adicionar mais informações
+      Adicionar mais campos no formulário
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-buttons>

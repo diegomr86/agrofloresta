@@ -18,7 +18,6 @@ export class User extends Database {
    */
   login(email) {
     return this.query('user', '', { email: email }).then((res) => {
-      console.log('login: '+email, res);
       if (res && res.length > 0) {
         this.storage.set('currentUser', res[0]);
         this.currentUser = res[0]
@@ -29,13 +28,9 @@ export class User extends Database {
   }
 
   put(item) {
-    console.log('item', item);
     return this.db.put(item).then((account) => {
-      console.log('account', account);
       return this.db.get(account.id).then((u) => {
         return this.storage.set('currentUser', u).then((response) => {
-          console.log('response', u);
-
           this.currentUser = u
           return u;
         });

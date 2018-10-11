@@ -34,6 +34,12 @@
       <h6>Espaçamento </h6>
       <p>{{plant.spacing}}</p>
     </div>
+    <div *ngIf="plant.companion_plants && plant.companion_plants.length > 0">
+      <h6>Plantas companheiras </h6>
+      <ion-chip *ngFor="let p of plant.companion_plants">
+        <ion-label>{{p}}</ion-label>
+      </ion-chip>
+    </div>
     <div *ngFor="let additional_field of plant.additional_fields">
       <div *ngIf="additional_field.content">
         <h6>{{additional_field.name}} </h6>
