@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Database, Api, User } from '../../providers';
+import { Database, Api } from '../../providers';
 
 /**
  * Generated class for the ProfilePage page.
@@ -20,14 +20,14 @@ export class ProfilePage {
   profile;
 	posts;
 	
-  constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database, public api: Api, public user: User) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database, public api: Api) {
     if (navParams.get('id')) {
       this.database.get(navParams.get('id')).then(res => {
         this.profile = res
         this.loadPosts()
       });      
     } else {
-      this.profile = this.user.currentUser
+      this.profile = this.database.currentUser
       this.loadPosts()
     }
   }

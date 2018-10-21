@@ -7,7 +7,7 @@
       <p><small>Plataforma de aprendizado coletivo</small></p>
     </div>
   </div>
-  <div padding>
+  <div padding *ngIf="database.syncSuccess">
     <button ion-button block icon-start (click)="facebookLogin()"> 
       <ion-icon name="logo-facebook"></ion-icon> 
       Entrar com Facebook
@@ -18,5 +18,10 @@
     </button>
  -->    <button ion-button block (click)="login()" class="login">ENTRAR COM E-MAIL</button>
     <button ion-button block (click)="signup()" class="login">{{ 'SIGNUP' | translate }}</button>
+  </div>
+  <div *ngIf="!database.syncSuccess" text-center>
+    <br>
+    <ion-spinner></ion-spinner>
+    <p>Sincronizando dados...</p>  
   </div>
 </ion-content>

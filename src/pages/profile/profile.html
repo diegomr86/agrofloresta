@@ -9,7 +9,7 @@
   <ion-navbar>
     <ion-title *ngIf="profile">Perfil</ion-title>
 	  <ion-buttons end>
-	    <button *ngIf="profile && user.currentUser && profile._id == user.currentUser._id" ion-button icon-only (click)="edit(profile._id)">
+	    <button *ngIf="profile && database.currentUser && profile._id == database.currentUser._id" ion-button icon-only (click)="edit(profile._id)">
 	      <ion-icon name="create"></ion-icon>
 	    </button>
 	  </ion-buttons>

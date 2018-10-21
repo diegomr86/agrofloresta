@@ -12,12 +12,14 @@ import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Geolocation } from '@ionic-native/geolocation';
 import { File } from '@ionic-native/file';
+import { SQLite } from '@ionic-native/sqlite';
 import 'rxjs/add/observable/fromEvent';
+
 // import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DirectivesModule } from '../directives/directives.module';
-import { Settings, User, Api, Database } from '../providers';
+import { Settings, Api, Database } from '../providers';
 import { Utils } from '../utils/utils';
 import { MyApp } from './app.component';
 import { ImgCacheService } from '../global';
@@ -68,7 +70,6 @@ export function provideSettings(storage: Storage) {
   ],
   providers: [
     Api,
-    User,
     Database,
     Utils,
     Camera,
@@ -79,6 +80,7 @@ export function provideSettings(storage: Storage) {
     Geolocation,
     File,
     ImgCacheService,
+    SQLite,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },

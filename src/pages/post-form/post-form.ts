@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User, Database, Api } from '../../providers';
+import { Database, Api } from '../../providers';
 import { Utils } from '../../utils/utils';
 
 @IonicPage()
@@ -22,20 +22,19 @@ export class PostFormPage {
     public navParams: NavParams, 
     public appCtrl: App, 
   	public formBuilder: FormBuilder, 
-    public user: User,
     public utils: Utils, 
     public database: Database,
     public api: Api,
     public http: HttpClient) {
   	
-    if (this.user.currentUser) {
+    if (this.database.currentUser) {
 	  
       this.form = formBuilder.group({
 	      type: ['post', Validators.required],
 	      category: ['', Validators.required],
         _id: [''],
         $id: [''],
-	      user_id: [user.currentUser._id, Validators.required],
+	      user_id: [this.database.currentUser._id, Validators.required],
 	      picture: [''],
 	      title: ['', Validators.required],
         content: ['', Validators.required],
@@ -115,32 +114,47 @@ export class PostFormPage {
   loadEmbed() {
     delete this.api.preview;
     if (this.form.controls.url.value) {
-      this.http.get(this.api.url+"oembed?url="+encodeURI(this.form.controls.url.value)).subscribe(
-        res => {
-          // this.oembed = res;
+      if (this.form.controls.url.value.endsWith('.pdf')) {
+        this.api.get('preview_pdf', { url: encodeURI(this.form.controls.url.value) }).subscribe(res => {
+          console.log('preview_pdf', res);
           if (res) {
-            this.form.patchValue({ 'title': res['title'] } )
-            this.form.patchValue({ 'content': res['description'] } )
-            if (res['thumbnail_url']) {
-              this.form.patchValue({ 'picture': { url: res['thumbnail_url'] } } )
-            }
-            if (res['type'] == 'video') {
-              this.form.patchValue({ 'category': 'video' } )
-            }
-            if (!res['html'] || res['html'].indexOf('iframely-embed') > -1) {
-              if (res['thumbnail_url']) {
-                this.api.setPreview(res['thumbnail_url']);
-              }
-              this.form.patchValue({ 'oembed': undefined } )
-            } else {
-              this.form.patchValue({ 'oembed': res['html'] } )
-            }
-          }         
+            this.form.patchValue({ 'picture': res } )
+            this.form.patchValue({ 'category': 'book' } )
+            this.api.setPreview(res)            
+          }
         }, 
-        error =>{
-          console.log('oembed error:', error);
-        }
-      )
+        error => {
+          console.log('preview_pdf error:', error);
+        });
+      } else {
+        this.http.get(this.api.url+"oembed?url="+encodeURI(this.form.controls.url.value)).subscribe(
+          res => {
+            // this.oembed = res;
+            if (res) {
+              console.log('oembed:',res);
+              this.form.patchValue({ 'title': res['title'] } )
+              this.form.patchValue({ 'content': res['description'] } )
+              if (res['thumbnail_url']) {
+                this.form.patchValue({ 'picture': { url: res['thumbnail_url'] } } )
+              }
+              if (res['type'] == 'video') {
+                this.form.patchValue({ 'category': 'video' } )
+              }
+              if (!res['html'] || res['html'].indexOf('iframely-embed') > -1) {
+                if (res['thumbnail_url']) {
+                  this.api.setPreview(res['thumbnail_url']);
+                }
+                this.form.patchValue({ 'oembed': undefined } )
+              } else {
+                this.form.patchValue({ 'oembed': res['html'] } )
+              }
+            }         
+          }, 
+          error =>{
+            console.log('oembed error:', error);
+          }
+        );
+      }
       // https://www.youtube.com/watch?v=gSPNRu4ZPvE
     }
   } 

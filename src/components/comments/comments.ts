@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Database, User } from '../../providers';
+import { Database } from '../../providers';
 
 /**
  * Generated class for the CommentsComponent component.
@@ -17,13 +17,13 @@ export class CommentsComponent {
 
   message;
   
-  constructor(public database: Database, public user: User) {
+  constructor(public database: Database) {
     this.message = ''
 	}
 	
 	comment() {
     if (this.post && this.message) {
-      let c = { user_id: this.user.currentUser._id, message: this.message, created_at: new Date() }
+      let c = { user_id: this.database.currentUser._id, message: this.message, created_at: new Date() }
       if (this.post.comments) {
         this.post.comments.push(c)
       } else {

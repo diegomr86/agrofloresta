@@ -4,6 +4,7 @@ import { GuidePage } from './guide';
 import { QuillModule } from 'ngx-quill'
 import { PipesModule } from '../../pipes/pipes.module';
 import { ComponentsModule } from '../../components/components.module';
+import { DirectivesModule } from '../../directives/directives.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ComponentsModule } from '../../components/components.module';
     IonicPageModule.forChild(GuidePage),
     QuillModule,
     PipesModule,
-    ComponentsModule
+    ComponentsModule,
+    DirectivesModule
   ]
 })
 export class GuidePageModule {}

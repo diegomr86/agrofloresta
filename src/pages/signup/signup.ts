@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Api, User } from '../../providers';
+import { Api, Database } from '../../providers';
 import { Utils } from '../../utils/utils';
 
 import { MainPage } from '../';
@@ -23,7 +23,7 @@ export class SignupPage {
 
   constructor(public navCtrl: NavController,
     public api: Api,
-    public user: User,
+    public database: Database,
     public toastCtrl: ToastController,
     public formBuilder: FormBuilder, 
     public translateService: TranslateService,
@@ -52,10 +52,13 @@ export class SignupPage {
   }
 
   doSignup() {
+    console.log('signup resp', this.form.value);
+
     // Attempt to login in through our User service
-    this.user.signup(this.form.value).then((response) => {
+    this.database.signup(this.form.value).then((response) => {
       this.navCtrl.setRoot(MainPage);
     }).catch((e) => {
+      console.log('signup error', e);
       if (e.name == 'conflict') {
         this.utils.showToast("Usuário já cadastrado. Fazendo login.", 'primary');
         // this.login();
@@ -65,7 +68,7 @@ export class SignupPage {
   }
 
   login() {
-    this.user.login(this.form.controls.email.value).then((resp) => {
+    this.database.login(this.form.controls.email.value).then((resp) => {
       if (resp) {
         this.navCtrl.setRoot(MainPage);
       }

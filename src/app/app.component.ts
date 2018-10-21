@@ -5,13 +5,13 @@ import { TranslateService } from '@ngx-translate/core';
 import { Config, Nav, Platform, MenuController } from 'ionic-angular';
 
 import { FirstRunPage, MainPage } from '../pages';
-import { User, Api, Database } from '../providers';
+import { Api, Database } from '../providers';
 import { Storage } from '@ionic/storage';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ImgCacheService } from '../global';
 
 @Component({
-  template: `<ion-split-pane [enabled]="this.user.currentUser">
+  template: `<ion-split-pane [enabled]="this.database.currentUser">
     <ion-menu [content]="content">
       <ion-header>
         <ion-toolbar>
@@ -21,7 +21,7 @@ import { ImgCacheService } from '../global';
             </button>
           </ion-buttons>
 
-          <ion-title *ngIf="this.user.currentUser">
+          <ion-title *ngIf="this.database.currentUser">
             Rede Agrofloresta
           </ion-title>
         </ion-toolbar>
@@ -29,18 +29,19 @@ import { ImgCacheService } from '../global';
 
       <ion-content>
         <ion-list>
-          <ion-item *ngIf="this.user.currentUser" (click)="profile(this.user.currentUser)" class="menu_profile">
+          <ion-item *ngIf="this.database.currentUser" (click)="profile(this.database.currentUser)" class="menu_profile">
             <ion-avatar item-start>
-              <img img-cache [source]="this.api.imageUrl(this.user.currentUser.picture, 'thumb')" >
+              <img img-cache [source]="this.api.imageUrl(this.database.currentUser.picture, 'thumb')" >
             </ion-avatar>
-            <h2>{{this.user.currentUser.name}}</h2>
-            <p>{{this.user.currentUser.email}}</p>
+            <h2>{{this.database.currentUser.name}}</h2>
+            <p>{{this.database.currentUser.email}}</p>
           </ion-item>
           <button menuClose ion-item (click)="openPage('FeedPage')">Postagens</button>
-          <button menuClose ion-item (click)="openPage('FeedPage', { category: 'event' })">Eventos</button>
+          <button menuClose ion-item (click)="openPage('GuidesPage')">Guias de cultivo</button>
           <button menuClose ion-item (click)="openPage('PlantsPage')">Tabela de plantas</button>
-          <button menuClose ion-item (click)="openPage('DonatePage')">Seja um apoiador</button>
+          <button menuClose ion-item (click)="openPage('FeedPage', { category: 'event' })">Eventos</button>
           <button menuClose ion-item (click)="openPage('AboutPage')">Sobre</button>
+          <button menuClose ion-item (click)="openPage('DonatePage')">Seja um apoiador</button>
           <button menuClose ion-item (click)="this.logout()">
             Sair
           </button>
@@ -56,7 +57,7 @@ export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
   
-  constructor(private translate: TranslateService, platform: Platform, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, private user: User, public api: Api, public database: Database, public menuCtrl: MenuController, public storage: Storage, private geolocation: Geolocation, imgCacheService: ImgCacheService) {
+  constructor(private translate: TranslateService, platform: Platform, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, public api: Api, public database: Database, public menuCtrl: MenuController, public storage: Storage, private geolocation: Geolocation, imgCacheService: ImgCacheService) {
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -66,11 +67,13 @@ export class MyApp {
       // this.imageLoaderConfig.setFallbackUrl('assets/img/logo.png');
       // this.imageLoaderConfig.setMaximumCacheAge(24 * 60 * 60 * 1000);
 
-      this.splashScreen.hide();
       this.statusBar.styleDefault();
         
-      imgCacheService.initImgCache()
-          .subscribe((v) => console.log('init'), (e) => console.log('fail init', e));
+      imgCacheService.initImgCache().subscribe((v) => console.log('init'), (e) => console.log('fail init', e));
+      
+      this.database.sync();
+
+      this.splashScreen.hide();
 
     });
     
@@ -88,9 +91,9 @@ export class MyApp {
       }
     })
 
-    this.user.skipTour().then((skipTour) => {
+    this.database.skipTour().then((skipTour) => {
       if (skipTour) {
-        this.user.getCurrentUser().then((r) => {
+        this.database.getCurrentUser().then((r) => {
           if (r) {
             this.rootPage = MainPage
           } else {
@@ -133,7 +136,7 @@ export class MyApp {
 
   logout() {
     this.nav.setRoot('WelcomePage');   
-    this.user.logout()
+    this.database.logout()
     // this.menuCtrl.close(); 
   }
 

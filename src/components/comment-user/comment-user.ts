@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Database, User, Api } from '../../providers';
+import { Database, Api } from '../../providers';
 
 @Component({
   selector: 'comment-user',
@@ -12,7 +12,7 @@ export class CommentUserComponent {
 
   user;
 
-  constructor(public database: Database, public userDb: User, public api: Api) { }
+  constructor(public database: Database, public api: Api) { }
 
   ngOnInit() { 
   	this.database.get(this.comment.user_id).then((u) => {
@@ -22,7 +22,7 @@ export class CommentUserComponent {
   }
 
   delete(){
-    if (this.comment.user_id == this.userDb.currentUser._id) {
+    if (this.comment.user_id == this.database.currentUser._id) {
       this.post.comments = this.post.comments.filter(c => c !== this.comment)
 
       this.database.put(this.post).then(p => {

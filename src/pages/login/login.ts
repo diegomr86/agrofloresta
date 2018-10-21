@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { User } from '../../providers';
+import { Database } from '../../providers';
 import { Utils } from '../../utils/utils';
 import { MainPage } from '../';
 
@@ -17,7 +17,7 @@ export class LoginPage {
   isReadyToSave: boolean;
 
   constructor(public navCtrl: NavController,
-    public user: User,
+    public database: Database,
     public toastCtrl: ToastController,
     public formBuilder: FormBuilder,
     public utils: Utils) {
@@ -34,13 +34,21 @@ export class LoginPage {
   }
 
   login() {
-    this.user.login(this.form.controls.email.value).then((resp) => {
+    console.log('login', this.form.controls.email.value);
+
+    this.database.login(this.form.controls.email.value).then((resp) => {
+      console.log('login resp', resp);
       if (resp) {
         this.navCtrl.setRoot(MainPage);
       }
     }).catch((e) => {
+      console.log('login error', e);
+      console.log('login error: ' + JSON.stringify(e));
+
       if (e.name == 'not_found') {
         this.utils.showToast('Usuário não encontrado! Por favor cadastre-se.', 'error');
+      } else {
+        this.utils.showToast(JSON.stringify(e), 'error');
       }
     });
   }

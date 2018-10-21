@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Api, User } from '../../providers';
+import { Api, Database } from '../../providers';
 import { Utils } from '../../utils/utils';
 
 @IonicPage()
@@ -21,7 +21,7 @@ export class ProfileEditPage {
 
   constructor(public navCtrl: NavController,
     public api: Api,
-    public user: User,
+    public database: Database,
     public toastCtrl: ToastController,
     public formBuilder: FormBuilder, 
     public translateService: TranslateService,
@@ -53,19 +53,19 @@ export class ProfileEditPage {
   }
 
   edit() {
-  	if (this.user.currentUser) {
+  	if (this.database.currentUser) {
       this.form.patchValue({
-        ...this.user.currentUser
+        ...this.database.currentUser
       }) 
-      this.api.setPreview(this.user.currentUser.picture, 'medium')
+      this.api.setPreview(this.database.currentUser.picture, 'medium')
     }
   }
 
   save() {
     // Attempt to login in through our User service
-    this.user.put(this.form.value).then((response) => {
+    this.database.saveProfile(this.form.value).then((response) => {
       this.navCtrl.setRoot('ProfilePage');
-      // this.user.login(this.user.currentUser._id).then(res => this.navCtrl.setRoot('ProfilePage'));
+      // this.database.login(this.database.currentUser._id).then(res => this.navCtrl.setRoot('ProfilePage'));
     }).catch((e) => {
       console.log('erro: ', e)
     })

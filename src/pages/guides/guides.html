@@ -1,0 +1,35 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Guias de Cultivo</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="add()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <div *ngIf="(!guides || guides.length < 1) && !searching" text-center padding>
+    <ion-spinner></ion-spinner>
+    <p>Carregando guias...</p>
+  </div>
+  <div *ngIf="(guides && guides.length > 0) || searching">
+    <p padding text-center><small>Sinta-se livre para criar melhorar ou corrigir qualquer guia :D</small></p>
+    <!-- <ion-searchbar (ionInput)="search($event)" placeholder="Procurar"></ion-searchbar> -->
+    <ion-list>
+      <ion-item-sliding *ngFor="let guide of guides">
+        <button ion-item (click)="open(guide._id)">
+          <h2>{{guide.title}}</h2>
+ 				</button>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+</ion-content>

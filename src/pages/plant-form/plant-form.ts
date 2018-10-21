@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { Database, User, Api } from '../../providers';
+import { Database, Api } from '../../providers';
 import { Utils } from '../../utils/utils';
 
 @IonicPage()
@@ -27,14 +27,13 @@ export class PlantFormPage {
     public formBuilder: FormBuilder, 
     public camera: Camera, 
     public database: Database, 
-    public user: User, 
     public api: Api, 
     public utils: Utils, 
     params: NavParams) {
       
     this.form = formBuilder.group({
       type: ['plant', Validators.required],
-      user_id: [user.currentUser._id, Validators.required],
+      user_id: [database.currentUser._id, Validators.required],
       _id: [''],
       $id: [''],
       picture: ['', Validators.required],

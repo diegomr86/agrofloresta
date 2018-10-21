@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Database, Api, User } from '../../providers';
+import { Database, Api } from '../../providers';
 
 /**
  * Generated class for the FeedPage page.
@@ -22,34 +22,44 @@ export class FeedPage {
   tag;
   searching;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database, public api: Api, public user: User) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database, public api: Api) {
     this.list();
     this.searching = false
   }
 
   list() {
+    console.log('list! ');
     this.posts = []
     this.category = this.navParams.get('category');
     this.tag = this.navParams.get('tag');
+    console.log('list: cat'+JSON.stringify(this.category));
+    console.log('list: tag'+JSON.stringify(this.tag));
     if (this.category || this.tag) {
       this.searching  = true
     }
+    console.log('list: query!');
     this.database.query('post', '', { category: this.navParams.get('category'), tags: this.navParams.get('tag') }).then(res => {
+      console.log('list: res'+JSON.stringify(res));
       if (res && res.length > 0) {
         let that = this
         res.forEach(function (post) {
           let likes = post.likes ? post.likes.length : 0
           let dislikes = post.dislikes ? post.dislikes.length : 0
           post.score = that.hotScore(likes, dislikes, post.created_at);
-          that.posts.push(post)  
+          that.posts.push(post) 
+          console.log('list: post'+JSON.stringify(post)); 
         });
         this.posts = this.posts.sort((a, b) => a.score - b.score).reverse();
+        console.log('list: post'+JSON.stringify(this.posts));
       } else {
-        setTimeout(() => {
-          this.list();
-        }, 5000);
+        // setTimeout(() => {
+        //   console.log('list: timeout');
+        //   this.list();
+        // }, 5000);
       }
-    })
+    }).catch(e => {
+      console.log('list: error'+JSON.stringify(e));
+    });
   }
 
 
@@ -67,13 +77,13 @@ export class FeedPage {
 
   like(post) {
     if (post.likes) {
-      if (!post.likes.includes(this.user.currentUser._id)) {
-        post.likes.push(this.user.currentUser._id)
+      if (!post.likes.includes(this.database.currentUser._id)) {
+        post.likes.push(this.database.currentUser._id)
       } else {
-        post.likes = post.likes.filter(like => like !== this.user.currentUser._id)
+        post.likes = post.likes.filter(like => like !== this.database.currentUser._id)
       }
     } else {
-      post.likes = [this.user.currentUser._id]
+      post.likes = [this.database.currentUser._id]
     }
     this.database.put(post).then(p => {
       this.posts = this.posts.map(function(item) { return item._id == p._id ? p : item; });
@@ -82,13 +92,13 @@ export class FeedPage {
 
   dislike(post) {
     if (post.dislikes) {
-      if (!post.dislikes.includes(this.user.currentUser._id)) {
-        post.dislikes.push(this.user.currentUser._id)
+      if (!post.dislikes.includes(this.database.currentUser._id)) {
+        post.dislikes.push(this.database.currentUser._id)
       } else {
-        post.dislikes = post.dislikes.filter(like => like !== this.user.currentUser._id)
+        post.dislikes = post.dislikes.filter(like => like !== this.database.currentUser._id)
       }
     } else {
-      post.dislikes = [this.user.currentUser._id]
+      post.dislikes = [this.database.currentUser._id]
     }
     this.database.put(post).then(p => {
       this.posts = this.posts.map(function(item) { return item._id == p._id ? p : item; });

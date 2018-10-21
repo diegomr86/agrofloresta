@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { User, Api } from '../../providers';
+import { Database, Api } from '../../providers';
 import { NavController } from 'ionic-angular';
 
 @Component({
@@ -11,10 +11,10 @@ export class PostUserComponent {
 
   user;
 
-  constructor(public navCtrl: NavController, public userDb: User, public api: Api) { }
+  constructor(public navCtrl: NavController, public database: Database, public api: Api) { }
 
   ngOnInit() { 
-  	this.userDb.get(this.post.user_id).then((user) => {
+  	this.database.get(this.post.user_id).then((user) => {
   		this.user = user;
   	})
   	

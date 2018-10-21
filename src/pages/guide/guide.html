@@ -1,47 +1,23 @@
 <ion-header>
-
   <ion-navbar>
-
-    <ion-buttons left>
-      <button ion-button icon-only menuToggle *ngIf="!form">
-        <ion-icon name="menu"></ion-icon>
-      </button>
-      <button ion-button icon-only (click)="cancel()" *ngIf="form">
-        <ion-icon name="arrow-back"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-title>Guia Básico</ion-title>
+    <ion-title *ngIf="guide">{{ guide.title }}</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only *ngIf="this.api.loading">
-	      <ion-spinner></ion-spinner>
-	    </button>
-      <button ion-button icon-only (click)="edit()" *ngIf="!form" strong>
+      <button ion-button icon-only (click)="edit()">
         <ion-icon name="create"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="save()" *ngIf="form" strong>
-        <ion-icon name="checkmark"></ion-icon>
-      </button>
-
     </ion-buttons>
-
   </ion-navbar>
-
 </ion-header>
-
-
 <ion-content padding>
-  <div *ngIf="!form && guide">
-	  <div class="ql-editor preview"><safe-content [template]="cachedImages(guide.content)"></safe-content></div>
+  <div class="guide" *ngIf="guide">
+    <p [innerHTML]="guide.content | safe: 'html'" class="ql-editor preview"></p>
+    <br>
+    <ion-chip *ngFor="let tag of guide.tags">
+      <ion-label>{{tag}}</ion-label>
+    </ion-chip>
+    <br>
     <user [item]="guide"></user>     
     <br>
+       
   </div>
-	<div *ngIf="form">
-
-		<form [formGroup]="form">
-		  <quill-editor #editor placeholder="Insira aqui o conteúdo do guia..." [formControl]="form.controls['content']" [modules]="modules" (onEditorCreated)="getEditorInstance($event)"></quill-editor>
-		</form>
-		<h2>Previsualização: </h2>
-		<div [innerHTML]="form.controls.content.value | safe: 'html'" class="ql-editor preview">
-		</div>
-	</div>
 </ion-content>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
-import { User } from '../../providers';
+import { Database } from '../../providers';
 import { MainPage } from '../../pages';
 
 /**
@@ -18,7 +18,7 @@ import { MainPage } from '../../pages';
 })
 export class WelcomePage {
 
-  constructor(public navCtrl: NavController, private fb: Facebook, private googlePlus: GooglePlus, public user: User) {
+  constructor(public navCtrl: NavController, private fb: Facebook, private googlePlus: GooglePlus, public database: Database) {
   }
 
   facebookLogin() {
@@ -26,11 +26,11 @@ export class WelcomePage {
     this.fb.login(['public_profile', 'email'])
       .then((res: FacebookLoginResponse) => { 
         this.fb.api("me?fields=id,name,email,first_name,picture.width(320).height(320).as(picture_large)", []).then((user) => {
-            this.user.signup({ type: 'user', email: user.email, name: user.name, picture: user.picture_large.data.url, facebook_id: user.id }).then((resp) => {
+            this.database.signup({ type: 'user', email: user.email, name: user.name, picture: user.picture_large.data.url, facebook_id: user.id }).then((resp) => {
               this.navCtrl.setRoot(MainPage);
             }).catch((e) => {
               if (e.name == 'conflict') {
-                this.user.login(user.email).then((resp) => {
+                this.database.login(user.email).then((resp) => {
                   if (resp) {
                     this.navCtrl.setRoot(MainPage);
                   }
@@ -45,11 +45,11 @@ export class WelcomePage {
 
     this.googlePlus.login()
     .then(user => {
-      this.user.signup({ type: 'user', email: user.email, name: user.displayName, picture: user.imageUrl, google_id: user.userId }).then((resp) => {
+      this.database.signup({ type: 'user', email: user.email, name: user.displayName, picture: user.imageUrl, google_id: user.userId }).then((resp) => {
         this.navCtrl.setRoot(MainPage);
       }).catch((e) => {
         if (e.name == 'conflict') {
-          this.user.login(user.email).then((resp) => {
+          this.database.login(user.email).then((resp) => {
             if (resp) {
               this.navCtrl.setRoot(MainPage);
             }
