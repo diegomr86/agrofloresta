@@ -24,7 +24,7 @@
         <p *ngIf="post.start_time && !post.end_time">Dia <strong>{{ post.start_time| date: 'dd/MM/yyyy' }}</strong></p>
         <p>Local: <strong>{{ post.location }}</strong></p>
       </div>
-      <a *ngIf="post.category == 'book' && post.picture && post.picture.url" [href]="this.api.imageUrl(post.picture)" target="_blank">Baixar Livro</a>
+      <a *ngIf="post.category == 'book' && post.picture && post.picture.url && !post.url" [href]="this.api.imageUrl(post.picture)" target="_blank">Baixar Livro</a>
       <a *ngIf="post.url && post.content && post.content.indexOf('…') < 0" [href]="post.url" target="_blank">{{post.category == 'book' ? 'Baixar Livro' : 'Fonte'}}</a>
       <br>    
       <br>    

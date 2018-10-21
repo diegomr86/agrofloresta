@@ -16,7 +16,8 @@ import { Database, Api } from '../../providers';
 })
 export class FeedPage {
 
-	posts;
+  posts;
+	morePosts;
   commentPost;
   category;
   tag;
@@ -30,6 +31,7 @@ export class FeedPage {
   list() {
     console.log('list! ');
     this.posts = []
+    this.morePosts = []
     this.category = this.navParams.get('category');
     this.tag = this.navParams.get('tag');
     console.log('list: cat'+JSON.stringify(this.category));
@@ -50,6 +52,12 @@ export class FeedPage {
           console.log('list: post'+JSON.stringify(post)); 
         });
         this.posts = this.posts.sort((a, b) => a.score - b.score).reverse();
+
+        if (this.posts && this.posts.length > 5) {
+          this.morePosts = this.posts.slice(5, this.posts.length+1)
+          this.posts = this.posts.slice(0, 5)
+        }
+
         console.log('list: post'+JSON.stringify(this.posts));
       } else {
         // setTimeout(() => {
@@ -62,6 +70,14 @@ export class FeedPage {
     });
   }
 
+  showMore(infiniteScroll) {
+    if (this.morePosts && this.morePosts.length > 0) {
+      this.posts = this.posts.concat(this.morePosts.slice(0, 5))            
+      this.morePosts = this.morePosts.slice(5, this.morePosts.length+1)
+    }
+    infiniteScroll.complete();
+
+  }
 
   add() {
     this.navCtrl.push('PostFormPage');

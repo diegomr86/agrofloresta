@@ -36,7 +36,7 @@ import { ImgCacheService } from '../global';
             <h2>{{this.database.currentUser.name}}</h2>
             <p>{{this.database.currentUser.email}}</p>
           </ion-item>
-          <button menuClose ion-item (click)="openPage('FeedPage')">Postagens</button>
+          <button menuClose ion-item (click)="openPage('FeedPage')">Mural</button>
           <button menuClose ion-item (click)="openPage('GuidesPage')">Guias de cultivo</button>
           <button menuClose ion-item (click)="openPage('PlantsPage')">Tabela de plantas</button>
           <button menuClose ion-item (click)="openPage('FeedPage', { category: 'event' })">Eventos</button>
@@ -99,11 +99,15 @@ export class MyApp {
           } else {
             this.rootPage = FirstRunPage
           }
+        }).catch(e => {
+          console.log("error getting currentUser");
         })
 
       } else {
         this.rootPage = 'TutorialPage'
       }
+    }).catch(e => {
+      console.log("error getting skipTour");
     });
   }
 

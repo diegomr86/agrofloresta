@@ -41,7 +41,7 @@ export class Api {
       if (picture['url'].startsWith('http')) {
         return encodeURI(picture['url'])
       } else {
-        return encodeURI(this.url + (path && picture[path] ? picture[path] : 'static/'+picture['url']))  
+        return encodeURI(this.url + (path && picture[path] ? picture[path] : picture['medium']))  
       }
     }
   }
