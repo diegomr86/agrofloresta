@@ -5,38 +5,38 @@ Plataforma de construção colaborativa de conhecimento sobre Agroflorestas.
 
 ## Objetivo
 
-A idéia é criar uma base de dados de conhecimento coletivo sobre agrofloresta que será mais uma ferramenta que os agricultores poderão utilizar no trabalho com sua agrofloresta, além de ajudar na difusão dos conhecimentos. 
+Criar uma base de dados de conhecimento coletivo sobre agrofloresta que colabore para a difusão de conhecimentos desta forma de se fazer agricultura com sustentabilidade e ofereça ferramentas que os agricultores poderão utilizar na implementação e manutenção destes sistemas. 
 
 ## Requisitos principais
 
-1. Todo o conteúdo criado e mantido pela própria comunidade
-2. Qualquer pessoa pode criar ou alterar qualquer conteúdo (exceto comentários)
-3. O Código fonte aberto (open source)
-4. As informações devem estar disponíveis mesmo que o usuário não esteja conectado (offline first)
-5. Não ter nenhum tipo de publicidade
-6. Ser acessível em qualquer plataforma web, android e ios.
-7. Servir de base para criação de novas tecnologias relacionadas
+1. Responsabilidade compartilhada: Todo o conteúdo é criado, mantido e/ou alterado pela própria comunidade;
+2. Qualquer pessoa pode criar ou alterar qualquer conteúdo (exceto comentários);
+3. O Código fonte é aberto (open source)
+4. As informações devem estar disponíveis mesmo que o usuário não esteja conectado (offline first);
+5. Só é permitida a veiculação de publicidade sobre cursos, atividades e publicações relacionadas à Agrofloresta; 
+6. Deve ser acessível em qualquer plataforma Web, Android e IOS;
+7. Pode servir de base para criação de novas tecnologias relacionadas.
 
 ## Como colaborar
 
 Você pode ajudar com esse projeto das seguintes formas:
 
-- Faça sua propria agrofloresta
-- Crie e ajude a manter conteúdo da plataforma
-- Melhore código do aplicativo
-- Compartilhe com seus amigos
-- Faça uma doação
+- Faça sua propria agrofloresta;
+- Crie e ajude a melhorar o conteúdo da plataforma;
+- Melhore o código do aplicativo; 
+- Compartilhe com seus amigos;
+- Faça uma doação;
+
 
 ## Funções implementadas
 
 - Tabela de plantas: Uma lista contendo os cultivares e suas informações de ciclo, estrato, espaçamento, tempo de colheita, etc.
-- Guia básico: Um guia para nivelação de conhecimento dos usuários
-- Post: Central de postagens onde qualquer pessoa pode postar um artigo, foto, vídeo, evento.
-- Eventos: central de eventos sobre agrofloresta como cursos, palestras, vivencias, etc.
+- Guias de cultivo: Lista e formulário para cadastro de guias sobre agrofloresta
+- Postagens: Central de postagens onde qualquer pessoa pode postar um artigo, foto, vídeo, evento.
+- Eventos: Central de eventos sobre agrofloresta como cursos, palestras, vivencias, etc.
+- Biblioteca: Aqui estará guardado todo o conteúdo postando na plataforma de forma organizada e acessível.
 
 ## Funções à implementar
-
-- Biblioteca: Aqui estará guardado todo o conteúdo postando na plataforma de forma organizada e acessível.
 - TV agroflorestal: Player de vídeo com o conteúdo postado pelos usuários
 - Mapa de agroflorestas: mapa real do país com os projetos agroflorestais cadastrados pela comunidade usando geolocalização.
 

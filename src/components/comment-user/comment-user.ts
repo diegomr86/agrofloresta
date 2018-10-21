@@ -26,7 +26,11 @@ export class CommentUserComponent {
       this.post.comments = this.post.comments.filter(c => c !== this.comment)
 
       this.database.put(this.post).then(p => {
-        this.posts = this.posts.map(function(item) { return item._id == p._id ? p : item; });
+        if (this.posts) {
+          this.posts = this.posts.map(function(item) { return item._id == p._id ? p : item; });
+        } else {
+          this.post = p
+        }
       });
     } 
 

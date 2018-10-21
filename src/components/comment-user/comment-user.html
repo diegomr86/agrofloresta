@@ -13,7 +13,7 @@
 
 	<p>
 		<span>{{ comment.message }}</span>
-		<small><ion-icon *ngIf="userDb.currentUser && userDb.currentUser._id == comment.user_id" name="trash" (click)="delete()"></ion-icon></small>
+		<small><ion-icon *ngIf="database.currentUser && database.currentUser._id == comment.user_id" name="trash" (click)="delete()"></ion-icon></small>
 
 	</p>
 </ion-item>

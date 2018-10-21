@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title *ngIf="!category">Biblioteca</ion-title>
+    <ion-title *ngIf="category">Biblioteca - {{categories[category]}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="add()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <div class="categories" *ngIf="!category">
+    <br>
+    <h6>Selecione o tipo de conteúdo:</h6>
+    <br>
+    <ion-row>
+      <ion-col (click)="setCategory('book')">
+        <ion-icon name="book"></ion-icon>
+        <span>Livros</span>
+      </ion-col>
+      <ion-col (click)="setCategory('link')">
+        <ion-icon name="list-box"></ion-icon>
+        <span>Artigos</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col (click)="setCategory('video')">
+        <ion-icon name="videocam"></ion-icon>
+        <span>Vídeos</span>
+      </ion-col>
+      <ion-col (click)="setCategory('text')">
+        <ion-icon name="text"></ion-icon>
+        <span>Textos</span>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div *ngIf="category">
+    <div *ngIf="(!posts || posts.length < 1) && !searching" text-center padding>
+      <ion-spinner></ion-spinner>
+      <p>Carregando postagens...</p>
+    </div>
+    <ion-card *ngFor="let post of posts">
+      <ion-item>
+        <h2 (click)="open(post._id)">{{post.title}}</h2>
+      </ion-item>
+      <img img-cache [source]="this.api.imageUrl(post.picture, 'medium')" *ngIf="!post.oembed && post.picture" (click)="open(post._id)" >
+      <div *ngIf="post.oembed && (!post.picture || post.category != 'book')" [innerHTML]="post.oembed | safe: 'html'"></div>
+    </ion-card>
+    <ion-infinite-scroll (ionInfinite)="showMore($event)">
+     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando postagens...">
+     </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>  
+</ion-content>

@@ -5,7 +5,7 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title *ngIf="category != 'event'">Mural</ion-title>
+    <ion-title *ngIf="category != 'event'">Últimas postagens</ion-title>
     <ion-title *ngIf="category == 'event'">Eventos</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="add()">
@@ -59,7 +59,9 @@
           </button>
       </ion-col>
     </ion-row>
-    <comments *ngIf="commentPost == post._id" padding [post]="post" [posts]="posts"></comments>
+    <div padding *ngIf="commentPost == post._id">
+      <comments [post]="post" [posts]="posts"></comments>
+    </div>
     <br>    
   </ion-card>
   <ion-infinite-scroll (ionInfinite)="showMore($event)">

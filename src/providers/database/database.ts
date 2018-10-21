@@ -44,7 +44,7 @@ export class Database {
   }
 
   sync() {
-
+    console.log("platform", this.plt.is('android'));
     if (this.plt.is('android')) {
       this.db = new PouchDB('agrofloresta-local', { adapter: 'cordova-sqlite', location:'default', androidDatabaseProvider: 'system' });
     } else {
@@ -255,7 +255,9 @@ export class Database {
   }
 
   skipTour() {
+    console.log('storage', this.storage);
     return this.storage.get('skipTour').then((response) => {
+      console.log('storage res', response);
       return response
     })   
   }

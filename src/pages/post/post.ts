@@ -23,6 +23,7 @@ export class PostPage {
         return (typeof v == 'string') ? v : v['value'];
       })
     });
+
   }
 
   edit() {
@@ -32,5 +33,35 @@ export class PostPage {
   open(tag) {
     this.navCtrl.push('FeedPage', { tag: tag });
   } 
+
+  like(post) {
+    if (post.likes) {
+      if (!post.likes.includes(this.database.currentUser._id)) {
+        post.likes.push(this.database.currentUser._id)
+      } else {
+        post.likes = post.likes.filter(like => like !== this.database.currentUser._id)
+      }
+    } else {
+      post.likes = [this.database.currentUser._id]
+    }
+    this.database.put(post).then(p => {
+      this.post = p
+    });
+  }
+
+  dislike(post) {
+    if (post.dislikes) {
+      if (!post.dislikes.includes(this.database.currentUser._id)) {
+        post.dislikes.push(this.database.currentUser._id)
+      } else {
+        post.dislikes = post.dislikes.filter(like => like !== this.database.currentUser._id)
+      }
+    } else {
+      post.dislikes = [this.database.currentUser._id]
+    }
+    this.database.put(post).then(p => {
+      this.post = p;
+    });
+  }
 
 }

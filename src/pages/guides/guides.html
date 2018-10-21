@@ -22,7 +22,13 @@
     <p>Carregando guias...</p>
   </div>
   <div *ngIf="(guides && guides.length > 0) || searching">
-    <p padding text-center><small>Sinta-se livre para criar melhorar ou corrigir qualquer guia :D</small></p>
+    <p padding text-center>
+      Ajude esta comunidade:
+      <br>
+      <strong>Crie seu próprio Guia de Cultivo!</strong>
+      <br>
+      Melhore ou corrija os que já estão disponíveis.
+    </p>
     <!-- <ion-searchbar (ionInput)="search($event)" placeholder="Procurar"></ion-searchbar> -->
     <ion-list>
       <ion-item-sliding *ngFor="let guide of guides">

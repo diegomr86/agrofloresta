@@ -29,19 +29,20 @@ import { ImgCacheService } from '../global';
 
       <ion-content>
         <ion-list>
-          <ion-item *ngIf="this.database.currentUser" (click)="profile(this.database.currentUser)" class="menu_profile">
+          <ion-item menuClose *ngIf="this.database.currentUser" (click)="profile(this.database.currentUser)" class="menu_profile">
             <ion-avatar item-start>
               <img img-cache [source]="this.api.imageUrl(this.database.currentUser.picture, 'thumb')" >
             </ion-avatar>
             <h2>{{this.database.currentUser.name}}</h2>
             <p>{{this.database.currentUser.email}}</p>
           </ion-item>
-          <button menuClose ion-item (click)="openPage('FeedPage')">Mural</button>
-          <button menuClose ion-item (click)="openPage('GuidesPage')">Guias de cultivo</button>
+          <button menuClose ion-item (click)="openPage('FeedPage')">Postagens</button>
           <button menuClose ion-item (click)="openPage('PlantsPage')">Tabela de plantas</button>
+          <button menuClose ion-item (click)="openPage('GuidesPage')">Guias de cultivo</button>
+          <button menuClose ion-item (click)="openPage('LibraryPage')">Biblioteca</button>
           <button menuClose ion-item (click)="openPage('FeedPage', { category: 'event' })">Eventos</button>
+          <button menuClose ion-item (click)="openPage('DonatePage')">Ajude-nos</button>
           <button menuClose ion-item (click)="openPage('AboutPage')">Sobre</button>
-          <button menuClose ion-item (click)="openPage('DonatePage')">Seja um apoiador</button>
           <button menuClose ion-item (click)="this.logout()">
             Sair
           </button>
@@ -73,42 +74,49 @@ export class MyApp {
       
       this.database.sync();
 
+      this.initTranslate();
+
+      console.log('position1');
+      this.storage.get('currentPosition').then((p) => {
+        console.log('position', p);
+        if (!p || !p.latitude) {
+          this.geolocation.getCurrentPosition().then((position) => {
+            this.storage.set('currentPosition', { latitude: position.coords.latitude, longitude: position.coords.longitude, accuracy: position.coords.accuracy, altitude: position.coords.altitude, timestamp: position.timestamp } ).catch((e) => {
+              console.log('errr', e);
+            })
+          }).catch((error) => {
+            console.log('Error getting location', error);
+          });          
+        }
+      })
+
+      console.log('skip1');
+      this.database.skipTour().then((skipTour) => {
+        console.log('skipTour', skipTour);
+
+        if (skipTour) {
+          this.database.getCurrentUser().then((r) => {
+            if (r) {
+              this.rootPage = MainPage
+            } else {
+              this.rootPage = FirstRunPage
+            }
+          }).catch(e => {
+            console.log("error getting currentUser");
+          })
+
+        } else {
+          this.rootPage = 'TutorialPage'
+        }
+      }).catch(e => {
+        console.log("error getting skipTour");
+      });
+
       this.splashScreen.hide();
 
     });
     
-    this.initTranslate();
-
-    this.storage.get('currentPosition').then((p) => {
-      if (!p || !p.latitude) {
-        this.geolocation.getCurrentPosition().then((position) => {
-          this.storage.set('currentPosition', { latitude: position.coords.latitude, longitude: position.coords.longitude, accuracy: position.coords.accuracy, altitude: position.coords.altitude, timestamp: position.timestamp } ).catch((e) => {
-            console.log('errr', e);
-          })
-        }).catch((error) => {
-          console.log('Error getting location', error);
-        });          
-      }
-    })
-
-    this.database.skipTour().then((skipTour) => {
-      if (skipTour) {
-        this.database.getCurrentUser().then((r) => {
-          if (r) {
-            this.rootPage = MainPage
-          } else {
-            this.rootPage = FirstRunPage
-          }
-        }).catch(e => {
-          console.log("error getting currentUser");
-        })
-
-      } else {
-        this.rootPage = 'TutorialPage'
-      }
-    }).catch(e => {
-      console.log("error getting skipTour");
-    });
+    
   }
 
   initTranslate() {

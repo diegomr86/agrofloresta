@@ -7,6 +7,11 @@
 <ion-header>
 
   <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title *ngIf="profile">Perfil</ion-title>
 	  <ion-buttons end>
 	    <button *ngIf="profile && database.currentUser && profile._id == database.currentUser._id" ion-button icon-only (click)="edit(profile._id)">

@@ -14,7 +14,9 @@
 <ion-content padding>
 	<form *ngIf="form" [formGroup]="form" (ngSubmit)="save()">
     <div class="categories" *ngIf="!form.controls.category.value">
+      <br>
       <h6>Selecione o tipo de conteúdo:</h6>
+      <br>
       <ion-row>
         <ion-col (click)="setCategory('link')">
           <ion-icon name="link"></ion-icon>

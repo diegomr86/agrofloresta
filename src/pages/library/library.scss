@@ -1,0 +1,41 @@
+page-library {
+	.card {
+		img, h2 {
+			cursor: pointer;
+		}
+		h2 {
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+	}
+	.card-md {
+    margin: 10px 0px;
+    border-radius: 2px;
+    width: calc(100% - 0px);
+  }
+  .post_content {
+  	display: inline;
+  }
+
+  .vote button {
+  	padding: 0;
+  }
+  .vote button:first-child {
+  	padding: 0 0 0 16px;
+  }
+
+  .categories {
+    text-align: center;
+    ion-icon {
+      font-size: 70px;
+      display: block;
+      color: color($colors, primary)
+    }
+    span {
+      font-size: 14px;
+    }
+    ion-col {
+      cursor: pointer;
+    }
+  }
+}

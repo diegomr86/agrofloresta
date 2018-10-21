@@ -31,6 +31,25 @@
       <ion-chip *ngFor="let tag of tags">
         <ion-label>#{{tag}}</ion-label>
       </ion-chip>
+      <br>
+      <br>
+      <ion-row>
+        <ion-col>
+          <ion-buttons left class="vote">
+            <button ion-button color="primary" clear small icon-start (click)="like(post)">
+              <ion-icon name='thumbs-up'></ion-icon>
+              ({{ post.likes && post.likes.length > 0 ? post.likes.length : 0 }})
+            </button>
+            <button ion-button color="primary" clear small icon-start (click)="dislike(post)">
+              <ion-icon name='thumbs-down'></ion-icon>
+              ({{ post.dislikes && post.dislikes.length > 0 ? post.dislikes.length : 0 }})
+            </button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+      <comments [post]="post" [posts]="posts"></comments>
+      <br>    
+
       <user [item]="post"></user> 
       <br>    
       <br>    

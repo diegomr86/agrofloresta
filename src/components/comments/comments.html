@@ -1,4 +1,4 @@
-<div padding-left padding-right>
+<div>
   <div *ngFor="let comment of post.comments">
   	<comment-user [comment]="comment" [post]="post" [posts]="posts"></comment-user>
   </div>
@@ -6,3 +6,4 @@
   <ion-textarea [(ngModel)]="message"></ion-textarea>      
   <button ion-button (click)="comment()" [disabled]="!message">Comentar</button>
 </div>
+ 

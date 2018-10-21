@@ -30,7 +30,11 @@ export class CommentsComponent {
         this.post.comments = [c]
       }
       this.database.put(this.post).then(p => {
-        this.posts = this.posts.map(function(item) { return item._id == p._id ? p : item; });
+        if (this.posts) {
+          this.posts = this.posts.map(function(item) { return item._id == p._id ? p : item; });
+        } else {
+          this.post = p
+        }
         this.message = ''
       });
     }
