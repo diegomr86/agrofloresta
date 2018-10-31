@@ -68,7 +68,9 @@ export class ImgCacheDirective implements OnInit, OnDestroy {
     // remove listeners
     this.loadListener();
     this.errorListener();
-    this.cacheSubscription.unsubscribe();
+    if (this.cacheSubscription) {
+      this.cacheSubscription.unsubscribe();
+    }
   }
 
 }
