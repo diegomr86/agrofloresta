@@ -10,6 +10,7 @@ import {
 import { ImgCacheService } from '../../global';
 
 import { Subscription } from 'rxjs/Subscription';
+import { Platform } from 'ionic-angular';
 
 /**
 * This directive is charge of cache the images and emit a loaded event
@@ -32,7 +33,8 @@ export class ImgCacheDirective implements OnInit, OnDestroy {
 
   constructor(public el: ElementRef,
     public imgCacheService: ImgCacheService,
-    public renderer: Renderer2) { }
+    public renderer: Renderer2,
+    private platform: Platform) { }
 
   public ngOnInit(): void {
     // get img element
@@ -50,13 +52,16 @@ export class ImgCacheDirective implements OnInit, OnDestroy {
     });
 
     this.renderer.setAttribute(nativeElement, 'src', this.source);
+    
     // cache img and set the src to the img
-    this.cacheSubscription =
-      this.imgCacheService
-          .cache(this.source)
-          .subscribe((value) => {
-            this.renderer.setAttribute(nativeElement, 'src', value);
-          }, (e) => console.log(e));
+    if (this.platform.is('android')) {
+      this.cacheSubscription =
+        this.imgCacheService
+            .cache(this.source)
+            .subscribe((value) => {
+              this.renderer.setAttribute(nativeElement, 'src', value);
+            }, (e) => console.log(e));
+    }
   }
 
   public ngOnDestroy(): void {
