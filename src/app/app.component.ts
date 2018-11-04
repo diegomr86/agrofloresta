@@ -36,17 +36,15 @@ import { ImgCacheService } from '../global';
             <h2>{{this.database.currentUser.name}}</h2>
             <p>{{this.database.currentUser.email}}</p>
           </ion-item>
-          <button menuClose ion-item (click)="openPage('FeedPage')">Postagens</button>
-          <button menuClose ion-item (click)="openPage('PlantsPage')">Tabela de plantas</button>
+          <button menuClose ion-item (click)="openPage('HomePage')">Início</button>
+          <button menuClose ion-item (click)="openPage('PlantsPage')">Catálogo de espécies</button>
+          <button menuClose ion-item (click)="openPage('FeedPage')">Últimas postagens</button>
           <button menuClose ion-item (click)="openPage('GuidesPage')">Guias de cultivo</button>
           <button menuClose ion-item (click)="openPage('LibraryPage')">Biblioteca</button>
           <button menuClose ion-item (click)="openPage('FeedPage', { category: 'event' })">Eventos</button>
           <button menuClose ion-item (click)="openPage('CsasPage')">CSAs</button>
+          <button menuClose ion-item (click)="openPage('AboutPage')">Sobre</button>          
           <button menuClose ion-item (click)="openPage('DonatePage')">Ajude-nos</button>
-          <button menuClose ion-item (click)="openPage('AboutPage')">Sobre</button>
-          <button menuClose ion-item (click)="this.logout()">
-            Sair
-          </button>
         </ion-list>
       </ion-content>
 

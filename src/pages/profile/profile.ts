@@ -28,7 +28,7 @@ export class ProfilePage {
       });      
     } else {
       this.profile = this.database.currentUser
-      this.loadPosts()
+      // this.loadPosts()
     }
   }
 
@@ -45,6 +45,12 @@ export class ProfilePage {
       this.posts = docs
     })
 
+  }
+
+  logout() {
+    this.navCtrl.setRoot('WelcomePage');   
+    this.database.logout()
+    // this.menuCtrl.close(); 
   }
 
 }
