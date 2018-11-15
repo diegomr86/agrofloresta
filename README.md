@@ -1,4 +1,4 @@
-# Aplicativo Agrofloresta
+# Plataforma Agrofloresta
 Plataforma de construção colaborativa de conhecimento sobre Agroflorestas.
 
 <img src="http://blog.tistu.com.br/wp-content/themes/tistu_blog/thumb.php?src=http://blog.tistu.com.br/wp-content/uploads/2016/03/agrofloresta_logo_6701.png&w=590&h=209&zc=1" width="590" />
@@ -45,6 +45,14 @@ Você pode ajudar com esse projeto das seguintes formas:
 - Compartilhe com seus amigos;
 - Informe um poblema;
 - Faça uma doação;
+
+## Acesse
+
+[Baixe o aplicativo no Google Play](https://play.google.com/store/apps/details?id=br.agrofloresta.app)
+
+ou
+
+[Acesse a versão Web](http://agrofloresta.diegomr86.ga/)
 
 ## Licença
 
