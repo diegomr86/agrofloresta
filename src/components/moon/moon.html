@@ -1,0 +1,37 @@
+<br>
+<div class="item item-body text-center" *ngIf="moonPhase == 'nova'">
+  <h4>Hoje é dia de Lua nova</h4> 
+  <small *ngIf="nextMoon > 1"> Faltam {{nextMoon}} dias para o quarto crescente</small>
+  <small *ngIf="nextMoon == 1"> Amanhã já entra o quarto crescente</small>
+  <br/>
+  <div class="img-wrapper"><img src="assets/img/home-lua-nova.png"></div>
+  <p>Nessa fase a seiva manifesta-se em maior quantidade no caule, em direção aos ramos.</p>
+  <p><strong>Fase boa para:</strong> colheita de raízes e tubérculos (cenoura, nabo, beterraba, rabanete, mandioca, inhame, etc.), podas de limpeza e produção de matéria seca.</p>
+</div>
+<div class="item item-body text-center" *ngIf="moonPhase == 'crescente'">
+  <h4>Hoje é dia de Lua crescente</h4>
+  <small *ngIf="nextMoon > 1"> Faltam {{nextMoon}} dias para a Lua cheia</small>
+  <small *ngIf="nextMoon == 1"> Amanhã já entra a Lua cheia</small>
+  <br/>
+  <div class="img-wrapper"><img src="assets/img/home-lua-crescente.png"></div>
+  <p>Nessa fase a seiva está presente em maior quantidade no caule, nos ramos e nas folhas.</p>
+  <p><strong>Fase boa para:</strong> plantar folhagens, frutíferas, legumes ou cereais. Ideal para fazer poda para brotação rápida.</p>
+</div>
+<div class="item item-body text-center" *ngIf="moonPhase == 'cheia'">
+  <h4>Hoje é dia de Lua cheia</h4>
+  <small *ngIf="nextMoon > 1"> Faltam {{nextMoon}} dias para o quarto minguante</small>
+  <small *ngIf="nextMoon == 1"> Amanhã já entra o quarto minguante</small>
+  <br/>
+  <div class="img-wrapper"><img src="assets/img/home-lua-cheia.png"></div>
+  <p>Nessa fase a seiva manifesta-se em maior quantidade na copa da planta (ramos e folhas).</p>
+  <p><strong>Fase boa para:</strong> colheita de frutos e hortaliças de folha. No início desta fase planta-se: repolho, couve-flor, alface e outras. Além das hortaliças esta fase é ótima para o plantio de flores.</p>
+</div>
+<div class="item item-body text-center" *ngIf="moonPhase == 'minguante'">
+  <h4>Hoje é dia de Lua minguante</h4>
+  <small *ngIf="nextMoon > 1"> Faltam {{nextMoon}} dias para a lua nova</small>
+  <small *ngIf="nextMoon == 1"> Amanhã já entra a lua nova</small>
+  <br/>
+  <div class="img-wrapper"><img src="assets/img/home-lua-minguante.png"></div>
+  <p>Nessa fase a planta concentra menos quantidade de seiva no caule, nas folhas e nos ramos.</p>
+  <p><strong>Fase boa para:</strong> plantar raízes e tubérculos como rabanetes, beterraba, cenoura, inhame, batata, cebola de cabeça. Ideal para tirar bambus, madeiras para construção e cabos para ferramentas.</p>
+</div>

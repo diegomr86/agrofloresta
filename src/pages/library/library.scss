@@ -38,4 +38,8 @@ page-library {
       cursor: pointer;
     }
   }
+  .item-md ion-avatar ion-img, .item-md ion-avatar img {
+    border-radius: 0;
+  }
+
 }

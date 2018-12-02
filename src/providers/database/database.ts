@@ -95,7 +95,7 @@ export class Database {
 
     let selector = { type: {$eq: type} }
     if (name) {
-      selector['name'] = {$regex: RegExp(name, "i")}
+      selector[(type == 'post' ? 'title' : 'name')] = {$regex: RegExp(name, "i")}
     }
     if (filters) {
       Object.keys(filters).forEach((key) => {
@@ -118,27 +118,8 @@ export class Database {
       return that.db.find({
         selector: selector
       }).then(res => {
-        console.log('query: res length: '+JSON.stringify(res.docs.length));
-        var docs = {},
-        deletions = {};
-        res.docs.forEach(function (doc) {
 
-          if (!doc.$id) { // first delta for doc?
-            doc.$id = doc._id;
-          }
-          if (doc.$deleted) { // deleted?
-            delete(docs[doc.$id]);
-            deletions[doc.$id] = true;
-          } else if (!deletions[doc.$id]) { // update before any deletion?
-            if (docs[doc.$id]) { // exists?
-              docs[doc.$id] = Object.assign(docs[doc.$id], doc);
-            } else {
-              docs[doc.$id] = doc;
-            }
-          }
-        });
-
-        return Object["values"](docs);
+        return that.formatDocs(res);
 
       }); 
     }).catch(function (err) {
@@ -146,6 +127,30 @@ export class Database {
     });
 
        
+  }
+
+  formatDocs(res) {
+    console.log('query: res length: '+JSON.stringify(res.docs.length));
+    var docs = {},
+    deletions = {};
+    res.docs.forEach(function (doc) {
+
+      if (!doc.$id) { // first delta for doc?
+        doc.$id = doc._id;
+      }
+      if (doc.$deleted) { // deleted?
+        delete(docs[doc.$id]);
+        deletions[doc.$id] = true;
+      } else if (!deletions[doc.$id]) { // update before any deletion?
+        if (docs[doc.$id]) { // exists?
+          docs[doc.$id] = Object.assign(docs[doc.$id], doc);
+        } else {
+          docs[doc.$id] = doc;
+        }
+      }
+    });
+
+    return Object["values"](docs);
   } 
 
   get(id: string) {

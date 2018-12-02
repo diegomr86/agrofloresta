@@ -11,13 +11,37 @@
 <ion-content padding>
   <div class="plant" *ngIf="plant">
     <img img-cache [source]="this.api.imageUrl(plant.picture, 'medium')">
-    <div>
-      <h5>{{plant.name}}</h5>
+    <div *ngIf="plant.popular_name">
+      <h5 class="popular_name">{{plant.popular_name.join(', ')}}</h5>
     </div>
     <div *ngIf="plant.scientific_name">
       <i>{{plant.scientific_name}}</i>
     </div>
-    <p class="description">{{plant.description}}</p>
+    <p [innerHTML]="plant.description | safe: 'html'" class="preview"></p>
+    <div *ngIf="plant.family">
+      <h6>Família </h6>
+      <p>{{plant.family.join(', ')}}</p>
+    </div>
+    <div *ngIf="plant.family">
+      <h6>Sinonímia </h6>
+      <p>{{plant.synonymy.join(', ')}}</p>
+    </div>
+    <div *ngIf="plant.category">
+      <h6>Categoria </h6>
+      <p>{{plant.category.join(', ')}}</p>
+    </div>
+    <div *ngIf="plant.climate">
+      <h6>Clima </h6>
+      <p>{{plant.climate.join(', ')}}</p>
+    </div>
+    <div *ngIf="plant.origin">
+      <h6>Origem </h6>
+      <p>{{plant.origin.join(', ')}}</p>
+    </div>
+    <div *ngIf="plant.height">
+      <h6>Altura </h6>
+      <p>{{plant.height.join(', ')}}</p>
+    </div>
     <div *ngIf="plant.cycle">
       <h6>Ciclo </h6>
       <p>{{database.cycles[plant.cycle]}}</p>
@@ -45,6 +69,18 @@
         <h6>{{additional_field.name}} </h6>
         <p>{{additional_field.content}}</p>
       </div>
+    </div>
+    <div *ngIf="plant.medicinal && (plant.medicinal.indications || plant.medicinal.properties || plant.medicinal.parts_used)">
+      <h6>Uso medicinal</h6>
+      <p *ngIf="plant.medicinal.indications"><strong>Indicações: </strong>{{plant.medicinal.indications.join(', ')}}</p>
+      <p *ngIf="plant.medicinal.properties"><strong>Propriedades: </strong>{{plant.medicinal.properties}}</p>
+      <p *ngIf="plant.medicinal.parts_used"><strong>Partes utilizadas: </strong>{{plant.medicinal.parts_used}}</p>
+    </div>
+    <div *ngIf="plant.warning">
+      <p><strong>Alerta: {{plant.warning}}</strong></p>
+    </div>
+    <div *ngIf="plant.source">
+      <p><strong>Fonte: </strong> <a href="{{plant.source}}" target="_blank">{{plant.source}}</a></p>
     </div>
     <user [item]="plant"></user>     
   </div>

@@ -32,7 +32,18 @@ export class LibraryPage {
     this.categories = { book: 'Livros', video: 'Vídeos', link: 'Artigos', text: 'Textos' }
   }
 
-  list() {
+  search(ev?) {
+    this.searching = true
+
+    let val = '';
+    if (ev) {
+      val = ev.target.value;
+    }
+
+    this.list(val)
+  }
+
+  list(name = '') {
     console.log('list! ');
     this.posts = []
     this.morePosts = []
@@ -41,25 +52,21 @@ export class LibraryPage {
     console.log('list: cat'+JSON.stringify(this.category));
     console.log('list: tag'+JSON.stringify(this.tag));
     if (this.category || this.tag) {
-      this.searching  = true
+      this.searching = true
     }
     console.log('list: query!');
-    this.database.query('post', '', { category: this.navParams.get('category'), tags: this.navParams.get('tag') }).then(res => {
+    this.database.query('post', name, { category: this.navParams.get('category'), tags: this.navParams.get('tag') }).then(res => {
       console.log('list: res'+JSON.stringify(res));
       if (res && res.length > 0) {
-        let that = this
-        res.forEach(function (post) {
-          let likes = post.likes ? post.likes.length : 0
-          let dislikes = post.dislikes ? post.dislikes.length : 0
-          post.score = that.hotScore(likes, dislikes, post.created_at);
-          that.posts.push(post) 
-          console.log('list: post'+JSON.stringify(post)); 
+        this.posts = res.sort(function(a, b){
+            if(a.title < b.title) { return -1; }
+            if(a.title > b.title) { return 1; }
+            return 0;
         });
-        this.posts = this.posts.sort((a, b) => a.score - b.score).reverse();
 
-        if (this.posts && this.posts.length > 5) {
-          this.morePosts = this.posts.slice(5, this.posts.length+1)
-          this.posts = this.posts.slice(0, 5)
+        if (this.posts && this.posts.length > 10) {
+          this.morePosts = this.posts.slice(10, this.posts.length+1)
+          this.posts = this.posts.slice(0, 10)
         }
 
         console.log('list: post'+JSON.stringify(this.posts));

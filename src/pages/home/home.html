@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Seja bem vind@!</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="add()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <moon></moon>
+  <br>
+  <hr>
+  <!-- <div text-center *ngIf="quiz_question">
+    <p>{{quiz_question.field}}</p>
+    <p>{{quiz_question.plant}}</p>
+  </div>
+   -->
+   <div class="item item-footer animate-ripple" text-center>
+    <p>Escolha uma das sessões abaixo:</p>
+    <button ion-button full (click)="openPage('PlantsPage')">Catálogo de espécies</button>
+    <button ion-button full (click)="openPage('FeedPage')">Últimas Postagens</button>
+    <button ion-button full (click)="openPage('GuidesPage')">Guias de cultivo</button>
+    <button ion-button full (click)="openPage('LibraryPage')">Biblioteca</button>
+    <button ion-button full (click)="openPage('FeedPage', { category: 'event' })">Eventos</button>
+    <button ion-button full (click)="openPage('CsasPage')">CSAs</button>
+    <button ion-button full (click)="openPage('AboutPage')">Sobre</button>
+    <button ion-button full (click)="openPage('DonatePage')">Ajude-nos</button>
+    <br/>
+  </div>  
+</ion-content>
