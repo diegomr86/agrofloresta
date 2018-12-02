@@ -13,6 +13,7 @@ import { TextEditorComponent } from './text-editor/text-editor';
 import { CommentsComponent } from './comments/comments';
 import { CommentUserComponent } from './comment-user/comment-user';
 import { MoonComponent } from './moon/moon';
+import { TopicMessageComponent } from './topic-message/topic-message';
 
 @NgModule({
 	declarations: [
@@ -23,7 +24,8 @@ import { MoonComponent } from './moon/moon';
     TextEditorComponent,
     CommentsComponent,
     CommentUserComponent,
-    MoonComponent
+    MoonComponent,
+    TopicMessageComponent
     ],
 	imports: [IonicModule,
 		DynamicComponentModule.forRoot({
@@ -40,6 +42,7 @@ import { MoonComponent } from './moon/moon';
     TextEditorComponent,
     CommentsComponent,
     CommentUserComponent,
-    MoonComponent]
+    MoonComponent,
+    TopicMessageComponent]
 })
 export class ComponentsModule {}

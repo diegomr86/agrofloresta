@@ -38,8 +38,8 @@ import { ImgCacheService } from '../global';
           </ion-item>
           <button menuClose ion-item (click)="openPage('HomePage')">Início</button>
           <button menuClose ion-item (click)="openPage('PlantsPage')">Catálogo de espécies</button>
-          <button menuClose ion-item (click)="openPage('FeedPage')">Últimas postagens</button>
           <button menuClose ion-item (click)="openPage('GuidesPage')">Guias de cultivo</button>
+          <button menuClose ion-item (click)="openPage('FeedPage')">Últimas postagens</button>
           <button menuClose ion-item (click)="openPage('LibraryPage')">Biblioteca</button>
           <button menuClose ion-item (click)="openPage('FeedPage', { category: 'event' })">Eventos</button>
           <button menuClose ion-item (click)="openPage('CsasPage')">CSAs</button>

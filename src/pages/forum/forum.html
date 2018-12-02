@@ -1,0 +1,41 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Fórum</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="add()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <div *ngIf="(!topics || topics.length < 1) && !searching" text-center padding>
+    <ion-spinner></ion-spinner>
+    <p>Carregando guias...</p>
+  </div>
+  <div *ngIf="(topics && topics.length > 0) || searching">
+    <p padding text-center>
+      Ajude esta comunidade:
+      <br>
+      <strong>Crie seu próprio Guia de Cultivo!</strong>
+      <br>
+      Melhore ou corrija os que já estão disponíveis.
+    </p>
+    <!-- <ion-searchbar (ionInput)="search($event)" placeholder="Procurar"></ion-searchbar> -->
+    <ion-list>
+      <ion-item-sliding *ngFor="let topic of topics">
+        <button ion-item (click)="open(topic._id)">
+          <h2>{{topic.title}}</h2>
+ 				</button>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+</ion-content>

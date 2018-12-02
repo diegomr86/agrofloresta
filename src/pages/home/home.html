@@ -14,14 +14,34 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <moon></moon>
+  <!-- <moon></moon> -->
+  <div *ngIf="!quiz_question" text-center padding>
+    <ion-spinner></ion-spinner>
+    <p>Carregando Quiz...</p>
+  </div>
+  <div text-center *ngIf="quiz_question" class="quiz">
+    <h3>Quiz Agroflorestal</h3>
+    <p>Responda as perguntas abaixo e ajude a construir conhecimento.</p>
+    <img [src]="this.api.imageUrl(quiz_question.plant.picture, 'thumb')">
+    <div *ngIf="quiz_question.field == 'stratum'">
+      <p>{{quiz_question.plant.name}} ocupa qual estrato na Agrofloresta?</p>
+      <ion-chip *ngFor="let k of Object.keys(this.database.stratums)" (click)="answer(quiz_question, k)">
+        <ion-label>{{this.database.stratums[k]}}</ion-label>
+      </ion-chip>
+    </div>
+    <div *ngIf="quiz_question.field == 'cycle'">
+      <p>Qual o ciclo de vida {{quiz_question.plant.name}} na Agrofloresta?</p>
+      <ion-chip *ngFor="let k of Object.keys(this.database.cycles)" (click)="answer(quiz_question, k)">
+        <ion-label>{{this.database.cycles[k]}}</ion-label>
+      </ion-chip>
+    </div>
+    <ion-chip (click)="quiz()">
+      <ion-label>Não sei</ion-label>
+    </ion-chip>
+  </div>
   <br>
   <hr>
-  <!-- <div text-center *ngIf="quiz_question">
-    <p>{{quiz_question.field}}</p>
-    <p>{{quiz_question.plant}}</p>
-  </div>
-   -->
+
    <div class="item item-footer animate-ripple" text-center>
     <p>Escolha uma das sessões abaixo:</p>
     <button ion-button full (click)="openPage('PlantsPage')">Catálogo de espécies</button>
