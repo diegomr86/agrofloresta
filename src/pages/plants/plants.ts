@@ -27,18 +27,19 @@ export class PlantsPage {
     this.searching = false
 
     this.list();
-    // this.populate();
 
   }
 
   list(name = '') {
-    
+    // this.plants = []
     this.database.query('plant', name, this.filters).then(res => {
       this.plants = res.sort(function(a, b){
         if(a.name < b.name) { return -1; }
         if(a.name > b.name) { return 1; }
         return 0;
       });
+
+      // this.teste();
 
       if (this.plants && this.plants.length > 10) {
         this.morePlants = this.plants.slice(10, this.plants.length+1)
@@ -75,5 +76,46 @@ export class PlantsPage {
       id: id
     });
   }
+
+  teste() {
+    // let x = [
+    //   "Árvores",
+    //   "Árvores Frutíferas",
+    //   "Folhagens",
+    //   "Folhas e Flores",
+    //   "Frutas e Legumes",
+    //   "Medicinal",
+    //   "Plantas Hortícolas",
+    //   "Raízes e Rizomas",
+    //   "Ervas Condimentares",
+    //   "Plantas Indicadoras",
+    //   "Palmeiras",
+    // ]
+    let l = []
+    let d = []
+    let del = []
+    this.plants.map(plant => {
+      if (l.indexOf(plant.name) > -1) {
+        d.push(plant.name)
+      } else {
+        l.push(plant.name)
+      }
+    
+    });
+    console.log('duplicated', d);
+    d.map(i => {
+      let items = this.plants.filter(p => {
+        return p.name == i;
+      })
+      
+      // items.map(it => {
+      //   if (!it.spacing || it.spacing == ''){
+      //     this.database.db.remove(it)
+      //   }
+      // });
+    })
+    console.log(del);
+
+  } 
 
 }

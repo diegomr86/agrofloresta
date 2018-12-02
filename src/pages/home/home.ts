@@ -27,20 +27,21 @@ export class HomePage {
       let empty_field = empty_fields[Math.floor(Math.random()*empty_fields.length)]
       res.sort(function() { return 0.5 - Math.random() })
       res.some(function (plant) {
-        console.log('plant', plant);
-        if (!plant[empty_field] || plant[empty_field] == '' || plant[empty_field] == []) {
+        // if (!plant[empty_field] || plant[empty_field] == '' || plant[empty_field] == []) {
           that.quiz_question = { field: empty_field, plant: plant };
           return true;    
-        }
+        // }
       });
     })     
 
-    this.database.query('quiz_answer', '').then(res => {
-      console.log('answers', res);
-      res.map(r => {
-        // this.database.remove(r);
-      })
-    })     
+    // this.database.query('quiz_answer', '').then(res => {
+    //   console.log('answers', res);
+    //   if (res) {
+    //     res.map(r => {
+    //       // this.database.db.remove(r);
+    //     })        
+    //   }
+    // })     
 
   }
 

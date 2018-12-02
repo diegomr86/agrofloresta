@@ -198,9 +198,7 @@ export class Database {
    * the user entered on the form.
    */
   login(email) {
-    console.log('user login', email);
     return this.query('user', '', { email: email }).then((res) => {
-      console.log('user query', res );
       if (res && res.length > 0) {
         this.storage.set('currentUser', res[0]);
         this.currentUser = res[0]
