@@ -58,12 +58,6 @@
       <h6>Espaçamento </h6>
       <p>{{plant.spacing}}</p>
     </div>
-    <div *ngIf="plant.companion_plants && plant.companion_plants.length > 0">
-      <h6>Plantas companheiras </h6>
-      <ion-chip *ngFor="let p of plant.companion_plants">
-        <ion-label>{{p}}</ion-label>
-      </ion-chip>
-    </div>
     <div *ngFor="let additional_field of plant.additional_fields">
       <div *ngIf="additional_field.content">
         <h6>{{additional_field.name}} </h6>
@@ -73,12 +67,26 @@
     <div *ngIf="plant.medicinal && (plant.medicinal.indications || plant.medicinal.properties || plant.medicinal.parts_used)">
       <h6>Uso medicinal</h6>
       <p *ngIf="plant.medicinal.indications"><strong>Indicações: </strong>{{plant.medicinal.indications.join(', ')}}</p>
-      <p *ngIf="plant.medicinal.properties"><strong>Propriedades: </strong>{{plant.medicinal.properties}}</p>
-      <p *ngIf="plant.medicinal.parts_used"><strong>Partes utilizadas: </strong>{{plant.medicinal.parts_used}}</p>
+      <p *ngIf="plant.medicinal.properties"><strong>Propriedades: </strong>{{plant.medicinal.properties.join(', ')}}</p>
+      <p *ngIf="plant.medicinal.parts_used"><strong>Partes utilizadas: </strong>{{plant.medicinal.parts_used.join(', ')}}</p>
     </div>
     <div *ngIf="plant.warning">
       <p><strong>Alerta: {{plant.warning}}</strong></p>
     </div>
+    <div *ngIf="plant.companion_plants && plant.companion_plants.length > 0">
+      <h6>Plantas companheiras </h6>
+      <ion-chip *ngFor="let p of plant.companion_plants">
+        <ion-label>{{p}}</ion-label>
+      </ion-chip>
+    </div>
+    <div *ngIf="plant.pictures && plant.pictures.length > 0">
+      <h6>Fotos </h6>
+      <span *ngFor="let picture of plant.pictures">
+        <img img-cache [source]="this.api.imageUrl(picture, 'medium')">
+      </span>
+
+    </div>
+
     <div *ngIf="plant.source">
       <p><strong>Fonte: </strong> <a href="{{plant.source}}" target="_blank">{{plant.source}}</a></p>
     </div>

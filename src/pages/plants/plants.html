@@ -46,16 +46,8 @@
             <img img-cache [source]="this.api.imageUrl(plant.picture, 'thumb')">
           </ion-avatar>
           <h2>{{plant.name}}</h2>
-          <p *ngIf="plant.family">{{plant.family.join(', ')}}</p>
-  <!--         <ion-note item-end>
-            <div *ngIf="plant.cycle">
-              <p>Ciclo: <strong>{{database.cycles[plant.cycle]}}</strong></p>
-            </div>
-            <div *ngIf="plant.stratum">
-              <p>Estrato: <strong>{{database.cycles[plant.stratum]}}{{plant.stratum}}</strong></p>
-            </div>
-          </ion-note>
-   -->      </button>
+          <p *ngIf="plant.scientific_name">{{plant.scientific_name}}</p>
+        </button>
       </ion-item-sliding>
       <ion-infinite-scroll (ionInfinite)="showMore($event)">
        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando espécies...">
