@@ -16,11 +16,12 @@ export class TopicPage {
   constructor(public navCtrl: NavController, navParams: NavParams, public database: Database, public api: Api, public utils: Utils) {
     this.database.get(navParams.get('id')).then(res => {
       this.topic = res
+      console.log('this.topic', this.topic);
     });
   }
 
   edit() {
-    this.navCtrl.push('GuideFormPage', { id: this.topic._id });
+    this.navCtrl.push('TopicFormPage', { id: this.topic._id });
   } 
 
   cachedImages(content: string) {

@@ -24,7 +24,6 @@ export class ForumPage {
 
   constructor(public navCtrl: NavController, public database: Database, public api: Api, public modalCtrl: ModalController) {
     this.database.query('topic', '').then(res => {
-    	console.log('topics', res);
       this.topics = res;
     })     
 

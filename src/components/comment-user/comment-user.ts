@@ -7,8 +7,8 @@ import { Database, Api } from '../../providers';
 })
 export class CommentUserComponent {
   @Input() comment;
-  @Input() post;
-  @Input() posts;
+  @Input() item;
+  @Input() items;
 
   user;
 
@@ -23,13 +23,13 @@ export class CommentUserComponent {
 
   delete(){
     if (this.comment.user_id == this.database.currentUser._id) {
-      this.post.comments = this.post.comments.filter(c => c !== this.comment)
+      this.item.comments = this.item.comments.filter(c => c !== this.comment)
 
-      this.database.put(this.post).then(p => {
-        if (this.posts) {
-          this.posts = this.posts.map(function(item) { return item._id == p._id ? p : item; });
+      this.database.put(this.item).then(p => {
+        if (this.items) {
+          this.items = this.items.map(function(item) { return item._id == p._id ? p : item; });
         } else {
-          this.post = p
+          this.item = p
         }
       });
     } 

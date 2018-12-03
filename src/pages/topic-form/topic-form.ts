@@ -42,6 +42,7 @@ export class TopicFormPage {
       title: ['', Validators.required],
       content: ['', Validators.required],
       tags: [[]],
+      comments: [[]],
     });
 
     // Watch the form for changes, and
@@ -92,6 +93,11 @@ export class TopicFormPage {
       });
       this.form.patchValue({ tags: tags });
 
+      if (!this.form.controls._id) {
+        this.form.patchValue({ comments: [{ user_id: this.database.currentUser._id, message: this.form.controls.content.value, created_at: new Date() }] });
+      }
+
+      console.log('this.form.value', this.form.value);
       this.database.save(this.form.value).then(res => {
         this.navCtrl.setRoot('ForumPage');
         this.navCtrl.push('TopicPage', { id: res.id });

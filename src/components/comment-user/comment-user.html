@@ -7,13 +7,11 @@
 			<h5>{{ user.name }}</h5>
     </ion-col>
   	<ion-col>
-			<small float-end>{{ comment.created_at | timeAgo }}</small>
+			<small float-end>{{ comment.created_at | timeAgo }} <ion-icon *ngIf="database.currentUser && database.currentUser._id == comment.user_id" name="trash" (click)="delete()"></ion-icon></small>
     </ion-col>
   </ion-row>
 
 	<p>
 		<span>{{ comment.message }}</span>
-		<small><ion-icon *ngIf="database.currentUser && database.currentUser._id == comment.user_id" name="trash" (click)="delete()"></ion-icon></small>
-
 	</p>
 </ion-item>

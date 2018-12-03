@@ -91,30 +91,30 @@ export class PlantsPage {
     //   "Plantas Indicadoras",
     //   "Palmeiras",
     // ]
-    let l = []
-    let d = []
-    let del = []
-    this.plants.map(plant => {
-      if (l.indexOf(plant.name) > -1) {
-        d.push(plant.name)
-      } else {
-        l.push(plant.name)
-      }
+    // let l = []
+    // let d = []
+    // let del = []
+    // this.plants.map(plant => {
+    //   if (l.indexOf(plant.name) > -1) {
+    //     d.push(plant.name)
+    //   } else {
+    //     l.push(plant.name)
+    //   }
     
-    });
-    console.log('duplicated', d);
-    d.map(i => {
-      let items = this.plants.filter(p => {
-        return p.name == i;
-      })
+    // });
+    // console.log('duplicated', d);
+    // d.map(i => {
+    //   let items = this.plants.filter(p => {
+    //     return p.name == i;
+    //   })
       
-      // items.map(it => {
-      //   if (!it.spacing || it.spacing == ''){
-      //     this.database.db.remove(it)
-      //   }
-      // });
-    })
-    console.log(del);
+    //   // items.map(it => {
+    //   //   if (!it.spacing || it.spacing == ''){
+    //   //     this.database.db.remove(it)
+    //   //   }
+    //   // });
+    // })
+    // console.log(del);
 
   } 
 

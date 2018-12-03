@@ -22,18 +22,30 @@
     <p>Carregando guias...</p>
   </div>
   <div *ngIf="(topics && topics.length > 0) || searching">
-    <p padding text-center>
-      Ajude esta comunidade:
-      <br>
-      <strong>Crie seu próprio Guia de Cultivo!</strong>
-      <br>
-      Melhore ou corrija os que já estão disponíveis.
-    </p>
+    <div padding text-center>
+      <p>
+        Este é um espaço de sugestões, discussões e debates!      
+      </p>
+      <button ion-button (click)="add()">
+        Criar novo tópico
+      </button>
+      
+    </div>
     <!-- <ion-searchbar (ionInput)="search($event)" placeholder="Procurar"></ion-searchbar> -->
     <ion-list>
       <ion-item-sliding *ngFor="let topic of topics">
         <button ion-item (click)="open(topic._id)">
+          <ion-avatar  item-start >
+            <avatar [user_id]="topic.user_id"></avatar>
+          </ion-avatar>
           <h2>{{topic.title}}</h2>
+          <p>{{ (topic.updated_at || topic.$createdAt) | timeAgo }}</p>
+          <ion-note item-end>
+            <div>
+              <strong>{{topic.comments.length}}</strong>
+            </div>
+          </ion-note>
+
  				</button>
       </ion-item-sliding>
     </ion-list>

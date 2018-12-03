@@ -1,4 +1,4 @@
-<!-- <ion-header>
+<ion-header>
   <ion-navbar>
     <ion-title *ngIf="topic">Tópico de discussão</ion-title>
     <ion-buttons end>
@@ -10,20 +10,8 @@
 </ion-header>
 <ion-content padding>
   <div class="topic" *ngIf="topic">
-  	<ion-title *ngIf="topic">{{ topic.title }}</ion-title>
-    <p [innerHTML]="topic.content | safe: 'html'" class="ql-editor preview"></p>
-    <br>
-    <div>
-		  <div *ngFor="let comment of topic.comments">
-		  	<comment-user [comment]="comment" [topic]="topic" [topics]="topics"></comment-user>
-		  </div>
-		  <ion-label stacked>{{topic.comments && topic.comments.length > 0 ? 'Deixe seu comentário:' : 'Seja o primeiro a comentar:' }}</ion-label>
-		  <ion-textarea [(ngModel)]="message"></ion-textarea>      
-		  <button ion-button (click)="comment()" [disabled]="!message">Comentar</button>
-		</div>
-		 
-    <br>
-       
+    <h2>{{ topic.title }}</h2>
+    <comments [item]="topic"></comments>
+		<br>
   </div>
 </ion-content>
- -->

@@ -14,6 +14,7 @@ import { CommentsComponent } from './comments/comments';
 import { CommentUserComponent } from './comment-user/comment-user';
 import { MoonComponent } from './moon/moon';
 import { TopicMessageComponent } from './topic-message/topic-message';
+import { AvatarComponent } from './avatar/avatar';
 
 @NgModule({
 	declarations: [
@@ -25,7 +26,8 @@ import { TopicMessageComponent } from './topic-message/topic-message';
     CommentsComponent,
     CommentUserComponent,
     MoonComponent,
-    TopicMessageComponent
+    TopicMessageComponent,
+    AvatarComponent
     ],
 	imports: [IonicModule,
 		DynamicComponentModule.forRoot({
@@ -43,6 +45,7 @@ import { TopicMessageComponent } from './topic-message/topic-message';
     CommentsComponent,
     CommentUserComponent,
     MoonComponent,
-    TopicMessageComponent]
+    TopicMessageComponent,
+    AvatarComponent]
 })
 export class ComponentsModule {}

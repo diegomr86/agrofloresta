@@ -22,14 +22,14 @@
       <ion-label stacked>Assunto do tópico*:</ion-label>
       <ion-input type="text" formControlName="title"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label stacked>Mensagem do tópico:</ion-label>
-    </ion-item>
-    <text-editor [form]="form"></text-editor>  
     <ion-label stacked>Palavras chave:</ion-label>
     <tag-input formControlName="tags" [placeholder]="'+ Palavra chave'" [secondaryPlaceholder]="'+ Palavra chave'" [separatorKeyCodes]="[9]">
       <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="autocompleteTags" ></tag-input-dropdown>
     </tag-input>
+    <ion-item *ngIf="!form.controls._id.value">
+      <ion-label stacked>Mensagem*:</ion-label>
+      <ion-textarea formControlName="content"></ion-textarea>
+    </ion-item>
   </form>
   <br>
 </ion-content>  
