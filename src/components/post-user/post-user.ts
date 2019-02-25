@@ -14,7 +14,7 @@ export class PostUserComponent {
   constructor(public navCtrl: NavController, public database: Database, public api: Api) { }
 
   ngOnInit() { 
-  	this.database.get(this.post.user_id).then((user) => {
+  	this.database.getUser(this.post.user_id).then((user) => {
   		this.user = user;
   	})
   	

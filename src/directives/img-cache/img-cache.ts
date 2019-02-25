@@ -51,6 +51,10 @@ export class ImgCacheDirective implements OnInit, OnDestroy {
       // this.renderer.setAttribute(nativeElement, 'src', 'assets/img/logo.png');
     });
 
+    if (!this.source) {
+      this.source = "assets/img/logo.png"
+    }
+
     this.renderer.setAttribute(nativeElement, 'src', this.source);
     
     // cache img and set the src to the img

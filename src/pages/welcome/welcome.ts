@@ -26,16 +26,15 @@ export class WelcomePage {
     this.fb.login(['public_profile', 'email'])
       .then((res: FacebookLoginResponse) => { 
         this.fb.api("me?fields=id,name,email,first_name,picture.width(320).height(320).as(picture_large)", []).then((user) => {
-            this.database.signup({ type: 'user', email: user.email, name: user.name, picture: user.picture_large.data.url, facebook_id: user.id }).then((resp) => {
+            let metadata = { type: 'user', username: user.name, picture: user.picture_large.data.url, facebook_id: user.id }
+            this.database.login(user.email).then((resp) => {
               this.navCtrl.setRoot(MainPage);
             }).catch((e) => {
-              if (e.name == 'conflict') {
-                this.database.login(user.email).then((resp) => {
-                  if (resp) {
-                    this.navCtrl.setRoot(MainPage);
-                  }
-                });
-              }
+              this.database.signup(user.email, metadata).then((resp) => {
+                if (resp) {
+                  this.navCtrl.setRoot(MainPage);
+                }
+              });
             })
          })
       }).catch(e => console.log('Error logging into Facebook', e));
@@ -60,9 +59,23 @@ export class WelcomePage {
     }).catch(err => console.error(err));
 
   }
-
   login() {
     this.navCtrl.push('LoginPage');
+  }
+  
+  guest() {
+    this.database.login('convidado').then((resp) => {
+      if (resp) {
+        this.navCtrl.setRoot(MainPage);
+      }
+    }).catch(err => {
+      console.error(err)
+      this.database.signup('convidado', { username: 'Agrofloresteiro' }).then((resp) => {
+        if (resp) {
+          this.navCtrl.setRoot(MainPage);
+        }
+      })
+    })
   }
 
   signup() {

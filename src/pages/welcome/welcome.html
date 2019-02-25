@@ -8,20 +8,38 @@
     </div>
   </div>
   <div padding *ngIf="database.syncSuccess">
-    <button ion-button block icon-start (click)="facebookLogin()"> 
+    <button ion-button block (click)="login()" class="login">ENTRAR COM E-MAIL</button>
+    <br>
+    <button ion-button block icon-start (click)="facebookLogin()" style="background: #4267b2; padding-top: 4px; text-transform: unset;"> 
       <ion-icon name="logo-facebook"></ion-icon> 
-      Entrar com Facebook
+      Continue com Facebook
     </button>
 <!--     <button showWhen="android,ios" ion-button block icon-start (click)="googleLogin()" class="login"> 
       <ion-icon name="logo-google"></ion-icon> 
       Entrar com Google
     </button>
- -->    <button ion-button block (click)="login()" class="login">ENTRAR COM E-MAIL</button>
-    <button ion-button block (click)="signup()" class="login">{{ 'SIGNUP' | translate }}</button>
+ -->    
+    <button ion-button block (click)="guest()" class="login">ENTRAR COMO CONVIDADO</button>
   </div>
   <div *ngIf="!database.syncSuccess" text-center>
     <br>
     <ion-spinner></ion-spinner>
     <p>Sincronizando dados...</p>  
+    <p>
+      <small>
+        Isso pode levar algum tempo.
+        <br>
+        Aproveite e confira os vídeos abaixo:
+      </small>
+    </p>  
+    <p>
+      <iframe src="https://www.youtube.com/embed/a7K7k4fj9K8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <br>
+      <br>
+      <iframe src="https://www.youtube.com/embed/fdxPs0-gx2k" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <br>
+      <br>
+      <iframe src="https://www.youtube.com/embed/rU9W_FBHwvA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </p>  
   </div>
 </ion-content>

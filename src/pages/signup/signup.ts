@@ -56,7 +56,7 @@ export class SignupPage {
 
     // Attempt to login in through our User service
     this.database.signup(this.form.value).then((response) => {
-      this.navCtrl.setRoot(MainPage);
+      this.navCtrl.setRoot('ProfilePage');
     }).catch((e) => {
       console.log('signup error', e);
       if (e.name == 'conflict') {

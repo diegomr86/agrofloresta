@@ -29,19 +29,14 @@ export class FeedPage {
   }
 
   list() {
-    console.log('list! ');
     this.posts = []
     this.morePosts = []
     this.category = this.navParams.get('category');
     this.tag = this.navParams.get('tag');
-    console.log('list: cat'+JSON.stringify(this.category));
-    console.log('list: tag'+JSON.stringify(this.tag));
     if (this.category || this.tag) {
       this.searching  = true
     }
-    console.log('list: query!');
     this.database.query('post', '', { category: this.navParams.get('category'), tags: this.navParams.get('tag') }).then(res => {
-      console.log('list: res'+JSON.stringify(res));
       if (res && res.length > 0) {
         let that = this
         res.forEach(function (post) {
@@ -49,7 +44,6 @@ export class FeedPage {
           let dislikes = post.dislikes ? post.dislikes.length : 0
           post.score = that.hotScore(likes, dislikes, post.created_at);
           that.posts.push(post) 
-          console.log('list: post'+JSON.stringify(post)); 
         });
         this.posts = this.posts.sort((a, b) => a.score - b.score).reverse();
 
@@ -58,7 +52,6 @@ export class FeedPage {
           this.posts = this.posts.slice(0, 5)
         }
 
-        console.log('list: post'+JSON.stringify(this.posts));
       } else {
         // setTimeout(() => {
         //   console.log('list: timeout');

@@ -12,7 +12,7 @@ import { ImgCacheService } from '../global';
 
 @Component({
   template: `<ion-split-pane [enabled]="this.database.currentUser">
-    <ion-menu [content]="content">
+    <ion-menu [content]="content" *ngIf="this.database.currentUser">
       <ion-header>
         <ion-toolbar>
           <ion-buttons left>
@@ -33,8 +33,8 @@ import { ImgCacheService } from '../global';
             <ion-avatar item-start>
               <img img-cache [source]="this.api.imageUrl(this.database.currentUser.picture, 'thumb')" >
             </ion-avatar>
-            <h2>{{this.database.currentUser.name}}</h2>
-            <p>{{this.database.currentUser.email}}</p>
+            <h2>{{this.database.currentUser.username}}</h2>
+            <p>{{this.database.currentUser.name}}</p>
           </ion-item>
           <button menuClose ion-item (click)="openPage('HomePage')">Início</button>
           <button menuClose ion-item (click)="openPage('PlantsPage')">Catálogo de espécies</button>
@@ -73,12 +73,10 @@ export class MyApp {
       imgCacheService.initImgCache().subscribe((v) => console.log('init'), (e) => console.log('fail init', e));
       
       this.database.sync();
-
+      
       this.initTranslate();
 
-      console.log('position1');
       this.storage.get('currentPosition').then((p) => {
-        console.log('position', p);
         if (!p || !p.latitude) {
           this.geolocation.getCurrentPosition().then((position) => {
             this.storage.set('currentPosition', { latitude: position.coords.latitude, longitude: position.coords.longitude, accuracy: position.coords.accuracy, altitude: position.coords.altitude, timestamp: position.timestamp } ).catch((e) => {
@@ -90,14 +88,13 @@ export class MyApp {
         }
       })
 
-      console.log('skip1');
       this.database.skipTour().then((skipTour) => {
-        console.log('skipTour', skipTour);
 
         if (skipTour) {
           this.database.getCurrentUser().then((r) => {
             if (r) {
-              this.rootPage = MainPage
+
+              this.rootPage = (r.name ? MainPage : 'ProfileEditPage')
             } else {
               this.rootPage = FirstRunPage
             }

@@ -1,7 +1,8 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Editando perfil</ion-title>
+    <ion-title *ngIf="this.database.currentUser.username">Editando perfil</ion-title>
+    <ion-title *ngIf="!this.database.currentUser.username">Complete seu cadastro</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="save()" [disabled]="!isReadyToSave" strong>
         <ion-icon name="checkmark"></ion-icon>
@@ -18,12 +19,7 @@
 
     <ion-item>
       <ion-label stacked>Nome:</ion-label>
-      <ion-input type="text" formControlName="name"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label stacked>Email:</ion-label>
-      <ion-input type="text" formControlName="email" [disabled]="true"></ion-input>
+      <ion-input type="text" formControlName="username"></ion-input>
     </ion-item>
 
     <ion-item>

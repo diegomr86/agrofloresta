@@ -14,7 +14,7 @@
     </ion-buttons>
     <ion-title *ngIf="profile">Perfil</ion-title>
 	  <ion-buttons end *ngIf="profile && database.currentUser && profile._id == database.currentUser._id">
-	    <button ion-button icon-only (click)="edit(profile._id)">
+	    <button ion-button icon-only *ngIf="profile.name != 'convidado'" (click)="edit(profile._id)">
 	      <ion-icon name="create"></ion-icon>
 	    </button>
 	    <button ion-button icon-only (click)="logout()">

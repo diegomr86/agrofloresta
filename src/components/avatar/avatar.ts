@@ -16,7 +16,7 @@ export class AvatarComponent {
 
   ngOnInit() { 
     console.log('user_id', this.user_id);
-  	this.database.get(this.user_id).then((user) => {
+  	this.database.getUser(this.user_id).then((user) => {
       console.log('USER:', user);
   		this.user = user;
   	})

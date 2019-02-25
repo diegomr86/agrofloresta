@@ -22,13 +22,12 @@ export class ProfilePage {
 	
   constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database, public api: Api) {
     if (navParams.get('id')) {
-      this.database.get(navParams.get('id')).then(res => {
+      this.database.getUser(navParams.get('id')).then(res => {
         this.profile = res
         this.loadPosts()
       });      
     } else {
       this.profile = this.database.currentUser
-      // this.loadPosts()
     }
   }
 
@@ -44,7 +43,6 @@ export class ProfilePage {
     this.database.query('post', '', { user_id: this.profile._id }).then(docs => {
       this.posts = docs
     })
-
   }
 
   logout() {

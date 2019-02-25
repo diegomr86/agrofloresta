@@ -15,7 +15,7 @@ export class CommentUserComponent {
   constructor(public database: Database, public api: Api) { }
 
   ngOnInit() { 
-  	this.database.get(this.comment.user_id).then((u) => {
+  	this.database.getUser(this.comment.user_id).then((u) => {
   		this.user = u;
   	})
   	

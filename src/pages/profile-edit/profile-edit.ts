@@ -35,14 +35,16 @@ export class ProfileEditPage {
       type: ['user', Validators.required],
       _id: ['', Validators.required],
       _rev: ['', Validators.required],
+      username: ['', Validators.required],
       name: ['', Validators.required],
-      email: ['', Validators.required],
       picture: [''],
       bio: [''],
-      location: ['']
+      location: [''],
+      roles: ['']
     });
 
     this.form.valueChanges.subscribe((v) => {
+      console.log(this.form.value);
       this.isReadyToSave = this.form.valid;
     });
 
@@ -54,18 +56,18 @@ export class ProfileEditPage {
 
   edit() {
   	if (this.database.currentUser) {
+      console.log('user',this.database.currentUser);
       this.form.patchValue({
         ...this.database.currentUser
       }) 
+      console.log('form', this.form.value);
       this.api.setPreview(this.database.currentUser.picture, 'medium')
     }
   }
 
   save() {
-    // Attempt to login in through our User service
     this.database.saveProfile(this.form.value).then((response) => {
-      this.navCtrl.setRoot('ProfilePage');
-      // this.database.login(this.database.currentUser._id).then(res => this.navCtrl.setRoot('ProfilePage'));
+      this.navCtrl.setRoot('HomePage');
     }).catch((e) => {
       console.log('erro: ', e)
     })

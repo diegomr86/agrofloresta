@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import PouchDB from 'pouchdb';
+import PouchDBAuthentication from 'pouchdb-authentication';
 import PouchFind from 'pouchdb-find';
 import DeltaPouch from 'delta-pouch';
 import WebSqlPouchCore from 'pouchdb-adapter-cordova-sqlite';
@@ -7,6 +8,7 @@ import { Item } from '../../models/item';
 import { Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
+PouchDB.plugin(PouchDBAuthentication);
 PouchDB.plugin(DeltaPouch);
 PouchDB.plugin(PouchFind);
 PouchDB.plugin(WebSqlPouchCore);
@@ -14,8 +16,11 @@ PouchDB.plugin(WebSqlPouchCore);
 @Injectable()
 export class Database {
   
+  public baseUrl = 'https://23bf9857-dbb4-4bc1-bc27-9413f91dfe3b-bluemix.cloudant.com/';
   public db; 
+  public userDb; 
   public remote; 
+  public options; 
   public cycles;
   public stratums;
   public additional_fields;
@@ -46,30 +51,28 @@ export class Database {
   sync() {
     console.log("platform", this.plt.is('android'));
     if (this.plt.is('android')) {
-      this.db = new PouchDB('agrofloresta-local', { adapter: 'cordova-sqlite', location:'default', androidDatabaseProvider: 'system' });
+      this.db = new PouchDB('agrofloresta-local', { adapter: 'cordova-sqlite' });
     } else {
       this.db = new PouchDB('agrofloresta-local');
     }
 
-    // this.remoteDb = new PouchDB('https://agrofloresta.diegomr86.ga:6984/agrofloresta-prod')
-    this.remote = 'https://23bf9857-dbb4-4bc1-bc27-9413f91dfe3b-bluemix.cloudant.com/agrofloresta';
+    this.remote = this.baseUrl + 'agrofloresta';
  
-    let options = {
+    this.options = {
       auth: {
         username: "23bf9857-dbb4-4bc1-bc27-9413f91dfe3b-bluemix",
         password: "0ae78ba4ae29a03231d943f56d5408346f46ffd7dfde57f73accdc64a4d76578"
       }
     };
 
+    this.userDb = new PouchDB(this.baseUrl + '_users', this.options)
+
     let that = this
-    this.db.sync(this.remote, options).on('complete', function () {
+    this.db.sync(this.remote, this.options).on('complete', function () {
 
       console.log('DB sync first complete!');
-      options['live'] = true
-      options['retry'] = true
-      options['continuous'] = true
 
-      that.db.sync(that.remote, options).on('change', function (info) {
+      that.db.sync(that.remote, Object.assign(that.options, {live: true, retry: true, continuous: true})).on('change', function (info) {
         console.log('DB sync change: ', info);
       }).on('paused', function (err) {
         console.log('DB sync paused: ', err);
@@ -99,23 +102,20 @@ export class Database {
     }
     if (filters) {
       Object.keys(filters).forEach((key) => {
-        console.log(key, filters[key]);
         if (filters[key]) {
           selector[key] = { $eq: filters[key] }
         }
       })
     }
-    console.log('query: sel '+JSON.stringify(selector));
-    console.log('query: index '+JSON.stringify(Object.keys(selector)));
 
     let that = this
-
-    return this.db.createIndex({
+    let dynamicDb = type == 'user' ? this.userDb : this.db
+    return dynamicDb.createIndex({
       index: {
         fields: Object.keys(selector)
       }
     }).then(function (result) {
-      return that.db.find({
+      return dynamicDb.find({
         selector: selector
       }).then(res => {
 
@@ -130,7 +130,6 @@ export class Database {
   }
 
   formatDocs(res) {
-    console.log('query: res length: '+JSON.stringify(res.docs.length));
     var docs = {},
     deletions = {};
     res.docs.forEach(function (doc) {
@@ -193,74 +192,57 @@ export class Database {
     });
   }
 
-  /**
-   * Send a POST request to our login endpoint with the data
-   * the user entered on the form.
-   */
-  login(email) {
-    return this.query('user', '', { email: email }).then((res) => {
-      if (res && res.length > 0) {
-        this.storage.set('currentUser', res[0]);
-        this.currentUser = res[0]
-        return res[0]
-      }        
-      throw {name: "not_found"};  
-    })
+  saveProfile(item) {
+    return this.userDb.put(item).then((res) => {
+      return this.login(item._id)
+    });  
   }
 
-  saveProfile(item) {
-    return this.db.put(item).then((account) => {
-      return this.db.get(account.id).then((u) => {
-        return this.storage.set('currentUser', u).then((response) => {
-          this.currentUser = u
-          return u;
-        });
-      });
+  signup(email, metadata = {}) {
+    return this.storage.get('currentPosition').then((position) => {
+      return this.userDb.signUp(email, 'agrofloresteiro', {
+        metadata : Object.assign({position: position}, metadata)
+      }).then(resp => {
+        if (resp) {
+          return this.login(email)  
+        }
+      })      
     });
   }
 
-  /**
-   * Send a POST request to our signup endpoint with the data
-   * the user entered on the form.
-   */
-  signup(accountInfo: any) {
-    console.log('user signup', accountInfo);
-    return this.login(accountInfo.email).catch((e) => {
-      return this.storage.get('currentPosition').then((position) => {
-        accountInfo.position = position
-        return this.db.post(accountInfo).then((account) => {
-          console.log('user post', account);
-          this.storage.set('currentUser', accountInfo).then((response) => {
-            this.currentUser = accountInfo
-            return response;
-          });
-        });
-      });
-    })
-
+  login(email) {
+    return this.getUser(email).then(res => {
+      if (res && res._id) {
+        this.storage.set('currentUser', res);
+        this.currentUser = res
+        return res
+      }
+    }); 
   }
 
-  /**
-   * Log the user out, which forgets the session
-   */
+  getUser(email) {
+    if (!email.startsWith('org.couchdb.user:')) {
+      email = 'org.couchdb.user:' + email
+    }
+    return this.userDb.get(email).then(res => {
+      return res
+    })
+  }
+
   logout() {
     this.currentUser = undefined
-    // this.storage.remove('skipTour')
     return this.storage.remove('currentUser')
   }
 
   getCurrentUser() {
     return this.storage.get('currentUser').then((response) => {
-      console.log('user currentUser', response);
       this.currentUser = response
       return response
     })  
   }
 
   skipTour() {
-    console.log('storage', this.storage);
     return this.storage.get('skipTour').then((response) => {
-      console.log('storage res', response);
       return response
     })   
   }
@@ -270,6 +252,90 @@ export class Database {
       return response
     })   
   }
- 
 
+  // copyUserIds() {
+  //   this.db.find({
+  //       "selector": {
+  //         "_id": {
+  //            "$gt": "0"
+  //         }
+  //       }
+  //     }).then(docs => {
+  //       console.log(docs)
+  //       docs.docs.forEach(doc => {
+  //         if (doc.user_id && !doc.user_id.startsWith('org.couchdb.user:') ) {
+
+  //           console.log(doc.user_id)
+  //           // let email = docs.docs.find(d => (d._id == doc.user_id)).email
+  //           // doc.user_id = 'org.couchdb.user:'+email
+  //           // this.db.put(doc).then((res) => {
+  //           //   console.log(res)
+  //           // })
+  //           // doc.user_id = d
+  //         }
+  //       })
+  //       console.log(docs);
+  //     })
+   
+  // }
+  
+  // copyUsers() {
+
+  //   console.log('remote', this.remote)
+  //   console.log('opt', Object.assign(this.options, {skip_setup: true}))
+  //   let remotedb = new PouchDB(this.remote, this.options)
+  //   console.log('copy users!!!!!!!')
+
+  //   this.query('user').then(docs => {
+  //     console.log(docs.length)
+  //     return this.userDb.find({
+  //       "selector": {
+  //         "_id": {
+  //            "$gt": "0"
+  //         }
+  //       }
+  //     }).then(users => {
+  //       console.log('users:')
+  //       console.log(users)
+
+
+  //       docs.forEach((doc, index) => {
+  //         let metadata = {
+  //             username : doc.name,
+  //             picture : doc.picture,
+  //             location : doc.location,
+  //             bio : doc.bio,
+  //             position : doc.position,
+  //             facebook_id : doc.facebook_id,
+  //           }
+
+  //         // console.log(index)
+  //         // console.log(doc)
+
+  //         if (!users.docs.find(u => (u._id == 'org.couchdb.user:'+doc.email))) {
+  //           console.log('nao tem: '+doc.email)
+  //           setTimeout(function(){ 
+  //             remotedb.signUp(doc.email, 'agrofloresteiro', {
+  //               metadata : metadata
+  //             }, function (err, response) {
+  //               console.log('email:', doc.email)
+  //               console.log('meta:', metadata)
+  //               console.log('err', err)
+  //               console.log('response', response)
+  //             });
+  //           }, 1000);            
+  //         } else {
+  //           var d = docs.filter(u => (u.email == doc.email))
+  //           if (d.length > 1) {
+  //             console.log('ja tem'+d.length+': '+doc.email)
+  //             console.log(d)
+  //             console.log(users.docs.find(u => (u._id == 'org.couchdb.user:'+doc.email)));
+  //           }
+  //         }
+          
+
+  //       })
+  //     });
+  //   });      
+  // }
 }

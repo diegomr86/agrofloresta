@@ -34,10 +34,7 @@ export class LoginPage {
   }
 
   login() {
-    console.log('login', this.form.controls.email.value);
-
     this.database.login(this.form.controls.email.value).then((resp) => {
-      console.log('login resp', resp);
       if (resp) {
         this.navCtrl.setRoot(MainPage);
       }
@@ -46,15 +43,24 @@ export class LoginPage {
       console.log('login error: ' + JSON.stringify(e));
 
       if (e.name == 'not_found') {
-        this.utils.showToast('Usuário não encontrado! Por favor cadastre-se.', 'error');
+        this.doSignup();
       } else {
-        this.utils.showToast(JSON.stringify(e), 'error');
+        this.utils.showToast('Erro: '+JSON.stringify(e), 'error');
       }
     });
   }
 
   signup() {
     this.navCtrl.push('SignupPage');
+  }
+
+  doSignup() {
+    this.database.signup(this.form.controls.email.value).then((response) => {
+      this.navCtrl.setRoot(MainPage);
+    }).catch((e) => {
+      console.log('signup error', e);
+      this.utils.showToast('Erro: '+JSON.stringify(e), 'error');
+    })
   }
 
 }
