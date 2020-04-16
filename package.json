@@ -72,7 +72,7 @@
     "@ionic/app-scripts": "^3.2.2",
     "@types/googlemaps": "^3.30.13",
     "@types/pouchdb": "^6.3.3",
-    "typescript": "~2.6.2"
+    "typescript": "^3.8.3"
   },
   "description": "An Ionic project",
   "cordova": {
@@ -97,7 +97,10 @@
         "PLAY_SERVICES_VERSION": "11.8.0"
       },
       "cordova-plugin-file-transfer": {},
-      "cordova-plugin-sqlite-2": {}
+      "cordova-plugin-sqlite-2": {},
+      "cordova-plugin-advanced-http": {
+        "OKHTTP_VERSION": "3.10.0"
+      }
     },
     "platforms": [
       "browser",

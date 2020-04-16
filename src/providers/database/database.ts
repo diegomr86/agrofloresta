@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import PouchDB from 'pouchdb';
 import PouchDBAuthentication from 'pouchdb-authentication';
 import PouchFind from 'pouchdb-find';
 import DeltaPouch from 'delta-pouch';
 import WebSqlPouchCore from 'pouchdb-adapter-cordova-sqlite';
+import { HTTP } from '@ionic-native/http/ngx';
 import { Item } from '../../models/item';
 import { Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
@@ -15,12 +17,12 @@ PouchDB.plugin(WebSqlPouchCore);
 
 @Injectable()
 export class Database {
-  
-  public baseUrl = 'https://23bf9857-dbb4-4bc1-bc27-9413f91dfe3b-bluemix.cloudant.com/';
-  public db; 
-  public userDb; 
-  public remote; 
-  public options; 
+
+  public baseUrl = 'http://localhost:3000/';
+  public db;
+  public userDb;
+  public remote;
+  public options;
   public cycles;
   public stratums;
   public additional_fields;
@@ -28,117 +30,76 @@ export class Database {
   public showTour;
   public syncSuccess;
 
-  constructor(public storage: Storage, public plt: Platform) { 
-    
+  constructor(public storage: Storage, public plt: Platform, public http: HttpClient) {
+
     this.syncSuccess = false
-    
+
     this.cycles = {
-        placenta1: 'Placenta 1 (Até 3 meses)',
-        placenta2: 'Placenta 2 (3 meses a 1 ano)',
-        secundaria1: 'Secundária 1 (1 a 10 anos)',
-        secundaria2: 'Secundária 2 (10 a 25 anos)',
-        secundaria3: 'Secundária 3 (25 a 50 anos)',
-        climax: 'Climax (Mais de 50 anos)' }
+      placenta1: 'Placenta 1 (Até 3 meses)',
+      placenta2: 'Placenta 2 (3 meses a 1 ano)',
+      secundaria1: 'Secundária 1 (1 a 10 anos)',
+      secundaria2: 'Secundária 2 (10 a 25 anos)',
+      secundaria3: 'Secundária 3 (25 a 50 anos)',
+      climax: 'Climax (Mais de 50 anos)'
+    }
 
     this.stratums = {
       baixo: 'Baixo',
       medio: 'Médio',
       alto: 'Alto',
-      emergente: 'Emergente' };
+      emergente: 'Emergente'
+    };
 
   }
 
-  sync() {
-    console.log("platform", this.plt.is('android'));
-    if (this.plt.is('android')) {
-      this.db = new PouchDB('agrofloresta-local', { adapter: 'cordova-sqlite' });
-    } else {
-      this.db = new PouchDB('agrofloresta-local');
-    }
-
-    this.remote = this.baseUrl + 'agrofloresta';
- 
-    this.options = {
-      auth: {
-        username: "23bf9857-dbb4-4bc1-bc27-9413f91dfe3b-bluemix",
-        password: "0ae78ba4ae29a03231d943f56d5408346f46ffd7dfde57f73accdc64a4d76578"
-      }
-    };
-
-    this.userDb = new PouchDB(this.baseUrl + '_users', this.options)
-
-    let that = this
-    this.db.sync(this.remote, this.options).on('complete', function () {
-
-      console.log('DB sync first complete!');
-
-      that.db.sync(that.remote, Object.assign(that.options, {live: true, retry: true, continuous: true})).on('change', function (info) {
-        console.log('DB sync change: ', info);
-      }).on('paused', function (err) {
-        console.log('DB sync paused: ', err);
-      }).on('active', function () {
-        console.log('DB sync active');
-      }).on('denied', function (err) {
-        console.log('DB sync denied: ', err);
-      }).on('complete', function (info) {
-        console.log('DB sync complete: ', info);
-      }).on('error', function (err) {
-        console.log('DB sync error: ', err);
-      });;
-
-      that.syncSuccess = true;
-
-    }).on('error', function (err) {
-      console.log('DB sync error: ', err);
-    });
-
-  } 
-
   query(type: string, name?: string, filters?) {
 
-    let selector = { type: {$eq: type} }
-    if (name) {
-      selector[(type == 'post' ? 'title' : 'name')] = {$regex: RegExp(name, "i")}
-    }
-    if (filters) {
-      Object.keys(filters).forEach((key) => {
-        if (filters[key]) {
-          selector[key] = { $eq: filters[key] }
-        }
-      })
-    }
+    return this.http.get(this.baseUrl+'/'+type+'s')
 
-    let that = this
-    let dynamicDb = type == 'user' ? this.userDb : this.db
-    return dynamicDb.createIndex({
-      index: {
-        fields: Object.keys(selector)
-      }
-    }).then(function (result) {
-      return dynamicDb.find({
-        selector: selector
-      }).then(res => {
+    //
+    // let selector = { type: { $eq: type } }
+    // if (name) {
+    //   selector[(type == 'post' ? 'title' : 'name')] = { $regex: RegExp(name, "i") }
+    // }
+    // if (filters) {
+    //   Object.keys(filters).forEach((key) => {
+    //     if (filters[key]) {
+    //       selector[key] = { $eq: filters[key] }
+    //     }
+    //   })
+    // }
+    //
+    // let that = this
+    // let dynamicDb = type == 'user' ? this.userDb : this.db
+    // return dynamicDb.createIndex({
+    //   index: {
+    //     fields: Object.keys(selector)
+    //   }
+    // }).then(function(result) {
+    //   return dynamicDb.find({
+    //     selector: selector
+    //   }).then(res => {
+    //
+    //     return that.formatDocs(res);
+    //
+    //   });
+    // }).catch(function(err) {
+    //   console.log('query: index error: ' + JSON.stringify(err, Object.getOwnPropertyNames(err)));
+    // });
+    //
 
-        return that.formatDocs(res);
-
-      }); 
-    }).catch(function (err) {
-      console.log('query: index error: '+JSON.stringify(err, Object.getOwnPropertyNames(err)));
-    });
-
-       
   }
 
   formatDocs(res) {
     var docs = {},
-    deletions = {};
-    res.docs.forEach(function (doc) {
+      deletions = {};
+    res.docs.forEach(function(doc) {
 
       if (!doc.$id) { // first delta for doc?
         doc.$id = doc._id;
       }
       if (doc.$deleted) { // deleted?
-        delete(docs[doc.$id]);
+        delete (docs[doc.$id]);
         deletions[doc.$id] = true;
       } else if (!deletions[doc.$id]) { // update before any deletion?
         if (docs[doc.$id]) { // exists?
@@ -150,36 +111,36 @@ export class Database {
     });
 
     return Object["values"](docs);
-  } 
+  }
 
   get(id: string) {
-    return this.db.get(id).then(function (doc) {
+    return this.db.get(id).then(function(doc) {
       if (!doc.$id) { // first delta for doc?
         doc.$id = doc._id;
       }
       return doc;
     });
-  } 
+  }
 
   save(item: Item) {
     return this.db.save(item).then((result) => {
       return result
-    }); 
+    });
   }
 
   remove(item: Item) {
     return this.get(item._id).then(doc => {
-      doc.$deleted = true 
+      doc.$deleted = true
       return this.save(doc);
     })
   }
 
   public loadAdditionalFields(type) {
     return this.query(type).then(docs => {
-      this.additional_fields = docs.map((item)=> item.additional_fields ).filter((a) => a)
+      this.additional_fields = docs.map((item) => item.additional_fields).filter((a) => a)
       this.additional_fields = this.additional_fields.reduce((a, b) => a.concat(b), []);
       this.additional_fields = this.additional_fields.reduce((a, b) => a.concat(b.name), []);
-      this.additional_fields = this.additional_fields.filter((el, i, a) => i === a.indexOf(el))      
+      this.additional_fields = this.additional_fields.filter((el, i, a) => i === a.indexOf(el))
       return this.additional_fields
     });
   }
@@ -195,18 +156,18 @@ export class Database {
   saveProfile(item) {
     return this.userDb.put(item).then((res) => {
       return this.login(item._id)
-    });  
+    });
   }
 
   signup(email, metadata = {}) {
     return this.storage.get('currentPosition').then((position) => {
       return this.userDb.signUp(email, 'agrofloresteiro', {
-        metadata : Object.assign({position: position}, metadata)
+        metadata: Object.assign({ position: position }, metadata)
       }).then(resp => {
         if (resp) {
-          return this.login(email)  
+          return this.login(email)
         }
-      })      
+      })
     });
   }
 
@@ -217,7 +178,7 @@ export class Database {
         this.currentUser = res
         return res
       }
-    }); 
+    });
   }
 
   getUser(email) {
@@ -238,19 +199,19 @@ export class Database {
     return this.storage.get('currentUser').then((response) => {
       this.currentUser = response
       return response
-    })  
+    })
   }
 
   skipTour() {
     return this.storage.get('skipTour').then((response) => {
       return response
-    })   
+    })
   }
 
   setSkipTour(skipTour) {
     this.storage.set('skipTour', skipTour).then((response) => {
       return response
-    })   
+    })
   }
 
   // copyUserIds() {
@@ -276,9 +237,9 @@ export class Database {
   //       })
   //       console.log(docs);
   //     })
-   
+
   // }
-  
+
   // copyUsers() {
 
   //   console.log('remote', this.remote)
@@ -314,7 +275,7 @@ export class Database {
 
   //         if (!users.docs.find(u => (u._id == 'org.couchdb.user:'+doc.email))) {
   //           console.log('nao tem: '+doc.email)
-  //           setTimeout(function(){ 
+  //           setTimeout(function(){
   //             remotedb.signUp(doc.email, 'agrofloresteiro', {
   //               metadata : metadata
   //             }, function (err, response) {
@@ -323,7 +284,7 @@ export class Database {
   //               console.log('err', err)
   //               console.log('response', response)
   //             });
-  //           }, 1000);            
+  //           }, 1000);
   //         } else {
   //           var d = docs.filter(u => (u.email == doc.email))
   //           if (d.length > 1) {
@@ -332,10 +293,10 @@ export class Database {
   //             console.log(users.docs.find(u => (u._id == 'org.couchdb.user:'+doc.email)));
   //           }
   //         }
-          
+
 
   //       })
   //     });
-  //   });      
+  //   });
   // }
 }

@@ -44,7 +44,7 @@ import { ImgCacheService } from '../global';
           <button menuClose ion-item (click)="openPage('LibraryPage')">Biblioteca</button>
           <button menuClose ion-item (click)="openPage('FeedPage', { category: 'event' })">Eventos</button>
           <button menuClose ion-item (click)="openPage('CsasPage')">CSAs</button>
-          <button menuClose ion-item (click)="openPage('AboutPage')">Sobre</button>          
+          <button menuClose ion-item (click)="openPage('AboutPage')">Sobre</button>
           <button menuClose ion-item (click)="openPage('DonatePage')">Ajude-nos</button>
         </ion-list>
       </ion-content>
@@ -57,7 +57,7 @@ export class MyApp {
   rootPage;
 
   @ViewChild(Nav) nav: Nav;
-  
+
   constructor(private translate: TranslateService, platform: Platform, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, public api: Api, public database: Database, public menuCtrl: MenuController, public storage: Storage, private geolocation: Geolocation, imgCacheService: ImgCacheService) {
 
     platform.ready().then(() => {
@@ -69,11 +69,11 @@ export class MyApp {
       // this.imageLoaderConfig.setMaximumCacheAge(24 * 60 * 60 * 1000);
 
       this.statusBar.styleDefault();
-        
+
       imgCacheService.initImgCache().subscribe((v) => console.log('init'), (e) => console.log('fail init', e));
-      
-      this.database.sync();
-      
+
+      // this.database.sync();
+
       this.initTranslate();
 
       this.storage.get('currentPosition').then((p) => {
@@ -84,7 +84,7 @@ export class MyApp {
             })
           }).catch((error) => {
             console.log('Error getting location', error);
-          });          
+          });
         }
       })
 
@@ -112,8 +112,8 @@ export class MyApp {
       this.splashScreen.hide();
 
     });
-    
-    
+
+
   }
 
   initTranslate() {
@@ -144,9 +144,9 @@ export class MyApp {
   }
 
   logout() {
-    this.nav.setRoot('WelcomePage');   
+    this.nav.setRoot('WelcomePage');
     this.database.logout()
-    // this.menuCtrl.close(); 
+    // this.menuCtrl.close();
   }
 
   openPage(page, params?) {
