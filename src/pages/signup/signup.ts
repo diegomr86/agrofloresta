@@ -25,7 +25,7 @@ export class SignupPage {
     public api: Api,
     public database: Database,
     public toastCtrl: ToastController,
-    public formBuilder: FormBuilder, 
+    public formBuilder: FormBuilder,
     public translateService: TranslateService,
     public utils: Utils) {
 
@@ -34,7 +34,6 @@ export class SignupPage {
     // })
 
     this.form = formBuilder.group({
-      type: ['user', Validators.required],
       email: ['', Validators.required],
       name: ['', Validators.required],
       picture: [''],

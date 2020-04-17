@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Item } from '../../models/item';
 import { Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { Utils } from '../../utils/utils';
 
 @Injectable()
 export class Database {
@@ -18,7 +19,7 @@ export class Database {
   public currentUser;
   public showTour;
 
-  constructor(public storage: Storage, public plt: Platform, public http: HttpClient) {
+  constructor(public storage: Storage, public plt: Platform, public http: HttpClient, public utils: Utils) {
 
     this.cycles = {
       placenta1: 'Placenta 1 (Até 3 meses)',
@@ -38,23 +39,32 @@ export class Database {
   }
 
   query(type, params = {}) {
-    return this.http.get(this.baseUrl + type, { params: params, headers: this.httpHeaders() }).toPromise()
+    return this.http.get(this.baseUrl + type, { params: params, headers: this.httpHeaders() }).toPromise().catch(e => this.showError(e, this.utils))
   }
 
   get(type: string, id: string) {
-    return this.http.get(this.baseUrl + type + '/' + id, { headers: this.httpHeaders() }).toPromise()
+    return this.http.get(this.baseUrl + type + '/' + id, { headers: this.httpHeaders() }).toPromise().catch(e => this.showError(e, this.utils))
   }
 
   save(type: string, item: Item) {
-    return this.http.post(this.baseUrl + type, item, { headers: this.httpHeaders() }).toPromise()
+    if (item._id) {
+      return this.put(type, item)
+    } else {
+      delete item._id
+      return this.post(type, item)
+    }
+  }
+
+  post(type: string, item: Item) {
+    return this.http.post(this.baseUrl + type, item, { headers: this.httpHeaders() }).toPromise().catch(e => this.showError(e, this.utils))
   }
 
   put(type: string, item: Item) {
-    return this.http.put(this.baseUrl + type + '/' + item._id, item, { headers: this.httpHeaders() }).toPromise()
+    return this.http.put(this.baseUrl + type + '/' + item._id, item, { headers: this.httpHeaders() }).toPromise().catch(e => this.showError(e, this.utils))
   }
 
   remove(type: string, item: Item) {
-    return this.http.delete(this.baseUrl + type + '/' + item._id, item, { headers: this.httpHeaders() }).toPromise()
+    return this.http.delete(this.baseUrl + type + '/' + item._id, { headers: this.httpHeaders() }).toPromise().catch(e => this.showError(e, this.utils))
   }
 
   saveProfile(type, item) {
@@ -76,7 +86,7 @@ export class Database {
   }
 
   async login(email) {
-    var res = await this.http.post(this.baseUrl + "users/login", { email: email, password: 'agrofloresta' }).toPromise()
+    var res = await this.http.post(this.baseUrl + "users/login", { email: email, password: 'agrofloresta' }).toPromise().catch(e => this.showError(e, this.utils))
     if (res && res._id) {
       this.storage.set('currentUser', res);
       this.currentUser = res
@@ -127,6 +137,10 @@ export class Database {
       this.additional_fields = this.additional_fields.filter((el, i, a) => i === a.indexOf(el))
       return this.additional_fields
     });
+  }
+
+  showError(e, utils) {
+    utils.showToast((e.error || e.message), 'error');
   }
 
 

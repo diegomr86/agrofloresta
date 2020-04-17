@@ -28,7 +28,6 @@ export class GuideFormPage {
     params: NavParams) {
 
     this.form = formBuilder.group({
-      type: ['guide', Validators.required],
       user: [database.currentUser._id, Validators.required],
       _id: [''],
       title: ['', Validators.required],
@@ -65,7 +64,7 @@ export class GuideFormPage {
         this.form.patchValue({
           ...item
         })
-    }}).catch((e) => {});
+    }})
   }
 
   delete(guide) {
@@ -87,8 +86,6 @@ export class GuideFormPage {
       this.database.save('guides', this.form.value).then(res => {
         this.navCtrl.setRoot('GuidesPage');
         this.navCtrl.push('GuidePage', { id: res.id });
-      }).catch((e) => {
-        this.utils.showToast(e.message, 'error');
       })
     })
   }

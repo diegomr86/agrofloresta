@@ -1,45 +1,62 @@
 import { Component, Input } from '@angular/core';
-import { Database } from '../../providers';
+import { Database, Api } from '../../providers';
+import { Utils } from '../../utils/utils';
 
-/**
- * Generated class for the CommentsComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'comments',
   templateUrl: 'comments.html'
 })
 export class CommentsComponent {
 	@Input() item;
-	@Input() items;
 	@Input() item_type;
 
   message;
+  comments;
 
-  constructor(public database: Database) {
+  constructor(public database: Database, public utils: Utils, public api: Api) {
     this.message = ''
 	}
 
+  ngOnInit() {
+    this.list()
+  }
+
+  list() {
+    this.database.query('comments/' + this.item._id, { type: this.item_type }).then(comments => {
+      this.comments = comments
+    });
+  }
+
+
 	comment() {
     if (this.item && this.message) {
-      let c = { user: this.database.currentUser._id, message: this.message, created_at: new Date() }
-      if (this.item.comments) {
-        this.item.comments.push(c)
-      } else {
-        this.item.comments = [c]
-      }
-      this.item.updated_at = new Date();
+      let form = { message: this.message }
+      form[this.item_type] = this.item._id
 
-      this.database.put(this.item_type, this.item).then(p => {
-        if (this.items) {
-          this.items = this.items.map(function(i) { return i._id == p._id ? p : i; });
-        } else {
-          this.item = p
+      this.database.post("comments", form).then(comment => {
+        if (comment) {
+          if (this.comments) {
+            this.comments.push(comment)
+          } else {
+            this.comments = [comment]
+          }
+          this.utils.showToast('Comentário enviado. Obrigado por contribuir!', 'success');
+
+          this.item.updatedAt = new Date();
+          this.database.put(this.item_type+'s', this.item)
         }
         this.message = ''
       });
     }
   }
+
+  delete(comment){
+    if (comment.user._id == this.database.currentUser._id) {
+      this.comments = this.comments.filter(c => c !== comment)
+      this.database.remove('comments', comment).then(comment => {
+        this.utils.showToast('O comentário foi excluído', 'success');
+      });
+    }
+  }
+
 }

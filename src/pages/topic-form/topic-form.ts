@@ -33,9 +33,8 @@ export class TopicFormPage {
     params: NavParams) {
 
     this.form = formBuilder.group({
-      type: ['topic', Validators.required],
       user: [database.currentUser._id, Validators.required],
-      _id: [''],
+      _id: [],
       title: ['', Validators.required],
       content: ['', Validators.required],
       tags: [[]],
@@ -50,7 +49,6 @@ export class TopicFormPage {
     if (params.get('id')) {
       this.edit(params.get('id'))
     }
-
 
     this.autocompleteTags = []
     this.database.query('topics').then(res => {
@@ -90,14 +88,17 @@ export class TopicFormPage {
       });
       this.form.patchValue({ tags: tags });
 
-      if (!this.form.controls._id) {
-        this.form.patchValue({ comments: [{ user: this.database.currentUser._id, message: this.form.controls.content.value, created_at: new Date() }] });
-      }
-
-      console.log('this.form.value', this.form.value);
       this.database.save("topics", this.form.value).then(res => {
-        this.navCtrl.setRoot('ForumPage');
-        this.navCtrl.push('TopicPage', { id: res._id });
+        if (res) {
+          console.log("this.form.controls._id")
+          console.log(this.form.controls._id)
+          console.log(!this.form.controls._id)
+          if (!this.form.controls._id.value) {
+            this.database.save("comments", { topic: res._id, message: this.form.controls.content.value })
+          }
+          this.navCtrl.setRoot('ForumPage');
+          this.navCtrl.push('TopicPage', { id: res._id });
+        }
       })
     })
   }

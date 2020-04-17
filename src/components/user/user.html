@@ -2,5 +2,5 @@
   <p class="description" *ngIf="item.createdAt == item.updatedAt">Criado por: </p>
   <p class="description" *ngIf="item.createdAt != item.updatedAt">Editado por: </p>
   <p class="profile" (click)="profile(item.user)"><img img-cache [source]="this.api.imageUrl(item.user.picture, 'thumb')"> <strong>{{item.user.name}}</strong></p>
-  <p *ngIf="item.created_at">Em: {{ item.created_at| date: 'dd/MM/yyyy H:mm' }}</p>
+  <p *ngIf="item.createdAt">Em: {{ item.createdAt| date: 'dd/MM/yyyy H:mm' }}</p>
 </div>

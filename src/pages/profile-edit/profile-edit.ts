@@ -23,7 +23,7 @@ export class ProfileEditPage {
     public api: Api,
     public database: Database,
     public toastCtrl: ToastController,
-    public formBuilder: FormBuilder, 
+    public formBuilder: FormBuilder,
     public translateService: TranslateService,
     public utils: Utils) {
 
@@ -32,9 +32,7 @@ export class ProfileEditPage {
     // })
 
     this.form = formBuilder.group({
-      type: ['user', Validators.required],
       _id: ['', Validators.required],
-      _rev: ['', Validators.required],
       username: ['', Validators.required],
       name: ['', Validators.required],
       picture: [''],
@@ -59,7 +57,7 @@ export class ProfileEditPage {
       console.log('user',this.database.currentUser);
       this.form.patchValue({
         ...this.database.currentUser
-      }) 
+      })
       console.log('form', this.form.value);
       this.api.setPreview(this.database.currentUser.picture, 'medium')
     }

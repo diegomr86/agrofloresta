@@ -11,41 +11,38 @@ import { PictureUploadComponent } from './picture-upload/picture-upload';
 import { PostUserComponent } from './post-user/post-user';
 import { TextEditorComponent } from './text-editor/text-editor';
 import { CommentsComponent } from './comments/comments';
-import { CommentUserComponent } from './comment-user/comment-user';
 import { MoonComponent } from './moon/moon';
 import { TopicMessageComponent } from './topic-message/topic-message';
 import { AvatarComponent } from './avatar/avatar';
 
 @NgModule({
-	declarations: [
-		UserComponent,
-    	SafeContentComponent,
-    PictureUploadComponent,
-    PostUserComponent,
-    TextEditorComponent,
-    CommentsComponent,
-    CommentUserComponent,
-    MoonComponent,
-    TopicMessageComponent,
-    AvatarComponent
-    ],
-	imports: [IonicModule,
-		DynamicComponentModule.forRoot({
-	      imports: []
-	    }),
-        QuillModule,
-        PipesModule,
-        DirectivesModule
-    ],
-	exports: [UserComponent,
+  declarations: [
+    UserComponent,
     SafeContentComponent,
     PictureUploadComponent,
     PostUserComponent,
     TextEditorComponent,
     CommentsComponent,
-    CommentUserComponent,
+    MoonComponent,
+    TopicMessageComponent,
+    AvatarComponent
+  ],
+  imports: [IonicModule,
+    DynamicComponentModule.forRoot({
+      imports: []
+    }),
+    QuillModule,
+    PipesModule,
+    DirectivesModule
+  ],
+  exports: [UserComponent,
+    SafeContentComponent,
+    PictureUploadComponent,
+    PostUserComponent,
+    TextEditorComponent,
+    CommentsComponent,
     MoonComponent,
     TopicMessageComponent,
     AvatarComponent]
 })
-export class ComponentsModule {}
+export class ComponentsModule { }

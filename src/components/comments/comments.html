@@ -1,8 +1,25 @@
 <div>
-  <div *ngFor="let comment of item.comments">
-  	<comment-user [comment]="comment" [item]="item" [items]="items" [item_type]="item_type"></comment-user>
+  <div *ngIf="item">
+    <div *ngFor="let comment of comments">
+      <ion-item *ngIf="comment.user">
+      	<ion-avatar item-start>
+      	  <img img-cache [source]="this.api.imageUrl(comment.user.picture, 'thumb')">
+      	</ion-avatar>
+        <ion-row>
+          <ion-col>
+      			<h5>{{ comment.user.name }}</h5>
+          </ion-col>
+        	<ion-col>
+      			<small float-end>{{ comment.createdAt | timeAgo }} <ion-icon style="cursor: pointer" *ngIf="database.currentUser && database.currentUser._id == comment.user._id" name="trash" (click)="delete(comment)"></ion-icon></small>
+          </ion-col>
+        </ion-row>
+      	<p>
+      		<span>{{ comment.message }}</span>
+      	</p>
+      </ion-item>
+    </div>
+    <ion-label stacked>{{comments && comments.length > 0 ? 'Deixe seu comentário:' : 'Seja o primeiro a comentar:' }}</ion-label>
+    <ion-textarea [(ngModel)]="message"></ion-textarea>
+    <button ion-button (click)="comment()" [disabled]="!message">Comentar</button>
   </div>
-  <ion-label stacked>{{item.comments && item.comments.length > 0 ? 'Deixe seu comentário:' : 'Seja o primeiro a comentar:' }}</ion-label>
-  <ion-textarea [(ngModel)]="message"></ion-textarea>
-  <button ion-button (click)="comment()" [disabled]="!message">Comentar</button>
 </div>

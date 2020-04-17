@@ -37,7 +37,7 @@
             <avatar [user]="topic.user"></avatar>
           </ion-avatar>
           <h2>{{topic.title}}</h2>
-          <p>{{ (topic.updated_at || topic.$createdAt) | timeAgo }}</p>
+          <p>{{ (topic.updatedAt || topic.$createdAt) | timeAgo }}</p>
           <ion-note item-end>
             <div>
               <strong>{{topic.comments.length}}</strong>

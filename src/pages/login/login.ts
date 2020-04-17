@@ -39,9 +39,6 @@ export class LoginPage {
         this.navCtrl.setRoot(MainPage);
       }
     }).catch((e) => {
-      console.log('login error', e);
-      console.log('login error: ' + JSON.stringify(e));
-
       if (e.name == 'not_found') {
         this.doSignup();
       } else {

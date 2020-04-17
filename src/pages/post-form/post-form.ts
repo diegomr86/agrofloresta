@@ -30,14 +30,13 @@ export class PostFormPage {
     if (this.database.currentUser) {
 
       this.form = formBuilder.group({
-	      type: ['post', Validators.required],
 	      category: ['', Validators.required],
         _id: [''],
 	      user: [this.database.currentUser._id, Validators.required],
 	      picture: [''],
 	      title: ['', Validators.required],
         content: ['', Validators.required],
-        created_at: [new Date(), Validators.required],
+        createdAt: [new Date(), Validators.required],
         url: [''],
         oembed: [''],
         start_time: [''],

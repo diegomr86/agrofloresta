@@ -32,7 +32,6 @@ export class PlantFormPage {
     params: NavParams) {
 
     this.form = formBuilder.group({
-      type: ['plant', Validators.required],
       user: [database.currentUser._id, Validators.required],
       _id: [''],
       picture: ['', Validators.required],

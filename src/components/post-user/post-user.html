@@ -3,5 +3,5 @@
 	  <img img-cache [source]="this.api.imageUrl(post.user.picture, 'thumb')">
 	</ion-avatar>
 	<h2>{{ post.user.name }}</h2>
-	<p>{{ post.created_at | timeAgo }}</p>
+	<p>{{ post.createdAt | timeAgo }}</p>
 </ion-item>

@@ -44,7 +44,7 @@ export class FeedPage {
         res.forEach(function (post) {
           let likes = post.likes ? post.likes.length : 0
           let dislikes = post.dislikes ? post.dislikes.length : 0
-          post.score = that.hotScore(likes, dislikes, post.created_at);
+          post.score = that.hotScore(likes, dislikes, post.createdAt);
           that.posts.push(post)
         });
         this.posts = this.posts.sort((a, b) => a.score - b.score).reverse();
