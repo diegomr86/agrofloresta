@@ -13,47 +13,37 @@ export class HomePage {
   quiz_question;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database, public api: Api) {
-    
+
     this.quiz();
   }
 
   quiz() {
     this.quiz_question = undefined
     let that = this
-    this.database.query('plant', '').then(res => {
+    this.database.query('plants', '').then(res => {
       // let empty_fields = [ 'stratum', 'cycle', 'harvest_time', 'spacing', 'companion_plants' ]
       let empty_fields = [ 'stratum', 'cycle' ]
       let empty_field = empty_fields[Math.floor(Math.random()*empty_fields.length)]
       res.sort(function() { return 0.5 - Math.random() })
       res.some(function (plant) {
         // if (!plant[empty_field] || plant[empty_field] == '' || plant[empty_field] == []) {
-          that.quiz_question = { field: empty_field, plant: plant };
-          return true;    
+          that.quiz_question = { field: empty_field, plant: plant._id };
+          return true;
         // }
       });
-    })     
-
-    // this.database.query('quiz_answer', '').then(res => {
-    //   console.log('answers', res);
-    //   if (res) {
-    //     res.map(r => {
-    //       // this.database.db.remove(r);
-    //     })        
-    //   }
-    // })     
-
+    })
   }
 
   answer(question, response) {
     let quiz_answer = {
       type: 'quiz_answer',
-      user_id: this.database.currentUser._id,
-      plant: question.plant.name,
+      user: this.database.currentUser._id,
+      plant: question.plant._id,
       field: question.field,
       answer: response
     }
 
-    this.database.save(quiz_answer);
+    this.database.save('quiz_answers', quiz_answer);
 
     this.quiz();
 

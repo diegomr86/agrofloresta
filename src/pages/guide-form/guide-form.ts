@@ -19,26 +19,25 @@ export class GuideFormPage {
 
   form: FormGroup;
 
-  constructor(public navCtrl: NavController, 
-    public toastCtrl: ToastController, 
-    public formBuilder: FormBuilder, 
-    public database: Database, 
-    public api: Api, 
-    public utils: Utils, 
+  constructor(public navCtrl: NavController,
+    public toastCtrl: ToastController,
+    public formBuilder: FormBuilder,
+    public database: Database,
+    public api: Api,
+    public utils: Utils,
     params: NavParams) {
-      
+
     this.form = formBuilder.group({
       type: ['guide', Validators.required],
-      user_id: [database.currentUser._id, Validators.required],
+      user: [database.currentUser._id, Validators.required],
       _id: [''],
-      $id: [''],
       title: ['', Validators.required],
       content: ['', Validators.required],
       tags: [[]],
     });
 
     // Watch the form for changes, and
-    this.form.valueChanges.subscribe((v) => {
+    this.form.valueChanges.then((v) => {
       this.isReadyToSave = this.form.valid;
     });
 
@@ -48,7 +47,7 @@ export class GuideFormPage {
 
 
     this.autocompleteTags = []
-    this.database.query('post').then(res => {
+    this.database.query('posts').then(res => {
       res.forEach((a) => {
         this.autocompleteTags = this.autocompleteTags.concat(a.tags)
       });
@@ -60,22 +59,22 @@ export class GuideFormPage {
   }
 
   edit(id) {
-    this.database.get(id).then((item) => {
+    this.database.get('guides', id).then((item) => {
       if (item) {
         this.guide = item
         this.form.patchValue({
           ...item
-        }) 
+        })
     }}).catch((e) => {});
   }
 
   delete(guide) {
     this.utils.showConfirm(() => {
-      this.database.remove(guide).then(res => {
-        this.navCtrl.setRoot('GuidesPage');   
+      this.database.remove('guides', guide).then(res => {
+        this.navCtrl.setRoot('GuidesPage');
       });
     })
-  } 
+  }
 
   save() {
     if (!this.form.valid) { return; }
@@ -85,7 +84,7 @@ export class GuideFormPage {
       });
       this.form.patchValue({ tags: tags });
 
-      this.database.save(this.form.value).then(res => {
+      this.database.save('guides', this.form.value).then(res => {
         this.navCtrl.setRoot('GuidesPage');
         this.navCtrl.push('GuidePage', { id: res.id });
       }).catch((e) => {
@@ -93,5 +92,5 @@ export class GuideFormPage {
       })
     })
   }
-  
+
 }

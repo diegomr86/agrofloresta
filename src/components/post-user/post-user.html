@@ -1,7 +1,7 @@
-<ion-item *ngIf="post && user" (click)="profile(user)">
+<ion-item *ngIf="post && post.user" (click)="profile(post.user)">
 	<ion-avatar item-start>
-	  <img img-cache [source]="this.api.imageUrl(user.picture, 'thumb')">
+	  <img img-cache [source]="this.api.imageUrl(post.user.picture, 'thumb')">
 	</ion-avatar>
-	<h2>{{ user.name }}</h2>
+	<h2>{{ post.user.name }}</h2>
 	<p>{{ post.created_at | timeAgo }}</p>
 </ion-item>

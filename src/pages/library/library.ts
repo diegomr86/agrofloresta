@@ -55,7 +55,7 @@ export class LibraryPage {
       this.searching = true
     }
     console.log('list: query!');
-    this.database.query('post', name, { category: this.navParams.get('category'), tags: this.navParams.get('tag') }).then(res => {
+    this.database.query('posts', name, { category: this.navParams.get('category'), tags: this.navParams.get('tag') }).then(res => {
       console.log('list: res'+JSON.stringify(res));
       if (res && res.length > 0) {
         this.posts = res.sort(function(a, b){
@@ -76,9 +76,7 @@ export class LibraryPage {
         //   this.list();
         // }, 5000);
       }
-    }).catch(e => {
-      console.log('list: error'+JSON.stringify(e));
-    });
+    })
   }
 
   setCategory(category) {
@@ -87,7 +85,7 @@ export class LibraryPage {
 
   showMore(infiniteScroll) {
     if (this.morePosts && this.morePosts.length > 0) {
-      this.posts = this.posts.concat(this.morePosts.slice(0, 5))            
+      this.posts = this.posts.concat(this.morePosts.slice(0, 5))
       this.morePosts = this.morePosts.slice(5, this.morePosts.length+1)
     }
     infiniteScroll.complete();
@@ -100,11 +98,11 @@ export class LibraryPage {
 
   edit(id) {
     this.navCtrl.push('PostFormPage', { id: id });
-  } 
+  }
 
   open(id) {
     this.navCtrl.push('PostPage', { id: id });
-  } 
+  }
 
   like(post) {
     if (post.likes) {
@@ -116,7 +114,7 @@ export class LibraryPage {
     } else {
       post.likes = [this.database.currentUser._id]
     }
-    this.database.put(post).then(p => {
+    this.database.put('posts', post).then(p => {
       this.posts = this.posts.map(function(item) { return item._id == p._id ? p : item; });
     });
   }
@@ -131,7 +129,7 @@ export class LibraryPage {
     } else {
       post.dislikes = [this.database.currentUser._id]
     }
-    this.database.put(post).then(p => {
+    this.database.put('posts', post).then(p => {
       this.posts = this.posts.map(function(item) { return item._id == p._id ? p : item; });
     });
   }
@@ -151,5 +149,5 @@ export class LibraryPage {
       , secAge = (Date.now() - new Date(date).getTime()) / 1000;
     return sign*order - secAge / 45000;
   };
-  
+
 }

@@ -36,14 +36,16 @@ export class FeedPage {
     if (this.category || this.tag) {
       this.searching  = true
     }
-    this.database.query('post', '', { category: this.navParams.get('category'), tags: this.navParams.get('tag') }).then(res => {
-      if (res && res.length > 0) {
+    this.database.query('posts', { category: this.navParams.get('category'), tags: this.navParams.get('tag') }).then(res => {
+      if (res) {
         let that = this
+        console.log('res')
+        console.log(res)
         res.forEach(function (post) {
           let likes = post.likes ? post.likes.length : 0
           let dislikes = post.dislikes ? post.dislikes.length : 0
           post.score = that.hotScore(likes, dislikes, post.created_at);
-          that.posts.push(post) 
+          that.posts.push(post)
         });
         this.posts = this.posts.sort((a, b) => a.score - b.score).reverse();
 
@@ -58,14 +60,12 @@ export class FeedPage {
         //   this.list();
         // }, 5000);
       }
-    }).catch(e => {
-      console.log('list: error'+JSON.stringify(e));
     });
   }
 
   showMore(infiniteScroll) {
     if (this.morePosts && this.morePosts.length > 0) {
-      this.posts = this.posts.concat(this.morePosts.slice(0, 5))            
+      this.posts = this.posts.concat(this.morePosts.slice(0, 5))
       this.morePosts = this.morePosts.slice(5, this.morePosts.length+1)
     }
     infiniteScroll.complete();
@@ -78,11 +78,11 @@ export class FeedPage {
 
   edit(id) {
     this.navCtrl.push('PostFormPage', { id: id });
-  } 
+  }
 
   open(id) {
     this.navCtrl.push('PostPage', { id: id });
-  } 
+  }
 
   like(post) {
     if (post.likes) {
@@ -94,7 +94,7 @@ export class FeedPage {
     } else {
       post.likes = [this.database.currentUser._id]
     }
-    this.database.put(post).then(p => {
+    this.database.put('posts', post).then(p => {
       this.posts = this.posts.map(function(item) { return item._id == p._id ? p : item; });
     });
   }
@@ -109,7 +109,7 @@ export class FeedPage {
     } else {
       post.dislikes = [this.database.currentUser._id]
     }
-    this.database.put(post).then(p => {
+    this.database.put('posts', post).then(p => {
       this.posts = this.posts.map(function(item) { return item._id == p._id ? p : item; });
     });
   }
@@ -129,5 +129,5 @@ export class FeedPage {
       , secAge = (Date.now() - new Date(date).getTime()) / 1000;
     return sign*order - secAge / 45000;
   };
-  
+
 }

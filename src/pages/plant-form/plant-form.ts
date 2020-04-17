@@ -22,20 +22,19 @@ export class PlantFormPage {
 
   form: FormGroup;
 
-  constructor(public navCtrl: NavController, 
-    public toastCtrl: ToastController, 
-    public formBuilder: FormBuilder, 
-    public camera: Camera, 
-    public database: Database, 
-    public api: Api, 
-    public utils: Utils, 
+  constructor(public navCtrl: NavController,
+    public toastCtrl: ToastController,
+    public formBuilder: FormBuilder,
+    public camera: Camera,
+    public database: Database,
+    public api: Api,
+    public utils: Utils,
     params: NavParams) {
-      
+
     this.form = formBuilder.group({
       type: ['plant', Validators.required],
-      user_id: [database.currentUser._id, Validators.required],
+      user: [database.currentUser._id, Validators.required],
       _id: [''],
-      $id: [''],
       picture: ['', Validators.required],
       name: ['', Validators.required],
       scientific_name: [''],
@@ -62,9 +61,9 @@ export class PlantFormPage {
     });
 
     this.autocompleteCompanions = []
-    this.database.query('plant').then(res => {
+    this.database.query('plants').then(res => {
       console.log('res', res);
-      res.forEach((a) => this.autocompleteCompanions.push(a.name));      
+      res.forEach((a) => this.autocompleteCompanions.push(a.name));
       this.autocompleteCompanions = this.autocompleteCompanions.sort()
     });
 
@@ -73,24 +72,24 @@ export class PlantFormPage {
   }
 
   edit(id) {
-    this.database.get(id).then((item) => {
+    this.database.get('plants', id).then((item) => {
       console.log('item', item);
       if (item) {
         this.plant = item
         this.form.patchValue({
           ...item
-        }) 
+        })
         this.api.setPreview(item.picture, 'medium')
     }}).catch((e) => {});
   }
 
   delete(plant) {
     this.utils.showConfirm(() => {
-      this.database.remove(plant).then(res => {
-        this.navCtrl.setRoot('PlantsPage');   
+      this.database.remove('plants', plant).then(res => {
+        this.navCtrl.setRoot('PlantsPage');
       });
     })
-  } 
+  }
 
   save() {
     if (!this.form.valid) { return; }
@@ -101,7 +100,7 @@ export class PlantFormPage {
       });
       this.form.patchValue({ companion_plants: companion_plants });
 
-      this.database.save(this.form.value).then(res => {
+      this.database.save('plants', this.form.value).then(res => {
         this.navCtrl.setRoot('PlantsPage');
         this.navCtrl.push('PlantPage', { id: res.id });
       }).catch((e) => {
@@ -117,7 +116,7 @@ export class PlantFormPage {
       this.additional_fields.push(this.formBuilder.group({
         name: [name, Validators.required],
         content: [(val ? val.content: '')]
-      }));        
+      }));
     } else {
       this.additional_fields.push(this.formBuilder.group({
         name: ['', Validators.required],
@@ -125,6 +124,6 @@ export class PlantFormPage {
       }));
 
     }
-  } 
+  }
 
 }

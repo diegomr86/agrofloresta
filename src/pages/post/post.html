@@ -26,8 +26,8 @@
       </div>
       <a *ngIf="post.category == 'book' && post.picture && post.picture.url && !post.url" [href]="this.api.imageUrl(post.picture)" target="_blank">Baixar Livro</a>
       <a *ngIf="post.url && post.content && post.content.indexOf('…') < 0" [href]="post.url" target="_blank">{{post.category == 'book' ? 'Baixar Livro' : 'Fonte'}}</a>
-      <br>    
-      <br>    
+      <br>
+      <br>
       <ion-chip *ngFor="let tag of tags">
         <ion-label>#{{tag}}</ion-label>
       </ion-chip>
@@ -47,12 +47,12 @@
           </ion-buttons>
         </ion-col>
       </ion-row>
-      <comments [item]="post" [items]="posts"></comments>
-      <br>    
+      <comments [item]="post" [items]="posts" item_type="posts"></comments>
+      <br>
 
-      <user [item]="post"></user> 
-      <br>    
-      <br>    
+      <user [item]="post"></user>
+      <br>
+      <br>
     </div>
   </div>
 </ion-content>

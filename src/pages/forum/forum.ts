@@ -20,37 +20,45 @@ export class ForumPage {
   Object = Object;
   filters;
   topics;
-  searching;
+  searching = false;
 
   constructor(public navCtrl: NavController, public database: Database, public api: Api, public modalCtrl: ModalController) {
-    this.database.query('topic', '').then(res => {
-      this.topics = res;
-    })     
 
     this.filters = {
-      cycle: '',
-      stratum: '',
+      search: '',
+      page: 1
     }
 
-    this.searching = false
+    this.list();
 
   }
 
-  search(ev?) {
+  list() {
     this.searching = true
+    this.database.query('topics', this.filters).then(res => {
+      if (!this.topics) {
+        this.topics = []
+      }
+      this.topics = this.topics.concat(res)
+      this.searching = false
+    })
+  }
 
-    let val = '';
-    if (ev) {
-      val = ev.target.value;
-    }
-    this.database.query('topic', val, this.filters).then(docs => {
-      this.topics = docs;
-    })    
+  search() {
+    this.topics = []
+    this.filters.page = 1
+    this.list();
+  }
+
+  showMore(infiniteScroll) {
+    this.filters.page += 1
+    this.list()
+    infiniteScroll.complete();
   }
 
   add() {
     this.navCtrl.push('TopicFormPage');
-  } 
+  }
 
   open(id) {
     this.navCtrl.push('TopicPage', {

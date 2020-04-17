@@ -17,26 +17,24 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="(!topics || topics.length < 1) && !searching" text-center padding>
-    <ion-spinner></ion-spinner>
-    <p>Carregando guias...</p>
-  </div>
-  <div *ngIf="(topics && topics.length > 0) || searching">
+  <div>
     <div padding text-center>
       <p>
-        Este é um espaço de sugestões, discussões e debates!      
+        Este é um espaço de sugestões, discussões e debates!
       </p>
       <button ion-button (click)="add()">
         Criar novo tópico
       </button>
-      
     </div>
-    <!-- <ion-searchbar (ionInput)="search($event)" placeholder="Procurar"></ion-searchbar> -->
+    <ion-searchbar [(ngModel)]="filters.search" (ionInput)="search()" placeholder="Procurar"></ion-searchbar>
+    <div *ngIf="topics && topics.length == 0 && !searching" text-center padding>
+      <p>Nenhum ítem encontrado</p>
+    </div>
     <ion-list>
       <ion-item-sliding *ngFor="let topic of topics">
         <button ion-item (click)="open(topic._id)">
-          <ion-avatar  item-start >
-            <avatar [user_id]="topic.user_id"></avatar>
+          <ion-avatar item-start >
+            <avatar [user]="topic.user"></avatar>
           </ion-avatar>
           <h2>{{topic.title}}</h2>
           <p>{{ (topic.updated_at || topic.$createdAt) | timeAgo }}</p>
@@ -48,6 +46,10 @@
 
  				</button>
       </ion-item-sliding>
+      <ion-infinite-scroll (ionInfinite)="showMore($event)">
+       <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando tópicos...">
+       </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
     </ion-list>
   </div>
 </ion-content>

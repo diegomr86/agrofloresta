@@ -9,16 +9,7 @@ import { NavController } from 'ionic-angular';
 export class PostUserComponent {
   @Input() post;
 
-  user;
-
   constructor(public navCtrl: NavController, public database: Database, public api: Api) { }
-
-  ngOnInit() { 
-  	this.database.getUser(this.post.user_id).then((user) => {
-  		this.user = user;
-  	})
-  	
-  }
 
   profile(user) {
     this.navCtrl.setRoot('ProfilePage', { id: user._id });

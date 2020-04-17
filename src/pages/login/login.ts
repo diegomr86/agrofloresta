@@ -23,7 +23,7 @@ export class LoginPage {
     public utils: Utils) {
 
     this.form = formBuilder.group({
-      email: ['', Validators.required]
+      email: ['diegomr86@gmail.com', Validators.required]
     });
 
     this.form.valueChanges.subscribe((v) => {
@@ -34,7 +34,7 @@ export class LoginPage {
   }
 
   login() {
-    this.database.login(this.form.controls.email.value).then((resp) => {
+    var x = this.database.login(this.form.controls.email.value).then((resp) => {
       if (resp) {
         this.navCtrl.setRoot(MainPage);
       }

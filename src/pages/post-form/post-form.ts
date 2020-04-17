@@ -18,23 +18,22 @@ export class PostFormPage {
   autocompleteTags;
 
   constructor(
-  	public navCtrl: NavController, 
-    public navParams: NavParams, 
-    public appCtrl: App, 
-  	public formBuilder: FormBuilder, 
-    public utils: Utils, 
+  	public navCtrl: NavController,
+    public navParams: NavParams,
+    public appCtrl: App,
+  	public formBuilder: FormBuilder,
+    public utils: Utils,
     public database: Database,
     public api: Api,
     public http: HttpClient) {
-  	
+
     if (this.database.currentUser) {
-	  
+
       this.form = formBuilder.group({
 	      type: ['post', Validators.required],
 	      category: ['', Validators.required],
         _id: [''],
-        $id: [''],
-	      user_id: [this.database.currentUser._id, Validators.required],
+	      user: [this.database.currentUser._id, Validators.required],
 	      picture: [''],
 	      title: ['', Validators.required],
         content: ['', Validators.required],
@@ -61,7 +60,7 @@ export class PostFormPage {
       }
 
       this.autocompleteTags = []
-      this.database.query('post').then(res => {
+      this.database.query('posts').then(res => {
         res.forEach((a) => {
           this.autocompleteTags = this.autocompleteTags.concat(a.tags)
         });
@@ -82,7 +81,7 @@ export class PostFormPage {
       });
       this.form.patchValue({ tags: tags });
 
-      this.database.save(this.form.value).then(res => {
+      this.database.save('posts', this.form.value).then(res => {
         this.navCtrl.setRoot('FeedPage');
         this.navCtrl.push('PostPage', { id: res.id });
       }).catch((e) => {
@@ -93,11 +92,11 @@ export class PostFormPage {
   }
 
   edit(id) {
-    this.database.get(id).then((item) => {
+    this.database.get('posts', id).then((item) => {
       if (item) {
         this.form.patchValue({
           ...item
-        }) 
+        })
         this.api.setPreview(item.picture, 'medium')
       }
     }).catch((e) => {});
@@ -105,11 +104,11 @@ export class PostFormPage {
 
   delete(post) {
     this.utils.showConfirm(() => {
-      this.database.remove(post).then(res => {
-        this.navCtrl.setRoot('FeedPage');   
+      this.database.remove('posts', post).then(res => {
+        this.navCtrl.setRoot('FeedPage');
       });
     })
-  } 
+  }
 
   loadEmbed() {
     delete this.api.preview;
@@ -120,9 +119,9 @@ export class PostFormPage {
           if (res) {
             this.form.patchValue({ 'picture': res } )
             this.form.patchValue({ 'category': 'book' } )
-            this.api.setPreview(res)            
+            this.api.setPreview(res)
           }
-        }, 
+        },
         error => {
           console.log('preview_pdf error:', error);
         });
@@ -148,8 +147,8 @@ export class PostFormPage {
               } else {
                 this.form.patchValue({ 'oembed': res['html'] } )
               }
-            }         
-          }, 
+            }
+          },
           error =>{
             console.log('oembed error:', error);
           }
@@ -157,10 +156,10 @@ export class PostFormPage {
       }
       // https://www.youtube.com/watch?v=gSPNRu4ZPvE
     }
-  } 
+  }
 
   setCategory(category) {
-    this.form.patchValue({ category: category}) 
+    this.form.patchValue({ category: category})
   }
 
 }

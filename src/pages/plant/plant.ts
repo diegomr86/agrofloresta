@@ -16,13 +16,13 @@ export class PlantPage {
   plant;
 
   constructor(public navCtrl: NavController, navParams: NavParams, public database: Database, public api: Api, public utils: Utils) {
-    this.database.get(navParams.get('id')).then(res => {
+    this.database.get('plants', navParams.get('id')).then(res => {
       this.plant = res
     });
   }
 
   edit() {
     this.navCtrl.push('PlantFormPage', { id: this.plant._id });
-  } 
+  }
 
 }

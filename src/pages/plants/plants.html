@@ -17,14 +17,10 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="(!plants || plants.length < 1) && !searching" text-center padding>
-    <ion-spinner></ion-spinner>
-    <p>Carregando tabela de plantas...</p>
-  </div>
-  <div *ngIf="(plants && plants.length > 0) || searching">
-    <ion-searchbar (ionInput)="search($event)" placeholder="Procurar"></ion-searchbar>
+  <div>
+    <ion-searchbar [(ngModel)]="filters.search" (ionInput)="search()" placeholder="Procurar"></ion-searchbar>
     <ion-grid>
-      <ion-row> 
+      <ion-row>
         <ion-col>
           <ion-select [(ngModel)]="filters.cycle" (ionChange)="search()" interface="popover" >
             <ion-option value="">Todos os ciclos</ion-option>
@@ -39,6 +35,9 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+    <div *ngIf="plants && plants.length == 0 && !searching" text-center padding>
+      <p>Nenhum ítem encontrado</p>
+    </div>
     <ion-list>
       <ion-item-sliding *ngFor="let plant of plants">
         <button ion-item (click)="open(plant._id)">

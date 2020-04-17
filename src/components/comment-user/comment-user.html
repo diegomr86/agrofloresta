@@ -1,13 +1,13 @@
-<ion-item *ngIf="user">
+<ion-item *ngIf="comment.user">
 	<ion-avatar item-start>
-	  <img img-cache [source]="this.api.imageUrl(user.picture, 'thumb')"> 
+	  <img img-cache [source]="this.api.imageUrl(comment.user.picture, 'thumb')">
 	</ion-avatar>
   <ion-row>
     <ion-col>
-			<h5>{{ user.name }}</h5>
+			<h5>{{ comment.user.name }}</h5>
     </ion-col>
   	<ion-col>
-			<small float-end>{{ comment.created_at | timeAgo }} <ion-icon *ngIf="database.currentUser && database.currentUser._id == comment.user_id" name="trash" (click)="delete()"></ion-icon></small>
+			<small float-end>{{ comment.created_at | timeAgo }} <ion-icon *ngIf="database.currentUser && database.currentUser._id == comment.user._id" name="trash" (click)="delete()"></ion-icon></small>
     </ion-col>
   </ion-row>
 

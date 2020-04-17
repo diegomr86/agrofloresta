@@ -19,13 +19,13 @@ import { Database, Api } from '../../providers';
 export class ProfilePage {
   profile;
 	posts;
-	
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database, public api: Api) {
     if (navParams.get('id')) {
-      this.database.getUser(navParams.get('id')).then(res => {
+      this.database.get('users', navParams.get('id')).then(res => {
         this.profile = res
         this.loadPosts()
-      });      
+      });
     } else {
       this.profile = this.database.currentUser
     }
@@ -40,15 +40,15 @@ export class ProfilePage {
   }
 
   loadPosts() {
-    this.database.query('post', '', { user_id: this.profile._id }).then(docs => {
+    this.database.query('posts', '', { user: this.profile._id }).then(docs => {
       this.posts = docs
     })
   }
 
   logout() {
-    this.navCtrl.setRoot('WelcomePage');   
+    this.navCtrl.setRoot('WelcomePage');
     this.database.logout()
-    // this.menuCtrl.close(); 
+    // this.menuCtrl.close();
   }
 
 }

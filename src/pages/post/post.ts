@@ -17,7 +17,7 @@ export class PostPage {
   tags;
 
 	constructor(public navCtrl: NavController, navParams: NavParams, public database: Database, public api: Api, public utils: Utils) {
-    this.database.get(navParams.get('id')).then(res => {
+    this.database.get('posts', navParams.get('id')).then(res => {
     	this.post = res
       this.tags = this.post.tags.map(function(v) {
         return (typeof v == 'string') ? v : v['value'];
@@ -28,11 +28,11 @@ export class PostPage {
 
   edit() {
     this.navCtrl.push('PostFormPage', { id: this.post._id });
-  } 
+  }
 
   open(tag) {
     this.navCtrl.push('FeedPage', { tag: tag });
-  } 
+  }
 
   like(post) {
     if (post.likes) {
@@ -44,7 +44,7 @@ export class PostPage {
     } else {
       post.likes = [this.database.currentUser._id]
     }
-    this.database.put(post).then(p => {
+    this.database.put('posts', post).then(p => {
       this.post = p
     });
   }
@@ -59,7 +59,7 @@ export class PostPage {
     } else {
       post.dislikes = [this.database.currentUser._id]
     }
-    this.database.put(post).then(p => {
+    this.database.put('posts', post).then(p => {
       this.post = p;
     });
   }

@@ -17,8 +17,6 @@ import { Utils } from '../../utils/utils';
   templateUrl: 'topic-form.html',
 })
 export class TopicFormPage {
-  @ViewChild('fileInput') fileInput;
-
   Object = Object;
   isReadyToSave: boolean;
   topic;
@@ -26,19 +24,18 @@ export class TopicFormPage {
 
   form: FormGroup;
 
-  constructor(public navCtrl: NavController, 
-    public toastCtrl: ToastController, 
-    public formBuilder: FormBuilder, 
-    public database: Database, 
-    public api: Api, 
-    public utils: Utils, 
+  constructor(public navCtrl: NavController,
+    public toastCtrl: ToastController,
+    public formBuilder: FormBuilder,
+    public database: Database,
+    public api: Api,
+    public utils: Utils,
     params: NavParams) {
-      
+
     this.form = formBuilder.group({
       type: ['topic', Validators.required],
-      user_id: [database.currentUser._id, Validators.required],
+      user: [database.currentUser._id, Validators.required],
       _id: [''],
-      $id: [''],
       title: ['', Validators.required],
       content: ['', Validators.required],
       tags: [[]],
@@ -56,7 +53,7 @@ export class TopicFormPage {
 
 
     this.autocompleteTags = []
-    this.database.query('topic').then(res => {
+    this.database.query('topics').then(res => {
       res.forEach((a) => {
         this.autocompleteTags = this.autocompleteTags.concat(a.tags)
       });
@@ -68,22 +65,22 @@ export class TopicFormPage {
   }
 
   edit(id) {
-    this.database.get(id).then((item) => {
+    this.database.get('topics', id).then((item) => {
       if (item) {
         this.topic = item
         this.form.patchValue({
           ...item
-        }) 
+        })
     }}).catch((e) => {});
   }
 
   delete(topic) {
     this.utils.showConfirm(() => {
-      this.database.remove(topic).then(res => {
-        this.navCtrl.setRoot('ForumPage');   
+      this.database.remove('topics', topic).then(res => {
+        this.navCtrl.setRoot('ForumPage');
       });
     })
-  } 
+  }
 
   save() {
     if (!this.form.valid) { return; }
@@ -94,17 +91,15 @@ export class TopicFormPage {
       this.form.patchValue({ tags: tags });
 
       if (!this.form.controls._id) {
-        this.form.patchValue({ comments: [{ user_id: this.database.currentUser._id, message: this.form.controls.content.value, created_at: new Date() }] });
+        this.form.patchValue({ comments: [{ user: this.database.currentUser._id, message: this.form.controls.content.value, created_at: new Date() }] });
       }
 
       console.log('this.form.value', this.form.value);
-      this.database.save(this.form.value).then(res => {
+      this.database.save("topics", this.form.value).then(res => {
         this.navCtrl.setRoot('ForumPage');
-        this.navCtrl.push('TopicPage', { id: res.id });
-      }).catch((e) => {
-        this.utils.showToast(e.message, 'error');
+        this.navCtrl.push('TopicPage', { id: res._id });
       })
     })
   }
-  
+
 }

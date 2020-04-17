@@ -55,18 +55,18 @@
       <ion-col>
         <button ion-button color="primary" clear small icon-start (click)="showComments(post._id)">
             <ion-icon name='text'></ion-icon>
-            {{ post.comments && post.comments.length > 0 ? post.comments.length : 0 }} COMENTÁRIOS  
+            {{ post.comments && post.comments.length > 0 ? post.comments.length : 0 }} COMENTÁRIOS
           </button>
       </ion-col>
     </ion-row>
     <div padding *ngIf="commentPost == post._id">
-      <comments [item]="post" [items]="posts"></comments>
+      <comments [item]="post" [items]="posts" item_type="posts"></comments>
     </div>
-    <br>    
+    <br>
   </ion-card>
   <ion-infinite-scroll (ionInfinite)="showMore($event)">
    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando postagens...">
    </ion-infinite-scroll-content>
   </ion-infinite-scroll>
-  
+
 </ion-content>

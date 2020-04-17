@@ -15,10 +15,10 @@ export class GuidesPage {
   searching;
 
   constructor(public navCtrl: NavController, public database: Database, public api: Api, public modalCtrl: ModalController) {
-    this.database.query('guide', '').then(res => {
+    this.database.query('guides', '').then(res => {
     	console.log('guides', res);
       this.guides = res;
-    })     
+    })
 
     this.filters = {
       cycle: '',
@@ -38,14 +38,14 @@ export class GuidesPage {
     if (ev) {
       val = ev.target.value;
     }
-    this.database.query('guide', val, this.filters).then(docs => {
+    this.database.query('guides', val, this.filters).then(docs => {
       this.guides = docs;
-    })    
+    })
   }
 
   add() {
     this.navCtrl.push('GuideFormPage');
-  } 
+  }
 
   open(id) {
     this.navCtrl.push('GuidePage', {
