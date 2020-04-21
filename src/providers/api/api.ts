@@ -1,17 +1,18 @@
 import { HttpClient, HttpRequest, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Database } from '../database/database';
 
 /**
  * Api is a generic REST Api handler. Set your API url first.
  */
 @Injectable()
 export class Api {
-  // url: string = 'http://localhost:5000/';
-  url: string = 'https://agrofloresta.diegomr86.ga/';
+  url: string = 'http://localhost:3000/';
+  // url: string = 'https://agrofloresta.diegomr86.ga/';
   loading: boolean = false;
   preview: any;
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, public database: Database) {
   }
 
   fileUpload(fileItem:File, extraData?:object):any{
@@ -25,7 +26,8 @@ export class Api {
       }
     }
 
-    const req = new HttpRequest('POST', this.url+'images', formData);
+    console.log(this.database.httpHeaders())
+    const req = new HttpRequest('POST', this.url+'api/uploads/images', formData, { headers: this.database.httpHeaders() });
     return this.http.request(req)
   }
 
@@ -41,7 +43,7 @@ export class Api {
       if (picture['url'].startsWith('http')) {
         return encodeURI(picture['url'])
       } else {
-        return encodeURI(this.url + (path && picture[path] ? picture[path] : picture['medium']))  
+        return encodeURI(this.url + (path && picture[path] ? picture[path] : picture['medium']))
       }
     }
   }
@@ -55,7 +57,7 @@ export class Api {
           this.setPreview(event.body, 'medium')
           form.patchValue({ 'picture': event.body });
         }
-      }, 
+      },
       error =>{
         this.loading = false
       }

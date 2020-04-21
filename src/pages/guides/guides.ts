@@ -15,8 +15,7 @@ export class GuidesPage {
   searching;
 
   constructor(public navCtrl: NavController, public database: Database, public api: Api, public modalCtrl: ModalController) {
-    this.database.query('guides', '').then(res => {
-    	console.log('guides', res);
+    this.database.query('guides').then(res => {
       this.guides = res;
     })
 
@@ -38,7 +37,7 @@ export class GuidesPage {
     if (ev) {
       val = ev.target.value;
     }
-    this.database.query('guides', val, this.filters).then(docs => {
+    this.database.query('guides', this.filters).then(docs => {
       this.guides = docs;
     })
   }

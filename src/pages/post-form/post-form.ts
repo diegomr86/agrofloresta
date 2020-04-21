@@ -60,12 +60,14 @@ export class PostFormPage {
 
       this.autocompleteTags = []
       this.database.query('posts').then(res => {
-        res.forEach((a) => {
-          this.autocompleteTags = this.autocompleteTags.concat(a.tags)
-        });
-        this.autocompleteTags = this.autocompleteTags.map(function(v) {
-          return (typeof v == 'string') ? v : v['value'];
-        }).filter((v, i, a) => a.indexOf(v) === i).sort()
+        if (res) {
+          res.forEach((a) => {
+            this.autocompleteTags = this.autocompleteTags.concat(a.tags)
+          });
+          this.autocompleteTags = this.autocompleteTags.map(function(v) {
+            return (typeof v == 'string') ? v : v['value'];
+          }).filter((v, i, a) => a.indexOf(v) === i).sort()          
+        }
       });
 
 

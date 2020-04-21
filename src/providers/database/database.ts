@@ -39,11 +39,11 @@ export class Database {
   }
 
   query(type, params = {}) {
-    return this.http.get(this.baseUrl + type, { params: params, headers: this.httpHeaders() }).toPromise().catch(e => this.showError(e, this.utils))
+    return this.http.get<any[]>(this.baseUrl + type, { params: params, headers: this.httpHeaders() }).toPromise().catch(e => this.showError(e, this.utils))
   }
 
   get(type: string, id: string) {
-    return this.http.get(this.baseUrl + type + '/' + id, { headers: this.httpHeaders() }).toPromise().catch(e => this.showError(e, this.utils))
+    return this.http.get<any>(this.baseUrl + type + '/' + id, { headers: this.httpHeaders() }).toPromise().catch(e => this.showError(e, this.utils))
   }
 
   save(type: string, item: Item) {
@@ -56,19 +56,19 @@ export class Database {
   }
 
   post(type: string, item: Item) {
-    return this.http.post(this.baseUrl + type, item, { headers: this.httpHeaders() }).toPromise().catch(e => this.showError(e, this.utils))
+    return this.http.post<any>(this.baseUrl + type, item, { headers: this.httpHeaders() }).toPromise().catch(e => this.showError(e, this.utils))
   }
 
   put(type: string, item: Item) {
-    return this.http.put(this.baseUrl + type + '/' + item._id, item, { headers: this.httpHeaders() }).toPromise().catch(e => this.showError(e, this.utils))
+    return this.http.put<any>(this.baseUrl + type + '/' + item._id, item, { headers: this.httpHeaders() }).toPromise().catch(e => this.showError(e, this.utils))
   }
 
   remove(type: string, item: Item) {
-    return this.http.delete(this.baseUrl + type + '/' + item._id, { headers: this.httpHeaders() }).toPromise().catch(e => this.showError(e, this.utils))
+    return this.http.delete<any>(this.baseUrl + type + '/' + item._id, { headers: this.httpHeaders() }).toPromise().catch(e => this.showError(e, this.utils))
   }
 
-  saveProfile(type, item) {
-    this.put(item).then((res) => {
+  saveProfile(item) {
+    return this.put('users', item).then((res) => {
       return this.login(item._id)
     });
   }
@@ -86,7 +86,7 @@ export class Database {
   }
 
   async login(email) {
-    var res = await this.http.post(this.baseUrl + "users/login", { email: email, password: 'agrofloresta' }).toPromise().catch(e => this.showError(e, this.utils))
+    var res = await this.http.post<any>(this.baseUrl + "users/login", { email: email, password: 'agrofloresta' }).toPromise().catch(e => this.showError(e, this.utils))
     if (res && res._id) {
       this.storage.set('currentUser', res);
       this.currentUser = res
@@ -131,11 +131,13 @@ export class Database {
 
   public loadAdditionalFields(type) {
     return this.query(type).then(docs => {
-      this.additional_fields = docs.map((item) => item.additional_fields).filter((a) => a)
-      this.additional_fields = this.additional_fields.reduce((a, b) => a.concat(b), []);
-      this.additional_fields = this.additional_fields.reduce((a, b) => a.concat(b.name), []);
-      this.additional_fields = this.additional_fields.filter((el, i, a) => i === a.indexOf(el))
-      return this.additional_fields
+      if (docs) {
+        this.additional_fields = docs.map((item) => item.additional_fields).filter((a) => a)
+        this.additional_fields = this.additional_fields.reduce((a, b) => a.concat(b), []);
+        this.additional_fields = this.additional_fields.reduce((a, b) => a.concat(b.name), []);
+        this.additional_fields = this.additional_fields.filter((el, i, a) => i === a.indexOf(el))
+        return this.additional_fields        
+      }
     });
   }
 

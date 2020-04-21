@@ -40,7 +40,7 @@ export class ProfilePage {
   }
 
   loadPosts() {
-    this.database.query('posts', '', { user: this.profile._id }).then(docs => {
+    this.database.query('posts', { user: this.profile._id }).then(docs => {
       this.posts = docs
     })
   }

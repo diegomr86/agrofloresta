@@ -52,12 +52,14 @@ export class TopicFormPage {
 
     this.autocompleteTags = []
     this.database.query('topics').then(res => {
-      res.forEach((a) => {
-        this.autocompleteTags = this.autocompleteTags.concat(a.tags)
-      });
-      this.autocompleteTags = this.autocompleteTags.map(function(v) {
-        return (typeof v == 'string') ? v : v['value'];
-      }).filter((v, i, a) => a.indexOf(v) === i).sort()
+      if (res) {
+        res.forEach((a) => {
+          this.autocompleteTags = this.autocompleteTags.concat(a.tags)
+        });
+        this.autocompleteTags = this.autocompleteTags.map(function(v) {
+          return (typeof v == 'string') ? v : v['value'];
+        }).filter((v, i, a) => a.indexOf(v) === i).sort()        
+      }
     });
 
   }
@@ -90,9 +92,6 @@ export class TopicFormPage {
 
       this.database.save("topics", this.form.value).then(res => {
         if (res) {
-          console.log("this.form.controls._id")
-          console.log(this.form.controls._id)
-          console.log(!this.form.controls._id)
           if (!this.form.controls._id.value) {
             this.database.save("comments", { topic: res._id, message: this.form.controls.content.value })
           }

@@ -37,6 +37,9 @@ export class FeedPage {
       this.searching  = true
     }
     this.database.query('posts', { category: this.navParams.get('category'), tags: this.navParams.get('tag') }).then(res => {
+      console.log('typeof res')
+      console.log(typeof res)
+      console.log(res)
       if (res) {
         let that = this
         console.log('res')

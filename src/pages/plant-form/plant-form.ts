@@ -55,15 +55,16 @@ export class PlantFormPage {
       this.edit(params.get('id'))
     }
 
-    this.database.loadAdditionalFields('plant').then(res => {
+    this.database.loadAdditionalFields('plants').then(res => {
       res.forEach((a) => this.addAdditionalField(a));
     });
 
     this.autocompleteCompanions = []
     this.database.query('plants').then(res => {
-      console.log('res', res);
-      res.forEach((a) => this.autocompleteCompanions.push(a.name));
-      this.autocompleteCompanions = this.autocompleteCompanions.sort()
+      if (res) {
+        res.forEach((a) => this.autocompleteCompanions.push(a.name));
+        this.autocompleteCompanions = this.autocompleteCompanions.sort()
+      }
     });
 
     this.api.preview = false

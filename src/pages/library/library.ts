@@ -55,7 +55,7 @@ export class LibraryPage {
       this.searching = true
     }
     console.log('list: query!');
-    this.database.query('posts', name, { category: this.navParams.get('category'), tags: this.navParams.get('tag') }).then(res => {
+    this.database.query('posts', { category: this.navParams.get('category'), tags: this.navParams.get('tag') }).then(res => {
       console.log('list: res'+JSON.stringify(res));
       if (res && res.length > 0) {
         this.posts = res.sort(function(a, b){
