@@ -22,6 +22,8 @@ export class ImgCacheDirective implements OnInit, OnDestroy {
 
   @Input('source') // double check
   public source: string = '';
+  @Input('noitem') // double check
+  public noitem: string = '';
 
   @Output()
   public loaded: EventEmitter<void> = new EventEmitter<void>();
@@ -52,11 +54,11 @@ export class ImgCacheDirective implements OnInit, OnDestroy {
     });
 
     if (!this.source) {
-      this.source = "assets/img/logo.png"
+      this.source = this.noitem || "assets/img/logo.png"
     }
 
     this.renderer.setAttribute(nativeElement, 'src', this.source);
-    
+
     // cache img and set the src to the img
     if (this.platform.is('android')) {
       this.cacheSubscription =

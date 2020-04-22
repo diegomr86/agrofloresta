@@ -22,7 +22,7 @@ import { ImgCacheService } from '../global';
           </ion-buttons>
 
           <ion-title *ngIf="this.database.currentUser">
-            Rede Agrofloresta
+            Rede Agroflorestal
           </ion-title>
         </ion-toolbar>
       </ion-header>
@@ -31,10 +31,10 @@ import { ImgCacheService } from '../global';
         <ion-list>
           <ion-item menuClose *ngIf="this.database.currentUser" (click)="profile(this.database.currentUser)" class="menu_profile">
             <ion-avatar item-start>
-              <img img-cache [source]="this.api.imageUrl(this.database.currentUser.picture, 'thumb')" >
+              <img img-cache [source]="this.api.imageUrl(this.database.currentUser.picture, 'thumb')" noitem="assets/img/no-user.png" >
             </ion-avatar>
-            <h2>{{this.database.currentUser.username}}</h2>
-            <p>{{this.database.currentUser.name}}</p>
+            <h2>{{this.database.currentUser.name}}</h2>
+            <p>{{this.database.currentUser.email}}</p>
           </ion-item>
           <button menuClose ion-item (click)="openPage('HomePage')">Início</button>
           <button menuClose ion-item (click)="openPage('PlantsPage')">Catálogo de espécies</button>

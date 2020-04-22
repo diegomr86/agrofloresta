@@ -12,6 +12,7 @@ export class CommentsComponent {
 
   message;
   comments;
+  loading = false;
 
   constructor(public database: Database, public utils: Utils, public api: Api) {
     this.message = ''
@@ -22,8 +23,10 @@ export class CommentsComponent {
   }
 
   list() {
+    this.loading = true
     this.database.query('comments/' + this.item._id, { type: this.item_type }).then(comments => {
       this.comments = comments
+      this.loading = false
     });
   }
 
@@ -40,6 +43,7 @@ export class CommentsComponent {
           } else {
             this.comments = [comment]
           }
+          this.item.comments = this.comments
           this.utils.showToast('Comentário enviado. Obrigado por contribuir!', 'success');
 
           this.item.updatedAt = new Date();
@@ -52,8 +56,9 @@ export class CommentsComponent {
 
   delete(comment){
     if (comment.user._id == this.database.currentUser._id) {
-      this.comments = this.comments.filter(c => c !== comment)
       this.database.remove('comments', comment).then(comment => {
+        this.comments = this.comments.filter(c => c._id !== comment._id)
+        this.item.comments = this.comments
         this.utils.showToast('O comentário foi excluído', 'success');
       });
     }

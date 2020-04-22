@@ -30,7 +30,7 @@
 	<div *ngIf="profile">
 	  <ion-item class="profile_user">
 	    <ion-avatar item-start>
-	      <img img-cache [source]="this.api.imageUrl(profile.picture, 'medium')" >
+	      <img img-cache [source]="this.api.imageUrl(profile.picture, 'medium')"  noitem="assets/img/no-user.png">
 	    </ion-avatar>
 	    <h2>{{profile.name}}</h2>
 	    <p *ngIf="profile.location"><strong>{{profile.location}}</strong></p>

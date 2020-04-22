@@ -1,1 +1,1 @@
-<img *ngIf="user" img-cache (click)="profile(user)" [source]="this.api.imageUrl(user.picture, 'thumb')">
+<img *ngIf="user" img-cache (click)="profile(user)" [source]="this.api.imageUrl(user.picture, 'thumb')" noitem="assets/img/no-user.png">

@@ -1,6 +1,6 @@
 <div *ngIf="item && item.user" item-right class="user" >
   <p class="description" *ngIf="item.createdAt == item.updatedAt">Criado por: </p>
   <p class="description" *ngIf="item.createdAt != item.updatedAt">Editado por: </p>
-  <p class="profile" (click)="profile(item.user)"><img img-cache [source]="this.api.imageUrl(item.user.picture, 'thumb')"> <strong>{{item.user.name}}</strong></p>
+  <p class="profile" (click)="profile(item.user)"><img img-cache [source]="this.api.imageUrl(item.user.picture, 'thumb')" noitem="assets/img/no-user.png"> <strong>{{item.user.name}}</strong></p>
   <p *ngIf="item.createdAt">Em: {{ item.createdAt| date: 'dd/MM/yyyy H:mm' }}</p>
 </div>

@@ -5,8 +5,8 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title *ngIf="!category">Biblioteca</ion-title>
-    <ion-title *ngIf="category">Biblioteca - {{categories[category]}}</ion-title>
+    <ion-title *ngIf="!filters.category">Biblioteca</ion-title>
+    <ion-title *ngIf="filters.category">Biblioteca - {{categories[filters.category]}}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="add()">
         <ion-icon name="add"></ion-icon>
@@ -15,7 +15,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <div class="categories" *ngIf="!category">
+  <div class="categories" *ngIf="!filters.category">
     <br>
     <h6>Selecione o tipo de conteúdo:</h6>
     <br>
@@ -40,24 +40,24 @@
       </ion-col>
     </ion-row>
   </div>
-  <div *ngIf="category">
-    <div *ngIf="(!posts || posts.length < 1) && !searching" text-center padding>
+  <div *ngIf="filters.category">
+    <div *ngIf="searching" text-center padding>
       <ion-spinner></ion-spinner>
       <p>Carregando postagens...</p>
     </div>
-    <ion-searchbar (ionInput)="search($event)" placeholder="Procurar"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="filters.search" (ionInput)="search($event)" placeholder="Procurar"></ion-searchbar>
     <ion-item-sliding *ngFor="let post of posts">
       <button ion-item (click)="open(post._id)">
         <ion-avatar item-start *ngIf="post.picture">
-          <img img-cache [source]="this.api.imageUrl(post.picture, 'thumb')">          
+          <img img-cache [source]="this.api.imageUrl(post.picture, 'thumb')">
         </ion-avatar>
         <h2>{{post.title}}</h2>
         <p [innerHtml]="post.content | truncate" class="post_content"></p>
       </button>
     </ion-item-sliding>
-    <ion-infinite-scroll (ionInfinite)="showMore($event)">
+    <ion-infinite-scroll (ionInfinite)="showMore($event)" position="bottom" threshold="0px">
      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando postagens...">
      </ion-infinite-scroll-content>
     </ion-infinite-scroll>
-  </div>  
+  </div>
 </ion-content>

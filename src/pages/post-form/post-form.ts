@@ -32,11 +32,9 @@ export class PostFormPage {
       this.form = formBuilder.group({
 	      category: ['', Validators.required],
         _id: [''],
-	      user: [this.database.currentUser._id, Validators.required],
 	      picture: [''],
 	      title: ['', Validators.required],
         content: ['', Validators.required],
-        createdAt: [new Date(), Validators.required],
         url: [''],
         oembed: [''],
         start_time: [''],
@@ -59,18 +57,11 @@ export class PostFormPage {
       }
 
       this.autocompleteTags = []
-      this.database.query('posts').then(res => {
+      this.database.query('posts/tags').then(res => {
         if (res) {
-          res.forEach((a) => {
-            this.autocompleteTags = this.autocompleteTags.concat(a.tags)
-          });
-          this.autocompleteTags = this.autocompleteTags.map(function(v) {
-            return (typeof v == 'string') ? v : v['value'];
-          }).filter((v, i, a) => a.indexOf(v) === i).sort()          
+            this.autocompleteTags = res
         }
       });
-
-
   	}
   }
 
@@ -127,7 +118,7 @@ export class PostFormPage {
           console.log('preview_pdf error:', error);
         });
       } else {
-        this.http.get(this.api.url+"oembed?url="+encodeURI(this.form.controls.url.value)).subscribe(
+        this.http.get(this.database.baseUrl+"uploads/oembed?url="+encodeURI(this.form.controls.url.value)).subscribe(
           res => {
             // this.oembed = res;
             if (res) {

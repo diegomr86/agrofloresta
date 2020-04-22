@@ -1,9 +1,10 @@
 <div *ngIf="this.form.controls">
 	<div class="preview-image-wrapper" (click)="getPicture()">
 	  <div class="preview-image-placeholder" *ngIf="!this.form.controls.picture.value && !this.api.loading">
-      <ion-icon name="cloud-upload"></ion-icon>
+      <ion-icon [name]="type == 'book' ? 'ios-bookmarks-outline' : 'ios-camera-outline'"></ion-icon>
+      <ion-icon name=""></ion-icon>
       <div>
-        Adicionar {{ type == 'book' ? 'livro PDF' : 'imagem' }}
+        Selecione {{ type == 'book' ? 'um livro PDF' : 'uma imagem' }} para enviar
       </div>
 	  </div>
 	  <img class="preview-image" [src]="this.api.preview" *ngIf="this.api.preview">

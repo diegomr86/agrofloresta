@@ -5,8 +5,8 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title *ngIf="category != 'event'">Últimas Postagens</ion-title>
-    <ion-title *ngIf="category == 'event'">Eventos</ion-title>
+    <ion-title *ngIf="filters.category != 'event'">Últimas Postagens</ion-title>
+    <ion-title *ngIf="filters.category == 'event'">Eventos</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="add()">
         <ion-icon name="add"></ion-icon>
@@ -15,6 +15,22 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
+  <div padding text-center *ngIf="filters.category == 'event'">
+    <p>
+      Este espaço é dedicado ao compartilhamento de eventos
+    </p>
+    <button ion-button (click)="add()">
+      Adicionar evento
+    </button>
+  </div>
+  <div padding text-center *ngIf="filters.category != 'event'">
+    <p>
+      Este espaço é dedicado ao compartilhamento de eventos e conteúdos
+    </p>
+    <button ion-button (click)="add()">
+      Adicionar postagem
+    </button>
+  </div>
   <div *ngIf="(!posts || posts.length < 1) && !searching" text-center padding>
     <ion-spinner></ion-spinner>
     <p>Carregando postagens...</p>
@@ -43,19 +59,15 @@
       <ion-col>
         <ion-buttons left class="vote">
           <button ion-button color="primary" clear small icon-start (click)="like(post)">
-            <ion-icon name='thumbs-up'></ion-icon>
-            ({{ post.likes && post.likes.length > 0 ? post.likes.length : 0 }})
-          </button>
-          <button ion-button color="primary" clear small icon-start (click)="dislike(post)">
-            <ion-icon name='thumbs-down'></ion-icon>
-            ({{ post.dislikes && post.dislikes.length > 0 ? post.dislikes.length : 0 }})
+            <ion-icon [name]="likeIcon(post)"></ion-icon>
+            <small>({{ post.likes && post.likes.length > 0 ? post.likes.length : 0 }})</small>
           </button>
         </ion-buttons>
       </ion-col>
       <ion-col>
         <button ion-button color="primary" clear small icon-start (click)="showComments(post._id)">
             <ion-icon name='text'></ion-icon>
-            {{ post.comments && post.comments.length > 0 ? post.comments.length : 0 }} COMENTÁRIOS
+            <small>{{ post.comments && post.comments.length > 0 ? post.comments.length : 0 }} Comentários</small>
           </button>
       </ion-col>
     </ion-row>

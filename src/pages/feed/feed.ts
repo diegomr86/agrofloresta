@@ -9,70 +9,57 @@ import { Database, Api } from '../../providers';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+ @IonicPage({
+   segment: "feed/:category"
+ })
 @Component({
   selector: 'page-feed',
   templateUrl: 'feed.html',
 })
 export class FeedPage {
-
+  searching = false;
+  filters;
   posts;
-	morePosts;
-  commentPost;
-  category;
-  tag;
-  searching;
+	commentPost;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database, public api: Api) {
+
+    this.filters = {
+      category: '',
+      tag: '',
+      search: '',
+      page: 1
+    }
+    if (navParams.get('category')) {
+      this.filters.category = navParams.get('category')
+    }
+    if (navParams.get('tag')) {
+      this.filters.tag = navParams.get('tag')
+    }
     this.list();
-    this.searching = false
   }
 
   list() {
-    this.posts = []
-    this.morePosts = []
-    this.category = this.navParams.get('category');
-    this.tag = this.navParams.get('tag');
-    if (this.category || this.tag) {
-      this.searching  = true
-    }
-    this.database.query('posts', { category: this.navParams.get('category'), tags: this.navParams.get('tag') }).then(res => {
-      console.log('typeof res')
-      console.log(typeof res)
-      console.log(res)
-      if (res) {
-        let that = this
-        console.log('res')
-        console.log(res)
-        res.forEach(function (post) {
-          let likes = post.likes ? post.likes.length : 0
-          let dislikes = post.dislikes ? post.dislikes.length : 0
-          post.score = that.hotScore(likes, dislikes, post.createdAt);
-          that.posts.push(post)
-        });
-        this.posts = this.posts.sort((a, b) => a.score - b.score).reverse();
-
-        if (this.posts && this.posts.length > 5) {
-          this.morePosts = this.posts.slice(5, this.posts.length+1)
-          this.posts = this.posts.slice(0, 5)
-        }
-
-      } else {
-        // setTimeout(() => {
-        //   console.log('list: timeout');
-        //   this.list();
-        // }, 5000);
+    this.searching = true
+    this.database.query('posts', this.filters).then(res => {
+      if (!this.posts) {
+        this.posts = []
       }
-    });
+      this.posts = this.posts.concat(res)
+      this.searching = false
+    })
   }
 
   showMore(infiniteScroll) {
-    if (this.morePosts && this.morePosts.length > 0) {
-      this.posts = this.posts.concat(this.morePosts.slice(0, 5))
-      this.morePosts = this.morePosts.slice(5, this.morePosts.length+1)
-    }
+    this.filters.page += 1
+    this.list()
     infiniteScroll.complete();
+  }
 
+  search() {
+    this.posts = []
+    this.filters.page = 1
+    this.list();
   }
 
   add() {
@@ -89,34 +76,30 @@ export class FeedPage {
 
   like(post) {
     if (post.likes) {
-      if (!post.likes.includes(this.database.currentUser._id)) {
-        post.likes.push(this.database.currentUser._id)
+      var like = post.likes.find(l => l.user == this.database.currentUser._id)
+      if (like) {
+        this.database.remove('likes', like).then(p => {
+          post.likes = post.likes.filter(l => l.user !== this.database.currentUser._id)
+        });
       } else {
-        post.likes = post.likes.filter(like => like !== this.database.currentUser._id)
+        this.database.save('likes', { post: post._id }).then(l => {
+          post.likes.push(l)
+        });
       }
     } else {
       post.likes = [this.database.currentUser._id]
     }
-    this.database.put('posts', post).then(p => {
-      this.posts = this.posts.map(function(item) { return item._id == p._id ? p : item; });
-    });
+
   }
 
-  dislike(post) {
-    if (post.dislikes) {
-      if (!post.dislikes.includes(this.database.currentUser._id)) {
-        post.dislikes.push(this.database.currentUser._id)
-      } else {
-        post.dislikes = post.dislikes.filter(like => like !== this.database.currentUser._id)
-      }
+  likeIcon(post) {
+    var like = post.likes.find(l => l.user == this.database.currentUser._id)
+    if (like) {
+      return 'ios-thumbs-up'
     } else {
-      post.dislikes = [this.database.currentUser._id]
+      return 'ios-thumbs-up-outline'
     }
-    this.database.put('posts', post).then(p => {
-      this.posts = this.posts.map(function(item) { return item._id == p._id ? p : item; });
-    });
   }
-
   showComments(post) {
     if (post == this.commentPost) {
       delete this.commentPost
@@ -125,12 +108,12 @@ export class FeedPage {
     }
   }
 
-  hotScore(ups, downs, date) {
-    var s = ups - downs
-      , sign = Math.sign(s)
-      , order = Math.log(Math.max(Math.abs(s), 1)) / Math.LN10
-      , secAge = (Date.now() - new Date(date).getTime()) / 1000;
-    return sign*order - secAge / 45000;
-  };
+  // hotScore(ups, downs, date) {
+  //   var s = ups - downs
+  //     , sign = Math.sign(s)
+  //     , order = Math.log(Math.max(Math.abs(s), 1)) / Math.LN10
+  //     , secAge = (Date.now() - new Date(date).getTime()) / 1000;
+  //   return sign*order - secAge / 45000;
+  // };
 
 }

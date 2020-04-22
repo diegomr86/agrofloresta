@@ -34,7 +34,7 @@ export class LoginPage {
   }
 
   login() {
-    var x = this.database.login(this.form.controls.email.value).then((resp) => {
+    this.database.login(this.form.controls.email.value).then((resp) => {
       if (resp) {
         this.navCtrl.setRoot(MainPage);
       }

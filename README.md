@@ -5,25 +5,26 @@ Plataforma de construção colaborativa de conhecimento sobre Agroflorestas.
 
 ## Objetivo
 
-Criar uma base de dados de conhecimento coletivo sobre agrofloresta que colabore para a difusão de conhecimentos desta forma de se fazer agricultura com sustentabilidade e ofereça ferramentas que os agricultores poderão utilizar na implementação e manutenção destes sistemas. 
+Criar uma base de dados de conhecimento coletivo sobre agrofloresta que colabore para a difusão de conhecimentos desta forma de se fazer agricultura com sustentabilidade e ofereça ferramentas que os agricultores poderão utilizar na implementação e manutenção destes sistemas.
 
 ## Requisitos principais
 
 1. Responsabilidade compartilhada: Todo o conteúdo é criado, mantido e/ou alterado pela própria comunidade;
 2. Qualquer pessoa pode criar ou alterar qualquer conteúdo;
 3. O Código fonte é aberto (open source);
-4. As informações devem estar disponíveis mesmo que o usuário não esteja conectado (offline first);
-5. Só é permitida a veiculação de publicidade sobre cursos, atividades e publicações relacionadas à Agrofloresta; 
+4. Algumas informações devem estar disponíveis mesmo que o usuário não esteja conectado (offline first);
+5. Só é permitida a veiculação de publicidade sobre cursos, atividades e publicações relacionadas à Agrofloresta;
 6. Deve ser acessível em qualquer plataforma Web, Android e IOS;
 7. Pode servir de base para criação de novas tecnologias relacionadas.
+8. Disponibilizar uma api para que outras tecnologias possam usar esta base de dados.
 
 ## Objetivos já alcançados
 
 - Catálogo de espécies: Uma lista contendo os cultivares e suas informações de ciclo, estrato, espaçamento, tempo de colheita, plantas companheiras, indicações de uso, etc;
-- Quiz: Faz perguntas sobre estrato, ciclo, espaçamento de cada planta com o objetivo de popular através do conhecimento coletivo, o catálogo de plantas;
+- Quiz: Faz perguntas sobre estrato, ciclo, espaçamento de cada planta com o objetivo de popular através do conhecimento coletivo e inteligência artificial a base de dados;
 - Postagens: Central de postagens onde qualquer pessoa pode postar um artigo, foto, vídeo, evento;
 - Guias de cultivo: Lista e formulário para cadastro de guias sobre agrofloresta;
-- Biblioteca: Aqui estará guardado todo o conteúdo postando na plataforma de forma organizada e acessível;
+- Biblioteca: Aqui estará guardado todo o conteúdo postado na plataforma de forma organizada e acessível;
 - Eventos: Central de eventos sobre agrofloresta como cursos, palestras, vivencias, etc;
 - CSAs: Página sobre as Comunidades que sustentam a agricultura com mapa das CSAs cadastradas no CSA Brasil.
 - Fórum: Um espaço para todo tipo de discussão relacionadas a Agroflorestas e Agroecologia;
@@ -32,7 +33,7 @@ Criar uma base de dados de conhecimento coletivo sobre agrofloresta que colabore
 ## Próximos objetivos
 
 - Banco de sementes distribuido: A idéia é cada usuário cadastrar as sementes que tem para doar e encontrar as sementes que precisa formando um banco distribuido de sementes;
-- Gerador de canteiros de canteiros: Através da base de dados do catálogo de plantas criar um algorítmo de inteligência artificial que irá gerar o canteiro ideal a partir das sementes e mudas que o usuário possúi;
+- Simulador de plantio: Através da base de dados do catálogo de plantas criar um algorítmo de inteligência artificial que irá gerar o desenho de plantio ideal a partir das sementes e mudas que o usuário possúi;
 - Mapa de agroflorestas: mapa real do país com os projetos agroflorestais cadastrados pela comunidade usando geolocalização;
 - TV agroflorestal: Player de vídeo com o conteúdo postado pelos usuários.
 
@@ -40,9 +41,9 @@ Criar uma base de dados de conhecimento coletivo sobre agrofloresta que colabore
 
 Você pode ajudar com esse projeto das seguintes formas:
 
-- Faça sua propria agrofloresta;
+- Faça sua própria agrofloresta;
 - Crie e ajude a melhorar o conteúdo da plataforma;
-- Colabore no desenvolvimento ou design da plataforma; 
+- Colabore no desenvolvimento ou design da plataforma;
 - Compartilhe com seus amigos;
 - Informe um poblema;
 - Faça uma doação;

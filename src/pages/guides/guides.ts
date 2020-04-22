@@ -33,10 +33,6 @@ export class GuidesPage {
   search(ev?) {
     this.searching = true
 
-    let val = '';
-    if (ev) {
-      val = ev.target.value;
-    }
     this.database.query('guides', this.filters).then(docs => {
       this.guides = docs;
     })

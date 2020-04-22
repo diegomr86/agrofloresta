@@ -50,7 +50,7 @@
       <div *ngIf="form.controls.category.value != 'video'">
     		<picture-upload [form]="form" [type]="form.controls.category.value == 'book' ? 'book' : 'image'"></picture-upload>
       </div>
-      <div *ngIf="form.controls.oembed.value" [innerHTML]="form.controls.oembed.value | safe: 'html'">      
+      <div *ngIf="form.controls.oembed.value" [innerHTML]="form.controls.oembed.value | safe: 'html'">
       </div>
       <ion-item stacked *ngIf="form.controls.category.value != 'picture' && form.controls.category.value != 'text'">
         <ion-label stacked *ngIf="form.controls.category.value == 'book'">Insira um link para o livro:</ion-label>
@@ -86,6 +86,11 @@
       <tag-input formControlName="tags" [placeholder]="'+ Palavra chave'" [secondaryPlaceholder]="'Adicione palavras chave'" [separatorKeyCodes]="[9]">
         <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="autocompleteTags" ></tag-input-dropdown>
       </tag-input>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
     </div>
 	</form>
 </ion-content>
