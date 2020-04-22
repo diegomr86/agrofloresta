@@ -12,7 +12,7 @@ export class TextEditorComponent {
   modules;
   selectLocalImage;
 
-  constructor(public api: Api) {    
+  constructor(public api: Api) {
 	  this.modules = {
 	    toolbar: [
 			  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -44,7 +44,7 @@ export class TextEditorComponent {
 			          this.insertToEditor(event.body.url)
 				        this.api.loading = false
 			        }
-			      }, 
+			      },
 			      error =>{
 			      	this.api.loading = false
 			        console.log(error);
@@ -66,7 +66,7 @@ export class TextEditorComponent {
   insertToEditor(url: string) {
     // push image url to rich editor.
     const range = this.editor.getSelection();
-    this.editor.insertEmbed(range.index, 'image', `${this.api.url}static/${url}`);
+    this.editor.insertEmbed(range.index, 'image', `${this.api.url}uploads/${url}`);
   }
 
   cachedImages(content: string) {

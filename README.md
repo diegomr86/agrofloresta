@@ -1,4 +1,4 @@
-# Plataforma Agrofloresta
+# Plataforma Rede Agroflorestal
 Plataforma de construção colaborativa de conhecimento sobre Agroflorestas.
 
 <img src="http://blog.tistu.com.br/wp-content/themes/tistu_blog/thumb.php?src=http://blog.tistu.com.br/wp-content/uploads/2016/03/agrofloresta_logo_6701.png&w=590&h=209&zc=1" width="590" />

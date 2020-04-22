@@ -8,7 +8,8 @@ import { Utils } from '../../utils/utils';
 @Injectable()
 export class Database {
 
-  public baseUrl = 'http://localhost:3000/api/';
+  // public baseUrl = 'http://localhost:3000/api/';
+  public baseUrl = 'https://www.redeagroflorestal.com.br/api/';
   public db;
   public userDb;
   public remote;
@@ -136,7 +137,7 @@ export class Database {
         this.additional_fields = this.additional_fields.reduce((a, b) => a.concat(b), []);
         this.additional_fields = this.additional_fields.reduce((a, b) => a.concat(b.name), []);
         this.additional_fields = this.additional_fields.filter((el, i, a) => i === a.indexOf(el))
-        return this.additional_fields        
+        return this.additional_fields
       }
     });
   }

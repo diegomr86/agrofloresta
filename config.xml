@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="br.agrofloresta.app" version="1.5.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Agrofloresta</name>
+    <name>Rede Agroflorestal</name>
     <description>Plataforma de contstrução colaborativa de conhecimento sobre Agroflorestas.</description>
     <author email="diegomr86@gmail.com" href="https://diegomr86.github.io/">Diego M. Rodrigues</author>
     <content src="index.html" />
@@ -38,7 +38,7 @@
     <platform name="android">
         <config-file parent="/resources" target="./res/values/strings.xml">
             <string name="fb_app_id">1053184128187969</string>
-            <string name="fb_app_name">Agrofloresta</string>
+            <string name="fb_app_name">Rede Agroflorestal</string>
         </config-file>
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -107,7 +107,7 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="2.0.5" />
     <plugin name="cordova-plugin-facebook4" spec="^2.3.0">
         <variable name="APP_ID" value="1053184128187969" />
-        <variable name="APP_NAME" value="Agrofloresta" />
+        <variable name="APP_NAME" value="Rede Agroflorestal" />
     </plugin>
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="Para melhorar sua interação" />

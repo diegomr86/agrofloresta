@@ -80,7 +80,7 @@
     "plugins": {
       "cordova-plugin-facebook4": {
         "APP_ID": "1053184128187969",
-        "APP_NAME": "Agrofloresta"
+        "APP_NAME": "Rede Agroflorestal"
       },
       "cordova-plugin-whitelist": {},
       "cordova-plugin-device": {},
