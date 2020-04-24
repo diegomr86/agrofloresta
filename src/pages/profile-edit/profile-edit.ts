@@ -33,11 +33,21 @@ export class ProfileEditPage {
 
     this.form = formBuilder.group({
       _id: ['', Validators.required],
-      username: ['', Validators.required],
+      email: ['', Validators.required],
       name: ['', Validators.required],
       picture: [''],
       bio: [''],
-      location: [''],
+      phone: [''],
+      address: formBuilder.group({
+        city: '',
+        uf: '',
+        street: '',
+        neighborhood: '',
+        complement: '',
+        postal_code: '',
+        description: '',
+        source: {}
+      }),
       roles: ['']
     });
 

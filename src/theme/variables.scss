@@ -17,7 +17,7 @@ $colors: (
   secondary:  #FFDC00,
   danger:     #FF4136,
   light:      #586069,
-  dark:       #24292e,
+  dark:       #212529,
 
 ) !default;
 
@@ -27,7 +27,7 @@ $link-color:                 color($colors, primary) !default;
 $background-color:           #fff !default;
 $subdued-text-color:         #666 !default;
 
-$font-family-base:           -apple-system, "Helvetica Neue", "Roboto", sans-serif !default;
+$font-family-base:           -apple-system, "Roboto", "Helvetica Neue", sans-serif !default;
 $font-size-base:             1.4rem !default; // 1.4rem == 14px
 
 $content-padding:            16px !default;

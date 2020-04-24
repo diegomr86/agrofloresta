@@ -9,7 +9,7 @@ import { Utils } from '../../utils/utils';
 export class Database {
 
   // public baseUrl = 'http://localhost:3000/api/';
-  public baseUrl = 'https://www.redeagroflorestal.com.br/api/';
+  public baseUrl = 'https://redeagroflorestal.com.br/api/';
   public db;
   public userDb;
   public remote;
@@ -70,14 +70,25 @@ export class Database {
 
   saveProfile(item) {
     return this.put('users', item).then((res) => {
-      return this.login(item._id)
+      return this.login(item.email)
     });
   }
 
-  signup(email, metadata = {}) {
+  signup(email) {
     return this.storage.get('currentPosition').then((position) => {
-      return this.userDb.signUp(email, 'agrofloresteiro', {
-        metadata: Object.assign({ position: position }, metadata)
+      var coordinates = []
+      if (position && position.latitude && position.longitude) {
+        coordinates = [Number(position.latitude), Number(position.longitude)]
+      }
+      return this.post('users/register', {
+        email: email,
+        password: 'agrofloresta',
+        address: {
+          location: {
+            type: "Point",
+            coordinates: coordinates
+          }
+        }
       }).then(resp => {
         if (resp) {
           return this.login(email)
@@ -87,7 +98,7 @@ export class Database {
   }
 
   async login(email) {
-    var res = await this.http.post<any>(this.baseUrl + "users/login", { email: email, password: 'agrofloresta' }).toPromise().catch(e => this.showError(e, this.utils))
+    var res = await this.http.post<any>(this.baseUrl + "users/login", { email: email, password: 'agrofloresta' }).toPromise()
     if (res && res._id) {
       this.storage.set('currentUser', res);
       this.currentUser = res

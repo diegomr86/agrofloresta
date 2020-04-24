@@ -70,7 +70,7 @@
     "zone.js": "0.8.26"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "^3.2.2",
+    "@ionic/app-scripts": "3.2.3",
     "@types/googlemaps": "^3.30.13",
     "@types/pouchdb": "^6.3.3",
     "typescript": "^3.8.3"

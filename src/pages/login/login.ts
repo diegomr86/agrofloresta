@@ -15,6 +15,7 @@ export class LoginPage {
 
   form: FormGroup;
   isReadyToSave: boolean;
+  user;
 
   constructor(public navCtrl: NavController,
     public database: Database,
@@ -23,7 +24,8 @@ export class LoginPage {
     public utils: Utils) {
 
     this.form = formBuilder.group({
-      email: ['diegomr86@gmail.com', Validators.required]
+      email: ['diegomr86@gmail.com', Validators.required],
+      password: ['']
     });
 
     this.form.valueChanges.subscribe((v) => {
@@ -33,13 +35,32 @@ export class LoginPage {
     this.isReadyToSave = this.form.valid;
   }
 
-  login() {
-    this.database.login(this.form.controls.email.value).then((resp) => {
-      if (resp) {
-        this.navCtrl.setRoot(MainPage);
+  loadUser() {
+    this.database.loadUser(this.form.controls.email.value).then((user) => {
+      if (user) {
+        this.user = user
       }
     }).catch((e) => {
-      if (e.name == 'not_found') {
+      if (e.status == 422 && this.form.controls.email.value) {
+        this.doSignup();
+      } else {
+        this.utils.showToast('Erro: '+JSON.stringify(e), 'error');
+      }
+    });
+  }
+
+  login() {
+    this.database.login(this.form.controls.email.value).then((user) => {
+      if (user) {
+        if (user.profileCompleted) {
+          this.navCtrl.setRoot(MainPage);
+        } else {
+          this.navCtrl.setRoot('ProfileEditPage');
+        }
+      }
+    }).catch((e) => {
+      console.log(e)
+      if (e.status == 422 && this.form.controls.email.value) {
         this.doSignup();
       } else {
         this.utils.showToast('Erro: '+JSON.stringify(e), 'error');
@@ -52,8 +73,15 @@ export class LoginPage {
   }
 
   doSignup() {
-    this.database.signup(this.form.controls.email.value).then((response) => {
-      this.navCtrl.setRoot(MainPage);
+    this.database.signup(this.form.controls.email.value).then((user) => {
+      if (user) {
+        if (user.profileCompleted) {
+          this.navCtrl.setRoot(MainPage);
+        } else {
+          this.navCtrl.setRoot('ProfileEditPage');
+        }
+      }
+
     }).catch((e) => {
       console.log('signup error', e);
       this.utils.showToast('Erro: '+JSON.stringify(e), 'error');

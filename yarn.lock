@@ -151,10 +151,10 @@
   resolved "https://registry.yarnpkg.com/@ionic-native/status-bar/-/status-bar-4.9.2.tgz#92bbf7e5a8946cbf02dbed6dec29108f6b71d7ad"
   integrity sha512-k3ZJDAdCwBhubjw29gsRlNhEcA06JIxm5xeSpSWzhrvY+3+eHUgTwNMYGkkVurmMYFcuWPEOCpNZ2oelMqYA0Q==
 
-"@ionic/app-scripts@^3.2.2":
-  version "3.2.4"
-  resolved "https://registry.yarnpkg.com/@ionic/app-scripts/-/app-scripts-3.2.4.tgz#db3f6a215ba226099db2a9af41f0f6bb5d4cc368"
-  integrity sha512-Wt6bBnLtyknbTn6ikUTst2HLs5ww+BL9FpYv2dQWZwDODYqyWFkQQvdXj0IFibU2umXFOH5nQXJin2vvgtovzA==
+"@ionic/app-scripts@3.2.3":
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/@ionic/app-scripts/-/app-scripts-3.2.3.tgz#b1bc492f2ff49777ec0f6594930a0e707a641a4f"
+  integrity sha512-t1kL9NqY/sVLfAIVKfN4VJigPqMWs5euKxig3sjsrakSQ9z4njmbDghzAC4taefIpYxLGMOeWgKwrrxOiLkdWQ==
   dependencies:
     "@angular-devkit/build-optimizer" "0.0.35"
     autoprefixer "^7.2.6"

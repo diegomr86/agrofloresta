@@ -1,8 +1,8 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title *ngIf="this.database.currentUser.username">Editando perfil</ion-title>
-    <ion-title *ngIf="!this.database.currentUser.username">Complete seu cadastro</ion-title>
+    <ion-title *ngIf="this.database.currentUser.profileCompleted">Editando perfil</ion-title>
+    <ion-title *ngIf="!this.database.currentUser.profileCompleted">Complete seu cadastro</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="save()" [disabled]="!isReadyToSave" strong>
         <ion-icon name="checkmark"></ion-icon>
@@ -16,20 +16,49 @@
 <ion-content padding>
   <form *ngIf="form" [formGroup]="form">
     <picture-upload [form]="this.form" [type]="'image'"></picture-upload>
-
     <ion-item>
-      <ion-label stacked>Nome:</ion-label>
-      <ion-input type="text" formControlName="username"></ion-input>
+      <ion-label stacked>Nome*:</ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>
     </ion-item>
-
+    <ion-item>
+      <ion-label stacked>Email*:</ion-label>
+      <ion-input type="text" formControlName="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Telefone/WhatsApp*:</ion-label>
+      <ion-input type="text" formControlName="phone"></ion-input>
+    </ion-item>
     <ion-item>
       <ion-label stacked>Biografia:</ion-label>
       <ion-textarea formControlName="bio" placeholder="Conte-nos um pouco sobre você"></ion-textarea>
     </ion-item>
 
-    <ion-item>
-      <ion-label stacked>Cidade-Estado:</ion-label>
-      <ion-input formControlName="location" placeholder="Ex: Goiânia - GO"></ion-input>
-    </ion-item>
+
+    <div formGroupName="address">
+      <ion-item>
+        <ion-label stacked>Cidade:</ion-label>
+        <ion-input formControlName="city"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Estado:</ion-label>
+        <ion-input formControlName="uf"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Endereço:</ion-label>
+        <ion-input formControlName="street"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Bairro:</ion-label>
+        <ion-input formControlName="neighborhood"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Complemento:</ion-label>
+        <ion-input formControlName="complement"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>CEP:</ion-label>
+        <ion-input formControlName="postal_code"></ion-input>
+      </ion-item>
+    </div>
   </form>
 </ion-content>

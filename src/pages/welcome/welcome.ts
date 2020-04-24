@@ -24,9 +24,9 @@ export class WelcomePage {
   facebookLogin() {
 
     this.fb.login(['public_profile', 'email'])
-      .then((res: FacebookLoginResponse) => { 
+      .then((res: FacebookLoginResponse) => {
         this.fb.api("me?fields=id,name,email,first_name,picture.width(320).height(320).as(picture_large)", []).then((user) => {
-            let metadata = { type: 'user', username: user.name, picture: user.picture_large.data.url, facebook_id: user.id }
+            let metadata = { type: 'user', name: user.name, picture: user.picture_large.data.url, facebook_id: user.id }
             this.database.login(user.email).then((resp) => {
               this.navCtrl.setRoot(MainPage);
             }).catch((e) => {
@@ -62,7 +62,7 @@ export class WelcomePage {
   login() {
     this.navCtrl.push('LoginPage');
   }
-  
+
   guest() {
     this.database.login('convidado').then((resp) => {
       if (resp) {
@@ -70,7 +70,7 @@ export class WelcomePage {
       }
     }).catch(err => {
       console.error(err)
-      this.database.signup('convidado', { username: 'Agrofloresteiro' }).then((resp) => {
+      this.database.signup('convidado', { name: 'Agrofloresteiro' }).then((resp) => {
         if (resp) {
           this.navCtrl.setRoot(MainPage);
         }
