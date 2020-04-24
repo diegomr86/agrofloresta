@@ -9,7 +9,7 @@ import { Utils } from '../../utils/utils';
 export class Database {
 
   // public baseUrl = 'http://localhost:3000/api/';
-  public baseUrl = 'https://redeagroflorestal.com.br/api/';
+  public baseUrl = 'https://www.redeagroflorestal.com.br/api/';
   public db;
   public userDb;
   public remote;
