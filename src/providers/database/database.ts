@@ -8,8 +8,8 @@ import { Utils } from '../../utils/utils';
 @Injectable()
 export class Database {
 
-  // public baseUrl = 'http://localhost:3000/api/';
-  public baseUrl = 'https://www.redeagroflorestal.com.br/api/';
+  public baseUrl = 'http://localhost:3000/api/';
+  // public baseUrl = 'https://www.redeagroflorestal.com.br/api/';
   public db;
   public userDb;
   public remote;
@@ -70,41 +70,52 @@ export class Database {
 
   saveProfile(item) {
     return this.put('users', item).then((res) => {
-      return this.login(item.email)
+      this.storage.set('currentUser', res);
+      this.currentUser = res
+      return res
     });
   }
 
-  signup(email) {
+  login(credentials) {
+    return this.post("users/login", credentials).then((res) => {
+      if (res && res._id) {
+        this.storage.set('currentUser', res);
+        this.currentUser = res
+        return res
+      }
+    })
+  }
+
+  forgotPassword(email) {
+    return this.post("users/forgot_password", { email: email }).then((res) => {
+      if (res && res._id) {
+        this.storage.set('currentUser', res);
+        this.currentUser = res
+        return res
+      }
+    })
+  }
+
+  signup(form) {
     return this.storage.get('currentPosition').then((position) => {
       var coordinates = []
       if (position && position.latitude && position.longitude) {
         coordinates = [Number(position.latitude), Number(position.longitude)]
       }
-      return this.post('users/register', {
-        email: email,
-        password: 'agrofloresta',
-        address: {
-          location: {
-            type: "Point",
-            coordinates: coordinates
-          }
+      form['address'] = {
+        location: {
+          type: "Point",
+          coordinates: coordinates
         }
-      }).then(resp => {
-        if (resp) {
-          return this.login(email)
+      }
+      return this.post('users/register', form).then(user => {
+        if (user && user.id) {
+          return this.login({ email: form.email, password: form.password })
         }
       })
     });
   }
 
-  async login(email) {
-    var res = await this.http.post<any>(this.baseUrl + "users/login", { email: email, password: 'agrofloresta' }).toPromise()
-    if (res && res._id) {
-      this.storage.set('currentUser', res);
-      this.currentUser = res
-      return res
-    }
-  }
 
   logout() {
     this.currentUser = undefined

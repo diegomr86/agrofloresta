@@ -26,11 +26,12 @@ export class WelcomePage {
     this.fb.login(['public_profile', 'email'])
       .then((res: FacebookLoginResponse) => {
         this.fb.api("me?fields=id,name,email,first_name,picture.width(320).height(320).as(picture_large)", []).then((user) => {
-            let metadata = { type: 'user', name: user.name, picture: user.picture_large.data.url, facebook_id: user.id }
-            this.database.login(user.email).then((resp) => {
+            let metadata = { email: user.email, name: user.name, picture: user.picture_large.data.url, facebook_id: user.id }
+            this.database.login({ email: user.email, password: user.facebook_id }).then((resp) => {
               this.navCtrl.setRoot(MainPage);
             }).catch((e) => {
-              this.database.signup(user.email, metadata).then((resp) => {
+              metadata['password'] = Math.random().toString(36).slice(-6)
+              this.database.signup(metadata).then((resp) => {
                 if (resp) {
                   this.navCtrl.setRoot(MainPage);
                 }
@@ -64,13 +65,13 @@ export class WelcomePage {
   }
 
   guest() {
-    this.database.login('convidado').then((resp) => {
+    this.database.login({ email: 'convidado@redeagroflorestal.com.br', password: 'agrofloresta'}).then((resp) => {
       if (resp) {
         this.navCtrl.setRoot(MainPage);
       }
     }).catch(err => {
       console.error(err)
-      this.database.signup('convidado', { name: 'Agrofloresteiro' }).then((resp) => {
+      this.database.signup({ email: 'convidado@redeagroflorestal.com.br', password: 'agrofloresta', name: 'Convidado' }).then((resp) => {
         if (resp) {
           this.navCtrl.setRoot(MainPage);
         }

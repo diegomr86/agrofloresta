@@ -7,8 +7,8 @@ import { Database } from '../database/database';
  */
 @Injectable()
 export class Api {
-  // url: string = 'http://localhost:3000/';
-  url: string = 'https://www.redeagroflorestal.com.br/';
+  url: string = 'http://localhost:3000/';
+  // url: string = 'https://www.redeagroflorestal.com.br/';
   loading: boolean = false;
   preview: any;
 

@@ -35,10 +35,7 @@ export class SignupPage {
 
     this.form = formBuilder.group({
       email: ['', Validators.required],
-      name: ['', Validators.required],
-      picture: [''],
-      bio: [''],
-      location: ['']
+      password: ['', Validators.required]
     });
 
     // Watch the form for changes, and
@@ -51,28 +48,8 @@ export class SignupPage {
   }
 
   doSignup() {
-    console.log('signup resp', this.form.value);
-
-    // Attempt to login in through our User service
     this.database.signup(this.form.value).then((response) => {
       this.navCtrl.setRoot('ProfilePage');
-    }).catch((e) => {
-      console.log('signup error', e);
-      if (e.name == 'conflict') {
-        this.utils.showToast("Usuário já cadastrado. Fazendo login.", 'primary');
-        // this.login();
-
-      }
     })
-  }
-
-  login() {
-    this.database.login(this.form.controls.email.value).then((resp) => {
-      if (resp) {
-        this.navCtrl.setRoot(MainPage);
-      }
-    }).catch((err) => {
-      console.log(err);
-    });
   }
 }

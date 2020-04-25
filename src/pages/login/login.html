@@ -6,11 +6,18 @@
 <ion-content padding>
   <form *ngIf="form" [formGroup]="form" (ngSubmit)="login()">
     <ion-item>
-      <ion-label stacked>{{ 'EMAIL' | translate }}</ion-label>
+      <ion-label stacked>Email:</ion-label>
       <ion-input type="email" formControlName="email"></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-label stacked>Senha:</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
     <div>
-      <button ion-button color="primary" block [disabled]="!isReadyToSave">CONTINUAR</button>
+      <button ion-button color="primary" block [disabled]="!isReadyToSave">ENTRAR</button>
+      <br>
+      <button ion-button color="light" block type="button" (click)="forgotPassword()">ESQUECI MINHA SENHA</button>
+      <button ion-button color="light" block type="button" (click)="signup()" >CADASTRAR</button>
     </div>
   </form>
 </ion-content>
