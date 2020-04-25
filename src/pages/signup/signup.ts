@@ -6,8 +6,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Api, Database } from '../../providers';
 import { Utils } from '../../utils/utils';
 
-import { MainPage } from '../';
-
 @IonicPage()
 @Component({
   selector: 'page-signup',
