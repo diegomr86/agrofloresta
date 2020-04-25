@@ -11,6 +11,7 @@ import { PictureUploadComponent } from './picture-upload/picture-upload';
 import { PostUserComponent } from './post-user/post-user';
 import { TextEditorComponent } from './text-editor/text-editor';
 import { CommentsComponent } from './comments/comments';
+import { PostsComponent } from './posts/posts';
 import { MoonComponent } from './moon/moon';
 import { TopicMessageComponent } from './topic-message/topic-message';
 import { AvatarComponent } from './avatar/avatar';
@@ -23,6 +24,7 @@ import { AvatarComponent } from './avatar/avatar';
     PostUserComponent,
     TextEditorComponent,
     CommentsComponent,
+    PostsComponent,
     MoonComponent,
     TopicMessageComponent,
     AvatarComponent
@@ -41,6 +43,7 @@ import { AvatarComponent } from './avatar/avatar';
     PostUserComponent,
     TextEditorComponent,
     CommentsComponent,
+    PostsComponent,
     MoonComponent,
     TopicMessageComponent,
     AvatarComponent]

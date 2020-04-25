@@ -69,15 +69,22 @@ export class Database {
   }
 
   saveProfile(item) {
-    return this.put('users', item).then((res) => {
-      this.storage.set('currentUser', res);
-      this.currentUser = res
-      return res
-    });
+    return this.http.put<any>(this.baseUrl + 'users/'+ item._id, item, { headers: this.httpHeaders() }).toPromise().then((user) => {
+      this.currentUser.name = user.name
+      this.currentUser.email = user.email
+      this.currentUser.bio = user.bio
+      this.currentUser.phone = user.phone
+      this.currentUser.address = user.address
+      this.currentUser.picture = user.picture
+      this.currentUser.profileCompleted = user.profileCompleted
+
+      this.storage.set('currentUser', this.currentUser);
+      return this.currentUser
+    })
   }
 
   login(credentials) {
-    return this.post("users/login", credentials).then((res) => {
+    return this.http.post<any>(this.baseUrl + "users/login", credentials).toPromise().then((res) => {
       if (res && res._id) {
         this.storage.set('currentUser', res);
         this.currentUser = res
@@ -87,7 +94,7 @@ export class Database {
   }
 
   forgotPassword(email) {
-    return this.post("users/forgot_password", { email: email }).then((res) => {
+    return this.http.post<any>(this.baseUrl + "users/forgot_password", { email: email }).toPromise().then((res) => {
       if (res && res._id) {
         this.storage.set('currentUser', res);
         this.currentUser = res
@@ -96,26 +103,24 @@ export class Database {
     })
   }
 
-  signup(form) {
-    return this.storage.get('currentPosition').then((position) => {
-      var coordinates = []
-      if (position && position.latitude && position.longitude) {
-        coordinates = [Number(position.latitude), Number(position.longitude)]
+  async signup(form) {
+    var position = await this.storage.get('currentPosition')
+    var coordinates = []
+    if (position && position.latitude && position.longitude) {
+      coordinates = [Number(position.latitude), Number(position.longitude)]
+    }
+    form['address'] = {
+      location: {
+        type: "Point",
+        coordinates: coordinates
       }
-      form['address'] = {
-        location: {
-          type: "Point",
-          coordinates: coordinates
-        }
+    }
+    return this.http.post<any>(this.baseUrl + 'users/register', form).toPromise().then(user => {
+      if (user && user._id) {
+        return this.login({ email: form.email, password: form.password })
       }
-      return this.post('users/register', form).then(user => {
-        if (user && user.id) {
-          return this.login({ email: form.email, password: form.password })
-        }
-      })
-    });
+    })
   }
-
 
   logout() {
     this.currentUser = undefined

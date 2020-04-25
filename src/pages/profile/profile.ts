@@ -24,10 +24,11 @@ export class ProfilePage {
     if (navParams.get('id')) {
       this.database.get('users', navParams.get('id')).then(res => {
         this.profile = res
-        this.loadPosts()
+        this.loadPosts(this.profile)
       });
     } else {
       this.profile = this.database.currentUser
+      this.loadPosts(this.profile)
     }
   }
 
@@ -39,8 +40,8 @@ export class ProfilePage {
     this.navCtrl.push('ProfileEditPage');
   }
 
-  loadPosts() {
-    this.database.query('posts', { user: this.profile._id }).then(docs => {
+  loadPosts(profile) {
+    this.database.query('posts', { user: profile._id }).then(docs => {
       this.posts = docs
     })
   }

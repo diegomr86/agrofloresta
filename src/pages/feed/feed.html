@@ -35,47 +35,7 @@
     <ion-spinner></ion-spinner>
     <p>Carregando postagens...</p>
   </div>
-  <ion-card *ngFor="let post of posts">
-    <!-- <post-user [post]="post"></post-user> -->
-    <img img-cache [source]="this.api.imageUrl(post.picture, 'medium')" *ngIf="!post.oembed && post.picture" (click)="open(post._id)" >
-    <div *ngIf="post.oembed && (!post.picture || post.category != 'book')" [innerHTML]="post.oembed | safe: 'html'"></div>
-
-    <ion-card-content>
-      <h2 (click)="open(post._id)">{{post.title}}</h2>
-
-      <p [innerHtml]="post.content | truncate" class="post_content"></p>
-      <a *ngIf="post.url && post.content && (post.content.indexOf('…') >= 0 || post.content.indexOf('...') >= 0)" [href]="post.url" target="_blank">Continuar lendo</a>
-      <div *ngIf="post.category == 'event'">
-        <br>
-        <p *ngIf="post.start_time && post.end_time">De: <strong>{{ post.start_time| date: 'dd/MM/yyyy' }}</strong> à <strong>{{ post.end_time| date: 'dd/MM/yyyy' }}</strong></p>
-        <p *ngIf="post.start_time && !post.end_time">Dia <strong>{{ post.start_time| date: 'dd/MM/yyyy' }}</strong></p>
-        <p>Local: <strong>{{ post.location }}</strong></p>
-      </div>
-      <div *ngIf="post.category == 'book' && post.url">
-        <a *ngIf="post.url && post.category == 'book'" [href]="post.url" target="_blank">Baixar Livro</a>
-      </div>
-    </ion-card-content>
-    <ion-row>
-      <ion-col>
-        <ion-buttons left class="vote">
-          <button ion-button color="primary" clear small icon-start (click)="like(post)">
-            <ion-icon [name]="likeIcon(post)"></ion-icon>
-            <small>({{ post.likes && post.likes.length > 0 ? post.likes.length : 0 }})</small>
-          </button>
-        </ion-buttons>
-      </ion-col>
-      <ion-col>
-        <button ion-button color="primary" clear small icon-start (click)="showComments(post._id)">
-            <ion-icon name='text'></ion-icon>
-            <small>{{ post.comments && post.comments.length > 0 ? post.comments.length : 0 }} Comentários</small>
-          </button>
-      </ion-col>
-    </ion-row>
-    <div padding *ngIf="commentPost == post._id">
-      <comments [item]="post" item_type="post"></comments>
-    </div>
-    <br>
-  </ion-card>
+  <posts [posts]="posts"></posts>
   <ion-infinite-scroll (ionInfinite)="showMore($event)">
    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando postagens...">
    </ion-infinite-scroll-content>

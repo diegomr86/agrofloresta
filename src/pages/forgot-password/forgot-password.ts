@@ -14,7 +14,6 @@ export class ForgotPasswordPage {
 
   form: FormGroup;
   isReadyToSave: boolean;
-  msg;
   user;
 
   constructor(public navCtrl: NavController,
@@ -37,9 +36,18 @@ export class ForgotPasswordPage {
   forgotPassword() {
     this.database.forgotPassword(this.form.controls.email.value).then((user) => {
       if (user) {
-        this.msg = "Um email com sua nova senha foi eviado para o endereço: "+this.form.controls.email.value
+        this.utils.showToast("Um email com sua nova senha foi eviado para o endereço: "+this.form.controls.email.value, "success")
+      } else {
+        this.utils.showToast("Usuário não encontrado", "error")
       }
-    });
+    }).catch(e => {
+      if (e.status == 422) {
+        this.utils.showToast("Usuário não encontrado", "error")
+      } else {
+        this.utils.showToast(e.message, "error")
+      }
+
+    })
   }
 
   back() {

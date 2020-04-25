@@ -9,6 +9,11 @@
 <ion-content padding>
   <form *ngIf="form" [formGroup]="form" (ngSubmit)="doSignup()">
     <ion-item>
+      <ion-label stacked>Nome:</ion-label>
+      <ion-input type="name" formControlName="name"></ion-input>
+    </ion-item>
+
+    <ion-item>
       <ion-label stacked>Email:</ion-label>
       <ion-input type="email" formControlName="email"></ion-input>
     </ion-item>
@@ -19,6 +24,8 @@
     </ion-item>
 
     <div>
+      <p class="text-center" *ngIf="errors && errors.email">Email {{errors.email.message}}</p>
+      <p class="text-center" *ngIf="errors && errors.password">Senha {{errors.password.message}}</p>
       <br>
       <button ion-button color="primary" block [disabled]="!isReadyToSave">CONTINUAR</button>
     </div>

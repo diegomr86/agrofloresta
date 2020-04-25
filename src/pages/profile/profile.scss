@@ -2,7 +2,10 @@ page-profile {
 	.profile_user {
 		img {
 			width: 70px;
-			height: auto;
+			height: 70px;
+		}
+		p {
+			white-space: normal;
 		}
 	}
 	.item-inner {

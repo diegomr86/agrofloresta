@@ -45,7 +45,11 @@ export class LoginPage {
         }
       }
     }).catch(e => {
-      console.log(e)
+      if (e.status == 422) {
+        this.utils.showToast("Usuário ou senha inválidos", "error")
+      } else {
+        this.utils.showToast(e.message, "error")
+      }
     });
   }
 

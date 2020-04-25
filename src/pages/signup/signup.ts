@@ -17,6 +17,7 @@ export class SignupPage {
 
   form: FormGroup;
   isReadyToSave: boolean;
+  errors: boolean;
 
   // Our translated text strings
   // private signupErrorString: string;
@@ -34,6 +35,7 @@ export class SignupPage {
     // })
 
     this.form = formBuilder.group({
+      name: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
@@ -48,8 +50,18 @@ export class SignupPage {
   }
 
   doSignup() {
-    this.database.signup(this.form.value).then((response) => {
-      this.navCtrl.setRoot('ProfilePage');
+    this.errors = null
+    this.database.signup(this.form.value).then((user) => {
+      if (user && user._id) {
+        this.navCtrl.setRoot('ProfileEditPage');
+      }
+    }).catch(e => {
+      this.errors = e.error.errors
+      if (e.status == 422) {
+        this.utils.showToast("Verifique os erros antes de continuar", "error")
+      } else {
+        this.utils.showToast(e.message, "error")
+      }
     })
   }
 }

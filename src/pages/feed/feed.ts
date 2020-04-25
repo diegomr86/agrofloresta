@@ -66,48 +66,6 @@ export class FeedPage {
     this.navCtrl.push('PostFormPage');
   }
 
-  edit(id) {
-    this.navCtrl.push('PostFormPage', { id: id });
-  }
-
-  open(id) {
-    this.navCtrl.push('PostPage', { id: id });
-  }
-
-  like(post) {
-    if (post.likes) {
-      var like = post.likes.find(l => l.user == this.database.currentUser._id)
-      if (like) {
-        this.database.remove('likes', like).then(p => {
-          post.likes = post.likes.filter(l => l.user !== this.database.currentUser._id)
-        });
-      } else {
-        this.database.save('likes', { post: post._id }).then(l => {
-          post.likes.push(l)
-        });
-      }
-    } else {
-      post.likes = [this.database.currentUser._id]
-    }
-
-  }
-
-  likeIcon(post) {
-    var like = post.likes.find(l => l.user == this.database.currentUser._id)
-    if (like) {
-      return 'ios-thumbs-up'
-    } else {
-      return 'ios-thumbs-up-outline'
-    }
-  }
-  showComments(post) {
-    if (post == this.commentPost) {
-      delete this.commentPost
-    } else {
-      this.commentPost = post
-    }
-  }
-
   // hotScore(ups, downs, date) {
   //   var s = ups - downs
   //     , sign = Math.sign(s)
