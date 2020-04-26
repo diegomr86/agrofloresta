@@ -94,16 +94,10 @@ export class Database {
   }
 
   forgotPassword(email) {
-    return this.http.post<any>(this.baseUrl + "users/forgot_password", { email: email }).toPromise().then((res) => {
-      if (res && res._id) {
-        this.storage.set('currentUser', res);
-        this.currentUser = res
-        return res
-      }
-    })
+    return this.http.post<any>(this.baseUrl + "users/forgot_password", { email: email }).toPromise()
   }
 
-  async signup(form) {
+  async register(form) {
     var position = await this.storage.get('currentPosition')
     var coordinates = []
     if (position && position.latitude && position.longitude) {

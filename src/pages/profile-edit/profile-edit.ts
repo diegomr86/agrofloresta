@@ -27,7 +27,7 @@ export class ProfileEditPage {
     public translateService: TranslateService,
     public utils: Utils) {
 
-    // this.translateService.get('SIGNUP_ERROR').subscribe((value) => {
+    // this.translateService.get('REGISTER_ERROR').subscribe((value) => {
     //   this.profile-editublic navCtrl: NavController, pErrorString = value;
     // })
 

@@ -3,7 +3,7 @@
   "PASSWORD": "Passord",
   "EMAIL": "Email",
   "LOGIN": "Logg inn",
-  "SIGNUP": "Registrer deg",
+  "REGISTER": "Registrer deg",
 
   "TAB1_TITLE": "Innlegg",
   "TAB2_TITLE": "Søk",
@@ -33,9 +33,9 @@
   "LOGIN_TITLE": "Innlogging",
   "LOGIN_ERROR": "Feil ved innlogging. Bekreft at kontodetaljene er riktig og prøv igjen.",
   "LOGIN_BUTTON": "Logg inn",
-  "SIGNUP_TITLE": "Registrering",
-  "SIGNUP_ERROR": "Feil ved registrering. Bekreft kontodetaljene og prøv igjen.",
-  "SIGNUP_BUTTON": "Registrer deg",
+  "REGISTER_TITLE": "Registrering",
+  "REGISTER_ERROR": "Feil ved registrering. Bekreft kontodetaljene og prøv igjen.",
+  "REGISTER_BUTTON": "Registrer deg",
 
   "PLANTS_TITLE": "Innlegg",
 

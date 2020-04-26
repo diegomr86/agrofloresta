@@ -1,13 +1,13 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ 'SIGNUP_TITLE' | translate }}</ion-title>
+    <ion-title>{{ 'REGISTER_TITLE' | translate }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-  <form *ngIf="form" [formGroup]="form" (ngSubmit)="doSignup()">
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="register()">
     <ion-item>
       <ion-label stacked>Nome:</ion-label>
       <ion-input type="name" formControlName="name"></ion-input>
@@ -28,6 +28,8 @@
       <p class="text-center" *ngIf="errors && errors.password">Senha {{errors.password.message}}</p>
       <br>
       <button ion-button color="primary" block [disabled]="!isReadyToSave">CONTINUAR</button>
+      <br>
+      <button ion-button color="light" block type="button" (click)="login()">ENTRAR</button>
     </div>
   </form>
 </ion-content>

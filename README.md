@@ -54,7 +54,7 @@ Você pode ajudar com esse projeto das seguintes formas:
 
 ou
 
-[Acesse a versão Web](http://agrofloresta.diegomr86.ga/)
+[Acesse a versão Web](https://www.redeagroflorestal.com.br/)
 
 ## Licença
 

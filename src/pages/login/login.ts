@@ -24,7 +24,7 @@ export class LoginPage {
     public utils: Utils) {
 
     this.form = formBuilder.group({
-      email: ['diegomr86@gmail.com', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required],
     });
 
@@ -53,8 +53,8 @@ export class LoginPage {
     });
   }
 
-  signup() {
-    this.navCtrl.push('SignupPage');
+  register() {
+    this.navCtrl.push('RegisterPage');
   }
 
   forgotPassword() {

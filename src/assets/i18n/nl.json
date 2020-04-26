@@ -3,7 +3,7 @@
   "PASSWORD": "Wachtwoord",
   "EMAIL": "E-mail",
   "LOGIN": "Inloggen",
-  "SIGNUP": "Aanmelden",
+  "REGISTER": "Aanmelden",
 
   "TAB1_TITLE": "Items",
   "TAB2_TITLE": "Zoeken",
@@ -33,9 +33,9 @@
   "LOGIN_TITLE": "Aanmelden",
   "LOGIN_ERROR": "Inloggen mislukt. Controleer a.u.b. uw account informatie en probeer het nogmaals.",
   "LOGIN_BUTTON": "Inloggen",
-  "SIGNUP_TITLE": "Aanmelden",
-  "SIGNUP_ERROR": "Aanmelden mislukt. Controleer a.u.b. uw account informatie en probeer het nogmaals.",
-  "SIGNUP_BUTTON": "Aanmelden",
+  "REGISTER_TITLE": "Aanmelden",
+  "REGISTER_ERROR": "Aanmelden mislukt. Controleer a.u.b. uw account informatie en probeer het nogmaals.",
+  "REGISTER_BUTTON": "Aanmelden",
 
   "PLANTS_TITLE": "Items",
 

@@ -6,7 +6,7 @@
   "USERNAME": "Nome de Usuário",
   "PASSWORD": "Senha",
   "LOGIN": "Entrar",
-  "SIGNUP": "Cadastre-se",
+  "REGISTER": "Cadastre-se",
 
   "TAB1_TITLE": "Plantas",
   "TAB2_TITLE": "Busca",
@@ -45,9 +45,9 @@
   "LOGIN_TITLE": "Entrar",
   "LOGIN_ERROR": "Não foi possível entrar na sua conta. Verifique seus dados e tente novamente.",
   "LOGIN_BUTTON": "Entrar",
-  "SIGNUP_TITLE": "Cadastre-se",
-  "SIGNUP_ERROR": "Não foi possível criar sua conta. Verifique seus dados e tente novamente.",
-  "SIGNUP_BUTTON": "Cadastre-se",
+  "REGISTER_TITLE": "Cadastre-se",
+  "REGISTER_ERROR": "Não foi possível criar sua conta. Verifique seus dados e tente novamente.",
+  "REGISTER_BUTTON": "Cadastre-se",
 
   "PLANTS_TITLE": "Plantas",
 

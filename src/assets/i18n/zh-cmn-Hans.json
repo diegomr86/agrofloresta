@@ -6,7 +6,7 @@
   "USERNAME": "登录名",
   "PASSWORD": "口令",
   "LOGIN": "登 录",
-  "SIGNUP": "注 册",
+  "REGISTER": "注 册",
 
   "TAB1_TITLE": "项目",
   "TAB2_TITLE": "搜索",
@@ -45,9 +45,9 @@
   "LOGIN_TITLE": "登录",
   "LOGIN_ERROR": "无法登录。请检查账号信息然后重试。",
   "LOGIN_BUTTON": "登 录",
-  "SIGNUP_TITLE": "注 册",
-  "SIGNUP_ERROR": "无法创建账号。请检查账户信息然后重试。",
-  "SIGNUP_BUTTON": "注 册",
+  "REGISTER_TITLE": "注 册",
+  "REGISTER_ERROR": "无法创建账号。请检查账户信息然后重试。",
+  "REGISTER_BUTTON": "注 册",
 
   "PLANTS_TITLE": "项目",
 

@@ -6,7 +6,7 @@
   "USERNAME": "Nome utente",
   "PASSWORD": "Password",
   "LOGIN": "Login",
-  "SIGNUP": "Registrati",
+  "REGISTER": "Registrati",
 
   "TAB1_TITLE": "Elenco",
   "TAB2_TITLE": "Ricerca",
@@ -45,9 +45,9 @@
   "LOGIN_TITLE": "Login",
   "LOGIN_ERROR": "Non è possibile accedere. Ricontrollare le informazioni utente digitate prima di riprovare.",
   "LOGIN_BUTTON": "Accedi",
-  "SIGNUP_TITLE": "Registrazione",
-  "SIGNUP_ERROR": "Non è possibile creare l'utente. Assicurarsi di aver inserito le informazioni utente correttamente e poi riprovare.",
-  "SIGNUP_BUTTON": "Registrati",
+  "REGISTER_TITLE": "Registrazione",
+  "REGISTER_ERROR": "Non è possibile creare l'utente. Assicurarsi di aver inserito le informazioni utente correttamente e poi riprovare.",
+  "REGISTER_BUTTON": "Registrati",
 
   "PLANTS_TITLE": "Elenco elementi",
 

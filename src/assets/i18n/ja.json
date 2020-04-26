@@ -6,7 +6,7 @@
   "USERNAME": "ユーザー名",
   "PASSWORD": "パスワード",
   "LOGIN": "サインイン",
-  "SIGNUP": "サインアップ",
+  "REGISTER": "サインアップ",
 
   "TAB1_TITLE": "項目",
   "TAB2_TITLE": "検索",
@@ -45,9 +45,9 @@
   "LOGIN_TITLE": "サインイン",
   "LOGIN_ERROR": "サインインできません。アカウント情報を確認して、もう一度お試しください。",
   "LOGIN_BUTTON": "サインイン",
-  "SIGNUP_TITLE": "サインアップ",
-  "SIGNUP_ERROR": "アカウントを作成できません。 アカウント情報を確認して、もう一度お試しください。",
-  "SIGNUP_BUTTON": "サインアップ",
+  "REGISTER_TITLE": "サインアップ",
+  "REGISTER_ERROR": "アカウントを作成できません。 アカウント情報を確認して、もう一度お試しください。",
+  "REGISTER_BUTTON": "サインアップ",
 
   "PLANTS_TITLE": "項目",
 

@@ -6,7 +6,7 @@
   "USERNAME": "登錄名",
   "PASSWORD": "口令",
   "LOGIN": "登 錄",
-  "SIGNUP": "註 冊",
+  "REGISTER": "註 冊",
 
   "TAB1_TITLE": "項目",
   "TAB2_TITLE": "搜索",
@@ -45,9 +45,9 @@
   "LOGIN_TITLE": "登錄",
   "LOGIN_ERROR": "無法登錄。請檢查賬號信息然後重試。",
   "LOGIN_BUTTON": "登 錄",
-  "SIGNUP_TITLE": "註 冊",
-  "SIGNUP_ERROR": "無法創建賬號。請檢查賬戶信息然後重試。",
-  "SIGNUP_BUTTON": "註 冊",
+  "REGISTER_TITLE": "註 冊",
+  "REGISTER_ERROR": "無法創建賬號。請檢查賬戶信息然後重試。",
+  "REGISTER_BUTTON": "註 冊",
 
   "PLANTS_TITLE": "項目",
 

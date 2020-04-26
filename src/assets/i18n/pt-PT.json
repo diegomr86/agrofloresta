@@ -3,7 +3,7 @@
   "PASSWORD": "Password",
   "EMAIL": "Email",
   "LOGIN": "Entrar",
-  "SIGNUP": "Criar conta",
+  "REGISTER": "Criar conta",
 
   "TAB1_TITLE": "Items",
   "TAB2_TITLE": "Pesquisa",
@@ -33,9 +33,9 @@
   "LOGIN_TITLE": "Entrar",
   "LOGIN_ERROR": "Não foi possível entrar na sua conta. Por favor confirme os seus dados e tente novamente.",
   "LOGIN_BUTTON": "Entrar",
-  "SIGNUP_TITLE": "Criar conta",
-  "SIGNUP_ERROR": "Não foi possível criar a sua conta. Por favor confirme os seus dados e tente novamente.",
-  "SIGNUP_BUTTON": "Criar conta",
+  "REGISTER_TITLE": "Criar conta",
+  "REGISTER_ERROR": "Não foi possível criar a sua conta. Por favor confirme os seus dados e tente novamente.",
+  "REGISTER_BUTTON": "Criar conta",
 
   "PLANTS_TITLE": "Items",
 

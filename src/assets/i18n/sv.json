@@ -3,7 +3,7 @@
   "PASSWORD": "Lösenord",
   "EMAIL": "E-post",
   "LOGIN": "Logga in",
-  "SIGNUP": "Skapa konto",
+  "REGISTER": "Skapa konto",
 
   "TAB1_TITLE": "Inlägg",
   "TAB2_TITLE": "Sök",
@@ -33,9 +33,9 @@
   "LOGIN_TITLE": "Logga in",
   "LOGIN_ERROR": "Det gick inte att logga in. Kontrollera inloggningsuppgifterna och försök igen.",
   "LOGIN_BUTTON": "Logga in",
-  "SIGNUP_TITLE": "Skapa konto",
-  "SIGNUP_ERROR": "Det gick inte att skapa ett konto. Kontrollera dina uppgifter och försök igen.",
-  "SIGNUP_BUTTON": "Skapa konto",
+  "REGISTER_TITLE": "Skapa konto",
+  "REGISTER_ERROR": "Det gick inte att skapa ett konto. Kontrollera dina uppgifter och försök igen.",
+  "REGISTER_BUTTON": "Skapa konto",
 
   "PLANTS_TITLE": "Inlägg",
 

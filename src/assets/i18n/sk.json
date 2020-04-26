@@ -6,7 +6,7 @@
   "USERNAME": "Prihlasovacie meno",
   "PASSWORD": "Heslo",
   "LOGIN": "Prihlásiť",
-  "SIGNUP": "Registrovať",
+  "REGISTER": "Registrovať",
 
   "TAB1_TITLE": "Položky",
   "TAB2_TITLE": "Hľadať",
@@ -53,9 +53,9 @@
   "LOGIN_TITLE": "Prihlásenie",
   "LOGIN_ERROR": "Nedá sa prihlásiť. Skotrolujte zadané informácie a skuste to znova.",
   "LOGIN_BUTTON": "Prihlásiť",
-  "SIGNUP_TITLE": "Registrácia",
-  "SIGNUP_ERROR": "Nedá sa vytvoriť konto. Skotrolujte zadané informácie a skuste to znova.",
-  "SIGNUP_BUTTON": "Registrovať",
+  "REGISTER_TITLE": "Registrácia",
+  "REGISTER_ERROR": "Nedá sa vytvoriť konto. Skotrolujte zadané informácie a skuste to znova.",
+  "REGISTER_BUTTON": "Registrovať",
 
   "PLANTS_TITLE": "Položky",
 

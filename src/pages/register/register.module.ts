@@ -3,19 +3,19 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ComponentsModule } from '../../components/components.module';
 
-import { SignupPage } from './signup';
+import { RegisterPage } from './register';
 
 @NgModule({
   declarations: [
-    SignupPage,
+    RegisterPage,
   ],
   imports: [
-    IonicPageModule.forChild(SignupPage),
+    IonicPageModule.forChild(RegisterPage),
     TranslateModule.forChild(),
     ComponentsModule
   ],
   exports: [
-    SignupPage
+    RegisterPage
   ]
 })
-export class SignupPageModule { }
+export class RegisterPageModule { }

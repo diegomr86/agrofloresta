@@ -5,7 +5,7 @@
   "PASSWORD": "Passwort",
   "EMAIL": "Email",
   "LOGIN": "Anmelden",
-  "SIGNUP": "Registrieren",
+  "REGISTER": "Registrieren",
   "CANCEL_BUTTON": "Schließen",
 
   "TAB1_TITLE": "Items",
@@ -40,9 +40,9 @@
   "LOGIN_TITLE": "Anmelden",
   "LOGIN_ERROR": "Fehler beim Anmelden, bitte überprüfe deine Informationen und versuche es erneut.",
   "LOGIN_BUTTON": "Anmelden",
-  "SIGNUP_TITLE": "Registrieren",
-  "SIGNUP_ERROR": "Fehler beim Registrieren, bitte überprüfe deine Informationen und versuche es erneut.",
-  "SIGNUP_BUTTON": "Registrieren",
+  "REGISTER_TITLE": "Registrieren",
+  "REGISTER_ERROR": "Fehler beim Registrieren, bitte überprüfe deine Informationen und versuche es erneut.",
+  "REGISTER_BUTTON": "Registrieren",
 
   "PLANTS_TITLE": "Artikel",
 

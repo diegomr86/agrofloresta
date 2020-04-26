@@ -3,7 +3,7 @@
   "PASSWORD": "Šifra",
   "EMAIL": "E-mail",
   "LOGIN": "Prijava",
-  "SIGNUP": "Registracija",
+  "REGISTER": "Registracija",
 
   "TAB1_TITLE": "Stavke",
   "TAB2_TITLE": "Traži",
@@ -33,9 +33,9 @@
   "LOGIN_TITLE": "Prijavi se",
   "LOGIN_ERROR": "Prijava nije uspjela. Molimo provjerite vaše podatke za prijavu, a zatim pokušajte ponovo.",
   "LOGIN_BUTTON": "Prijava",
-  "SIGNUP_TITLE": "Registruj se",
-  "SIGNUP_ERROR": "Nije moguće kreirati novi korisnički račun. Molimo vas provjerite podatke, a zatim pokušajte ponovo.",
-  "SIGNUP_BUTTON": "Registracija",
+  "REGISTER_TITLE": "Registruj se",
+  "REGISTER_ERROR": "Nije moguće kreirati novi korisnički račun. Molimo vas provjerite podatke, a zatim pokušajte ponovo.",
+  "REGISTER_BUTTON": "Registracija",
 
   "PLANTS_TITLE": "Stavke",
 

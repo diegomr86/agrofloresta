@@ -3,7 +3,7 @@
   "PASSWORD": "Password",
   "EMAIL": "Email",
   "LOGIN": "Sign in",
-  "SIGNUP": "Sign up",
+  "REGISTER": "Sign up",
 
   "TAB1_TITLE": "Mga Gamit",
   "TAB2_TITLE": "Hanapin",
@@ -15,7 +15,7 @@
   "TUTORIAL_SLIDE1_DESCRIPTION": "Isang kumpletong Ionic starter na may buong mga pahina at pinakamainam na gawi ang Ionic Super Starter",
 
   "TUTORIAL_SLIDE2_TITLE": "Paano gamitin ang Super Starter",
-  "TUTORIAL_SLIDE2_DESCRIPTION": "Buoin ang mga page types na gusto mo at tanggalin ang mga ayaw mo. Marami kaming ibinigay na app layouts, tulad ng login at signup, tabs, at itong tutorial page",
+  "TUTORIAL_SLIDE2_DESCRIPTION": "Buoin ang mga page types na gusto mo at tanggalin ang mga ayaw mo. Marami kaming ibinigay na app layouts, tulad ng login at register, tabs, at itong tutorial page",
 
   "TUTORIAL_SLIDE3_TITLE": "Paano magsimula",
   "TUTORIAL_SLIDE3_DESCRIPTION": "Kailangan ng tulong? Tignan ang README ng Super Starter para sa buong tutorial",
@@ -33,9 +33,9 @@
   "LOGIN_TITLE": "Sign in",
   "LOGIN_ERROR": "Hindi makapag-sign-in. Paki-kumpirma ang iyong impormasyon at subukan ulit",
   "LOGIN_BUTTON": "Sign in",
-  "SIGNUP_TITLE": "Sign up",
-  "SIGNUP_ERROR": "Hindi makagawa ng bagong account. Paki-kumpirma ang iyong impormasyon at subukan ulit",
-  "SIGNUP_BUTTON": "Sign up",
+  "REGISTER_TITLE": "Sign up",
+  "REGISTER_ERROR": "Hindi makagawa ng bagong account. Paki-kumpirma ang iyong impormasyon at subukan ulit",
+  "REGISTER_BUTTON": "Sign up",
 
   "PLANTS_TITLE": "Mga Item",
 

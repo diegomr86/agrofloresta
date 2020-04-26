@@ -8,17 +8,17 @@ import { Utils } from '../../utils/utils';
 
 @IonicPage()
 @Component({
-  selector: 'page-signup',
-  templateUrl: 'signup.html'
+  selector: 'page-register',
+  templateUrl: 'register.html'
 })
-export class SignupPage {
+export class RegisterPage {
 
   form: FormGroup;
   isReadyToSave: boolean;
   errors: boolean;
 
   // Our translated text strings
-  // private signupErrorString: string;
+  // private registerErrorString: string;
 
   constructor(public navCtrl: NavController,
     public api: Api,
@@ -28,8 +28,8 @@ export class SignupPage {
     public translateService: TranslateService,
     public utils: Utils) {
 
-    // this.translateService.get('SIGNUP_ERROR').subscribe((value) => {
-    //   this.signupublic navCtrl: NavController, pErrorString = value;
+    // this.translateService.get('REGISTER_ERROR').subscribe((value) => {
+    //   this.registerublic navCtrl: NavController, pErrorString = value;
     // })
 
     this.form = formBuilder.group({
@@ -47,9 +47,9 @@ export class SignupPage {
 
   }
 
-  doSignup() {
+  register() {
     this.errors = null
-    this.database.signup(this.form.value).then((user) => {
+    this.database.register(this.form.value).then((user) => {
       if (user && user._id) {
         this.navCtrl.setRoot('ProfileEditPage');
       }
@@ -62,4 +62,9 @@ export class SignupPage {
       }
     })
   }
+
+  login() {
+    this.navCtrl.push('LoginPage');
+  }
+
 }

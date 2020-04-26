@@ -3,7 +3,7 @@
   "PASSWORD": "Adgangskode",
   "EMAIL": "Email",
   "LOGIN": "Log Ind",
-  "SIGNUP": "Tilmeld",
+  "REGISTER": "Tilmeld",
 
   "TAB1_TITLE": "Poster",
   "TAB2_TITLE": "Søg",
@@ -33,9 +33,9 @@
   "LOGIN_TITLE": "Log ind",
   "LOGIN_ERROR": "Fejl ved log ind. Kontroller venligst kontooplysningerne og prøv igen.",
   "LOGIN_BUTTON": "Log ind",
-  "SIGNUP_TITLE": "Registrer",
-  "SIGNUP_ERROR": "Fejl ved oprettelse. Kontroller venligst kontooplysningerne og prøv igen.",
-  "SIGNUP_BUTTON": "Registrer",
+  "REGISTER_TITLE": "Registrer",
+  "REGISTER_ERROR": "Fejl ved oprettelse. Kontroller venligst kontooplysningerne og prøv igen.",
+  "REGISTER_BUTTON": "Registrer",
 
   "PLANTS_TITLE": "Poster",
 

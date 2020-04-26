@@ -3,7 +3,7 @@
   "PASSWORD": "Contraseña",
   "EMAIL": "Email",
   "LOGIN": "Iniciar sesión",
-  "SIGNUP": "Registrarse",
+  "REGISTER": "Registrarse",
 
   "TAB1_TITLE": "Items",
   "TAB2_TITLE": "Buscar",
@@ -33,9 +33,9 @@
   "LOGIN_TITLE": "Iniciar sesión",
   "LOGIN_ERROR": "No se ha podido iniciar sesión. Por favor revisa la información de la cuenta e inténtalo de nuevo.",
   "LOGIN_BUTTON": "Iniciar sesión",
-  "SIGNUP_TITLE": "Registro",
-  "SIGNUP_ERROR": "No se ha podido crear la cuenta. Por favor revisa la información de la cuenta e inténtalo de nuevo.",
-  "SIGNUP_BUTTON": "Registrarse",
+  "REGISTER_TITLE": "Registro",
+  "REGISTER_ERROR": "No se ha podido crear la cuenta. Por favor revisa la información de la cuenta e inténtalo de nuevo.",
+  "REGISTER_BUTTON": "Registrarse",
 
   "PLANTS_TITLE": "Items",
 

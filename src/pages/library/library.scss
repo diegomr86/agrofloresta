@@ -40,6 +40,11 @@ page-library {
   }
   .item-md ion-avatar ion-img, .item-md ion-avatar img {
     border-radius: 0;
+		min-width: 70px;
+		min-height: 70px;
   }
-
+	.item-md ion-avatar {
+		min-width: 70px;
+		min-height: 70px;
+	}
 }
