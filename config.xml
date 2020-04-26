@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="br.agrofloresta.app" version="1.5.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="br.agrofloresta.app" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Rede Agroflorestal</name>
     <description>Plataforma de contstrução colaborativa de conhecimento sobre Agroflorestas.</description>
     <author email="diegomr86@gmail.com" href="https://diegomr86.github.io/">Diego M. Rodrigues</author>
@@ -28,7 +28,8 @@
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <preference name="iosPersistentFileLocation" value="Library" />
     <preference name="ScrollEnabled" value="false" />
-    <preference name="android-minSdkVersion" value="19" />
+    <preference name="android-minSdkVersion" value="28" />
+    <preference name="android-targetSdkVersion" value="28" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="FadeSplashScreenDuration" value="300" />
@@ -36,10 +37,6 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <platform name="android">
-        <config-file parent="/resources" target="./res/values/strings.xml">
-            <string name="fb_app_id">1053184128187969</string>
-            <string name="fb_app_name">Rede Agroflorestal</string>
-        </config-file>
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -122,5 +119,4 @@
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
     <plugin name="cordova-plugin-sqlite-2" spec="^1.0.5" />
     <engine name="browser" spec="5.0.4" />
-    <engine name="android" spec="7.1.1" />
 </widget>

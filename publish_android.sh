@@ -1,3 +1,8 @@
+export PATH="$PATH:/usr/local/android-studio/bin"
+export ANDROID_HOME="$HOME/Android/Sdk"
+export PATH="$PATH:$ANDROID_HOME/tools"
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
+export PATH="$PATH:$JAVA_HOME/bin"
 rm -rf platforms/android/
 rm -rf ../apks/agrofloresta.apk
 ionic cordova build android --prod --release
