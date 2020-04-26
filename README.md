@@ -32,8 +32,9 @@ Criar uma base de dados de conhecimento coletivo sobre agrofloresta que colabore
 
 ## Próximos objetivos
 
-- Banco de sementes distribuido: A idéia é cada usuário cadastrar as sementes que tem para doar e encontrar as sementes que precisa formando um banco distribuido de sementes;
 - Simulador de plantio: Através da base de dados do catálogo de plantas criar um algorítmo de inteligência artificial que irá gerar o desenho de plantio ideal a partir das sementes e mudas que o usuário possúi;
+- Banco de sementes distribuido: A idéia é cada usuário cadastrar as sementes que tem para doar e encontrar as sementes que precisa formando um banco distribuido de sementes;
+- Cestas Agroflorestais: permitir que os usuários comercializem suas cestas Agroecológicas dentro da Rede;
 - Mapa de agroflorestas: mapa real do país com os projetos agroflorestais cadastrados pela comunidade usando geolocalização;
 - TV agroflorestal: Player de vídeo com o conteúdo postado pelos usuários.
 

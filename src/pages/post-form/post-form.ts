@@ -106,7 +106,7 @@ export class PostFormPage {
     delete this.api.preview;
     if (this.form.controls.url.value) {
       if (this.form.controls.url.value.endsWith('.pdf')) {
-        this.api.get('preview_pdf', { url: encodeURI(this.form.controls.url.value) }).subscribe(res => {
+        this.api.get('api/uploads/preview_pdf', { url: encodeURI(this.form.controls.url.value) }).subscribe(res => {
           console.log('preview_pdf', res);
           if (res) {
             this.form.patchValue({ 'picture': res } )
