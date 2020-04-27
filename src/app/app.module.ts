@@ -62,7 +62,7 @@ export function provideSettings(storage: Storage) {
     }),
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot({
-      name: '__agrofloresta',
+      name: '__redeagroflorestal',
          driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
     DirectivesModule

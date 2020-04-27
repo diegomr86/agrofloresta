@@ -93,8 +93,14 @@ export class Database {
     })
   }
 
-  forgotPassword(email) {
-    return this.http.post<any>(this.baseUrl + "users/forgot_password", { email: email }).toPromise()
+  forgotPassword(data) {
+    return this.http.post<any>(this.baseUrl + "users/forgot_password", data).toPromise()
+  }
+  validateCode(data) {
+    return this.http.post<any>(this.baseUrl + "users/validate_code", data).toPromise()
+  }
+  updatePassword(data) {
+    return this.http.post<any>(this.baseUrl + "users/update_password", data).toPromise()
   }
 
   async register(form) {
