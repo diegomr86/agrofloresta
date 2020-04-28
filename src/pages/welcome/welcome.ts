@@ -27,7 +27,7 @@ export class WelcomePage {
       .then((res: FacebookLoginResponse) => {
         this.fb.api("me?fields=id,name,email,first_name,picture.width(320).height(320).as(picture_large)", []).then((user) => {
             let metadata = { email: user.email, name: user.name, picture: user.picture_large.data.url, facebook_id: user.id }
-            this.database.login({ email: user.email, password: user.id }).then((resp) => {
+            this.database.login({ email: user.email, password: 'fbid_'+user.id }).then((resp) => {
               this.navCtrl.setRoot(MainPage);
             }).catch((e) => {
               metadata['password'] = Math.random().toString(36).slice(-6)
