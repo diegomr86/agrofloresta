@@ -124,7 +124,13 @@ export class PostFormPage {
             if (res) {
               console.log('oembed:',res);
               this.form.patchValue({ 'title': res['title'] } )
-              this.form.patchValue({ 'content': res['description'] } )
+              if (res['description']) {
+                this.form.patchValue({ 'content': res['description'] } )
+                var tags = res['description'].split(' ').filter(v => v.startsWith('#')).map(v => v.replace('#', ''))
+                if (tags && tags.length) {
+                  this.form.patchValue({ 'tags': tags })
+                }
+              }
               if (res['thumbnail_url']) {
                 this.form.patchValue({ 'picture': { url: res['thumbnail_url'] } } )
               }
@@ -137,7 +143,11 @@ export class PostFormPage {
                 }
                 this.form.patchValue({ 'oembed': undefined } )
               } else {
-                this.form.patchValue({ 'oembed': res['html'] } )
+                if (res['provider_name'] == 'Instagram') {
+                  this.api.setPreview(res['thumbnail_url']);
+                } else {
+                  this.form.patchValue({ 'oembed': res['html'] } )
+                }
               }
             }
           },

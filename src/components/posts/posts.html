@@ -11,9 +11,9 @@
       <a *ngIf="post.url && post.content && (post.content.indexOf('…') >= 0 || post.content.indexOf('...') >= 0)" [href]="post.url" target="_blank">Continuar lendo</a>
       <div *ngIf="post.category == 'event'">
         <br>
-        <p *ngIf="post.start_time && post.end_time">De: <strong>{{ post.start_time| date: 'dd/MM/yyyy' }}</strong> à <strong>{{ post.end_time| date: 'dd/MM/yyyy' }}</strong></p>
-        <p *ngIf="post.start_time && !post.end_time">Dia <strong>{{ post.start_time| date: 'dd/MM/yyyy' }}</strong></p>
-        <p>Local: <strong>{{ post.location }}</strong></p>
+        <p *ngIf="post.start_time && post.end_time">De: <strong>{{ post.start_time| date: 'dd/MM/yyyy':'utc' }}</strong> à <strong>{{ post.end_time| date: 'dd/MM/yyyy':'utc' }}</strong></p>
+        <p *ngIf="post.start_time && !post.end_time">Dia <strong>{{ post.start_time| date: 'dd/MM/yyyy':'utc' }}</strong></p>
+        <p *ngIf="post.location">Local: <strong>{{ post.location }}</strong></p>
       </div>
       <div *ngIf="post.category == 'book' && post.url">
         <a *ngIf="post.url && post.category == 'book'" [href]="post.url" target="_blank">Baixar Livro</a>
