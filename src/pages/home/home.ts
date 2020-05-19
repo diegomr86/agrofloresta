@@ -11,10 +11,20 @@ export class HomePage {
 
   Object = Object;
   quiz_question;
+  searching = false;
+  filters;
+  posts;
+  commentPost;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database, public api: Api) {
 
     this.quiz();
+    this.searching = true
+
+    this.database.query('posts', { page: 1 }).then(res => {
+      this.posts = res
+      this.searching = false
+    })
   }
 
   quiz() {

@@ -10,7 +10,7 @@ import { Database, Api } from '../../providers';
  */
 
  @IonicPage({
-   segment: "feed/:category"
+   segment: "feed/:category/:tag"
  })
 @Component({
   selector: 'page-feed',
@@ -63,7 +63,7 @@ export class FeedPage {
   }
 
   add() {
-    this.navCtrl.push('PostFormPage');
+    this.navCtrl.push('PostFormPage', { category: this.filters.category });
   }
 
   // hotScore(ups, downs, date) {

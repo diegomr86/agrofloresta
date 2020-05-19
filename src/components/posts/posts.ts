@@ -17,6 +17,10 @@ export class PostsComponent {
     this.navCtrl.push('PostPage', { id: id });
   }
 
+  openTag(tag) {
+    this.navCtrl.push('FeedPage', { tag: tag });
+  }
+
   likeIcon(post) {
     var like = post.likes.find(l => l.user == this.database.currentUser._id)
     if (like) {
@@ -31,6 +35,12 @@ export class PostsComponent {
     } else {
       this.commentPost = post
     }
+  }
+
+  postTags(post) {
+    return post.tags.map(function(v) {
+      return (typeof v == 'string') ? v : v['value'];
+    })
   }
 
   like(post) {

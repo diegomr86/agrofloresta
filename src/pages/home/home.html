@@ -38,10 +38,9 @@
   <hr>
 
    <div class="item item-footer animate-ripple" text-center>
-    <p>Escolha uma das sessões abaixo:</p>
+    <button ion-button full (click)="openPage('FeedPage')">Rede</button>
+    <button ion-button full (click)="openPage('ForumPage')">Fórum</button>
     <button ion-button full (click)="openPage('PlantsPage')">Catálogo de espécies</button>
-    <button ion-button full (click)="openPage('FeedPage')">Últimas Postagens</button>
-    <button ion-button full (click)="openPage('ForumPage')">Fórum de discussões</button>
     <button ion-button full (click)="openPage('LibraryPage')">Biblioteca</button>
     <button ion-button full (click)="openPage('FeedPage', { category: 'event' })">Eventos</button>
     <button ion-button full (click)="openPage('MoonCalendarPage')">Calendário lunar</button>
@@ -49,5 +48,17 @@
     <button ion-button full (click)="openPage('AboutPage')">Sobre</button>
     <button ion-button full (click)="openPage('DonatePage')">Ajude-nos</button>
     <br/>
+  </div>
+  <h5 class="text-center">Últimas Postagens</h5>
+  <br>
+  <div *ngIf="searching" text-center padding>
+    <ion-spinner></ion-spinner>
+    <p>Carregando postagens...</p>
+  </div>
+  <posts [posts]="posts"></posts>
+  <div class="text-center" *ngIf="posts && posts.length">
+    <button ion-button (click)="openPage('FeedPage')">Ver mais</button>
+    <br>
+    <br>
   </div>
 </ion-content>

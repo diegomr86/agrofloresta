@@ -1,7 +1,9 @@
 <div>
   <ion-card *ngFor="let post of posts">
     <!-- <post-user [post]="post"></post-user> -->
-    <img img-cache [source]="this.api.imageUrl(post.picture, 'medium')" *ngIf="!post.oembed && post.picture" (click)="open(post._id)" >
+    <div class="text-center">
+      <img img-cache [source]="this.api.imageUrl(post.picture, 'medium')" *ngIf="!post.oembed && post.picture" (click)="open(post._id)" >
+    </div>
     <div *ngIf="post.oembed && (!post.picture || post.category != 'book')" [innerHTML]="post.oembed | safe: 'html'"></div>
 
     <ion-card-content>
@@ -9,6 +11,10 @@
 
       <p [innerHtml]="post.content | truncate" class="post_content"></p>
       <a *ngIf="post.url && post.content && (post.content.indexOf('…') >= 0 || post.content.indexOf('...') >= 0)" [href]="post.url" target="_blank">Continuar lendo</a>
+      <br>
+      <ion-chip *ngFor="let tag of postTags(post)" style="cursor: pointer;">
+        <ion-label (click)="openTag(tag)">#{{tag}}</ion-label>
+      </ion-chip>
       <div *ngIf="post.category == 'event'">
         <br>
         <p *ngIf="post.start_time && post.end_time">De: <strong>{{ post.start_time| date: 'dd/MM/yyyy':'utc' }}</strong> à <strong>{{ post.end_time| date: 'dd/MM/yyyy':'utc' }}</strong></p>

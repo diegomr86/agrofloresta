@@ -5,7 +5,7 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title *ngIf="filters.category != 'event'">Últimas Postagens</ion-title>
+    <ion-title *ngIf="filters.category != 'event'">{{filters.tag ? '#'+filters.tag : 'Rede Agroflorestal'}} </ion-title>
     <ion-title *ngIf="filters.category == 'event'">Eventos</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="add()">
@@ -25,7 +25,7 @@
   </div>
   <div padding text-center *ngIf="filters.category != 'event'">
     <p>
-      Este espaço é dedicado ao compartilhamento de eventos e conteúdos
+      Este espaço é dedicado ao compartilhamento de informações e eventos
     </p>
     <button ion-button (click)="add()">
       Adicionar postagem

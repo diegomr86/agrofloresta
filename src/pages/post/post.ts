@@ -34,6 +34,10 @@ export class PostPage {
     this.navCtrl.push('FeedPage', { tag: tag });
   }
 
+  openTag(tag) {
+    this.navCtrl.push('FeedPage', { tag: tag });
+  }
+
   like(post) {
     if (post.likes) {
       var like = post.likes.find(l => l.user == this.database.currentUser._id)

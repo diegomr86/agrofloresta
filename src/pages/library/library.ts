@@ -73,8 +73,8 @@ export class LibraryPage {
     this.list();
   }
 
-  add(category) {
-    this.navCtrl.push('PostFormPage', { category: category });
+  add() {
+    this.navCtrl.push('PostFormPage', { category: this.filters.category });
   }
   open(id) {
     this.navCtrl.push('PostPage', { id: id });

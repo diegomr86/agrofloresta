@@ -1,9 +1,13 @@
 page-feed {
 	.card {
-		img, h2 {
+		img {
 			cursor: pointer;
+			width: auto;
+			max-width: 100%;
+			display: inline-block;
 		}
 		h2 {
+			cursor: pointer;
 			font-weight: bold;
 			margin-bottom: 10px;
 		}

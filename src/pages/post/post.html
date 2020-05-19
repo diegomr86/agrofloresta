@@ -28,8 +28,8 @@
       <a *ngIf="post.url && post.content && post.content.indexOf('…') < 0" [href]="post.url" target="_blank">{{post.category == 'book' ? 'Baixar Livro' : 'Fonte'}}</a>
       <br>
       <br>
-      <ion-chip *ngFor="let tag of tags">
-        <ion-label>#{{tag}}</ion-label>
+      <ion-chip *ngFor="let tag of tags" style="cursor: pointer;">
+        <ion-label (click)="openTag(tag)">#{{tag}}</ion-label>
       </ion-chip>
       <ion-row>
         <ion-col>

@@ -20,19 +20,19 @@
     <h6>Selecione o tipo de conteúdo:</h6>
     <br>
     <ion-row>
+      <ion-col (click)="setCategory('video')">
+        <ion-icon name="videocam"></ion-icon>
+        <span>Vídeos</span>
+      </ion-col>
       <ion-col (click)="setCategory('book')">
         <ion-icon name="book"></ion-icon>
         <span>Livros</span>
       </ion-col>
+    </ion-row>
+    <ion-row>
       <ion-col (click)="setCategory('link')">
         <ion-icon name="list-box"></ion-icon>
         <span>Artigos</span>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col (click)="setCategory('video')">
-        <ion-icon name="videocam"></ion-icon>
-        <span>Vídeos</span>
       </ion-col>
       <ion-col (click)="setCategory('text')">
         <ion-icon name="text"></ion-icon>
@@ -41,11 +41,14 @@
     </ion-row>
   </div>
   <div *ngIf="filters.category">
+    <ion-searchbar [(ngModel)]="filters.search" (ionInput)="search($event)" placeholder="Procurar"></ion-searchbar>
     <div *ngIf="searching" text-center padding>
       <ion-spinner></ion-spinner>
       <p>Carregando postagens...</p>
     </div>
-    <ion-searchbar [(ngModel)]="filters.search" (ionInput)="search($event)" placeholder="Procurar"></ion-searchbar>
+    <div *ngIf="!searching && (!posts || posts.length == 0)" text-center padding>
+      <p>Nenhum ítem encontrado</p>
+    </div>
     <ion-item-sliding *ngFor="let post of posts">
       <button ion-item (click)="open(post._id)">
         <ion-avatar item-start *ngIf="post.picture">

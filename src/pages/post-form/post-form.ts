@@ -5,7 +5,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Database, Api } from '../../providers';
 import { Utils } from '../../utils/utils';
 
-@IonicPage()
+@IonicPage({
+  segment: "post-form/:category"
+})
 @Component({
   selector: 'page-post-form',
   templateUrl: 'post-form.html',
@@ -54,6 +56,8 @@ export class PostFormPage {
 
       if (navParams.get('id')) {
         this.edit(navParams.get('id'));
+      } else if (navParams.get('category')) {
+        this.form.patchValue({ category: navParams.get('category')})
       }
 
       this.autocompleteTags = []
