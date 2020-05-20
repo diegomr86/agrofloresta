@@ -19,13 +19,13 @@
     <p>Responda as perguntas abaixo e ajude a construir conhecimento.</p>
     <img [src]="this.api.imageUrl(quiz_question.plant.picture, 'thumb')">
     <div *ngIf="quiz_question.field == 'stratum'">
-      <p><b>{{quiz_question.plant.name}}</b> ocupa qual <b>estrato</b> na Agrofloresta?</p>
+      <p>Em qual <b>estrato</b> você usaria <b>{{quiz_question.plant.name}}</b> na sua Agrofloresta?</p>
       <ion-chip *ngFor="let k of Object.keys(this.database.stratums)" (click)="answer(quiz_question, k)">
         <ion-label>{{this.database.stratums[k]}}</ion-label>
       </ion-chip>
     </div>
     <div *ngIf="quiz_question.field == 'cycle'">
-      <p>Qual o <b>ciclo</b> de vida <b>{{quiz_question.plant.name}}</b> na Agrofloresta?</p>
+      <p>Em qual <b>ciclo</b> de vida você usaria <b>{{quiz_question.plant.name}}</b> na sua Agrofloresta?</p>
       <ion-chip *ngFor="let k of Object.keys(this.database.cycles)" (click)="answer(quiz_question, k)">
         <ion-label>{{this.database.cycles[k]}}</ion-label>
       </ion-chip>

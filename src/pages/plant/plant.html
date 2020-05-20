@@ -43,12 +43,16 @@
       <p>{{plant.height.join(', ')}}</p>
     </div>
     <div *ngIf="plant.cycle">
-      <h6>Ciclo </h6>
-      <p>{{database.cycles[plant.cycle]}}</p>
+      <h6>Ciclo: {{database.cycles[plant.cycle]}} </h6>
+      <div class="info-chart">
+        <canvas #cycleCanvas></canvas>
+      </div>
     </div>
-    <div *ngIf="plant.stratum">
-      <h6>Estrato </h6>
-      <p>{{database.stratums[plant.stratum]}}</p>
+    <div>
+      <h6>Estrato: {{database.stratums[plant.stratum]}} </h6>
+      <div class="info-chart">
+        <canvas #stratumCanvas></canvas>
+      </div>
     </div>
     <div *ngIf="plant.harvest_time">
       <h6>Tempo de colheita </h6>
@@ -84,9 +88,7 @@
       <span *ngFor="let picture of plant.pictures">
         <img img-cache [source]="this.api.imageUrl(picture, 'medium')">
       </span>
-
     </div>
-
     <div *ngIf="plant.source">
       <p><strong>Fonte: </strong> <a href="{{plant.source}}" target="_blank">{{plant.source}}</a></p>
     </div>
