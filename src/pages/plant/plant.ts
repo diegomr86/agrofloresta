@@ -14,12 +14,12 @@ import { Chart } from 'chart.js';
   templateUrl: 'plant.html'
 })
 export class PlantPage {
-  Object = Object;
   @ViewChild("stratumCanvas") stratumCanvas: ElementRef;
   private stratumChart: Chart;
   @ViewChild("cycleCanvas") cycleCanvas: ElementRef;
   private cycleChart: Chart;
 
+  Object = Object;
   plant;
 
   constructor(public navCtrl: NavController, navParams: NavParams, public database: Database, public api: Api, public utils: Utils, private changeDetector : ChangeDetectorRef) {
@@ -35,8 +35,8 @@ export class PlantPage {
           }),
           datasets: [
             {
-              label: "Quantidade de votos",
-              data: Object.values(stratum_answers).sort().reverse(),
+              label: "Quantidade de pessoas que votaram",
+              data: Object["values"](stratum_answers).sort().reverse(),
               backgroundColor: [
                 "#276248",
                 "#2e7555",
@@ -67,8 +67,8 @@ export class PlantPage {
           }),
           datasets: [
             {
-              label: "Quantidade de votos",
-              data: Object.values(cycle_answers).sort().reverse(),
+              label: "Quantidade de pessoas que votaram",
+              data: Object["values"](cycle_answers).sort().reverse(),
               backgroundColor: [
                 "#276248",
                 "#2e7555",
