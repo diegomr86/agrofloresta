@@ -1,7 +1,7 @@
 <ion-header no-shadow>
   <ion-navbar *ngIf="showSkip">
     <ion-buttons end *ngIf="showSkip">
-      <button ion-button (click)="startApp()" color="primary">{{ 'TUTORIAL_SKIP_BUTTON' | translate}}</button>
+      <button ion-button (click)="startApp()" color="primary">Pular introdução</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -29,9 +29,10 @@
     </ion-slide>
     <ion-slide>
       <img src="assets/img/logo_full.png" class="slide-image last" />
-      <h3>E aí, <br>vamos fazer juntos? </h3>
-      <button ion-button icon-end large clear (click)="startApp()">
-         <ion-icon name="arrow-forward"></ion-icon>
+      <h4>Vamos fazer juntos? </h4>
+      <br>
+      <button ion-button color="primary" large (click)="startApp()">
+         Continuar
       </button>
     </ion-slide>
   </ion-slides>

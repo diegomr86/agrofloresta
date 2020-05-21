@@ -27,7 +27,11 @@ export class PostPage {
   }
 
   edit() {
-    this.navCtrl.push('PostFormPage', { id: this.post._id });
+    if (this.database.currentUser) {
+      this.navCtrl.push('PostFormPage', { id: this.post._id });
+    } else {
+      this.database.showLogin()
+    }
   }
 
   open(tag) {
@@ -39,21 +43,22 @@ export class PostPage {
   }
 
   like(post) {
-    if (post.likes) {
-      var like = post.likes.find(l => l.user == this.database.currentUser._id)
-      if (like) {
-        this.database.remove('likes', like).then(p => {
-          post.likes = post.likes.filter(l => l.user !== this.database.currentUser._id)
-        });
-      } else {
-        this.database.save('likes', { post: post._id }).then(l => {
-          post.likes.push(l)
-        });
+    if (this.database.currentUser) {
+      if (post.likes) {
+        var like = post.likes.find(l => l.user == this.database.currentUser._id)
+        if (like) {
+          this.database.remove('likes', like).then(p => {
+            post.likes = post.likes.filter(l => l.user !== this.database.currentUser._id)
+          });
+        } else {
+          this.database.save('likes', { post: post._id }).then(l => {
+            post.likes.push(l)
+          });
+        }
       }
     } else {
-      post.likes = [this.database.currentUser._id]
+      this.database.showLogin()
     }
-
   }
 
   likeIcon(post) {
@@ -91,7 +96,9 @@ export class PostPage {
     }
   }
   userLike(post) {
-    return post.likes.find(l => l.user == this.database.currentUser._id)
+    if (this.database.currentUser) {
+      return post.likes.find(l => l.user == this.database.currentUser._id)
+    }
   }
 
 }

@@ -47,9 +47,8 @@ export class ProfilePage {
   }
 
   logout() {
-    this.navCtrl.setRoot('WelcomePage');
+    this.navCtrl.setRoot('HomePage');
     this.database.logout()
-    // this.menuCtrl.close();
   }
 
 }

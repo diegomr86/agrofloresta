@@ -36,17 +36,18 @@ export class HomePage {
     })
   }
 
-  answer(question, response) {
-    let quiz_answer = {
-      plant: question.plant._id,
-      field: question.field,
-      answer: response
+  async answer(question, response) {
+    if (this.database.currentUser) {
+      let quiz_answer = {
+        plant: question.plant._id,
+        field: question.field,
+        answer: response
+      }
+      this.database.save('quiz/answer', quiz_answer);
+      this.quiz();
+    } else {
+      this.database.showLogin()
     }
-
-    this.database.save('quiz/answer', quiz_answer);
-
-    this.quiz();
-
   }
 
   openPage(page, params?) {

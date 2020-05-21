@@ -15,9 +15,7 @@ import { Chart } from 'chart.js';
 })
 export class PlantPage {
   @ViewChild("stratumCanvas") stratumCanvas: ElementRef;
-  private stratumChart: Chart;
   @ViewChild("cycleCanvas") cycleCanvas: ElementRef;
-  private cycleChart: Chart;
 
   Object = Object;
   plant;
@@ -27,7 +25,7 @@ export class PlantPage {
       this.plant = res
       this.changeDetector.detectChanges();
       var stratum_answers = this.answers('stratum')
-      this.stratumChart = new Chart(this.stratumCanvas.nativeElement, {
+      new Chart(this.stratumCanvas.nativeElement, {
         type: "bar",
         data: {
           labels: Object.keys(stratum_answers).sort((k, y) => {
@@ -59,7 +57,7 @@ export class PlantPage {
       });
 
       var cycle_answers = this.answers('cycle')
-      this.cycleChart = new Chart(this.cycleCanvas.nativeElement, {
+      new Chart(this.cycleCanvas.nativeElement, {
         type: "bar",
         data: {
           labels: Object.keys(cycle_answers).sort((k, y) => {
@@ -94,7 +92,11 @@ export class PlantPage {
   }
 
   edit() {
-    this.navCtrl.push('PlantFormPage', { id: this.plant._id });
+    if (this.database.currentUser) {
+      this.navCtrl.push('PlantFormPage', { id: this.plant._id });
+    } else {
+      this.database.showLogin()
+    }
   }
 
   answers(field) {

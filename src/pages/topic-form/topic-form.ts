@@ -26,7 +26,6 @@ export class TopicFormPage {
     params: NavParams) {
 
     this.form = formBuilder.group({
-      user: [database.currentUser._id, Validators.required],
       _id: [],
       title: ['', Validators.required],
       content: ['', Validators.required],

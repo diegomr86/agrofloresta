@@ -22,8 +22,11 @@ export class PostsComponent {
   }
 
   likeIcon(post) {
-    var like = post.likes.find(l => l.user == this.database.currentUser._id)
-    if (like) {
+    var userLike = null
+    if (this.database.currentUser) {
+      userLike = post.likes.find(l => l.user == this.database.currentUser._id)
+    }
+    if (userLike) {
       return 'ios-thumbs-up'
     } else {
       return 'ios-thumbs-up-outline'
@@ -44,20 +47,21 @@ export class PostsComponent {
   }
 
   like(post) {
-    if (post.likes) {
-      var like = post.likes.find(l => l.user == this.database.currentUser._id)
-      if (like) {
-        this.database.remove('likes', like).then(p => {
-          post.likes = post.likes.filter(l => l.user !== this.database.currentUser._id)
-        });
-      } else {
-        this.database.save('likes', { post: post._id }).then(l => {
-          post.likes.push(l)
-        });
+    if (this.database.currentUser) {
+      if (post.likes) {
+        var like = post.likes.find(l => l.user == this.database.currentUser._id)
+        if (like) {
+          this.database.remove('likes', like).then(p => {
+            post.likes = post.likes.filter(l => l.user !== this.database.currentUser._id)
+          });
+        } else {
+          this.database.save('likes', { post: post._id }).then(l => {
+            post.likes.push(l)
+          });
+        }
       }
     } else {
-      post.likes = [this.database.currentUser._id]
+      this.database.showLogin()
     }
-
   }
 }

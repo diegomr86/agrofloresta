@@ -52,7 +52,11 @@ export class PlantsPage {
   }
 
   add() {
-    this.navCtrl.push('PlantFormPage');
+    if (this.database.currentUser) {
+      this.navCtrl.push('PlantFormPage');
+    } else {
+      this.database.showLogin()
+    }
   }
 
   open(id) {

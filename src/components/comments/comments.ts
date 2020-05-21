@@ -32,30 +32,34 @@ export class CommentsComponent {
 
 
 	comment() {
-    if (this.item && this.message) {
-      let form = { message: this.message }
-      form[this.item_type] = this.item._id
+    if (this.database.currentUser) {
+      if (this.item && this.message) {
+        let form = { message: this.message }
+        form[this.item_type] = this.item._id
 
-      this.database.post("comments", form).then(comment => {
-        if (comment) {
-          if (this.comments) {
-            this.comments.push(comment)
-          } else {
-            this.comments = [comment]
+        this.database.post("comments", form).then(comment => {
+          if (comment) {
+            if (this.comments) {
+              this.comments.push(comment)
+            } else {
+              this.comments = [comment]
+            }
+            this.item.comments = this.comments
+            this.utils.showToast('Comentário enviado. Obrigado por contribuir!', 'success');
+
+            this.item.updatedAt = new Date();
+            this.database.put(this.item_type+'s', this.item)
           }
-          this.item.comments = this.comments
-          this.utils.showToast('Comentário enviado. Obrigado por contribuir!', 'success');
-
-          this.item.updatedAt = new Date();
-          this.database.put(this.item_type+'s', this.item)
-        }
-        this.message = ''
-      });
+          this.message = ''
+        });
+      }
+    } else {
+      this.database.showLogin()
     }
   }
 
   delete(comment){
-    if (comment.user._id == this.database.currentUser._id) {
+    if (this.database.currentUser && comment.user._id == this.database.currentUser._id) {
       this.database.remove('comments', comment).then(comment => {
         this.comments = this.comments.filter(c => c._id !== comment._id)
         this.item.comments = this.comments

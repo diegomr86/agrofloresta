@@ -22,7 +22,11 @@ export class GuidePage {
   }
 
   edit() {
-    this.navCtrl.push('GuideFormPage', { id: this.guide._id });
+    if (this.database.currentUser) {
+      this.navCtrl.push('GuideFormPage', { id: this.guide._id });
+    } else {
+      this.database.showLogin()
+    }
   }
 
   cachedImages(content: string) {

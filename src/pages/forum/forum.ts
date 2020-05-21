@@ -57,7 +57,11 @@ export class ForumPage {
   }
 
   add() {
-    this.navCtrl.push('TopicFormPage');
+    if (this.database.currentUser) {
+      this.navCtrl.push('TopicFormPage');
+    } else {
+      this.database.showLogin()
+    }
   }
 
   open(id) {

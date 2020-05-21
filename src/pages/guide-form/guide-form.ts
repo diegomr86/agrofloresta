@@ -28,7 +28,6 @@ export class GuideFormPage {
     params: NavParams) {
 
     this.form = formBuilder.group({
-      user: [database.currentUser._id, Validators.required],
       _id: [''],
       title: ['', Validators.required],
       content: ['', Validators.required],
@@ -53,7 +52,7 @@ export class GuideFormPage {
         });
         this.autocompleteTags = this.autocompleteTags.map(function(v) {
           return (typeof v == 'string') ? v : v['value'];
-        }).filter((v, i, a) => a.indexOf(v) === i).sort()        
+        }).filter((v, i, a) => a.indexOf(v) === i).sort()
       }
     });
 

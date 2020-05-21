@@ -53,31 +53,21 @@ export class TutorialPage {
 
   startApp() {
     this.database.setSkipTour(true)
-    this.navCtrl.setRoot('WelcomePage', {}, {
-      animate: true,
-      direction: 'forward'
-    });
+    this.navCtrl.pop();
   }
 
   onSlideChangeStart(slider) {
     this.showSkip = !slider.isEnd();
   }
 
-  ionViewDidEnter() {
-    // the root left menu should be disabled on the tutorial page
-    this.menu.enable(false);
-  }
-
-  ionViewWillLeave() {
-    // enable the root left menu when leaving the tutorial page
-    this.menu.enable(true);
-  }
-
-  openPage(page, params?) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.navCtrl.push(page, params);
-  }
-
+  // ionViewDidEnter() {
+  //   // the root left menu should be disabled on the tutorial page
+  //   this.menu.enable(false);
+  // }
+  //
+  // ionViewWillLeave() {
+  //   // enable the root left menu when leaving the tutorial page
+  //   this.menu.enable(true);
+  // }
 
 }

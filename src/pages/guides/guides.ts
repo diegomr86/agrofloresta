@@ -39,7 +39,11 @@ export class GuidesPage {
   }
 
   add() {
-    this.navCtrl.push('GuideFormPage');
+    if (this.database.currentUser) {
+      this.navCtrl.push('GuideFormPage');
+    } else {
+      this.database.showLogin()
+    }
   }
 
   open(id) {

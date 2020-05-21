@@ -63,7 +63,11 @@ export class FeedPage {
   }
 
   add() {
-    this.navCtrl.push('PostFormPage', { category: this.filters.category });
+    if (this.database.currentUser) {
+      this.navCtrl.push('PostFormPage', { category: this.filters.category });
+    } else {
+      this.database.showLogin()
+    }
   }
 
   // hotScore(ups, downs, date) {

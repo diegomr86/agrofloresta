@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Item } from '../../models/item';
-import { Platform } from 'ionic-angular';
+import { Platform, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Utils } from '../../utils/utils';
 
@@ -11,17 +11,18 @@ export class Database {
   // public baseUrl = 'http://localhost:3000/api/';
   public baseUrl = 'https://www.redeagroflorestal.com.br/api/';
   public db;
-  public userDb;
   public remote;
   public options;
   public cycles;
   public stratums;
   public additional_fields;
   public currentUser;
+  public currentToken;
   public showTour;
 
-  constructor(public storage: Storage, public plt: Platform, public http: HttpClient, public utils: Utils) {
+  constructor(public storage: Storage, public plt: Platform, public http: HttpClient, public utils: Utils, public modalCtrl: ModalController) {
 
+    console.log("DATABASE CONSTRUCTOR!!!")
     this.cycles = {
       placenta1: 'Placenta 1 (Até 3 meses)',
       placenta2: 'Placenta 2 (3 meses a 1 ano)',
@@ -43,8 +44,12 @@ export class Database {
     return this.http.get<any[]>(this.baseUrl + type, { params: params, headers: this.httpHeaders() }).toPromise().catch(e => this.showError(e, this.utils))
   }
 
-  get(type: string, id: string) {
-    return this.http.get<any>(this.baseUrl + type + '/' + id, { headers: this.httpHeaders() }).toPromise().catch(e => this.showError(e, this.utils))
+  get(type: string, id = null) {
+    var url = this.baseUrl + type
+    if (id) {
+      url += '/' + id
+    }
+    return this.http.get<any>(url, { headers: this.httpHeaders() }).toPromise().catch(e => this.showError(e, this.utils))
   }
 
   save(type: string, item: Item) {
@@ -70,25 +75,19 @@ export class Database {
 
   saveProfile(item) {
     return this.http.put<any>(this.baseUrl + 'users/'+ item._id, item, { headers: this.httpHeaders() }).toPromise().then((user) => {
-      this.currentUser.name = user.name
-      this.currentUser.email = user.email
-      this.currentUser.bio = user.bio
-      this.currentUser.phone = user.phone
-      this.currentUser.address = user.address
-      this.currentUser.picture = user.picture
-      this.currentUser.profileCompleted = user.profileCompleted
-
-      this.storage.set('currentUser', this.currentUser);
-      return this.currentUser
+      this.currentUser = user
+      return user
     })
   }
 
   login(credentials) {
-    return this.http.post<any>(this.baseUrl + "users/login", credentials).toPromise().then((res) => {
-      if (res && res._id) {
-        this.storage.set('currentUser', res);
-        this.currentUser = res
-        return res
+    return this.http.post<any>(this.baseUrl + "users/login", credentials).toPromise().then((user) => {
+      var token = user.token
+      if (user && token) {
+        this.storage.set('currentToken', token);
+        this.currentToken = token
+        this.currentUser = user
+        return user
       }
     })
   }
@@ -123,14 +122,25 @@ export class Database {
   }
 
   logout() {
-    this.currentUser = undefined
-    return this.storage.remove('currentUser')
+
+    return this.get('logout').then(() => {
+      this.currentUser = undefined
+      this.currentToken = undefined
+      return this.storage.remove('currentToken')
+    })
+
   }
 
   getCurrentUser() {
-    return this.storage.get('currentUser').then((response) => {
-      this.currentUser = response
-      return response
+    return this.storage.get('currentToken').then((token) => {
+
+      if (token) {
+        this.currentToken = token
+        return this.get('currentuser').then((user) => {
+          this.currentUser = user
+          return user
+        })
+      }
     })
   }
 
@@ -147,10 +157,9 @@ export class Database {
   }
 
   httpHeaders() {
-    var currentUser = this.currentUser
-    if (currentUser && currentUser.token) {
+    if (this.currentToken) {
       return new HttpHeaders({
-        'Authorization': 'Token ' + this.currentUser.token
+        'Authorization': 'Token ' + this.currentToken
       })
     } else {
       return new HttpHeaders({})
@@ -171,6 +180,15 @@ export class Database {
 
   showError(e, utils) {
     utils.showToast((e.error || e.message), 'error');
+  }
+
+  async showLogin() {
+    var modal = await this.modalCtrl.create('LoginPage')
+    modal.present()
+  }
+  async showTutorial() {
+    var modal = await this.modalCtrl.create('TutorialPage')
+    modal.present()
   }
 
 

@@ -74,7 +74,11 @@ export class LibraryPage {
   }
 
   add() {
-    this.navCtrl.push('PostFormPage', { category: this.filters.category });
+    if (this.database.currentUser) {
+      this.navCtrl.push('PostFormPage', { category: this.filters.category });
+    } else {
+      this.database.showLogin()
+    }
   }
   open(id) {
     this.navCtrl.push('PostPage', { id: id });

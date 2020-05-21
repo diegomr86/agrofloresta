@@ -21,7 +21,11 @@ export class TopicPage {
   }
 
   edit() {
-    this.navCtrl.push('TopicFormPage', { id: this.topic._id });
+    if (this.database.currentUser) {
+      this.navCtrl.push('TopicFormPage', { id: this.topic._id });
+    } else {
+      this.database.showLogin()
+    }
   }
 
   cachedImages(content: string) {

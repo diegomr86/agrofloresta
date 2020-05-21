@@ -21,7 +21,7 @@
 	      <ion-icon name="ios-log-out-outline"></ion-icon>
 	    </button>
 	  </ion-buttons>
-    <ion-buttons end *ngIf="!profile">
+    <ion-buttons end *ngIf="!profile && database.currentUser">
 	    <button ion-button icon-only (click)="logout()">
 	      <ion-icon name="ios-log-out-outline"></ion-icon>
 	    </button>

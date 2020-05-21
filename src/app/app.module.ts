@@ -23,6 +23,7 @@ import { Settings, Api, Database } from '../providers';
 import { Utils } from '../utils/utils';
 import { MyApp } from './app.component';
 import { ImgCacheService } from '../global';
+import { LoginPageModule } from '../pages/login/login.module';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -50,6 +51,7 @@ export function provideSettings(storage: Storage) {
     MyApp
   ],
   imports: [
+    LoginPageModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,

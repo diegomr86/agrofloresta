@@ -2,17 +2,16 @@ import { Component, ViewChild } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { Config, Nav, Platform, MenuController } from 'ionic-angular';
+import { Config, Nav, Platform } from 'ionic-angular';
 
-import { FirstRunPage, MainPage } from '../pages';
 import { Api, Database } from '../providers';
 import { Storage } from '@ionic/storage';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ImgCacheService } from '../global';
 
 @Component({
-  template: `<ion-split-pane [enabled]="this.database.currentUser">
-    <ion-menu [content]="content" *ngIf="this.database.currentUser">
+  template: `<ion-split-pane [enabled]="true">
+    <ion-menu [content]="content">
       <ion-header>
         <ion-toolbar>
           <ion-buttons left>
@@ -21,7 +20,7 @@ import { ImgCacheService } from '../global';
             </button>
           </ion-buttons>
 
-          <ion-title *ngIf="this.database.currentUser">
+          <ion-title>
             Rede Agroflorestal
           </ion-title>
         </ion-toolbar>
@@ -35,6 +34,13 @@ import { ImgCacheService } from '../global';
             </ion-avatar>
             <h2>{{this.database.currentUser.name}}</h2>
             <p>{{this.database.currentUser.email}}</p>
+          </ion-item>
+          <ion-item menuClose *ngIf="!this.database.currentUser" class="menu_profile">
+            <ion-avatar item-start>
+              <img img-cache [source]="this.api.imageUrl(null, 'thumb')" noitem="assets/img/no-user.png" >
+            </ion-avatar>
+            <h2>Usuário convidado</h2>
+            <p><a (click)="login()">Entre e melhore sua experiência</a></p>
           </ion-item>
           <button menuClose ion-item (click)="openPage('HomePage')">Início</button>
           <button menuClose ion-item (click)="openPage('FeedPage')">Rede</button>
@@ -54,11 +60,11 @@ import { ImgCacheService } from '../global';
   </ion-split-pane>`
 })
 export class MyApp {
-  rootPage;
+  rootPage = 'HomePage';
 
   @ViewChild(Nav) nav: Nav;
 
-  constructor(private translate: TranslateService, platform: Platform, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, public api: Api, public database: Database, public menuCtrl: MenuController, public storage: Storage, private geolocation: Geolocation, imgCacheService: ImgCacheService) {
+  constructor(private translate: TranslateService, platform: Platform, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, public api: Api, public database: Database, public storage: Storage, private geolocation: Geolocation, imgCacheService: ImgCacheService) {
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -88,22 +94,20 @@ export class MyApp {
         }
       })
 
+      this.database.getCurrentUser().then(currentUser => {
+        if (currentUser) {
+          this.rootPage = (currentUser.name ? 'HomePage' : 'ProfileEditPage')
+        } else {
+          this.rootPage = 'HomePage'
+        }
+      }).catch(e => {
+        console.log("error getting currentUser");
+      })
+
       this.database.skipTour().then((skipTour) => {
 
-        if (skipTour) {
-          this.database.getCurrentUser().then((r) => {
-            if (r) {
-
-              this.rootPage = (r.name ? MainPage : 'ProfileEditPage')
-            } else {
-              this.rootPage = FirstRunPage
-            }
-          }).catch(e => {
-            console.log("error getting currentUser");
-          })
-
-        } else {
-          this.rootPage = 'TutorialPage'
+        if (!skipTour) {
+          this.database.showTutorial()
         }
       }).catch(e => {
         console.log("error getting skipTour");
@@ -143,10 +147,13 @@ export class MyApp {
     });
   }
 
+  login() {
+    this.database.showLogin()
+  }
+
   logout() {
-    this.nav.setRoot('WelcomePage');
+    this.nav.setRoot('HomePage');
     this.database.logout()
-    // this.menuCtrl.close();
   }
 
   openPage(page, params?) {

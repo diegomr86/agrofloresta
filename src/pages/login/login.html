@@ -1,10 +1,21 @@
 <ion-header>
   <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>Entrar</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <form *ngIf="form" [formGroup]="form" (ngSubmit)="login()">
+  <form *ngIf="view == 'login' && loginForm" [formGroup]="loginForm" (ngSubmit)="login()">
+    <br>
+    <button ion-button block icon-start (click)="facebookLogin()" style="background: #4267b2; padding-top: 4px; text-transform: unset;">
+      <ion-icon name="logo-facebook"></ion-icon>
+      Entre com o Facebook
+    </button>
+    <br>
     <ion-item>
       <ion-label stacked>Email:</ion-label>
       <ion-input type="email" formControlName="email"></ion-input>
@@ -13,11 +24,69 @@
       <ion-label stacked>Senha:</ion-label>
       <ion-input type="password" formControlName="password"></ion-input>
     </ion-item>
-    <div>
-      <button ion-button color="primary" block [disabled]="!isReadyToSave">ENTRAR</button>
-      <br>
-      <button ion-button color="light" block type="button" (click)="forgotPassword()">ESQUECI MINHA SENHA</button>
-      <button ion-button color="light" block type="button" (click)="register()" >CADASTRAR</button>
-    </div>
+    <button ion-button color="primary" block [disabled]="!loginReady">ENTRAR</button>
   </form>
+  <form *ngIf="view == 'register' && registerForm" [formGroup]="registerForm" (ngSubmit)="register()">
+    <ion-item>
+      <ion-label stacked>Nome:</ion-label>
+      <ion-input type="name" formControlName="name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Email:</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Senha:</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+    <br>
+    <button ion-button color="primary" block [disabled]="!registerReady">CONTINUAR</button>
+  </form>
+  <div *ngIf="view == 'forgot_password'">
+    <form *ngIf="emailForm && !msg" [formGroup]="emailForm" (ngSubmit)="forgotPassword()">
+      <ion-item>
+        <ion-label stacked>Digite seu email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+      <div>
+        <button ion-button color="primary" block [disabled]="!emailForm.controls.email.value">CONTINUAR</button>
+      </div>
+    </form>
+    <form *ngIf="codeForm && msg && !codeConfirmed" [formGroup]="codeForm" (ngSubmit)="validateCode()">
+      <br>
+      <br>
+      <h6 class="text-center">{{msg}}</h6>
+      <br>
+      <ion-item>
+        <ion-label stacked>Digite o código recebido no seu email:</ion-label>
+        <ion-input type="text" formControlName="passwordCode"></ion-input>
+      </ion-item>
+      <div>
+        <button ion-button color="primary" block [disabled]="!codeForm.controls.passwordCode.value || codeForm.controls.passwordCode.value.length != 4">VALIDAR CÓDIGO</button>
+      </div>
+    </form>
+    <form *ngIf="passwordForm && msg && codeConfirmed" [formGroup]="passwordForm" (ngSubmit)="updatePassword()">
+      <ion-item>
+        <ion-label stacked>Digite sua nova senha:</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Confirme sua nova senha:</ion-label>
+        <ion-input type="password" formControlName="passwordConfirmation"></ion-input>
+      </ion-item>
+      <div>
+        <button ion-button color="primary" block [disabled]="!passwordReady">CONTINUAR</button>
+      </div>
+    </form>
+  </div>
+  <div>
+    <br>
+    <button *ngIf="view != 'login'" ion-button color="light" block type="button" (click)="view = 'login'">ENTRAR COM EMAIL</button>
+    <button *ngIf="view == 'login'" ion-button color="light" block type="button" (click)="view = 'forgot_password'">ESQUECI MINHA SENHA</button>
+    <button *ngIf="view != 'register'" ion-button color="light" block type="button" (click)="view = 'register'" >CADASTRAR</button>
+    <button ion-button color="light" block type="button" (click)="closeModal()" >CANCELAR</button>
+  </div>
+
 </ion-content>
