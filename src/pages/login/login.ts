@@ -6,7 +6,7 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { Database } from '../../providers';
 import { Utils } from '../../utils/utils';
 
-@IonicPage()googlePlus
+@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
